@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login · Consulta SulAmérica · Maximo 360</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Outfit', sans-serif;
+    background: linear-gradient(135deg, #0d1430 0%, #1B2A5C 50%, #2d1a5c 100%);
+    min-height: 100vh; display: flex; align-items: center; justify-content: center;
+    padding: 20px; position: relative; overflow: hidden;
+  }
+  body::before {
+    content: ''; position: absolute; width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(244,121,32,0.18) 0%, transparent 70%);
+    top: -200px; right: -200px; border-radius: 50%;
+  }
+  body::after {
+    content: ''; position: absolute; width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(244,121,32,0.10) 0%, transparent 70%);
+    bottom: -150px; left: -150px; border-radius: 50%;
+  }
+  .login-container {
+    background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px);
+    padding: 48px 40px; border-radius: 20px;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.1);
+    width: 100%; max-width: 420px; position: relative; z-index: 1;
+    animation: slideUp 0.6s ease;
+  }
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .logo-area { text-align: center; margin-bottom: 32px; }
+  .logo-icon {
+    width: 64px; height: 64px;
+    background: linear-gradient(135deg, #F47920, #d35400);
+    border-radius: 16px; display: inline-flex; align-items: center; justify-content: center;
+    margin-bottom: 16px; box-shadow: 0 8px 20px rgba(244,121,32,0.35);
+  }
+  .logo-icon svg { width: 32px; height: 32px; fill: white; }
+  h1 {
+    font-family: 'Playfair Display', serif; color: #1B2A5C;
+    font-size: 28px; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.5px;
+  }
+  .subtitle { color: #6b6460; font-size: 14px; font-weight: 400; }
+  .form-group { margin-bottom: 20px; }
+  label {
+    display: block; color: #463e3a; font-size: 13px; font-weight: 500;
+    margin-bottom: 8px; letter-spacing: 0.3px;
+  }
+  input[type="email"], input[type="password"] {
+    width: 100%; padding: 14px 16px; border: 1.5px solid #e2ddd8; border-radius: 10px;
+    font-size: 15px; font-family: 'Outfit', sans-serif; color: #1B2A5C;
+    background: #f8f9fb; transition: all 0.2s ease;
+  }
+  input:focus {
+    outline: none; border-color: #F47920; background: white;
+    box-shadow: 0 0 0 3px rgba(244,121,32,0.12);
+  }
+  .btn-login {
+    width: 100%; padding: 15px;
+    background: linear-gradient(135deg, #F47920 0%, #d35400 100%);
+    color: white; border: none; border-radius: 10px;
+    font-size: 15px; font-weight: 600; font-family: 'Outfit', sans-serif;
+    cursor: pointer; transition: all 0.2s ease;
+    letter-spacing: 0.5px; text-transform: uppercase; margin-top: 8px;
+    box-shadow: 0 4px 14px rgba(244,121,32,0.35);
+  }
+  .btn-login:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(244,121,32,0.45); }
+  .btn-login:active { transform: translateY(0); }
+  .btn-login:disabled { opacity: 0.6; cursor: not-allowed; }
+  .error-message {
+    background: #fff4ec; color: #b15409;
+    padding: 12px 14px; border-radius: 8px;
+    font-size: 13px; margin-bottom: 16px;
+    border-left: 3px solid #F47920; display: none;
+  }
+  .error-message.show { display: block; animation: shake 0.4s ease; }
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+  }
+  .footer-text { text-align: center; margin-top: 28px; color: #85807a; font-size: 12px; }
+  .footer-text strong { color: #F47920; }
+</style>
+</head>
+<body>
+
+<div class="login-container">
+  <div class="logo-area">
+    <div class="logo-icon">
+      <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+    </div>
+    <h1>Consulta SulAmérica</h1>
+    <p class="subtitle">Faça login para acessar a plataforma</p>
+  </div>
+
+  <div class="error-message" id="errorMsg"></div>
+
+  <form id="loginForm">
+    <div class="form-group">
+      <label for="email">E-mail</label>
+      <input type="email" id="email" placeholder="seu@email.com" required autocomplete="email">
+    </div>
+    <div class="form-group">
+      <label for="password">Senha</label>
+      <input type="password" id="password" placeholder="••••••••" required autocomplete="current-password">
+    </div>
+    <button type="submit" class="btn-login" id="btnLogin">Entrar</button>
+  </form>
+
+  <p class="footer-text">© 2026 <strong>Maximo 360</strong> · Acesso restrito</p>
+</div>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyC4lCCGse0Ax5SxlS45Do6puiAh7Y5w3xg",
+    authDomain: "consultabradsaude.firebaseapp.com",
+    projectId: "consultabradsaude",
+    storageBucket: "consultabradsaude.firebasestorage.app",
+    messagingSenderId: "393676066408",
+    appId: "1:393676066408:web:03dc51e86051a842ceb5dd"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      window.location.href = "index.html";
+    }
+  });
+
+  const form = document.getElementById('loginForm');
+  const errorMsg = document.getElementById('errorMsg');
+  const btnLogin = document.getElementById('btnLogin');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    errorMsg.classList.remove('show');
+    btnLogin.disabled = true;
+    btnLogin.textContent = 'Entrando...';
+
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
+
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      window.location.href = "index.html";
+    } catch (error) {
+      let message = "Erro ao fazer login. Tente novamente.";
+      if (error.code === 'auth/invalid-credential' || error.code === 'auth/wrong-password' || error.code === 'auth/user-not-found') {
+        message = "E-mail ou senha incorretos.";
+      } else if (error.code === 'auth/invalid-email') {
+        message = "E-mail inválido.";
+      } else if (error.code === 'auth/too-many-requests') {
+        message = "Muitas tentativas. Tente novamente em alguns minutos.";
+      } else if (error.code === 'auth/network-request-failed') {
+        message = "Erro de conexão. Verifique sua internet.";
+      }
+      errorMsg.textContent = message;
+      errorMsg.classList.add('show');
+      btnLogin.disabled = false;
+      btnLogin.textContent = 'Entrar';
+    }
+  });
+</script>
+
+</body>
+</html>

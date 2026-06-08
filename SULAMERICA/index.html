@@ -1,0 +1,2350 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SulAmérica Saúde PME — Guia Completo do Corretor · Maximo 360</title>
+
+<!-- ─── FIREBASE AUTH ─── -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyC4lCCGse0Ax5SxlS45Do6puiAh7Y5w3xg",
+    authDomain: "consultabradsaude.firebaseapp.com",
+    projectId: "consultabradsaude",
+    storageBucket: "consultabradsaude.firebasestorage.app",
+    messagingSenderId: "393676066408",
+    appId: "1:393676066408:web:03dc51e86051a842ceb5dd"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  document.documentElement.style.visibility = 'hidden';
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      window.location.href = "login-sulamerica.html";
+      return;
+    }
+    // Qualquer usuário autenticado tem acesso
+    document.documentElement.style.visibility = 'visible';
+    window.firebaseAuth = auth;
+    window.firebaseSignOut = () => signOut(auth).then(() => window.location.href = "login-sulamerica.html");
+  });
+</script>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --orange: #F47920;
+    --orange-dark: #D96500;
+    --orange-light: #FF9A40;
+    --navy: #1B2A5C;
+    --navy-dark: #0D1A3E;
+    --navy-light: #2E4080;
+    --white: #FFFFFF;
+    --off-white: #F8F9FB;
+    --gray-light: #EEF0F5;
+    --gray: #888EA8;
+    --gray-dark: #444;
+    --text: #1a1a2e;
+    --shadow: 0 8px 40px rgba(27,42,92,0.12);
+    --shadow-hover: 0 16px 60px rgba(244,121,32,0.25);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; scroll-padding-top: 74px; }
+
+  body {
+    font-family: 'Lato', sans-serif;
+    background: var(--off-white);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* ─── NAVBAR ─── */
+  nav {
+    position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+    background: rgba(27,42,92,0.97);
+    backdrop-filter: blur(10px);
+    padding: 0 40px;
+    height: 64px;
+    display: flex; align-items: center; justify-content: space-between;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+  }
+  .nav-logo {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900; font-size: 28px; color: var(--white);
+    letter-spacing: -0.8px; line-height: 1.1;
+  }
+  .nav-logo span { color: var(--orange); }
+  .nav-logo-group { display: flex; align-items: center; gap: 14px; }
+  .nav-divider {
+    width: 1px; height: 24px;
+    background: rgba(255,255,255,0.2);
+  }
+  .nav-brand {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700; font-size: 11px;
+    color: rgba(255,255,255,0.65);
+    letter-spacing: 0.5px; text-transform: uppercase;
+  }
+  .nav-brand span { color: var(--orange); }
+  .footer-brand-block { }
+  .footer-maximo {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900; font-size: 28px; color: var(--white);
+    letter-spacing: -0.5px; line-height: 1;
+  }
+  .footer-maximo span { color: var(--orange); }
+  .nav-links { display: flex; gap: 6px; align-items: center; }
+  .nav-links a {
+    color: rgba(255,255,255,0.75);
+    text-decoration: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.8px; text-transform: uppercase;
+    padding: 6px 12px; border-radius: 4px;
+    transition: all 0.2s;
+  }
+  .nav-links a:hover { color: var(--orange); background: rgba(244,121,32,0.1); }
+  .nav-signout {
+    margin-left: 8px; padding: 7px 16px; border-radius: 6px;
+    background: var(--orange); color: var(--white); border: none;
+    font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700;
+    letter-spacing: 0.5px; text-transform: uppercase; cursor: pointer;
+    transition: all 0.2s;
+  }
+  .nav-signout:hover { background: var(--orange-dark); transform: translateY(-1px); }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 50%, #2a3f8f 100%);
+    position: relative; overflow: hidden;
+    display: flex; align-items: center;
+    padding: 100px 80px 60px;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: -200px; right: -200px;
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(244,121,32,0.18) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .hero::after {
+    content: '';
+    position: absolute; bottom: -100px; left: 30%;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(244,121,32,0.08) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .wave-bg {
+    position: absolute; bottom: 0; left: 0; width: 100%;
+    opacity: 0.12;
+  }
+  .hero-content { position: relative; z-index: 2; max-width: 700px; }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(244,121,32,0.2);
+    border: 1px solid rgba(244,121,32,0.5);
+    color: var(--orange-light);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+    padding: 6px 16px; border-radius: 20px;
+    margin-bottom: 24px;
+  }
+  .hero h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(38px, 5vw, 64px);
+    font-weight: 900; line-height: 1.05;
+    color: var(--white); margin-bottom: 20px;
+  }
+  .hero h1 em { color: var(--orange); font-style: normal; }
+  .hero p {
+    font-size: 18px; line-height: 1.7;
+    color: rgba(255,255,255,0.75);
+    margin-bottom: 40px; max-width: 540px;
+  }
+  .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--orange);
+    color: var(--white);
+    padding: 14px 32px; border-radius: 6px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700; font-size: 13px;
+    letter-spacing: 0.5px; text-decoration: none;
+    transition: all 0.3s;
+    box-shadow: 0 4px 20px rgba(244,121,32,0.4);
+    border: none; cursor: pointer; display: inline-block;
+  }
+  .btn-primary:hover { background: var(--orange-dark); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(244,121,32,0.5); }
+  .btn-outline {
+    border: 2px solid rgba(255,255,255,0.3);
+    color: var(--white); padding: 14px 32px; border-radius: 6px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600; font-size: 13px; text-decoration: none;
+    transition: all 0.3s;
+    background: none; cursor: pointer; display: inline-block;
+  }
+  .btn-outline:hover { border-color: var(--orange); color: var(--orange); }
+  .hero-stats {
+    position: absolute; right: 80px; bottom: 100px; z-index: 2;
+    display: flex; flex-direction: column; gap: 20px;
+  }
+  .stat-card {
+    background: rgba(255,255,255,0.07);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 12px; padding: 20px 28px;
+    text-align: center;
+  }
+  .stat-num {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 32px; font-weight: 900; color: var(--orange);
+  }
+  .stat-label { font-size: 12px; color: rgba(255,255,255,0.6); margin-top: 4px; }
+
+  /* ─── SECTIONS ─── */
+  section { padding: 90px 80px; }
+  .section-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 3px; text-transform: uppercase;
+    color: var(--orange); margin-bottom: 12px;
+  }
+  .section-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(28px, 3.5vw, 44px);
+    font-weight: 800; color: var(--navy);
+    line-height: 1.15; margin-bottom: 18px;
+  }
+  .section-sub {
+    font-size: 17px; color: var(--gray);
+    line-height: 1.7; max-width: 640px;
+    margin-bottom: 50px;
+  }
+
+  /* ─── HISTORY ─── */
+  .history-section { background: var(--white); }
+  .history-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 60px; align-items: center;
+  }
+  .history-visual {
+    background: linear-gradient(135deg, var(--navy), var(--navy-light));
+    border-radius: 16px; padding: 50px;
+    position: relative; overflow: hidden;
+  }
+  .history-visual::before {
+    content: '';
+    position: absolute; top: -50px; right: -50px;
+    width: 250px; height: 250px;
+    background: radial-gradient(circle, rgba(244,121,32,0.2), transparent);
+    border-radius: 50%;
+  }
+  .history-year {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 80px; font-weight: 900;
+    color: rgba(255,255,255,0.06);
+    position: absolute; top: 20px; left: 30px;
+  }
+  .history-logo-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 36px; font-weight: 900; color: var(--white);
+    position: relative; z-index: 1;
+    margin-bottom: 10px;
+  }
+  .history-logo-text span { color: var(--orange); }
+  .history-tagline {
+    color: rgba(255,255,255,0.6);
+    font-size: 14px; position: relative; z-index: 1;
+    margin-bottom: 30px;
+  }
+  .history-milestones { position: relative; z-index: 1; }
+  .milestone {
+    display: flex; align-items: flex-start; gap: 14px;
+    margin-bottom: 16px;
+  }
+  .milestone-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--orange); flex-shrink: 0; margin-top: 6px;
+  }
+  .milestone-text { color: rgba(255,255,255,0.75); font-size: 14px; line-height: 1.5; }
+  .milestone-year { color: var(--orange); font-weight: 700; }
+  .history-text h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 24px; font-weight: 700; color: var(--navy);
+    margin-bottom: 16px;
+  }
+  .history-text p {
+    font-size: 16px; line-height: 1.8; color: #555; margin-bottom: 16px;
+  }
+
+  /* ─── PRODUCTS OVERVIEW ─── */
+  .products-section { background: var(--off-white); }
+  .products-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;
+  }
+  .product-card {
+    background: var(--white); border-radius: 16px;
+    padding: 36px 28px; position: relative; overflow: hidden;
+    box-shadow: var(--shadow); transition: all 0.3s; cursor: pointer;
+    border: 2px solid transparent;
+  }
+  .product-card:hover {
+    transform: translateY(-6px); box-shadow: var(--shadow-hover);
+    border-color: var(--orange);
+  }
+  .product-card::before {
+    content: ''; position: absolute; top: 0; left: 0;
+    width: 100%; height: 4px; background: var(--orange);
+  }
+  .product-icon {
+    width: 56px; height: 56px; border-radius: 14px;
+    background: linear-gradient(135deg, var(--orange), var(--orange-dark));
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+  }
+  .product-card h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px; font-weight: 700; color: var(--navy);
+    margin-bottom: 10px;
+  }
+  .product-card p {
+    font-size: 14px; line-height: 1.6; color: var(--gray);
+  }
+  .product-tag {
+    display: inline-block; margin-top: 16px;
+    background: rgba(244,121,32,0.1); color: var(--orange);
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.5px; padding: 4px 10px; border-radius: 4px;
+  }
+
+  /* ─── TABS SECTION ─── */
+  .tabs-wrapper {
+    background: var(--white); border-radius: 20px;
+    box-shadow: var(--shadow); overflow: hidden;
+  }
+  .tab-nav {
+    display: flex; background: var(--navy);
+    overflow-x: auto;
+  }
+  .tab-btn {
+    flex: 1; min-width: 140px;
+    padding: 18px 20px;
+    background: none; border: none; cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px; font-weight: 600;
+    letter-spacing: 0.5px; text-transform: uppercase;
+    color: rgba(255,255,255,0.55);
+    transition: all 0.3s; border-bottom: 3px solid transparent;
+  }
+  .tab-btn.active {
+    color: var(--white); border-bottom-color: var(--orange);
+    background: rgba(244,121,32,0.1);
+  }
+  .tab-btn:hover:not(.active) { color: rgba(255,255,255,0.85); background: rgba(255,255,255,0.05); }
+  .tab-content { display: none; padding: 48px; animation: fadeIn 0.3s; }
+  .tab-content.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* ─── PLAN COMPARE ─── */
+  .plans-section { background: var(--off-white); }
+  .plan-toggle {
+    display: flex; gap: 8px; margin-bottom: 36px; flex-wrap: wrap;
+  }
+  .plan-toggle-btn {
+    padding: 8px 20px; border-radius: 20px; border: 2px solid var(--gray-light);
+    background: var(--white); cursor: pointer;
+    font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 600;
+    color: var(--gray); transition: all 0.2s;
+  }
+  .plan-toggle-btn.active { border-color: var(--orange); background: var(--orange); color: var(--white); }
+
+  .compare-table { width: 100%; border-collapse: collapse; border-radius: 12px; overflow: hidden; box-shadow: var(--shadow); }
+  .compare-table thead tr { background: var(--navy); }
+  .compare-table th {
+    padding: 16px 14px;
+    font-family: 'Montserrat', sans-serif; font-size: 11px;
+    font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;
+    color: rgba(255,255,255,0.8); text-align: center; border: none;
+  }
+  .compare-table th.feature-col { text-align: left; color: rgba(255,255,255,0.5); }
+  .compare-table tbody tr { background: var(--white); border-bottom: 1px solid var(--gray-light); transition: background 0.15s; }
+  .compare-table tbody tr:hover { background: rgba(244,121,32,0.04); }
+  .compare-table td { padding: 13px 14px; font-size: 13px; text-align: center; }
+  .compare-table td.feature-col { text-align: left; font-weight: 600; color: var(--navy); font-size: 13px; }
+  .check { color: #22c55e; font-size: 16px; }
+  .cross { color: #ef4444; font-size: 14px; }
+  .optional { color: var(--orange); font-size: 12px; font-style: italic; }
+  .highlight-col { background: rgba(244,121,32,0.06) !important; }
+
+  /* ─── BENEFIT CARDS ─── */
+  .benefits-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+  }
+  .benefit-card {
+    background: var(--white); border-radius: 14px; padding: 28px 24px;
+    box-shadow: var(--shadow); transition: all 0.3s; border-left: 4px solid var(--orange);
+  }
+  .benefit-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
+  .benefit-icon { font-size: 28px; margin-bottom: 14px; }
+  .benefit-card h4 {
+    font-family: 'Montserrat', sans-serif; font-size: 15px; font-weight: 700;
+    color: var(--navy); margin-bottom: 8px;
+  }
+  .benefit-card p { font-size: 13px; line-height: 1.6; color: var(--gray); }
+
+  /* ─── REEMBOLSO TABLE ─── */
+  .reembolso-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+  }
+  .reimb-card {
+    background: var(--white); border-radius: 14px; overflow: hidden;
+    box-shadow: var(--shadow);
+  }
+  .reimb-header {
+    background: var(--navy); padding: 16px 20px;
+    font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700;
+    color: var(--white);
+  }
+  .reimb-table { width: 100%; border-collapse: collapse; }
+  .reimb-table th { background: rgba(27,42,92,0.05); padding: 10px 16px; font-size: 11px; font-weight: 700; text-align: left; color: var(--navy); text-transform: uppercase; letter-spacing: 0.5px; }
+  .reimb-table td { padding: 10px 16px; font-size: 13px; border-bottom: 1px solid var(--gray-light); }
+  .reimb-table tr:last-child td { border-bottom: none; }
+  .reimb-value { font-weight: 700; color: var(--orange); }
+
+  /* ─── CARÊNCIA ─── */
+  .carencia-table { width: 100%; border-collapse: collapse; border-radius: 12px; overflow: hidden; box-shadow: var(--shadow); }
+  .carencia-table thead tr { background: var(--orange); }
+  .carencia-table th { padding: 14px 16px; font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; color: var(--white); text-align: left; }
+  .carencia-table tbody tr { background: var(--white); border-bottom: 1px solid var(--gray-light); }
+  .carencia-table tbody tr:nth-child(even) { background: rgba(244,121,32,0.03); }
+  .carencia-table tbody tr:hover { background: rgba(244,121,32,0.07); }
+  .carencia-table td { padding: 13px 16px; font-size: 13px; }
+  .grupo-badge {
+    display: inline-block; background: var(--navy); color: var(--white);
+    font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700;
+    padding: 3px 10px; border-radius: 10px;
+  }
+  .prazo { font-weight: 700; color: var(--navy); }
+
+  /* ─── RULES ─── */
+  .rules-section { background: var(--white); }
+  .rules-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 28px; }
+  .rule-card {
+    border-radius: 14px; overflow: hidden; box-shadow: var(--shadow);
+    transition: all 0.3s;
+  }
+  .rule-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
+  .rule-header {
+    background: var(--navy); padding: 20px 24px;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .rule-header-icon { font-size: 22px; }
+  .rule-header h3 {
+    font-family: 'Montserrat', sans-serif; font-size: 15px; font-weight: 700;
+    color: var(--white);
+  }
+  .rule-body { background: var(--white); padding: 24px; }
+  .rule-item {
+    display: flex; gap: 10px; align-items: flex-start; margin-bottom: 12px;
+  }
+  .rule-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--orange); flex-shrink: 0; margin-top: 7px;
+  }
+  .rule-item p { font-size: 13px; line-height: 1.6; color: #444; }
+  strong { color: var(--navy); }
+
+  /* ─── FLEX RULE ─── */
+  .flex-banner {
+    background: linear-gradient(135deg, var(--navy), var(--navy-light));
+    border-radius: 20px; padding: 48px;
+    display: flex; gap: 40px; align-items: center;
+    margin-top: 36px; position: relative; overflow: hidden;
+  }
+  .flex-banner::after {
+    content: 'FLEX';
+    position: absolute; right: -20px; top: -20px;
+    font-family: 'Montserrat', sans-serif; font-size: 120px; font-weight: 900;
+    color: rgba(255,255,255,0.03);
+  }
+  .flex-icon { font-size: 48px; flex-shrink: 0; }
+  .flex-content h3 {
+    font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight: 800;
+    color: var(--white); margin-bottom: 10px;
+  }
+  .flex-content p { color: rgba(255,255,255,0.85); font-size: 15px; line-height: 1.7; margin-bottom: 8px; }
+  .flex-content strong { color: var(--orange-light); font-weight: 700; }
+  .flex-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; }
+  .flex-tag {
+    background: rgba(244,121,32,0.2); border: 1px solid rgba(244,121,32,0.4);
+    color: var(--orange-light); font-size: 12px; font-weight: 600;
+    padding: 5px 12px; border-radius: 14px;
+  }
+
+  /* ─── CUIDADO 360 ─── */
+  .c360-card {
+    background: linear-gradient(135deg, var(--orange), var(--orange-dark));
+    border-radius: 20px; padding: 48px; color: var(--white);
+    display: grid; grid-template-columns: 1fr 1fr; gap: 40px;
+    margin-top: 36px; position: relative; overflow: hidden;
+  }
+  .c360-card::before {
+    content: '360°';
+    position: absolute; right: -20px; bottom: -30px;
+    font-family: 'Montserrat', sans-serif; font-size: 140px; font-weight: 900;
+    color: rgba(255,255,255,0.08);
+  }
+  .c360-content h3 {
+    font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 800;
+    margin-bottom: 14px;
+  }
+  .c360-content p { font-size: 15px; line-height: 1.7; opacity: 0.95; margin-bottom: 12px; color: var(--white); }
+  .c360-content strong, .c360-included strong, .c360-item strong { color: var(--white); font-weight: 800; }
+  .c360-included h4 {
+    font-family: 'Montserrat', sans-serif; font-size: 16px; font-weight: 700;
+    margin-bottom: 16px; color: var(--white);
+  }
+  .c360-item {
+    display: flex; gap: 10px; align-items: flex-start; margin-bottom: 12px;
+  }
+  .c360-check { font-size: 16px; flex-shrink: 0; }
+  .c360-item p { font-size: 14px; opacity: 0.85; }
+  .carencia-360 {
+    background: rgba(255,255,255,0.15); border-radius: 10px;
+    padding: 16px; margin-top: 16px;
+  }
+  .carencia-360 h5 {
+    font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700;
+    margin-bottom: 10px; color: var(--white);
+  }
+  .carencia-row {
+    display: flex; justify-content: space-between;
+    padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.1);
+    font-size: 13px;
+  }
+  .carencia-row:last-child { border-bottom: none; }
+  .carencia-row span:last-child { font-weight: 700; }
+
+  /* ─── DOC TABLE ─── */
+  .doc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 24px; }
+  .doc-card { background: var(--white); border-radius: 14px; overflow: hidden; box-shadow: var(--shadow); }
+  .doc-card-header {
+    background: var(--navy); padding: 16px 20px;
+    font-family: 'Montserrat', sans-serif; font-size: 14px;
+    font-weight: 700; color: var(--white);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .doc-list { padding: 16px 20px; }
+  .doc-list li {
+    list-style: none; display: flex; gap: 8px;
+    align-items: flex-start; padding: 7px 0;
+    border-bottom: 1px solid var(--gray-light); font-size: 13px; color: #444;
+  }
+  .doc-list li:last-child { border-bottom: none; }
+  .doc-list li::before { content: '📄'; font-size: 13px; flex-shrink: 0; margin-top: 1px; }
+
+  /* ─── ALERT BOX ─── */
+  .alert-box {
+    background: rgba(244,121,32,0.08); border: 1px solid rgba(244,121,32,0.3);
+    border-left: 4px solid var(--orange); border-radius: 8px;
+    padding: 16px 20px; margin-top: 24px; font-size: 14px; color: #555; line-height: 1.6;
+  }
+  .alert-box strong { color: var(--orange-dark); }
+
+  /* ─── ODONTO ─── */
+  .odonto-plans {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 10px;
+  }
+  .odonto-card {
+    background: var(--white); border-radius: 14px; padding: 26px 22px;
+    box-shadow: var(--shadow); transition: all 0.3s; position: relative;
+  }
+  .odonto-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
+  .odonto-card.featured { border: 2px solid var(--orange); }
+  .odonto-badge {
+    position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+    background: var(--orange); color: var(--white);
+    font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700;
+    letter-spacing: 0.5px; padding: 4px 14px; border-radius: 10px;
+    white-space: nowrap;
+  }
+  .odonto-card h4 {
+    font-family: 'Montserrat', sans-serif; font-size: 16px; font-weight: 800;
+    color: var(--navy); margin-bottom: 8px;
+  }
+  .odonto-coverage { font-size: 13px; color: var(--gray); line-height: 1.5; margin-bottom: 14px; }
+  .odonto-reimb {
+    display: flex; align-items: center; gap: 6px;
+    font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700; color: var(--orange);
+  }
+
+  /* ─── CONTACT / FOOTER ─── */
+  .contact-section {
+    background: var(--navy-dark);
+    padding: 80px; color: var(--white);
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 40px;
+  }
+  .contact-col h4 {
+    font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 700;
+    letter-spacing: 1px; text-transform: uppercase; color: var(--orange);
+    margin-bottom: 20px;
+  }
+  .contact-col p { font-size: 14px; line-height: 1.8; color: rgba(255,255,255,0.65); }
+  .contact-col strong { color: var(--white); font-weight: 700; }
+  .contact-link {
+    display: flex; align-items: center; gap: 10px;
+    color: rgba(255,255,255,0.65); text-decoration: none; font-size: 14px;
+    margin-bottom: 10px; transition: color 0.2s;
+  }
+  .contact-link:hover { color: var(--orange); }
+  footer {
+    background: #080e1f; padding: 24px 80px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  footer p { font-size: 12px; color: rgba(255,255,255,0.3); }
+  footer span { color: var(--orange); }
+
+  /* ─── SCROLL TO TOP ─── */
+  .scroll-top {
+    position: fixed; bottom: 30px; right: 30px;
+    width: 46px; height: 46px; border-radius: 50%;
+    background: var(--orange); color: var(--white);
+    border: none; cursor: pointer; font-size: 18px;
+    box-shadow: 0 4px 16px rgba(244,121,32,0.4);
+    transition: all 0.3s; z-index: 999;
+  }
+  .scroll-top:hover { background: var(--orange-dark); transform: translateY(-3px); }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 1200px) {
+    section { padding: 70px 40px; }
+    .hero { padding: 100px 40px 60px; }
+    .hero-stats { right: 40px; }
+    .products-grid { grid-template-columns: repeat(2, 1fr); }
+    .benefits-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 900px) {
+    nav { padding: 0 20px; }
+    .nav-links { display: none; }
+    section { padding: 60px 24px; }
+    .hero { padding: 100px 24px 60px; }
+    .hero-stats { display: none; }
+    .history-grid, .reembolso-grid, .rules-grid, .doc-grid { grid-template-columns: 1fr; }
+    .c360-card { grid-template-columns: 1fr; }
+    .contact-section { grid-template-columns: 1fr; padding: 60px 24px; }
+    footer { padding: 20px 24px; flex-direction: column; gap: 8px; text-align: center; }
+    .odonto-plans { grid-template-columns: 1fr; }
+    .flex-banner { flex-direction: column; }
+  }
+
+  /* ─── ANIMATED NUMBERS ─── */
+  @keyframes countUp { from { opacity: 0; } to { opacity: 1; } }
+  .animated-num { animation: countUp 0.6s ease forwards; }
+
+  /* ─── SUB TABS ─── */
+  .subtab-nav { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
+  .subtab-btn {
+    padding: 8px 18px; border-radius: 6px; border: 1px solid var(--gray-light);
+    background: var(--off-white); cursor: pointer; font-size: 12px;
+    font-family: 'Montserrat', sans-serif; font-weight: 600;
+    color: var(--gray); transition: all 0.2s;
+  }
+  .subtab-btn.active { background: var(--navy); color: var(--white); border-color: var(--navy); }
+  .subtab-content { display: none; }
+  .subtab-content.active { display: block; }
+
+  /* ─── DISCLAIMER ─── */
+  .sa-disclaimer {
+    display: flex; align-items: flex-start; gap: 12px;
+    background: rgba(244,121,32,0.08); border-left: 3px solid var(--orange);
+    border-radius: 8px; padding: 12px 16px; margin: 24px 0;
+    font-size: 12.5px; color: var(--gray-dark); line-height: 1.55;
+  }
+  .sa-disclaimer-icon {
+    flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%;
+    background: var(--orange); color: var(--white);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 900;
+  }
+  .sa-disclaimer strong { color: var(--orange-dark); }
+
+  /* ─── CONTACT CARDS ─── */
+  .contact-cards-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 32px;
+  }
+  .contact-card {
+    background: var(--white); border: 1px solid var(--gray-light);
+    border-radius: 14px; padding: 32px 28px; box-shadow: var(--shadow);
+    transition: all 0.3s; position: relative; overflow: hidden;
+    border-top: 4px solid var(--orange);
+  }
+  .contact-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
+  .contact-card-tag {
+    display: inline-block; background: rgba(244,121,32,0.1); color: var(--orange-dark);
+    font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 800;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    padding: 4px 12px; border-radius: 4px; margin-bottom: 16px;
+  }
+  .contact-card-name {
+    font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 800;
+    color: var(--navy); margin-bottom: 4px;
+  }
+  .contact-card-role {
+    font-size: 13px; color: var(--gray); margin-bottom: 24px;
+  }
+  .contact-card-rows { display: flex; flex-direction: column; gap: 8px; }
+  .contact-card-row {
+    display: flex; flex-direction: column; gap: 2px;
+    padding: 12px 16px; border-radius: 8px;
+    background: var(--off-white); border: 1px solid var(--gray-light);
+    text-decoration: none; transition: all 0.2s;
+  }
+  .contact-card-row:hover {
+    background: var(--white); border-color: var(--orange);
+    transform: translateX(4px);
+  }
+  .contact-card-row .ccr-label {
+    font-family: 'Montserrat', sans-serif; font-size: 9.5px; font-weight: 800;
+    letter-spacing: 1.2px; text-transform: uppercase; color: var(--gray);
+  }
+  .contact-card-row .ccr-val {
+    font-family: 'Lato', sans-serif; font-size: 14px; font-weight: 700;
+    color: var(--navy);
+  }
+  .contact-card-row.contact-card-row-wa {
+    background: rgba(37,211,102,0.08); border-color: rgba(37,211,102,0.25);
+  }
+  .contact-card-row.contact-card-row-wa:hover {
+    background: rgba(37,211,102,0.12); border-color: #25D366;
+  }
+  .contact-card-row.contact-card-row-wa .ccr-label { color: #1ea851; }
+  .contact-card-row.contact-card-row-wa .ccr-val { color: #128c3a; }
+
+  /* ─── COMPARATIVO INTERATIVO ─── */
+  .cmp-controls {
+    background: var(--off-white); border: 1px solid var(--gray-light); border-radius: 14px;
+    padding: 24px; margin-bottom: 28px;
+  }
+  .cmp-label {
+    font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700;
+    letter-spacing: 1.2px; text-transform: uppercase; color: var(--gray-dark);
+    margin-bottom: 14px;
+  }
+  .cmp-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+  .cmp-chip {
+    padding: 8px 16px; border-radius: 22px; border: 2px solid var(--gray-light);
+    background: var(--white); cursor: pointer; transition: all 0.2s; user-select: none;
+    font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700;
+    color: var(--gray-dark); display: flex; align-items: center; gap: 7px;
+  }
+  .cmp-chip:hover { border-color: rgba(244,121,32,0.4); color: var(--orange); }
+  .cmp-chip.active {
+    background: var(--orange); border-color: var(--orange); color: var(--white);
+    box-shadow: 0 2px 10px rgba(244,121,32,0.3);
+  }
+  .cmp-chip-check {
+    width: 14px; height: 14px; border-radius: 4px; border: 1.5px solid currentColor;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 9px; font-weight: 900;
+  }
+  .cmp-chip.active .cmp-chip-check { background: var(--white); color: var(--orange); border-color: var(--white); }
+  .cmp-actions { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+  .cmp-action-btn {
+    padding: 8px 16px; border-radius: 6px; border: 1.5px solid var(--gray-light);
+    background: var(--white); cursor: pointer; transition: all 0.2s;
+    font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700;
+    letter-spacing: 0.5px; color: var(--gray-dark);
+  }
+  .cmp-action-btn:hover { border-color: var(--orange); color: var(--orange); background: rgba(244,121,32,0.05); }
+  .cmp-action-btn.export {
+    background: var(--orange); border-color: var(--orange); color: var(--white);
+  }
+  .cmp-action-btn.export:hover { background: var(--orange-dark); border-color: var(--orange-dark); color: var(--white); }
+  .cmp-summary { font-size: 12px; color: var(--gray); font-weight: 600; margin-left: auto; }
+  .cmp-summary strong { color: var(--orange); }
+  .cmp-empty {
+    padding: 60px 24px; text-align: center; color: var(--gray);
+    background: var(--off-white); border-radius: 14px; border: 2px dashed var(--gray-light);
+  }
+
+  /* ─── REDE CREDENCIADA — lista compacta ─── */
+  #rede .rede-disclaimer{
+    max-width:1180px;margin:0 auto 22px;
+    background:var(--white);border:1px solid var(--gray-light);
+    border-radius:10px;padding:14px 18px;
+    display:flex;gap:12px;align-items:flex-start;
+    font-family:'Lato',sans-serif;font-size:13px;color:var(--text);
+  }
+  #rede .rede-disclaimer-icon{
+    width:24px;height:24px;border-radius:50%;
+    background:var(--orange);color:var(--white);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Montserrat',sans-serif;font-weight:800;font-size:13px;flex-shrink:0;
+  }
+  #rede .search-box-wrap{
+    max-width:1180px;margin:0 auto 18px;
+    background:var(--off-white);border:1px solid var(--gray-light);
+    border-radius:12px;padding:24px;
+  }
+  #rede .search-input-row{display:flex;gap:12px;flex-wrap:wrap;}
+  #rede .search-input{
+    flex:1;min-width:240px;padding:12px 16px;
+    border:1.5px solid var(--gray-light);border-radius:8px;
+    font-family:'Lato',sans-serif;font-size:14px;color:var(--text);
+    background:var(--white);outline:none;transition:border-color .2s,box-shadow .2s;
+  }
+  #rede .search-input:focus{
+    border-color:var(--orange);
+    box-shadow:0 0 0 3px rgba(244,121,32,.10);
+  }
+  #rede .search-select{
+    padding:12px 16px;border:1.5px solid var(--gray-light);border-radius:8px;
+    font-family:'Lato',sans-serif;font-size:13px;font-weight:600;color:var(--text);
+    background:var(--white);outline:none;cursor:pointer;transition:border-color .2s;
+    min-width:220px;
+  }
+  #rede .search-select:focus{border-color:var(--orange);}
+  #rede .rede-count{
+    max-width:1180px;margin:0 auto 14px;
+    font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;
+    color:var(--gray);letter-spacing:.4px;text-transform:uppercase;
+  }
+  #rede .rede-count strong{color:var(--orange);font-size:13px;}
+  #rede .rede-results-area{
+    max-width:1180px;margin:0 auto;
+    max-height:560px;overflow-y:auto;padding-right:6px;
+  }
+  #rede .rede-results-area::-webkit-scrollbar{width:6px;}
+  #rede .rede-results-area::-webkit-scrollbar-thumb{
+    background:rgba(244,121,32,.25);border-radius:4px;
+  }
+  #rede .rede-results-area::-webkit-scrollbar-track{background:transparent;}
+  #rede .rede-item{
+    display:flex;align-items:flex-start;gap:14px;
+    padding:14px 16px;background:var(--white);
+    border-radius:10px;border:1px solid var(--gray-light);
+    margin-bottom:8px;
+    transition:border-color .15s,transform .15s,box-shadow .15s;
+  }
+  #rede .rede-item:hover{
+    border-color:rgba(244,121,32,.40);
+    transform:translateX(3px);
+    box-shadow:0 4px 12px rgba(244,121,32,.08);
+  }
+  #rede .rede-item-icon{
+    width:38px;height:38px;border-radius:10px;
+    background:rgba(244,121,32,.10);color:var(--orange-dark);
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;
+    font-family:'Montserrat',sans-serif;font-weight:800;font-size:16px;
+  }
+  #rede .rede-item-info{flex:1;min-width:0;}
+  #rede .rede-item-name{
+    font-family:'Montserrat',sans-serif;font-size:14px;font-weight:700;
+    color:var(--navy);margin-bottom:2px;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  }
+  #rede .rede-item-city{
+    font-family:'Lato',sans-serif;font-size:12px;color:var(--gray);margin-bottom:8px;
+  }
+  #rede .rede-chips{display:flex;gap:5px;flex-wrap:wrap;}
+  #rede .chip{
+    font-family:'Montserrat',sans-serif;font-size:9.5px;font-weight:700;
+    padding:3px 9px;border-radius:8px;border:1px solid;letter-spacing:.2px;
+    white-space:nowrap;
+  }
+  #rede .chip-direto         { background:#fef9ef; color:#a16207; border-color:#fde68a; }
+  #rede .chip-exato          { background:#fff7ed; color:#c2410c; border-color:#fed7aa; }
+  #rede .chip-classico       { background:#f0fdf4; color:#166534; border-color:#bbf7d0; }
+  #rede .chip-especial       { background:#eff6ff; color:#1d4ed8; border-color:#bfdbfe; }
+  #rede .chip-especial-mais  { background:#fdf4ff; color:#7e22ce; border-color:#e9d5ff; }
+  #rede .chip-executivo      { background:rgba(244,121,32,.08); color:var(--orange-dark); border-color:rgba(244,121,32,.30); }
+  #rede .chip-prestige       { background:rgba(27,42,92,.07); color:var(--navy); border-color:rgba(27,42,92,.30); }
+  #rede .rede-empty{
+    text-align:center;padding:40px;color:var(--gray);font-size:14px;
+    font-family:'Lato',sans-serif;
+    background:var(--white);border-radius:10px;border:1px dashed var(--gray-light);
+  }
+  #rede .rede-load-more{
+    display:block;width:100%;max-width:1180px;
+    margin:14px auto 0;padding:13px;background:transparent;
+    border:1.5px solid var(--gray-light);border-radius:8px;
+    font-family:'Montserrat',sans-serif;font-size:12px;font-weight:700;
+    letter-spacing:.6px;text-transform:uppercase;color:var(--gray);
+    cursor:pointer;transition:all .2s;
+  }
+  #rede .rede-load-more:hover{
+    border-color:var(--orange);color:var(--orange-dark);
+    background:rgba(244,121,32,.04);
+  }
+  @media (max-width:780px){
+    #rede{padding:60px 18px !important;}
+    #rede .search-box-wrap{padding:18px;}
+    #rede .search-select{min-width:100%;}
+    #rede .rede-item-name{white-space:normal;}
+  }
+
+  @media print {
+    nav, .scroll-top, .cmp-controls, footer, .contact-section, .sa-disclaimer, #rede .search-box-wrap, #rede .rede-load-more { display: none !important; }
+    #rede .rede-results-area { max-height:none !important; overflow:visible !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="nav-logo-group">
+    <div class="nav-logo">Maximo <span>360</span></div>
+    <div class="nav-divider"></div>
+    <div class="nav-brand">Sul<span>América</span></div>
+  </div>
+  <div class="nav-links">
+    <a href="#historia" onclick="navScroll(event,'historia')">História</a>
+    <a href="#produtos" onclick="navScroll(event,'produtos')">Produtos</a>
+    <a href="#planos" onclick="navScroll(event,'planos')">Planos</a>
+    <a href="#comparativo" onclick="navScroll(event,'comparativo')">Comparativo</a>
+    <a href="#rede" onclick="navScroll(event,'rede')">Rede SP</a>
+    <a href="#beneficios" onclick="navScroll(event,'beneficios')">Benefícios</a>
+    <a href="#carencia" onclick="navScroll(event,'carencia')">Carência</a>
+    <a href="#regras" onclick="navScroll(event,'regras')">Regras</a>
+    <a href="#odonto" onclick="navScroll(event,'odonto')">Odonto</a>
+    <a href="#contato" onclick="navScroll(event,'contato')">Contato</a>
+    <button class="nav-signout" onclick="window.firebaseSignOut && window.firebaseSignOut()" title="Sair">Sair</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <svg class="wave-bg" viewBox="0 0 1440 200" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,96L48,112C96,128,192,160,288,154.7C384,149,480,107,576,90.7C672,75,768,85,864,96C960,107,1056,117,1152,112C1248,107,1344,85,1392,74.7L1440,64L1440,200L1392,200C1344,200,1248,200,1152,200C1056,200,960,200,864,200C768,200,672,200,576,200C480,200,384,200,288,200C192,200,96,200,48,200L0,200Z" fill="rgba(244,121,32,0.3)"/>
+  </svg>
+  <div class="hero-content">
+    <div class="hero-badge">🏆 Guia Completo do Corretor · Versão Abril 2026</div>
+    <h1>SulAmérica<br><em>Saúde &amp; Odonto</em><br>PME</h1>
+    <p>O guia completo com todos os planos, diferenciais, regras de comercialização e benefícios para você fechar mais negócios com segurança.</p>
+    <div class="hero-btns">
+      <button class="btn-primary" onclick="goToPlanos()">Ver Planos</button>
+      <button class="btn-outline" onclick="goToComparativo()">Comparar Planos</button>
+      <button class="btn-outline" onclick="goToRegras()">Regras Comerciais</button>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat-card">
+      <div class="stat-num">+25k</div>
+      <div class="stat-label">Farmácias com Desconto</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">+30</div>
+      <div class="stat-label">Hospitais U&amp;E Nacionais</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">+130</div>
+      <div class="stat-label">Anos de Mercado</div>
+    </div>
+  </div>
+</div>
+
+<!-- HISTÓRIA -->
+<section class="history-section" id="historia">
+  <div class="history-grid">
+    <div class="history-visual">
+      <div class="history-year">1895</div>
+      <div class="history-logo-text">Sul<span>América</span></div>
+      <div class="history-tagline">Cuidando de vidas há mais de um século</div>
+      <div class="history-milestones">
+        <div class="milestone"><div class="milestone-dot"></div><div class="milestone-text"><span class="milestone-year">1895</span> — Fundação em Porto Alegre como Sul América Terrestres, Marítimos e Acidentes</div></div>
+        <div class="milestone"><div class="milestone-dot"></div><div class="milestone-text"><span class="milestone-year">1940s</span> — Expansão nacional e diversificação para seguros de vida e saúde</div></div>
+        <div class="milestone"><div class="milestone-dot"></div><div class="milestone-text"><span class="milestone-year">2000s</span> — Líder em saúde suplementar; lançamento dos planos empresariais PME</div></div>
+        <div class="milestone"><div class="milestone-dot"></div><div class="milestone-text"><span class="milestone-year">2020s</span> — Inovação digital: apps, telemedicina, Médico na Tela e Psicólogo na Tela</div></div>
+        <div class="milestone"><div class="milestone-dot"></div><div class="milestone-text"><span class="milestone-year">2026</span> — Nova geração de planos com Cuidado 360°, Lab IN e Concierge</div></div>
+      </div>
+    </div>
+    <div class="history-text">
+      <div class="section-label">Nossa História</div>
+      <h2 class="section-title">Mais de um século<br>cuidando do que importa</h2>
+      <p>A SulAmérica é uma das maiores e mais tradicionais seguradoras do Brasil, fundada em 1895. Com mais de um século de atuação, tornou-se referência em saúde suplementar, odonto, vida, previdência e seguros gerais.</p>
+      <p>Reconhecida pela qualidade da rede referenciada nacional e pela inovação em saúde digital, a SulAmérica oferece soluções completas para empresas de todos os portes, com especial atenção às Pequenas e Médias Empresas (PME).</p>
+      <p>Com mais de um século de tradição e uma das maiores operadoras de planos de saúde do país, opera com rede em todo território nacional e foco em inovação digital para atender empresas de todos os portes.</p>
+      <div class="alert-box"><strong>Missão:</strong> Oferecer proteção, bem-estar e qualidade de vida a pessoas e empresas, com soluções inovadoras em saúde, odontologia, vida e assistência.</div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUTOS -->
+<section class="products-section" id="produtos">
+  <div class="section-label">Portfólio Completo</div>
+  <div class="section-title">Produtos SulAmérica</div>
+  <div class="section-sub">Soluções para empresas de 3 a 99 vidas — PME e PME Mais, com coberturas nacionais e regionais.</div>
+  <div class="sa-disclaimer">
+    <div class="sa-disclaimer-icon">!</div>
+    <div><strong>Consulta rápida.</strong> Os produtos descritos são uma síntese para apoio comercial. Toda informação deve ser validada nos canais oficiais da <strong>SulAmérica</strong> antes da apresentação ao cliente.</div>
+  </div>
+  <div class="products-grid">
+    <div class="product-card" onclick="document.querySelector('#planos').scrollIntoView({behavior:'smooth'})">
+      <div class="product-icon">🏥</div>
+      <h3>Saúde PME</h3>
+      <p>Planos nacionais e regionais para empresas de 3 a 29 vidas. Coberturas AHO e HO com rede referenciada de excelência.</p>
+      <span class="product-tag">3 a 29 vidas</span>
+    </div>
+    <div class="product-card" onclick="document.querySelector('#planos').scrollIntoView({behavior:'smooth'})">
+      <div class="product-icon">🏢</div>
+      <h3>Saúde PME Mais</h3>
+      <p>Planos nacionais para empresas de 30 a 99 vidas. Vigência de 24 meses, carência isenta na implantação e opção de Remissão.</p>
+      <span class="product-tag">30 a 99 vidas</span>
+    </div>
+    <div class="product-card" onclick="document.querySelector('#odonto').scrollIntoView({behavior:'smooth'})">
+      <div class="product-icon">🦷</div>
+      <h3>Odonto PME</h3>
+      <p>Planos odontológicos nacionais com Rol Ampliado, ortodontia, próteses e implante. Rede qualificada em todo o Brasil.</p>
+      <span class="product-tag">3 a 29 vidas</span>
+    </div>
+    <div class="product-card" onclick="document.querySelector('#odonto').scrollIntoView({behavior:'smooth'})">
+      <div class="product-icon">✈️</div>
+      <h3>Seguro Viagem</h3>
+      <p>Cobertura nacional e internacional para viajantes. Inclui atendimento médico, Telemedicina e cobertura Schengen para planos Especial+.</p>
+      <span class="product-tag">Benefício dos planos</span>
+    </div>
+  </div>
+</section>
+
+<!-- PLANOS + TABS -->
+<section id="planos" style="background: var(--white); padding: 90px 80px;">
+  <div class="section-label">Planos Saúde</div>
+  <div class="section-title">Conheça cada plano</div>
+  <div class="section-sub">Compare coberturas, reembolsos e benefícios dos planos SulAmérica PME e PME Mais.</div>
+
+  <div class="sa-disclaimer">
+    <div class="sa-disclaimer-icon">!</div>
+    <div><strong>Consulta rápida.</strong> As informações desta seção são resumidas para apoio comercial. Toda informação deve ser validada nos canais oficiais da <strong>SulAmérica</strong> antes da apresentação ao cliente.</div>
+  </div>
+
+  <div class="tabs-wrapper">
+    <div class="tab-nav">
+      <button class="tab-btn active" onclick="switchTab('overview')">📊 Visão Geral</button>
+      <button class="tab-btn" onclick="switchTab('reembolso')">💰 Reembolso</button>
+      <button class="tab-btn" onclick="switchTab('regionais')">📍 Planos Regionais</button>
+    </div>
+
+    <!-- OVERVIEW -->
+    <div class="tab-content active" id="tab-overview">
+      <div class="subtab-nav">
+        <button class="subtab-btn active" onclick="switchSubTab('pme', this)">PME (3–29 vidas)</button>
+        <button class="subtab-btn" onclick="switchSubTab('pmemais', this)">PME Mais (30–99 vidas)</button>
+      </div>
+      <div class="subtab-content active" id="subtab-pme">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;">
+          <div class="benefit-card" style="border-left-color:var(--gray)">
+            <div class="benefit-icon">🔷</div>
+            <h4>Direto Nacional / Regional</h4>
+            <p>Plano de entrada com rede referenciada regional ou nacional. Cobertura AHO. Reembolso em PS na área de abrangência. Não possui reembolso para consultas eletivas.</p>
+          </div>
+          <div class="benefit-card" style="border-left-color:#6366f1">
+            <div class="benefit-icon">⬛</div>
+            <h4>Exato Enf / Apto</h4>
+            <p>Plano com cobertura AHO e reembolso limitado. Médico na Tela, Psicólogo na Tela, Assistência Viagem Nacional e Lab IN.</p>
+          </div>
+          <div class="benefit-card">
+            <div class="benefit-icon">🟠</div>
+            <h4>Clássico 100 / Vital</h4>
+            <p>Cobertura AHO com reembolso R$ 110,25 (enf). Inclui Lab IN, Médico na Tela, Psicólogo na Tela e Assistência Viagem Nacional.</p>
+          </div>
+          <div class="benefit-card" style="border-left-color:#22c55e">
+            <div class="benefit-icon">🟢</div>
+            <h4>Especial 100 / Vital</h4>
+            <p>Reembolso R$ 180,00 (apto). Inclui Seguro Viagem Internacional, Assistência Viagem Nacional, Médico na Tela e Central Exclusiva.</p>
+          </div>
+          <div class="benefit-card" style="border-left-color:#3b82f6">
+            <div class="benefit-icon">🔵</div>
+            <h4>Especial Mais / Vital</h4>
+            <p>Reembolso R$ 330,75 (apto). Check-up anual, Vacinas, Concierge Maternidade, Central Exclusiva e Seguro Viagem Internacional.</p>
+          </div>
+          <div class="benefit-card" style="border-left-color:#f59e0b">
+            <div class="benefit-icon">⭐</div>
+            <h4>Executivo R1/R2/R3</h4>
+            <p>Reembolso de R$ 500 a R$ 880 (apto). Retaguarda Einstein/Sírio, Transplantes adicionais, Check-up, todas as coberturas anteriores.</p>
+          </div>
+          <div class="benefit-card" style="border-left-color:#ec4899">
+            <div class="benefit-icon">💎</div>
+            <h4>Prestige</h4>
+            <p>Reembolso R$ 1.000,00 (apto). Remoção Especial, Motorista Amigo, Fonoaudiologia ilimitada, Escleroterapia ilimitada, Psicomotricidade ilimitada, Retaguarda, Transplantes.</p>
+          </div>
+        </div>
+      </div>
+      <div class="subtab-content" id="subtab-pmemais">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;">
+          <div class="benefit-card" style="border-left-color:var(--gray)">
+            <div class="benefit-icon">🔷</div>
+            <h4>Direto Nacional</h4>
+            <p>Entrada da linha PME Mais. Médico na Tela Especialistas e Pronto Atendimento, Psicólogo na Tela, Lab IN (DF). Vigência 24 meses.</p>
+          </div>
+          <div class="benefit-card" style="border-left-color:#6366f1">
+            <div class="benefit-icon">⬛</div>
+            <h4>Exato Enf / Apto</h4>
+            <p>Todos os benefícios do Direto + Assistência Viagem Nacional. Médico na Tela disponível.</p>
+          </div>
+          <div class="benefit-card">
+            <div class="benefit-icon">🟠</div>
+            <h4>Clássico 100 / Vital Enf</h4>
+            <p>Reembolso enf R$ 110,25. Assistência Viagem Nacional, Lab IN, Médico na Tela e Psicólogo na Tela.</p>
+          </div>
+          <div class="benefit-card" style="border-left-color:#22c55e">
+            <div class="benefit-icon">🟢</div>
+            <h4>Especial 100 / Vital</h4>
+            <p>Reembolso R$ 180,00. Seguro Viagem Internacional, Assistência Viagem Nacional, Central Exclusiva.</p>
+          </div>
+          <div class="benefit-card" style="border-left-color:#3b82f6">
+            <div class="benefit-icon">🔵</div>
+            <h4>Especial Mais / Vital</h4>
+            <p>Reembolso R$ 330,75. Check-up no Hospital Vila Nova Star, Vacinas, Retaguarda (Rede Star + Einstein + Sírio), Concierge Maternidade.</p>
+          </div>
+          <div class="benefit-card" style="border-left-color:#f59e0b">
+            <div class="benefit-icon">⭐</div>
+            <h4>Executivo R1/R2/R3</h4>
+            <p>Reembolso R$ 500 a R$ 880. Check-up opcional, Transplantes adicionais, Retaguarda Einstein+Sírio, Vacinas, Concierge.</p>
+          </div>
+          <div class="benefit-card" style="border-left-color:#ec4899">
+            <div class="benefit-icon">💎</div>
+            <h4>Prestige</h4>
+            <p>Reembolso R$ 1.000,00. Remoção Especial, Motorista Amigo, Escleroterapia e Fonoaudiologia ilimitadas, check-up titulares+dependentes acima 29 anos.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- REEMBOLSO -->
+    <div class="tab-content" id="tab-reembolso">
+      <h3 style="font-family:'Montserrat',sans-serif;font-size:18px;font-weight:700;color:var(--navy);margin-bottom:20px;">Exemplos de Reembolso — AHO (Ambulatorial e Hospitalar com Obstetrícia)</h3>
+      <div style="overflow-x:auto;">
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th class="feature-col">Procedimento</th>
+              <th>Direto* / Exato<br>(Enf)</th>
+              <th>Clássico 100<br>(Enf)</th>
+              <th class="highlight-col">Especial 100 R1<br>(Apto)</th>
+              <th class="highlight-col">Esp. Mais<br>(Apto)</th>
+              <th>Executivo R1<br>(Apto)</th>
+              <th>Executivo R2<br>(Apto)</th>
+              <th>Executivo R3<br>(Apto)</th>
+              <th>Prestige<br>(Apto)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="feature-col">Consulta Eletiva</td><td>—</td><td>R$ 110,25</td><td class="highlight-col">R$ 180,00</td><td class="highlight-col">R$ 330,75</td><td>R$ 500,00</td><td>R$ 660,00</td><td>R$ 880,00</td><td>R$ 1.000,00</td></tr>
+            <tr><td class="feature-col">Consulta PS</td><td>R$ 90,00</td><td>R$ 110,25</td><td class="highlight-col">R$ 180,00</td><td class="highlight-col">R$ 330,75</td><td>R$ 500,00</td><td>R$ 660,00</td><td>R$ 880,00</td><td>R$ 1.000,00</td></tr>
+            <tr><td class="feature-col">Parto Normal</td><td>—</td><td>—</td><td class="highlight-col">R$ 3.313,38</td><td class="highlight-col">R$ 3.313,38</td><td>R$ 13.487,58</td><td>R$ 22.106,49</td><td>R$ 28.681,78</td><td>R$ 51.581,62</td></tr>
+            <tr><td class="feature-col">Parto Cesárea</td><td>—</td><td>—</td><td class="highlight-col">R$ 3.186,49</td><td class="highlight-col">R$ 3.186,49</td><td>R$ 12.980,07</td><td>R$ 21.345,21</td><td>R$ 27.666,76</td><td>R$ 49.678,46</td></tr>
+            <tr><td class="feature-col">Revasc. Miocárdio</td><td>—</td><td>—</td><td class="highlight-col">R$ 8.874,63</td><td class="highlight-col">R$ 8.874,63</td><td>R$ 37.507,60</td><td>R$ 58.301,26</td><td>R$ 77.334,92</td><td>R$ 141.175,21</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="alert-box" style="margin-top:16px;"><strong>* Diretos:</strong> Nacional, Estadual e Regional. Tabela completa disponível no Portal do Corretor (sulamerica.com.br).</div>
+    </div>
+
+    <!-- REGIONAIS -->
+    <div class="tab-content" id="tab-regionais">
+      <h3 style="font-family:'Montserrat',sans-serif;font-size:18px;font-weight:700;color:var(--navy);margin-bottom:20px;">Planos Regionais e Estaduais</h3>
+      <div style="overflow-x:auto;">
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th class="feature-col">Plano</th>
+              <th>Acomodação</th>
+              <th>Estado</th>
+              <th>Reembolso</th>
+              <th class="feature-col" style="text-align:left">Municípios Principais</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="feature-col">Direto Aracaju</td><td>Apto ou Enf</td><td>Sergipe</td><td>PS na área</td><td>Aracaju, N. Sra. do Socorro, São Cristóvão, Lagarto, Itabaiana, Estância e mais 16 municípios</td></tr>
+            <tr><td class="feature-col">Direto Salvador</td><td>Apto ou Enf</td><td>Bahia</td><td>PS na área</td><td>Salvador, Lauro de Freitas, Camaçari, Simões Filho, Dias D'Ávila, Candeias e outros</td></tr>
+            <tr><td class="feature-col">Direto Paraíba</td><td>Apto ou Enf</td><td>Paraíba</td><td>PS na área</td><td>João Pessoa, Campina Grande, Bayeux, Santa Rita, Cabedelo, Bayeux e mais 50+ municípios</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="alert-box" style="margin-top:16px;"><strong>Importante:</strong> Além dos planos acima, a SulAmérica oferece o Plano Referência. Para detalhes completos, acesse o Cotador no Portal do Corretor na área logada. O Direto Nacional (Enf e Apto) é comercializado somente nas carteiras PME Mais e Empresarial para CE e SP INT3.</div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARATIVO INTERATIVO -->
+<section id="comparativo" style="background:var(--white); padding:90px 80px;">
+  <div class="section-label">Comparativo de Planos</div>
+  <div class="section-title">Compare lado a lado</div>
+  <div class="section-sub">Escolha os planos que deseja comparar e exporte o resultado em PDF para apresentar ao cliente.</div>
+
+  <div class="sa-disclaimer">
+    <div class="sa-disclaimer-icon">!</div>
+    <div><strong>Consulta rápida.</strong> Esta tabela é resumida para apoio comercial. Toda informação deve ser validada nos canais oficiais da <strong>SulAmérica</strong> antes de qualquer apresentação ao cliente.</div>
+  </div>
+
+  <div class="cmp-controls">
+    <div class="cmp-label">Selecione os planos para comparar (mínimo 2)</div>
+    <div class="cmp-chips">
+      <div class="cmp-chip active" data-plan="Direto/Exato"     onclick="cmpToggle(this)"><span class="cmp-chip-check"></span>Direto / Exato</div>
+      <div class="cmp-chip active" data-plan="Clássico 100"     onclick="cmpToggle(this)"><span class="cmp-chip-check"></span>Clássico 100 / Vital</div>
+      <div class="cmp-chip"        data-plan="Especial 100"     onclick="cmpToggle(this)"><span class="cmp-chip-check"></span>Especial 100 / Vital</div>
+      <div class="cmp-chip active" data-plan="Especial Mais"    onclick="cmpToggle(this)"><span class="cmp-chip-check"></span>Especial Mais / Vital</div>
+      <div class="cmp-chip"        data-plan="Executivo"        onclick="cmpToggle(this)"><span class="cmp-chip-check"></span>Executivo</div>
+      <div class="cmp-chip active" data-plan="Prestige"         onclick="cmpToggle(this)"><span class="cmp-chip-check"></span>Prestige</div>
+    </div>
+    <div class="cmp-actions">
+      <button class="cmp-action-btn" onclick="cmpPreset('all')">Todos os planos</button>
+      <button class="cmp-action-btn" onclick="cmpPreset('entrada')">Entrada (Direto · Clássico)</button>
+      <button class="cmp-action-btn" onclick="cmpPreset('premium')">Premium (Executivo · Prestige)</button>
+      <button class="cmp-action-btn" onclick="cmpClear()">Limpar</button>
+      <button class="cmp-action-btn export" onclick="exportComparativo()">Exportar PDF</button>
+      <span class="cmp-summary" id="cmp-summary"></span>
+    </div>
+  </div>
+
+  <div id="cmp-result"></div>
+</section>
+
+<!-- REDE CREDENCIADA SP -->
+<section id="rede" style="background:var(--white); padding:90px 80px;">
+  <div class="section-label">Rede Credenciada · SP</div>
+  <div class="section-title">Hospitais SulAmérica — Estado de SP</div>
+  <div class="section-sub">Pesquise hospitais e veja quais planos SulAmérica cada prestador atende. Lâmina oficial, atualização de <b>abril/2026</b>.</div>
+
+  <div class="rede-disclaimer">
+    <div class="rede-disclaimer-icon">!</div>
+    <div><strong>Consulta rápida.</strong> A rede credenciada é dinâmica e pode ser alterada a qualquer momento. Consulte sempre os canais oficiais da <strong>SulAmérica</strong> para a versão atualizada.</div>
+  </div>
+
+  <div class="search-box-wrap">
+    <div class="search-input-row">
+      <input type="text" id="rede-search" class="search-input" placeholder="Buscar por hospital ou cidade (ex: Einstein, Campinas, Albert...)">
+      <select id="rede-plan-filter" class="search-select">
+        <option value="-1">Todos os planos</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="rede-count" id="rede-count"></div>
+  <div class="rede-results-area" id="rede-results"></div>
+  <button class="rede-load-more" id="rede-load-more" style="display:none">Carregar mais resultados</button>
+
+  <div class="sa-disclaimer" style="margin-top:24px;">
+    <div class="sa-disclaimer-icon">!</div>
+    <div>A rede credenciada pode ser alterada a qualquer momento pela SulAmérica conforme normas da ANS. Consulte sempre a versão atualizada junto à SulAmérica ou via Assessoria Maximo 360.</div>
+  </div>
+</section>
+
+<!-- BENEFÍCIOS DIGITAIS -->
+<section id="beneficios" style="background:var(--off-white); padding:90px 80px;">
+  <div class="section-label">Diferenciais Digitais</div>
+  <div class="section-title">Benefícios para o Segurado</div>
+  <div class="section-sub">Recursos tecnológicos que tornam a saúde mais acessível e conveniente, disponíveis no App SulAmérica Saúde.</div>
+  <div class="sa-disclaimer">
+    <div class="sa-disclaimer-icon">!</div>
+    <div><strong>Consulta rápida.</strong> Disponibilidade dos benefícios pode variar por plano e região. Valide sempre nos canais oficiais da <strong>SulAmérica</strong>.</div>
+  </div>
+  <div class="benefits-grid">
+    <div class="benefit-card">
+      <div class="benefit-icon">👨‍⚕️</div>
+      <h4>Médico na Tela — Especialistas</h4>
+      <p>Agende teleconsulta com especialistas da rede referenciada. Receba receita e solicitação de exame via SMS. Disponível pelo App SulAmérica Saúde.</p>
+    </div>
+    <div class="benefit-card">
+      <div class="benefit-icon">🚑</div>
+      <h4>Médico na Tela — Pronto Atendimento</h4>
+      <p>Clínicos gerais e pediatras disponíveis 24h por dia, 7 dias por semana. Fale sobre sintomas simples diretamente pelo celular.</p>
+    </div>
+    <div class="benefit-card">
+      <div class="benefit-icon">🧠</div>
+      <h4>Psicólogo na Tela</h4>
+      <p>Sessões de psicoterapia por vídeo, 24h, todos os dias. Equipe treinada para atendimento online com conforto e acolhimento.</p>
+    </div>
+    <div class="benefit-card">
+      <div class="benefit-icon">🧪</div>
+      <h4>Lab IN</h4>
+      <p>Realização de exames (sangue, urina e fezes) com agendamento rápido pelo App. Coleta no local de escolha do beneficiário.</p>
+    </div>
+    <div class="benefit-card">
+      <div class="benefit-icon">🌍</div>
+      <h4>Seguro Viagem Internacional</h4>
+      <p>Atendimento médico em viagens internacionais. Cobertura exigida pelo Tratado de Schengen, Telemedicina e muito mais (Especial 100+).</p>
+    </div>
+    <div class="benefit-card">
+      <div class="benefit-icon">🚗</div>
+      <h4>Motorista Amigo da Saúde</h4>
+      <p>Motorista para retorno do segurado ao domicílio caso fique impossibilitado de dirigir por recomendação médica (SP e RJ — Prestige).</p>
+    </div>
+    <div class="benefit-card">
+      <div class="benefit-icon">📱</div>
+      <h4>App SulAmérica Saúde</h4>
+      <p>Carteirinha digital offline, consulta à rede, extrato de utilização, status de autorizações, VPP e muito mais no smartphone.</p>
+    </div>
+    <div class="benefit-card">
+      <div class="benefit-icon">💊</div>
+      <h4>SulA Mais — Descontos</h4>
+      <p>Rede com descontos em mais de 25.000 farmácias. Descontos em medicamentos, perfumaria, vacinas e materiais hospitalares.</p>
+    </div>
+    <div class="benefit-card">
+      <div class="benefit-icon">🎯</div>
+      <h4>Central Exclusiva (Especial Mais+)</h4>
+      <p>Atendimento em até 20 segundos. Atendentes nível sênior e bilíngue. Todas as solicitações com o mesmo atendente, sem transbordo.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CARÊNCIA -->
+<section id="carencia" style="background:var(--white); padding:90px 80px;">
+  <div class="section-label">Tabela de Carências</div>
+  <div class="section-title">Prazos de Carência — PME</div>
+  <div class="section-sub">Carências contratuais e reduções para segurados com plano anterior em congêneres.</div>
+  <div class="sa-disclaimer">
+    <div class="sa-disclaimer-icon">!</div>
+    <div><strong>Consulta rápida.</strong> Tabela de carências resumida. Aproveitamento de carência depende de análise individual da SulAmérica — valide nos canais oficiais.</div>
+  </div>
+  <div class="subtab-nav">
+    <button class="subtab-btn active" onclick="switchSubTab2('car-pme', this)">PME (3–29 vidas)</button>
+    <button class="subtab-btn" onclick="switchSubTab2('car-pmemais', this)">PME Mais (30–99 vidas)</button>
+    <button class="subtab-btn" onclick="switchSubTab2('car-odonto', this)">Odonto PME</button>
+    <button class="subtab-btn" onclick="switchSubTab2('car-360', this)">Cuidado 360°</button>
+  </div>
+
+  <div class="subtab-content active" id="subtab-car-pme">
+    <table class="carencia-table">
+      <thead><tr><th>Grupo</th><th>Procedimentos</th><th>Carência Contratual</th><th>Congênere 3–12m</th><th>Congênere +12m</th><th>Sul América</th></tr></thead>
+      <tbody>
+        <tr><td><span class="grupo-badge">0</span></td><td>Urgência e Emergência</td><td class="prazo">24h</td><td class="prazo">24h</td><td class="prazo">24h</td><td class="prazo">24h</td></tr>
+        <tr><td><span class="grupo-badge">1</span></td><td>Consultas, exames laboratoriais, raio-x simples, ultrassom s/ Doppler, cirurgias ambulatoriais s/ anestesia, acupuntura</td><td class="prazo">15 dias</td><td class="prazo">24h</td><td class="prazo">24h</td><td rowspan="5" style="vertical-align:middle;text-align:center;font-size:13px;color:var(--navy);"><strong>Aproveitamento dos prazos já cumpridos.</strong><br><br>Para isentos no plano anterior, o tempo de vigência é considerado como carência cumprida.</td></tr>
+        <tr><td><span class="grupo-badge">2</span></td><td>Internações, cirurgias, ressonância, tomografia, cateterismo, quimio/radioterapia, endoscopia, laparoscopia e demais</td><td class="prazo">180 dias</td><td class="prazo">60 dias</td><td class="prazo">24h</td></tr>
+        <tr><td><span class="grupo-badge">3</span></td><td>Parto a termo</td><td class="prazo">300 dias</td><td class="prazo">300 dias</td><td class="prazo">300 dias</td></tr>
+        <tr><td><span class="grupo-badge">4</span></td><td>Transplantes de órgãos/tecidos e procedimentos com OPME/DMI</td><td class="prazo">180 dias</td><td class="prazo">180 dias</td><td class="prazo">180 dias</td></tr>
+        <tr><td><span class="grupo-badge">5</span></td><td>Internações psiquiátricas, incluindo hospital dia</td><td class="prazo">180 dias</td><td class="prazo">180 dias</td><td class="prazo">120 dias</td></tr>
+        <tr><td><span class="grupo-badge">6</span></td><td>Fisioterapia, psicologia, fonoaudiologia, terapia ocupacional e nutrição</td><td class="prazo">180 dias</td><td class="prazo">180 dias</td><td class="prazo">180 dias</td><td class="prazo">180 dias</td></tr>
+      </tbody>
+    </table>
+    <div class="alert-box"><strong>Isenção de carência</strong> para grupos acima de 10 vidas (exceto parto, terapias não médicas e CPT). Redução de carência válida a partir de 3 ou 5 vidas conforme tabela de congêneres. Proposta deve ser transmitida em até 60 dias do vencimento da última fatura do plano anterior.</div>
+  </div>
+
+  <div class="subtab-content" id="subtab-car-pmemais">
+    <div class="alert-box" style="margin-bottom:20px;"><strong>PME Mais:</strong> Carências são isentas na implantação. Aplicam-se apenas às inclusões que ocorrem fora dos prazos estabelecidos em contrato.</div>
+    <table class="carencia-table">
+      <thead><tr><th>Grupo</th><th>Procedimentos</th><th>Carência (inclusões fora do prazo)</th></tr></thead>
+      <tbody>
+        <tr><td><span class="grupo-badge">0</span></td><td>Urgência e Emergência</td><td class="prazo">24h</td></tr>
+        <tr><td><span class="grupo-badge">1</span></td><td>Consultas médicas, cirurgias ambulatoriais porte 0, exames auxiliares externos, fonoaudiologia, psicomotricidade</td><td class="prazo">15 dias</td></tr>
+        <tr><td><span class="grupo-badge">2</span></td><td>Internações, ressonância, tomografia, medicina nuclear, ecocardiografia, endoscopia, fisioterapia, quimio/radioterapia, check-up e demais</td><td class="prazo">180 dias</td></tr>
+        <tr><td><span class="grupo-badge">3</span></td><td>Parto a termo</td><td class="prazo">300 dias</td></tr>
+        <tr><td><span class="grupo-badge">4</span></td><td>Transplantes, implantes, próteses e órteses ligadas ao ato cirúrgico</td><td class="prazo">180 dias</td></tr>
+        <tr><td><span class="grupo-badge">5</span></td><td>Internações psiquiátricas, diálise, cirurgias de refração, acupuntura, psicoterapia, obesidade mórbida</td><td class="prazo">180 dias</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="subtab-content" id="subtab-car-odonto">
+    <div class="alert-box" style="margin-bottom:20px;"><strong>Novas carências Odonto PME (produto 430):</strong> Aplicáveis a novos contratos a partir de 24/04/2025.</div>
+    <table class="carencia-table">
+      <thead><tr><th>Serviço</th><th>MAIS</th><th>MAIS DOC</th><th>MAIS CLAREAR</th><th>MAIS ORTO</th><th>MAIS PRO</th><th>MAIS AMPLO</th></tr></thead>
+      <tbody>
+        <tr><td>Urgência</td><td class="prazo">24h</td><td class="prazo">24h</td><td class="prazo">24h</td><td class="prazo">24h</td><td class="prazo">24h</td><td class="prazo">24h</td></tr>
+        <tr><td>Consulta, Radiologia, Prevenção, Diagnóstico</td><td class="prazo">24h</td><td class="prazo">24h</td><td class="prazo">24h</td><td class="prazo">24h</td><td class="prazo">24h</td><td class="prazo">24h</td></tr>
+        <tr><td>Dentística</td><td class="prazo">24h</td><td class="prazo">24h</td><td class="prazo">24h</td><td class="prazo">24h</td><td class="prazo">24h</td><td class="prazo">24h</td></tr>
+        <tr><td>Periodontia</td><td class="prazo">24h</td><td class="prazo">24h</td><td class="prazo">24h</td><td class="prazo">24h</td><td class="prazo">24h</td><td class="prazo">24h</td></tr>
+        <tr><td>Endodontia / Cirurgia</td><td class="prazo">24h</td><td class="prazo">24h</td><td class="prazo">24h</td><td class="prazo">24h</td><td class="prazo">24h</td><td class="prazo">24h</td></tr>
+        <tr><td>DTM</td><td class="prazo">180 dias</td><td class="prazo">180 dias</td><td class="prazo">180 dias</td><td class="prazo">180 dias</td><td class="prazo">180 dias</td><td class="prazo">180 dias</td></tr>
+        <tr><td>Prótese</td><td class="prazo">180d ROL</td><td class="prazo">180d ROL</td><td class="prazo">24h ROL</td><td class="prazo">24h ROL</td><td class="prazo">24h ROL / 180d Extra</td><td class="prazo">24h ROL / 180d Extra</td></tr>
+        <tr><td>Ortodontia</td><td>—</td><td>—</td><td>—</td><td class="prazo">90 dias</td><td>—</td><td class="prazo">90 dias</td></tr>
+        <tr><td>DOC Ortodôntica</td><td>—</td><td class="prazo">90 dias</td><td>—</td><td class="prazo">90 dias</td><td>—</td><td class="prazo">90 dias</td></tr>
+        <tr><td>Clareamento convencional</td><td>—</td><td>—</td><td class="prazo">90 dias</td><td>—</td><td>—</td><td class="prazo">90 dias</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="subtab-content" id="subtab-car-360">
+    <div class="c360-card">
+      <div class="c360-content">
+        <h3>🎯 Cuidado 360° — Odonto + Vida sem custo</h3>
+        <p>Ao optar pela contratação Cuidado 360°, os prêmios dos planos Odonto e Vida são subsidiados integralmente durante a vigência inicial do plano de saúde (12 ou 24 meses), limitado a 24 meses.</p>
+        <p>O benefício pode ser prorrogado a critério da SulAmérica no aniversário da apólice.</p>
+        <div class="carencia-360">
+          <h5>Carências Odonto Mais (Cuidado 360°)</h5>
+          <div class="carencia-row"><span>Grupo 0 — Urgências</span><span>24 horas</span></div>
+          <div class="carencia-row"><span>Grupo 1 — Diagnóstico, Radiologia, Odontopediatria, Prevenção</span><span>30 dias</span></div>
+          <div class="carencia-row"><span>Grupo 2 — Periodontia e Dentística</span><span>90 dias</span></div>
+          <div class="carencia-row"><span>Grupo 3 — Endodontia, Cirurgia, Próteses ROL ANS, DTM</span><span>180 dias</span></div>
+        </div>
+      </div>
+      <div class="c360-included">
+        <h4>O que está incluído:</h4>
+        <div class="c360-item"><span class="c360-check">✅</span><p><strong>Plano Odonto Mais (sem copart)</strong> — mesmas condições do prateleira, sem possibilidade de upgrade</p></div>
+        <div class="c360-item"><span class="c360-check">✅</span><p><strong>Seguro Vida</strong> — condições pré-estabelecidas conforme plano de saúde contratado</p></div>
+        <div class="c360-item"><span class="c360-check">✅</span><p>Implantação Odonto e Vida em até <strong>7 dias úteis</strong> após implantação no saúde</p></div>
+        <div class="c360-item"><span class="c360-check">✅</span><p>Certificado do seguro de vida liberado em até <strong>30 dias</strong> da vigência</p></div>
+        <div class="c360-item"><span class="c360-check">⚠️</span><p>Cancelamento de qualquer apólice acarreta descontinuidade automática do Cuidado 360°</p></div>
+        <div class="c360-item"><span class="c360-check">✅</span><p>Regra Flex mantém isenção de 100% da massa na contratação do saúde</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REGRAS COMERCIAIS -->
+<section id="regras" class="rules-section" style="padding:90px 80px;">
+  <div class="section-label">Regras Comerciais</div>
+  <div class="section-title">Como Contratar</div>
+  <div class="section-sub">Condições e critérios de contratação para PME (3–29 vidas) e PME Mais (30–99 vidas).</div>
+
+  <div class="sa-disclaimer">
+    <div class="sa-disclaimer-icon">!</div>
+    <div><strong>Consulta rápida.</strong> As regras descritas servem como referência para o corretor. Toda contratação deve ser confirmada com o gestor comercial e validada nos canais oficiais da <strong>SulAmérica</strong>.</div>
+  </div>
+
+  <div class="rules-grid">
+    <div class="rule-card">
+      <div class="rule-header"><div class="rule-header-icon">🏢</div><h3>Regra Compulsória — PME</h3></div>
+      <div class="rule-body">
+        <div class="rule-item"><div class="rule-dot"></div><p>Adesão para <strong>100%</strong> de uma ou mais categorias</p></div>
+        <div class="rule-item"><div class="rule-dot"></div><p>Contrato Social: <strong>Sócios, Administradores e Diretores</strong></p></div>
+        <div class="rule-item"><div class="rule-dot"></div><p>FGTS: <strong>Empregados CLT</strong>, incluindo aprendizes, estagiários, expatriados, demitidos e aposentados</p></div>
+        <div class="rule-item"><div class="rule-dot"></div><p>Empresas de <strong>3 a 29 vidas</strong>; mínimo de 1 titular</p></div>
+        <div class="rule-item"><div class="rule-dot"></div><p>Envio obrigatório do <strong>CPF</strong> de todos os beneficiários, incluindo menores de 18 anos</p></div>
+      </div>
+    </div>
+    <div class="rule-card">
+      <div class="rule-header"><div class="rule-header-icon">🎯</div><h3>Regra CBO — PME</h3></div>
+      <div class="rule-body">
+        <div class="rule-item"><div class="rule-dot"></div><p>Contratação exclusiva para <strong>100% de uma ou mais categorias</strong>:</p></div>
+        <div class="rule-item"><div class="rule-dot"></div><p>📌 <strong>Diretores, Superintendentes, Gerentes, Supervisores, Coordenadores</strong></p></div>
+        <div class="rule-item"><div class="rule-dot"></div><p>Análise conforme código principal (família) da CBO relacionado no <strong>FGTS e CTPS</strong></p></div>
+        <div class="rule-item"><div class="rule-dot"></div><p>Comprovação exclusiva por <strong>FGTS + CTPS</strong> de todos os elegíveis</p></div>
+        <div class="rule-item"><div class="rule-dot"></div><p>Obrigatória contratação de <strong>100% das categorias</strong> escolhidas</p></div>
+      </div>
+    </div>
+    <div class="rule-card">
+      <div class="rule-header"><div class="rule-header-icon">🏭</div><h3>PME Mais — Condições</h3></div>
+      <div class="rule-body">
+        <div class="rule-item"><div class="rule-dot"></div><p>Empresas de <strong>30 a 99 vidas</strong></p></div>
+        <div class="rule-item"><div class="rule-dot"></div><p>Modalidades: FGTS (100% das vidas), <strong>Categoria Funcional/CBO</strong> e Regra Flex</p></div>
+        <div class="rule-item"><div class="rule-dot"></div><p>Vigência da apólice: <strong>24 meses</strong></p></div>
+        <div class="rule-item"><div class="rule-dot"></div><p>Início: empresa escolhe dia <strong>1, 10 ou 20</strong></p></div>
+        <div class="rule-item"><div class="rule-dot"></div><p><strong>Carência isenta</strong> na implantação (exceto inclusões fora do prazo)</p></div>
+        <div class="rule-item"><div class="rule-dot"></div><p>Documentação entregue com <strong>15 dias úteis</strong> de antecedência</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- REGRA FLEX -->
+  <div class="flex-banner">
+    <div class="flex-icon">⚡</div>
+    <div class="flex-content">
+      <h3>Regra Flex — Saúde + Odonto</h3>
+      <p>Ao vender para a mesma empresa o <strong>Saúde PME + Odonto PME</strong>, regras flexíveis se aplicam para o plano de saúde. Para empresas de 3 a 199 vidas no FGTS:</p>
+      <p>✅ <strong>Sem exigência de 100% da empresa</strong> no saúde &nbsp; | &nbsp; ✅ Os grupos de cada produto podem ser <strong>diferentes</strong> &nbsp; | &nbsp; ✅ Vendas válidas para o mesmo CNPJ</p>
+      <div class="flex-tags">
+        <span class="flex-tag">PME: 3–29 vidas</span>
+        <span class="flex-tag">PME Mais: 30–99 vidas</span>
+        <span class="flex-tag">Cotação exclusiva pelo Cotador SulAmérica</span>
+        <span class="flex-tag">Demais critérios inalterados</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- DOCUMENTAÇÃO -->
+  <div style="margin-top:48px;">
+    <h3 style="font-family:'Montserrat',sans-serif;font-size:20px;font-weight:700;color:var(--navy);margin-bottom:24px;">📋 Documentação Necessária</h3>
+    <div class="doc-grid">
+      <div class="doc-card">
+        <div class="doc-card-header">🏢 Para Empresas (todas)</div>
+        <ul class="doc-list">
+          <li>Proposta de Seguro Saúde PME (emitida pelo Cotador)</li>
+          <li>Cotação emitida pelo Cotador</li>
+          <li>Cópia de documento com data de nascimento (RG+CPF ou CNH) de todos os segurados</li>
+          <li>Cópia do Contrato Social registrado em órgão competente</li>
+          <li>Certidão de casamento (quando houver cônjuge) e nascimento</li>
+          <li>Comprovante de endereço da empresa (conta de água, luz, internet, telefone — validade 90 dias)</li>
+        </ul>
+      </div>
+      <div class="doc-card">
+        <div class="doc-card-header">👤 Exclusivamente para MEI</div>
+        <ul class="doc-list">
+          <li>Proposta de Seguro Saúde PME (emitida pelo cotador)</li>
+          <li>Cadastro de Matrícula MEI com número da matrícula</li>
+          <li>Declaração de Autenticidade (emitida pelo cotador)</li>
+          <li>Comprovante de residência do(s) titular(es) — 90 dias</li>
+          <li>MEI: aceitação somente após 6 meses de constituição da empresa</li>
+        </ul>
+      </div>
+      <div class="doc-card">
+        <div class="doc-card-header">👨‍👩‍👧 Dependentes</div>
+        <ul class="doc-list">
+          <li>Cônjuge/Companheiro(a): Declaração Conjunta de União Estável (SulAmérica) assinada com reconhecimento de firma, OU certidão de filhos em comum, OU comprovante de dependente no IR</li>
+          <li>Filhos naturais: Certidão de Nascimento ou RG</li>
+          <li>Filhos adotivos: Termo de guarda/tutela + Certidão de Nascimento</li>
+          <li>Enteados: Certidão de Nascimento + termo declaratório do titular</li>
+          <li>Netos: Certidão de Nascimento comprovando vínculo</li>
+        </ul>
+      </div>
+      <div class="doc-card">
+        <div class="doc-card-header">👷 Empregados — PME</div>
+        <ul class="doc-list">
+          <li>Relação do FGTS completa do mês anterior ao início de vigência</li>
+          <li>Recém-admitidos não no FGTS: cópia do eSocial</li>
+          <li>Excepcionalmente (não ativo no eSocial): CTPS com foto, número, série, página do registro e assinatura</li>
+          <li>Declaração de Saúde (emitida pelo Cotador) assinada por cada proponente titular e pela empresa</li>
+        </ul>
+      </div>
+    </div>
+    <div class="alert-box"><strong>⚠️ IMPORTANTE:</strong> A documentação apresentada é objeto de rigorosa análise pela SulAmérica. A ausência ou divergência de informações poderá incorrer em atrasos na conclusão do processo. Prazos para implantação: análise em até 10 dias úteis da transmissão da proposta. Boletos com vencimento para 65 dias da aceitação.</div>
+  </div>
+</section>
+
+<!-- ODONTO -->
+<section id="odonto" style="background:var(--off-white); padding:90px 80px;">
+  <div class="section-label">Odonto PME</div>
+  <div class="section-title">Planos Odontológicos</div>
+  <div class="section-sub">Rede nacional qualificada, reembolso no Brasil e exterior. Planos para 3 a 29 vidas (PME) e 30 a 99 vidas (PME Mais).</div>
+
+  <div class="sa-disclaimer">
+    <div class="sa-disclaimer-icon">!</div>
+    <div><strong>Consulta rápida.</strong> Valores e coberturas dental são referenciais. Confirme sempre nos canais oficiais da <strong>SulAmérica</strong> antes da apresentação ao cliente.</div>
+  </div>
+
+  <div class="odonto-plans">
+    <div class="odonto-card">
+      <h4>MAIS</h4>
+      <div class="odonto-coverage">Rol Ampliado: cobertura básica completa com urgência (24h), consultas, radiologia, periodontia, dentística, cirurgia, endodontia.</div>
+      <div class="odonto-reimb">📊 Múltiplo Reembolso: 1x</div>
+    </div>
+    <div class="odonto-card">
+      <h4>MAIS DOC</h4>
+      <div class="odonto-coverage">Rol Ampliado + Documentação Ortodôntica. Ideal para quem deseja iniciar tratamento ortodôntico com cobertura dos documentos iniciais.</div>
+      <div class="odonto-reimb">📊 Múltiplo Reembolso: 1x</div>
+    </div>
+    <div class="odonto-card">
+      <h4>MAIS CLAREAR</h4>
+      <div class="odonto-coverage">Rol Ampliado + Clareamento Dentário Caseiro (Gel e Moldeira). Perfeito para estética dental com clareamento incluído.</div>
+      <div class="odonto-reimb">📊 Múltiplo Reembolso: 1x</div>
+    </div>
+    <div class="odonto-card featured">
+      <div class="odonto-badge">⭐ Mais Indicado</div>
+      <h4>MAIS ORTO</h4>
+      <div class="odonto-coverage">Rol Ampliado + Ortodontia. Cobertura completa para tratamentos ortodônticos, incluindo aparelhos e documentação.</div>
+      <div class="odonto-reimb">📊 Múltiplo Reembolso: 1x</div>
+    </div>
+    <div class="odonto-card">
+      <h4>MAIS PRO</h4>
+      <div class="odonto-coverage">Rol Ampliado + Prótese. Cobertura essencial para reabilitação oral com próteses do Rol ANS.</div>
+      <div class="odonto-reimb">📊 Múltiplo Reembolso: 1x</div>
+    </div>
+    <div class="odonto-card featured" style="border-color:var(--navy)">
+      <div class="odonto-badge" style="background:var(--navy)">💎 Top</div>
+      <h4>MAIS AMPLO</h4>
+      <div class="odonto-coverage">Rol Ampliado + Ortodontia + Prótese. Máxima cobertura odontológica com reembolso triplo. Inclui clareamento convencional (90 dias de carência).</div>
+      <div class="odonto-reimb">📊 Múltiplo Reembolso: 3x</div>
+    </div>
+  </div>
+
+  <!-- PME Mais tem PREMIUM extra -->
+  <div class="alert-box" style="margin-top:24px;">
+    <strong>🏆 Odonto PME Mais — Plano PREMIUM (exclusivo 30–99 vidas):</strong> Rol Ampliado + Ortodontia + Prótese + <strong>Implante Dentário</strong>. Múltiplo Reembolso: 3x. Acesso ao Day Clinic Odontológico e Concierge (exclusivos São Paulo/SP).
+  </div>
+
+  <div style="margin-top:48px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;">
+    <div class="benefit-card">
+      <div class="benefit-icon">🌐</div>
+      <h4>Rede Referenciada Nacional</h4>
+      <p>Profissionais qualificados em todo o Brasil. Especialistas para pacientes com necessidades especiais, DTM e Estomatologia.</p>
+    </div>
+    <div class="benefit-card">
+      <div class="benefit-icon">💰</div>
+      <h4>Reembolso Brasil e Exterior</h4>
+      <p>Reembolso pela Tabela de Reembolso SulAmérica Odonto (TRSO) em todo o território nacional e exterior. Múltiplo variando de 1x a 3x.</p>
+    </div>
+    <div class="benefit-card">
+      <div class="benefit-icon">📱</div>
+      <h4>App SulAmérica Odonto</h4>
+      <p>Carteirinha digital, rede por geolocalização, notificações, status de reembolso, dados do plano e medicamentos com desconto.</p>
+    </div>
+  </div>
+</section>
+
+<!-- QUEM PODE -->
+<section style="background:var(--white);padding:90px 80px;">
+  <div class="section-label">Elegibilidade</div>
+  <div class="section-title">Quem pode fazer parte</div>
+  <div style="overflow-x:auto;margin-top:30px;">
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th class="feature-col">Categoria</th>
+          <th style="text-align:left">Critérios Principais</th>
+          <th>PME (3–29)</th>
+          <th>PME Mais (30–99)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="feature-col">Sócios</td><td style="text-align:left;font-size:13px;">Mín. 6 meses no Contrato Social (exceto empresas recém-constituídas e vínculo familiar)</td><td><span class="check">✔</span></td><td><span class="check">✔</span></td></tr>
+        <tr><td class="feature-col">Administradores e Diretores</td><td style="text-align:left;font-size:13px;">Nomeados no Contrato Social por mín. 6 meses</td><td><span class="check">✔</span></td><td><span class="check">✔</span></td></tr>
+        <tr><td class="feature-col">Empregados CLT</td><td style="text-align:left;font-size:13px;">Comprovar vínculo empregatício (FGTS)</td><td><span class="check">✔</span></td><td><span class="check">✔</span></td></tr>
+        <tr><td class="feature-col">Aprendizes</td><td style="text-align:left;font-size:13px;">14 a 24 anos — Contrato de aprendiz ou FGTS</td><td><span class="check">✔</span></td><td><span class="check">✔</span></td></tr>
+        <tr><td class="feature-col">Estagiários</td><td style="text-align:left;font-size:13px;">Sem limite de idade (PME) / máx. 30 anos (PME Mais)</td><td><span class="check">✔</span></td><td><span class="check">✔</span></td></tr>
+        <tr><td class="feature-col">Expatriados/Estrangeiros</td><td style="text-align:left;font-size:13px;">Passaporte, visto e carta da empresa</td><td><span class="check">✔</span></td><td><span class="check">✔</span></td></tr>
+        <tr><td class="feature-col">Demitidos e Aposentados</td><td style="text-align:left;font-size:13px;">Somente com extensão de benefício legal pela empresa</td><td><span class="check">✔</span></td><td><span class="check">✔</span></td></tr>
+        <tr><td class="feature-col">Dependentes (cônjuge, filhos/enteados até 44a11m29d, netos até 17a11m29d)</td><td style="text-align:left;font-size:13px;">100% dos dependentes. Plano igual ao titular</td><td><span class="check">✔</span></td><td><span class="check">✔</span></td></tr>
+        <tr><td class="feature-col">Agregados (pai, mãe, irmãos, genro/nora)</td><td style="text-align:left;font-size:13px;">Até 64a11m29d, plano anterior, sem DS positiva, grupos acima de 5 vidas (PME)</td><td><span class="check">✔</span></td><td><span class="optional">Consultar GV</span></td></tr>
+        <tr><td class="feature-col">Prestadores de Serviços</td><td style="text-align:left;font-size:13px;">Não aceitos conforme ANS RN 557</td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="alert-box" style="margin-top:20px;"><strong>CPT — Cobertura Parcial Temporária:</strong> Suspensão de cobertura por até 24 meses para doenças ou lesões preexistentes declaradas na Declaração de Saúde, exclusivamente para eventos cirúrgicos, leitos de alta tecnologia e PAC (Procedimentos de Alta Complexidade) conforme Rol ANS.</div>
+</section>
+
+<!-- CONTATO -->
+<section id="contato" style="background:var(--white); padding:90px 80px 60px;">
+  <div class="section-label">Contatos · Maximo 360</div>
+  <div class="section-title">Fale com a Assessoria</div>
+  <div class="section-sub">Sua equipe de apoio para cotações, propostas, suporte operacional e dúvidas comerciais SulAmérica PME.</div>
+
+  <div class="sa-disclaimer">
+    <div class="sa-disclaimer-icon">!</div>
+    <div><strong>Consulta rápida.</strong> Os contatos abaixo são da Assessoria Maximo 360. Para questões oficiais e cotações finais, valide sempre nos canais da <strong>SulAmérica</strong>.</div>
+  </div>
+
+  <div class="contact-cards-grid">
+    <div class="contact-card">
+      <div class="contact-card-tag">Comercial</div>
+      <h3 class="contact-card-name">Andreia Miranda</h3>
+      <p class="contact-card-role">Gestora de Negócios — Maximo 360</p>
+      <div class="contact-card-rows">
+        <a href="mailto:andreia.miranda@maximo360.com.br" class="contact-card-row">
+          <div class="ccr-label">E-mail</div>
+          <div class="ccr-val">andreia.miranda@maximo360.com.br</div>
+        </a>
+        <a href="tel:+5511991496012" class="contact-card-row">
+          <div class="ccr-label">Telefone</div>
+          <div class="ccr-val">(11) 9 9149-6012</div>
+        </a>
+        <a href="https://wa.me/5511991496012" target="_blank" rel="noopener" class="contact-card-row contact-card-row-wa">
+          <div class="ccr-label">WhatsApp</div>
+          <div class="ccr-val">(11) 9 9149-6012</div>
+        </a>
+      </div>
+    </div>
+
+    <div class="contact-card">
+      <div class="contact-card-tag">Suporte Operacional</div>
+      <h3 class="contact-card-name">Equipe de Benefícios</h3>
+      <p class="contact-card-role">Atendimento de Pós-Venda — Maximo 360</p>
+      <div class="contact-card-rows">
+        <a href="mailto:beneficios@maximo360.com.br" class="contact-card-row">
+          <div class="ccr-label">E-mail</div>
+          <div class="ccr-val">beneficios@maximo360.com.br</div>
+        </a>
+        <a href="tel:+551149927099" class="contact-card-row">
+          <div class="ccr-label">Telefone</div>
+          <div class="ccr-val">(11) 4992-7099</div>
+        </a>
+        <a href="https://wa.me/5511966082950" target="_blank" rel="noopener" class="contact-card-row contact-card-row-wa">
+          <div class="ccr-label">WhatsApp</div>
+          <div class="ccr-val">(11) 9 6608-2950</div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<div class="contact-section" style="grid-template-columns:1.4fr 1fr 1fr;">
+  <div class="contact-col">
+    <div class="footer-brand-block">
+      <div class="footer-maximo">Maximo <span>360</span></div>
+      <p style="margin-top:10px;">Assessoria especializada em saúde corporativa. Seu parceiro completo para soluções SulAmérica PME.</p>
+    </div>
+  </div>
+  <div class="contact-col">
+    <h4>Atendimento Maximo 360</h4>
+    <p>
+      <strong style="color:var(--white);display:block;margin-bottom:4px">Comercial — Andreia Miranda</strong>
+      <a href="tel:+5511991496012" style="color:rgba(255,255,255,0.65);text-decoration:none">(11) 9 9149-6012</a><br>
+      <a href="mailto:andreia.miranda@maximo360.com.br" style="color:rgba(255,255,255,0.65);text-decoration:none">andreia.miranda@maximo360.com.br</a>
+      <br><br>
+      <strong style="color:var(--white);display:block;margin-bottom:4px">Suporte Operacional</strong>
+      <a href="tel:+551149927099" style="color:rgba(255,255,255,0.65);text-decoration:none">(11) 4992-7099</a><br>
+      <a href="mailto:beneficios@maximo360.com.br" style="color:rgba(255,255,255,0.65);text-decoration:none">beneficios@maximo360.com.br</a>
+    </p>
+  </div>
+  <div class="contact-col">
+    <h4>Links Úteis</h4>
+    <a href="https://sulamerica.com.br" target="_blank" rel="noopener" class="contact-link">sulamerica.com.br</a>
+    <a href="https://portal.sulamericaseguros.com.br" target="_blank" rel="noopener" class="contact-link">Portal do Corretor</a>
+    <p style="margin-top:16px;font-size:11px;color:rgba(255,255,255,0.4)">Versão: <strong style="color:var(--orange)">Abril 2026 V2</strong><br>Material para uso exclusivo do corretor</p>
+  </div>
+</div>
+<footer>
+  <p>© 2026 <span>Maximo 360</span> &nbsp;·&nbsp; Assessoria de Seguros &nbsp;—&nbsp; Material de Apoio ao Corretor</p>
+  <p>Comercial: <span>(11) 9 9149-6012</span> &nbsp;|&nbsp; Suporte: <span>(11) 4992-7099</span></p>
+</footer>
+
+<button class="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+  function navScroll(e, id) {
+    if (e && e.preventDefault) e.preventDefault();
+    const el = document.getElementById(id);
+    if (el) {
+      const top = el.getBoundingClientRect().top + window.scrollY - 74;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+  }
+
+  function goToPlanos() {
+    const el = document.getElementById('planos');
+    if (el) {
+      const top = el.getBoundingClientRect().top + window.scrollY - 74;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+  }
+
+  function goToComparativo() {
+    const el = document.getElementById('comparativo');
+    if (el) {
+      const top = el.getBoundingClientRect().top + window.scrollY - 74;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+  }
+
+  function goToRegras() {
+    const el = document.getElementById('regras');
+    if (el) {
+      const top = el.getBoundingClientRect().top + window.scrollY - 74;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+  }
+
+  function switchTab(id) {
+    document.querySelectorAll('.tab-btn').forEach((b,i) => {
+      const ids = ['overview','reembolso','regionais'];
+      b.classList.toggle('active', ids[i] === id);
+    });
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    document.getElementById('tab-'+id).classList.add('active');
+  }
+
+  function switchSubTab(id, el) {
+    document.querySelectorAll('#subtab-pme, #subtab-pmemais').forEach(c => c.classList.remove('active'));
+    document.getElementById('subtab-'+id).classList.add('active');
+    if (el) {
+      el.closest('.subtab-nav').querySelectorAll('.subtab-btn').forEach(b => b.classList.remove('active'));
+      el.classList.add('active');
+    }
+  }
+
+  function switchSubTab2(id, el) {
+    document.querySelectorAll('#subtab-car-pme, #subtab-car-pmemais, #subtab-car-odonto, #subtab-car-360').forEach(c => c.classList.remove('active'));
+    document.getElementById('subtab-'+id).classList.add('active');
+    if (el) {
+      el.closest('.subtab-nav').querySelectorAll('.subtab-btn').forEach(b => b.classList.remove('active'));
+      el.classList.add('active');
+    }
+  }
+
+  // ─── COMPARATIVO INTERATIVO ───
+  const CMP_DATA = {
+    'Direto/Exato':      { 'Acomodação': 'Enf./Apto', 'Cobertura': 'AHO', 'Reembolso eletivo': '—', 'Reembolso PS': 'Sim (área)', 'Médico na Tela Esp.': '✔', 'Médico na Tela PA': '✔', 'Psicólogo na Tela': '✔', 'Lab IN': 'DF apenas', 'Assistência Viagem Nacional': 'Apenas Exato', 'Seguro Viagem Internacional': '—', 'Central Exclusiva 24h': '—', 'Vacinas (calendário)': '—', 'Concierge Maternidade': '—', 'Conciergeria': '—', 'Retaguarda Einstein/Sírio': '—', 'Transplantes adicionais': '—', 'Remoção Especial': '—', 'Motorista Amigo': '—', 'Escleroterapia s/ limite': '—', 'Cirurgia Refrativa s/ limite': '—', 'Check-up anual isento': '—' },
+    'Clássico 100':      { 'Acomodação': 'Enfermaria', 'Cobertura': 'AHO', 'Reembolso eletivo': 'R$ 110,25', 'Reembolso PS': 'R$ 110,25', 'Médico na Tela Esp.': '✔', 'Médico na Tela PA': '✔', 'Psicólogo na Tela': '✔', 'Lab IN': '✔', 'Assistência Viagem Nacional': '✔', 'Seguro Viagem Internacional': '—', 'Central Exclusiva 24h': '—', 'Vacinas (calendário)': '—', 'Concierge Maternidade': '—', 'Conciergeria': '—', 'Retaguarda Einstein/Sírio': '—', 'Transplantes adicionais': '—', 'Remoção Especial': '—', 'Motorista Amigo': '—', 'Escleroterapia s/ limite': '—', 'Cirurgia Refrativa s/ limite': '—', 'Check-up anual isento': '—' },
+    'Especial 100':      { 'Acomodação': 'Apartamento', 'Cobertura': 'AHO', 'Reembolso eletivo': 'R$ 180,00', 'Reembolso PS': 'R$ 180,00', 'Médico na Tela Esp.': '✔', 'Médico na Tela PA': '✔', 'Psicólogo na Tela': '✔', 'Lab IN': '✔', 'Assistência Viagem Nacional': '✔', 'Seguro Viagem Internacional': '✔', 'Central Exclusiva 24h': '✔', 'Vacinas (calendário)': '—', 'Concierge Maternidade': '—', 'Conciergeria': '—', 'Retaguarda Einstein/Sírio': '—', 'Transplantes adicionais': '—', 'Remoção Especial': '—', 'Motorista Amigo': '—', 'Escleroterapia s/ limite': '—', 'Cirurgia Refrativa s/ limite': '—', 'Check-up anual isento': '—' },
+    'Especial Mais':     { 'Acomodação': 'Apartamento', 'Cobertura': 'AHO', 'Reembolso eletivo': 'R$ 330,75', 'Reembolso PS': 'R$ 330,75', 'Médico na Tela Esp.': '✔', 'Médico na Tela PA': '✔', 'Psicólogo na Tela': '✔', 'Lab IN': '✔', 'Assistência Viagem Nacional': '✔', 'Seguro Viagem Internacional': '✔', 'Central Exclusiva 24h': '✔', 'Vacinas (calendário)': '✔', 'Concierge Maternidade': '✔ (SP)', 'Conciergeria': '—', 'Retaguarda Einstein/Sírio': '—', 'Transplantes adicionais': '—', 'Remoção Especial': '—', 'Motorista Amigo': '—', 'Escleroterapia s/ limite': '—', 'Cirurgia Refrativa s/ limite': '—', 'Check-up anual isento': '✔' },
+    'Executivo':         { 'Acomodação': 'Apartamento', 'Cobertura': 'AHO', 'Reembolso eletivo': 'R$ 500,00', 'Reembolso PS': 'R$ 500,00', 'Médico na Tela Esp.': '✔', 'Médico na Tela PA': '✔', 'Psicólogo na Tela': '✔', 'Lab IN': '✔', 'Assistência Viagem Nacional': '✔', 'Seguro Viagem Internacional': '✔', 'Central Exclusiva 24h': '✔', 'Vacinas (calendário)': '✔', 'Concierge Maternidade': '✔', 'Conciergeria': '—', 'Retaguarda Einstein/Sírio': '✔', 'Transplantes adicionais': '—', 'Remoção Especial': '—', 'Motorista Amigo': '—', 'Escleroterapia s/ limite': '—', 'Cirurgia Refrativa s/ limite': '—', 'Check-up anual isento': 'Opcional' },
+    'Prestige':          { 'Acomodação': 'Apartamento', 'Cobertura': 'AHO', 'Reembolso eletivo': 'R$ 1.000,00', 'Reembolso PS': 'R$ 1.000,00', 'Médico na Tela Esp.': '✔', 'Médico na Tela PA': '✔', 'Psicólogo na Tela': '✔', 'Lab IN': '✔', 'Assistência Viagem Nacional': '✔', 'Seguro Viagem Internacional': '✔', 'Central Exclusiva 24h': '✔', 'Vacinas (calendário)': '✔', 'Concierge Maternidade': '✔', 'Conciergeria': '✔', 'Retaguarda Einstein/Sírio': '✔', 'Transplantes adicionais': '✔', 'Remoção Especial': '✔ (SP/RJ)', 'Motorista Amigo': '✔ (SP/RJ)', 'Escleroterapia s/ limite': '✔', 'Cirurgia Refrativa s/ limite': '✔', 'Check-up anual isento': '✔' }
+  };
+
+  function cmpToggle(el) {
+    el.classList.toggle('active');
+    cmpRender();
+  }
+  function cmpClear() {
+    document.querySelectorAll('.cmp-chip').forEach(c => c.classList.remove('active'));
+    cmpRender();
+  }
+  function cmpPreset(type) {
+    const presets = {
+      all:      ['Direto/Exato','Clássico 100','Especial 100','Especial Mais','Executivo','Prestige'],
+      entrada:  ['Direto/Exato','Clássico 100'],
+      premium:  ['Executivo','Prestige']
+    };
+    const wanted = presets[type] || [];
+    document.querySelectorAll('.cmp-chip').forEach(c => {
+      c.classList.toggle('active', wanted.includes(c.dataset.plan));
+    });
+    cmpRender();
+  }
+  function getCmpSelected() {
+    return Array.from(document.querySelectorAll('.cmp-chip.active')).map(c => c.dataset.plan);
+  }
+  function cellClass(v) {
+    if (v === '✔') return '<span class="check">✔</span>';
+    if (v === '—' || v === '') return '<span class="cross">—</span>';
+    return v;
+  }
+  function cmpRender() {
+    const selected = getCmpSelected();
+    const result = document.getElementById('cmp-result');
+    const summary = document.getElementById('cmp-summary');
+    summary.innerHTML = selected.length === 0
+      ? 'Nenhum plano selecionado'
+      : `<strong>${selected.length}</strong> plano${selected.length !== 1 ? 's' : ''} selecionado${selected.length !== 1 ? 's' : ''}`;
+    if (selected.length < 2) {
+      result.innerHTML = '<div class="cmp-empty">Selecione ao menos 2 planos para visualizar o comparativo.</div>';
+      return;
+    }
+    const features = Object.keys(CMP_DATA[selected[0]]);
+    let html = '<div style="overflow-x:auto;"><table class="compare-table"><thead><tr><th class="feature-col">Diferencial</th>';
+    selected.forEach(p => { html += `<th>${p}</th>`; });
+    html += '</tr></thead><tbody>';
+    features.forEach(f => {
+      html += `<tr><td class="feature-col">${f}</td>`;
+      selected.forEach(p => { html += `<td>${cellClass(CMP_DATA[p][f] || '—')}</td>`; });
+      html += '</tr>';
+    });
+    html += '</tbody></table></div>';
+    result.innerHTML = html;
+  }
+
+  function exportComparativo() {
+    const selected = getCmpSelected();
+    if (selected.length < 2) {
+      alert('Selecione pelo menos 2 planos para exportar o comparativo.');
+      return;
+    }
+    const win = window.open('', '_blank');
+    const tableHtml = document.getElementById('cmp-result').innerHTML;
+    win.document.write(`
+      <!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">
+      <title>Comparativo SulAmérica PME · Maximo 360</title>
+      <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+      <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family:'Lato',sans-serif; padding:30px; color:#1a1a2e; }
+        .doc-header { display:flex; justify-content:space-between; align-items:center; padding-bottom:16px; border-bottom:3px solid #F47920; margin-bottom:24px; }
+        .doc-title { font-family:'Montserrat',sans-serif; font-size:22px; font-weight:900; color:#F47920; }
+        .doc-sub { font-family:'Montserrat',sans-serif; font-size:11px; color:#888EA8; letter-spacing:1px; text-transform:uppercase; }
+        .doc-brand { font-family:'Montserrat',sans-serif; font-size:14px; font-weight:800; color:#1B2A5C; }
+        .doc-brand span { color:#F47920; }
+        h2 { font-family:'Montserrat',sans-serif; font-size:18px; font-weight:800; margin-bottom:12px; color:#1B2A5C; }
+        table { width:100%; border-collapse:collapse; font-size:12px; margin-bottom:20px; }
+        thead tr { background:#1B2A5C; }
+        th { padding:12px 10px; font-family:'Montserrat',sans-serif; font-size:10px; font-weight:700; letter-spacing:0.5px; text-transform:uppercase; color:rgba(255,255,255,0.85); text-align:center; }
+        th.feature-col { text-align:left; color:rgba(255,255,255,0.55); }
+        td { padding:11px 10px; border-bottom:1px solid #EEF0F5; text-align:center; font-size:12px; }
+        td.feature-col { text-align:left; font-weight:600; color:#1B2A5C; }
+        .check { color:#16a34a; font-weight:700; font-size:14px; }
+        .cross { color:#9ca3af; font-size:14px; }
+        .disclaimer { background:rgba(244,121,32,0.08); border-left:3px solid #F47920; padding:12px 16px; font-size:11.5px; color:#444; margin-top:30px; line-height:1.5; }
+        .footer { font-size:9.5px; color:#9ca3af; margin-top:24px; text-align:center; }
+        @media print { @page { size:landscape; margin:1cm; } }
+      </style>
+      </head><body>
+        <div class="doc-header">
+          <div>
+            <div class="doc-title">Comparativo SulAmérica PME</div>
+            <div class="doc-sub">Portfólio 2026 · Versão para o corretor</div>
+          </div>
+          <div style="text-align:right">
+            <div class="doc-brand">Maximo <span>360</span></div>
+            <div class="doc-sub">Assessoria de Seguros</div>
+          </div>
+        </div>
+        <h2>Planos comparados: ${selected.join(' · ')}</h2>
+        ${tableHtml}
+        <div class="disclaimer"><strong>Consulta rápida.</strong> Esta tabela é resumida para apoio comercial. Toda informação deve ser validada nos canais oficiais da <strong>SulAmérica</strong> antes de qualquer apresentação ao cliente.</div>
+        <div class="footer">Gerado em ${new Date().toLocaleDateString('pt-BR')} · © Maximo 360 · Material de Apoio ao Corretor</div>
+        <script>window.onload = () => { setTimeout(() => window.print(), 300); }</${'script'}>
+      </body></html>
+    `);
+    win.document.close();
+  }
+
+  // Initial render
+  cmpRender();
+
+  // Smooth reveal on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.style.opacity = '1'; e.target.style.transform = 'translateY(0)'; } });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll('.product-card, .benefit-card, .rule-card, .odonto-card, .reimb-card, .contact-card, .rede-item').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    observer.observe(el);
+  });
+
+  // Show/hide scroll top
+  window.addEventListener('scroll', () => {
+    document.querySelector('.scroll-top').style.opacity = window.scrollY > 400 ? '1' : '0';
+  });
+  document.querySelector('.scroll-top').style.opacity = '0';
+  document.querySelector('.scroll-top').style.transition = 'opacity 0.3s';
+</script>
+<script>
+/* ─── REDE CREDENCIADA SULAMÉRICA — LÂMINA SÃO PAULO / REDE NACIONAL ───
+   Fonte: Lâmina oficial SulAmérica · Última atualização: ABRIL 2026
+   Ordem dos planos: 0 Direto Nacional[E] · 1 Direto Nacional[A] · 2 Exato[E] · 3 Exato[A]
+   4 Clássico Vital[E] · 5 Clássico 100[E] · 6 Especial Vital[A] · 7 Especial 100[A]
+   8 Especial Mais Vital[A] · 9 Especial Mais[A] · 10 Executivo[A] · 11 Prestige[A]
+   Valor "-" = não atende nesse plano.
+   Tipos: HD Hospital Dia · HG Hospital Geral · HCA Cardiológico · HOF Oftalmológico
+   HON Oncológico · HOR Ortopédico · HP Pediátrico · M Maternidade
+   PSA Pronto Socorro Adulto · PSP Pronto Socorro Pediátrico
+*/
+window.REDE_PLANOS = [
+  "Direto Nacional [E]","Direto Nacional [A]","Exato [E]","Exato [A]",
+  "Clássico Vital [E]","Clássico 100 [E]","Especial Vital [A]","Especial 100 [A]",
+  "Especial Mais Vital [A]","Especial Mais [A]","Executivo [A]","Prestige [A]"
+];
+window.REDE_TIPOS = {
+  HD:"Hospital Dia", HG:"Hospital Geral", HCA:"Hospital Cardiológico",
+  HOF:"Hospital Oftalmológico", HON:"Hospital Oncológico", HOR:"Hospital Ortopédico",
+  HP:"Hospital Pediátrico", M:"Maternidade", PSA:"Pronto Socorro Adulto",
+  PSP:"Pronto Socorro Pediátrico"
+};
+/* s(x) → array de 12 valores iguais */
+function s(x){return [x,x,x,x,x,x,x,x,x,x,x,x];}
+window.REDE_DADOS = [
+["ALTINOPOLIS","HOSP DE MISERICORDIA DE ALTINOPOLIS",s("HCA/HD/HG/M/PSA")],
+["AMERICANA","CLIN SAO LUCAS SC",["HD/HG","HD/HG","HD/HG","HD/HG","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSP","HD/HG/PSA/PSP"]],
+["AMERICANA","HOSPITAL SAO FRANCISCO DE AMERICANA",s("HD/HG/M/PSA/PSP")],
+["AMERICANA","INST PRO VISAO AMERICANA SC LTDA",s("HD/HOF")],
+["AMPARO","BENEFICENCIA PORTUGUESA",s("HD/HG/PSA")],
+["ARARAQUARA","HOSPITAL ARARAQUARA",["-","-","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP"]],
+["ARARAQUARA","SANTA CASA MISERICORDIA ARARAQUARA",s("HG/PSA/PSP")],
+["ARARAQUARA","MAT GOTA DE LEITE DE ARARAQUARA",s("-")],
+["ARARAS","PRO SAUDE",s("HD/HG/HOF/M/PSA")],
+["ARUJA","HOSPITAL IPIRANGA ARUJA",s("HCA/HD/HG/M/PSA")],
+["ASSIS","HOSP DE OLHOS OESTE PAULISTA LTDA",s("HD/HOF")],
+["ASSIS","HOSPITAL E MATERNIDADE DE ASSIS S.A",s("HD/HOR/M/PSA/PSP")],
+["ASSIS","IAM - ATENDIMENTO MEDICO HOSPITALAR",s("M")],
+["ASSIS","SANTA CASA DE ASSIS",s("HD/HG/M/PSA/PSP")],
+["ATIBAIA","ALBERT SABIN HOSPITAL E MATERNIDADE",["-","-","HCA/HD/HOF/HP/M/PSA/PSP","HCA/HD/HOF/HP/M/PSA/PSP","HCA/HD/HOF/HP/M/PSA/PSP","HCA/HD/HOF/HP/M/PSA/PSP","HCA/HD/HOF/HP/M/PSA/PSP","HCA/HD/HOF/HP/M/PSA/PSP","HCA/HD/HOF/HP/M/PSA/PSP","HCA/HD/HOF/HP/M/PSA/PSP","HCA/HD/HOF/HP/M/PSA/PSP","HCA/HD/HOF/HP/M/PSA/PSP"]],
+["ATIBAIA","HOSP NOVO ATIBAIA",["HCA/HD/HG/HOF/HON/HP/M/PSA/PSP","HCA/HD/HG/HOF/HON/HP/M/PSA/PSP","HCA/HD/HG/HOF/HP/M/PSA/PSP","HCA/HD/HG/HOF/HP/M/PSA/PSP","HCA/HD/HG/HOF/HP/M/PSA/PSP","HCA/HD/HG/HOF/HP/M/PSA/PSP","HCA/HD/HG/HOF/HP/M/PSA/PSP","HCA/HD/HG/HOF/HP/M/PSA/PSP","HCA/HD/HG/HOF/HP/M/PSA/PSP","HCA/HD/HG/HOF/HP/M/PSA/PSP","HCA/HD/HG/HOF/HP/M/PSA/PSP","HCA/HD/HG/HOF/HP/M/PSA/PSP"]],
+["BARRETOS","HOSPITAL DIA DE BARRETOS",["-","-","HCA/HD/HG/M","HCA/HD/HG/M","HCA/HD/HG/M","HCA/HD/HG/M","HCA/HD/HG/M","HCA/HD/HG/M","HCA/HD/HG/M","HCA/HD/HG/M","HCA/HD/HG/M","HCA/HD/HG/M"]],
+["BARRETOS","HOSPITAL SAO JORGE",["HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HCA/HD/HG/HOF/M/PSA/PSP","HCA/HD/HG/HOF/M/PSA/PSP","HCA/HD/HG/HOF/M/PSA/PSP","HCA/HD/HG/HOF/M/PSA/PSP","HCA/HD/HG/HOF/M/PSA/PSP","HCA/HD/HG/HOF/M/PSA/PSP","HCA/HD/HG/HOF/M/PSA/PSP","HCA/HD/HG/HOF/M/PSA/PSP","HCA/HD/HG/HOF/M/PSA/PSP","HCA/HD/HG/HOF/M/PSA/PSP"]],
+["BARUERI","HOSPITAL SAO LUIZ ALPHAVILLE",["-","-","-","-","HCA/PSA/PSP","HCA/PSA/PSP","HCA/HD/HG/HON/HP/PSA/PSP","HCA/HD/HG/HON/HP/PSA/PSP","HCA/HD/HG/HON/HP/PSA/PSP","HCA/HD/HG/HON/HP/PSA/PSP","HCA/HD/HG/HON/HP/PSA/PSP","HCA/HD/HG/HON/HP/PSA/PSP"]],
+["BARUERI","HOSPITALIS",["HCA/HG/M/PSA/PSP","HCA/HG/M/PSA/PSP","HCA/HG/HOF/M/PSA/PSP","HCA/HG/HOF/M/PSA/PSP","HCA/HG/HOF/M/PSA/PSP","HCA/HG/HOF/M/PSA/PSP","HCA/HG/HOF/M/PSA/PSP","HCA/HG/HOF/M/PSA/PSP","HCA/HG/HOF/M/PSA/PSP","HCA/HG/HOF/M/PSA/PSP","HCA/HG/HOF/M/PSA/PSP","HCA/HG/HOF/M/PSA/PSP"]],
+["BARUERI","NOVO DE JULHO ALPHAVILLE",s("-")],
+["BARUERI","UNID AVANCADA EINSTEIN ALPHAVILLE",["-","-","-","-","-","-","-","-","-","-","PSA/PSP","PSA/PSP"]],
+["BATATAIS","HOSPITAL MAJOR ANTONIO CANDIDO",s("HG/HOF/M/PSA/PSP")],
+["BAURU","HOSP BENEFICENCIA PORTUGUESA",s("HD/HG/PSA/PSP")],
+["BAURU","HOSPITAL BAURU",s("HD/HG/M/PSA/PSP")],
+["BEBEDOURO","HOSPITAL UNIMED - SAMARITANO",s("HD/HOF/HON/HOR/HP/M/PSP")],
+["BEBEDOURO","HOSPITAL UNIMED - SANTA CASA",s("HOF/HOR/PSA")],
+["BOITUVA","HOSPITAL SAO LUIZ",s("HG/M")],
+["BOTUCATU","FUND PARA O DESENVOLV MED E HOSP",s("HCA/HD/HOF/HON/HOR/HP")],
+["BRAGANCA PAULISTA","HOSP UNIV SAO FRANCISCO NA PROV DE",s("HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP")],
+["BRAGANCA PAULISTA","SANTA CASA DE MIS BRAGANCA PAULISTA",s("HCA/HG/M/PSA/PSP")],
+["CAIEIRAS","HOSPITAL DAS CLINICAS CAIEIRAS",["HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","-","HD/HG/M/PSA/PSP","-","HD/HG/M/PSA/PSP","-","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP"]],
+["CAJAMAR","HOSP PAULO SACRAMENTO",s("HCA/HD/HG/HP/M/PSA/PSP")],
+["CAMPINAS","CAMPINAS DAY HOSPITAL SC LTDA",["-","-","HD/HOF/HOR/HP","HD/HOF/HOR/HP","HD/HOF/HOR/HP","HD/HOF/HOR/HP","HD/HOF/HOR/HP","HD/HOF/HOR/HP","HD/HOF/HOR/HP","HD/HOF/HOR/HP","HD/HOF/HOR/HP","HD/HOF/HOR/HP"]],
+["CAMPINAS","CASA DE SAUDE",["-","-","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP"]],
+["CAMPINAS","CEN INFANTIL INV HEM DR BOLDRINI",s("HON/HP")],
+["CAMPINAS","FUNDACAO CENTRO MEDICO CAMPINAS",s("HD/HG/PSA/PSP")],
+["CAMPINAS","HOSP VERA CRUZ SA",["-","-","-","-","-","-","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP"]],
+["CAMPINAS","HOSPITAL MADRE THEODORA CAMPINAS",["HD/HG/M","HD/HG/M","HD/HG/M","HD/HG/M","-","HD/HG/M","-","HD/HG/M","-","HD/HG/M","HD/HG/M","HD/HG/M"]],
+["CAMPINAS","HOSPITAL RENASCENCA CAMPINAS",["-","-","-","-","HD/HOF/HON/HOR/HP/M/PSA/PSP","HD/HOF/HON/HOR/HP/M/PSA/PSP","HD/HOF/HON/HOR/HP/M/PSA/PSP","HD/HOF/HON/HOR/HP/M/PSA/PSP","HD/HOF/HON/HOR/HP/M/PSA/PSP","HD/HOF/HON/HOR/HP/M/PSA/PSP","HD/HOF/HON/HOR/HP/M/PSA/PSP","HD/HOF/HON/HOR/HP/M/PSA/PSP"]],
+["CAMPINAS","HOSPITAL SAMARITANO DE CAMPINAS",["-","-","HCA/HD/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HOF/HON/HOR/HP/M/PSA/PSP"]],
+["CAMPINAS","HOSPITAL SANTA TEREZA",s("HD/HG/M/PSA/PSP")],
+["CAMPINAS","HOSPITAL SAO LUIZ CAMPINAS",["-","-","-","-","HCA/HD/HG/HON/HP/M/PSA/PSP","HCA/HD/HG/HON/HP/M/PSA/PSP","HCA/HD/HG/HON/HP/M/PSA/PSP","HCA/HD/HG/HON/HP/M/PSA/PSP","HCA/HD/HG/HON/HP/M/PSA/PSP","HCA/HD/HG/HON/HP/M/PSA/PSP","HCA/HD/HG/HON/HP/M/PSA/PSP","HCA/HD/HG/HON/HP/M/PSA/PSP"]],
+["CAMPINAS","INSTITUTO OFTALMO OTORRINOLARINGOLO",["-","-","HD/HOF","HD/HOF","HD/HOF","HD/HOF","HD/HOF","HD/HOF","HD/HOF","HD/HOF","HD/HOF","HD/HOF"]],
+["CAMPINAS","INST PENIDO BURNIER",s("-")],
+["CAMPOS DO JORDAO","HOSPITAL LEONOR MENDES DE BARROS",s("HCA/HD/HG/HOF/PSA")],
+["CAPAO BONITO","ASS BENEF STA CASA MISER CAP BONITO",s("HOR/M/PSA")],
+["CAPIVARI","SANTA CASA DE CAPIVARI",s("HG/M/PSA")],
+["CARAGUATATUBA","CASA DE SAUDE STELLA MARIS",s("HG/M/PSA")],
+["CARAPICUIBA","HOSPITAL CENTRAL OESTE",s("HCA/HD/HG/HON/HP/PSA/PSP")],
+["CATANDUVA","HOSPITAL PADRE ALBINO",s("HD/HOF/HON/HOR/HP/M/PSA/PSP")],
+["CERQUILHO","SANTA CASA DE MISER DE CERQUILHO",s("HG/M/PSA")],
+["COSMOPOLIS","SANTA CASA DE MIS DE COSMOPOLIS",s("HG/M/PSA/PSP")],
+["COTIA","HOSPITAL SAO FRANCISCO SC LTDA",s("HCA/HD/HG/M/PSA/PSP")],
+["CRAVINHOS","SOC BENEF DE CRAVINHOS SANTA CASA",s("HG/PSA/PSP")],
+["CRUZEIRO","CLINICA DE CIRURGIA SANTO ANTONIO",s("HD/HOF")],
+["CRUZEIRO","SANTA CASA MISERICORDIA DE CRUZEIRO",s("HG/M/PSA/PSP")],
+["CUBATAO","HOSP ANA COSTA",["HCA/HD/HG/HOF/M/PSA/PSP","HCA/HD/HG/HOF/M/PSA/PSP","HCA/HD/HG/HOF/M/PSA/PSP","HCA/HD/HG/HOF/M/PSA/PSP","-","HCA/HD/HG/HOF/M/PSA/PSP","-","HCA/HD/HG/HOF/M/PSA/PSP","-","HCA/HD/HG/HOF/M/PSA/PSP","HCA/HD/HG/HOF/M/PSA/PSP","HCA/HD/HG/HOF/M/PSA/PSP"]],
+["DESCALVADO","IRMANDADE SANT CASA MISER DESCALVAD",s("HG/M/PSA/PSP")],
+["DIADEMA","INNOVA HOSPITAIS ASSOCIADOS",["-","-","HD/HG/PSA/PSP","HD/HG/PSA/PSP","-","HD/HG/PSA/PSP","-","HD/HG/PSA/PSP","-","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP"]],
+["FERNANDOPOLIS","HOSP DAS CLINICAS FERNANDOPOLISSC",s("HCA/HD/HG")],
+["FERNANDOPOLIS","IRM STA CS DE MISER FERNANDOPOLIS",s("HG/PSA")],
+["FRANCA","HOSPITAL FRANCA",s("HCA/HD/HOF/HON/HOR/HP/M/PSA/PSP")],
+["FRANCA","HOSPITAL SAO JOAQUIM",s("HCA/HD/HG/HON/M/PSA/PSP")],
+["FRANCA","SAO JOAQUIM HOSPITAL E MATERNIDADE",s("-")],
+["GUARA","SANTA CASA DE MISERC DE GUARA",s("HCA/HD/HG/HOF/M/PSA")],
+["GUARAREMA","SANTA CASA DE MISER DE GUARAREMA",s("HD/HG/M/PSA")],
+["GUARATINGUETA","CENTRO HOSPITALAR GUARATINGUETA VIN",["-","-","HCA/HD/HOF","HCA/HD/HOF","HCA/HD/HOF","HCA/HD/HOF","HCA/HD/HOF","HCA/HD/HOF","HCA/HD/HOF","HCA/HD/HOF","HCA/HD/HOF","HCA/HD/HOF"]],
+["GUARATINGUETA","IRM SR PASSOS STA CASA MIS GUARATIN",s("HD/HG/M/PSA/PSP")],
+["GUARUJA","CASA DE SAUDE DO GUARUJA",s("HCA/HD/HG/HOF/HP/PSA/PSP")],
+["GUARUJA","HOSP FREI GALVAO",["-","-","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP"]],
+["GUARUJA","P S ANA COSTA UNID ENS DO GUARUJA",["PSA/PSP","PSA/PSP","PSA/PSP","PSA/PSP","-","PSA/PSP","-","PSA/PSP","-","PSA/PSP","PSA/PSP","PSA/PSP"]],
+["GUARULHOS","HOSP STELLA MARIS",["-","-","HG/PSA","HG/PSA","HG/PSA","HG/PSA","HG/PSA","HG/PSA","HG/PSA","HG/PSA","HG/PSA","HG/PSA"]],
+["GUARULHOS","HOSPITAL CARLOS CHAGAS",["-","-","HD/HG/M/PSA","HD/HG/M/PSA","-","HD/HG/M/PSA","-","HD/HG/M/PSA","-","HD/HG/M/PSA","HD/HG/M/PSA","HD/HG/M/PSA"]],
+["GUARULHOS","HOSPITAL DE OLHOS CRO LTDA",["-","-","HD/HOF","HD/HOF","HD/HOF","HD/HOF","HD/HOF","HD/HOF","HD/HOF","HD/HOF","HD/HOF","HD/HOF"]],
+["GUARULHOS","HOSPITAL E MATERNIDADE GUARULHOS",s("HCA/HD/HOR/HP/M/PSA/PSP")],
+["GUARULHOS","HOSPITAL SAO LUIZ GUARULHOS",["-","-","-","-","HCA/HD/HG/HON/HP/M/PSA/PSP","HCA/HD/HG/HON/HP/M/PSA/PSP","HCA/HD/HG/HON/HP/M/PSA/PSP","HCA/HD/HG/HON/HP/M/PSA/PSP","HCA/HD/HG/HON/HP/M/PSA/PSP","HCA/HD/HG/HON/HP/M/PSA/PSP","HCA/HD/HG/HON/HP/M/PSA/PSP","HCA/HD/HG/HON/HP/M/PSA/PSP"]],
+["HORTOLANDIA","HOSPITAL SAMARITANO HORTOLANDIA",s("HCA/HD/HOF/HON/HOR/HP/M/PSA/PSP")],
+["IBITINGA","HOSPITAL IBITINGA LTDA",s("HD/HG/M")],
+["IBIUNA","ESTANCIA MORRO GRANDE",s("HD")],
+["INDAIATUBA","CTO CENTRO TRAUMATO ORTOPEDICO",s("HD")],
+["INDAIATUBA","HOSPITAL SANTA IGNES SC LTDA",s("HD/HG/M/PSA/PSP")],
+["INDAIATUBA","INDAIATUBA DAY HOSPITAL",["-","-","HCA/HD","HCA/HD","HCA/HD","HCA/HD","HCA/HD","HCA/HD","HCA/HD","HCA/HD","HCA/HD","HCA/HD"]],
+["ITAPECERICA DA SERRA","HOSPITAL SANTA MONICA",s("HD")],
+["ITAPEVI","HOSPITAL YES",s("HCA/HD/HG/HP/M/PSA/PSP")],
+["ITAPEVI","NOTRE DAME INTERMEDICA SAUDE S.A.",["-","-","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP"]],
+["ITAPIRA","IRM STA CASA MIS DE ITAPIRA",s("HCA/HD/HG/HOF/HP/M/PSA/PSP")],
+["ITAPOLIS","STA CASA DE MIS MAT DA JULIETA LIRA",s("HD/HG/M/PSA/PSP")],
+["ITARARE","SANTA CASA DE MISERICORDIA ITARARE",s("HG/M")],
+["ITATIBA","HOSPITAL ITATIBA LTDA",s("HD/HG/M/PSA/PSP")],
+["ITATIBA","STA CASA DE MISER DE ITATIBA",s("HD/HG/M/PSA/PSP")],
+["ITU","NOVO HOSPITAL ROD - UNIMED SALTO",["-","-","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP"]],
+["ITUVERAVA","HOSPITAL SAO JORGE",["HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HCA/HD/HG/HOF/M/PSA/PSP","HCA/HD/HG/HOF/M/PSA/PSP","HCA/HD/HG/HOF/M/PSA/PSP","HCA/HD/HG/HOF/M/PSA/PSP","HCA/HD/HG/HOF/M/PSA/PSP","HCA/HD/HG/HOF/M/PSA/PSP","HCA/HD/HG/HOF/M/PSA/PSP","HCA/HD/HG/HOF/M/PSA/PSP","HCA/HD/HG/HOF/M/PSA/PSP","HCA/HD/HG/HOF/M/PSA/PSP"]],
+["ITUVERAVA","STA CASA DE ITUVERAVA",s("HD/HG/M/PSA/PSP")],
+["JABOTICABAL","HOSPITAL SAO MARCOS S A",s("HG")],
+["JACAREI","CLIN BONANOMI",s("HD")],
+["JACAREI","HOSP ALVORADA SC LTDA",s("HD/HG/M/PSA")],
+["JACAREI","HOSP CLIN ANTONIO AFONSO SC LTDA",s("HCA/HD/HG/M/PSA")],
+["JACAREI","HOSP E MATER SAO FRANCISCO DE ASSIS",["HCA/HD/HG/HON/M/PSA/PSP","HCA/HD/HG/HON/M/PSA/PSP","HCA/HD/HG/HON/HOR/M/PSA/PSP","HCA/HD/HG/HON/HOR/M/PSA/PSP","HCA/HD/HG/HON/HOR/M/PSA/PSP","HCA/HD/HG/HON/HOR/M/PSA/PSP","HCA/HD/HG/HON/HOR/M/PSA/PSP","HCA/HD/HG/HON/HOR/M/PSA/PSP","HCA/HD/HG/HON/HOR/M/PSA/PSP","HCA/HD/HG/HON/HOR/M/PSA/PSP","HCA/HD/HG/HON/HOR/M/PSA/PSP","HCA/HD/HG/HON/HOR/M/PSA/PSP"]],
+["JACAREI","STA CASA DE MIS DE JACAREI",["-","-","HG/M/PSA","HG/M/PSA","HG/M/PSA","HG/M/PSA","HG/M/PSA","HG/M/PSA","HG/M/PSA","HG/M/PSA","HG/M/PSA","HG/M/PSA"]],
+["JARINU","HOSPITAL ISRAELITA ST. JAMES DE JAR",s("PSA")],
+["JAU","SANTA CASA DE JAHU",s("HD/HG/M/PSA/PSP")],
+["JOSE BONIFACIO","SANTA CASA MIS JB",s("HD/HG/M/PSA")],
+["JUNDIAI","CENTRO MED HOSP PITANGUEIRAS SC",["HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","-","HD/HG/M/PSA/PSP","-","HD/HG/M/PSA/PSP","-","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP"]],
+["JUNDIAI","HOSP PAULO SACRAMENTO",s("HCA/HD/HG/HP/M/PSA/PSP")],
+["JUNDIAI","HOSP SANTA ELISA",s("HCA/HD/HOF/HON/HOR/HP/M/PSA/PSP")],
+["JUNDIAI","HOSPITAL DIA OFTALMOLOGICO",s("HD/HOF")],
+["LARANJAL PAULISTA","IRM DA STA CS DE MIS DE LARANJAL PT",s("HG/M/PSA/PSP")],
+["LENCOIS PAULISTA","HOSP NS DA PIEDADE",s("HD/HOF/HOR/HP/M")],
+["LIMEIRA","HOSPITAL MEDICAL",s("HD/HG/M/PSA/PSP")],
+["LIMEIRA","SANTA CASA DE LIMEIRA",s("HCA/HG/M/PSA/PSP")],
+["LINS","HOSPITAL LINS",s("HD/HOF/HOR/HP/M/PSA/PSP")],
+["LINS","SANTA CASA DE LINS",s("HD/HG/PSA")],
+["LORENA","HOSP UNIMED DE LORENA",s("HOF/HOR/HP/M")],
+["LORENA","SANTA CASA M LORENA",s("HG/M/PSA/PSP")],
+["LOUVEIRA","IRMANDADE DA SANTA CASA DE LOUVEIRA",s("HCA/HD/HG/M/PSA/PSP")],
+["LUCELIA","SANTA CASA DE MISERICORDIA LUCELIA",s("HG/HOF/PSA")],
+["MARILIA","HOSP UNIVERSITARIO DE MARILIA",s("HD/HG/HON/M/PSA")],
+["MARILIA","HOSPITAL ESPIRITA DE MARILIA",s("HD")],
+["MARILIA","SANTA CASA DE MARILIA",s("HCA/HD/HON/HOR/PSA/PSP")],
+["MARTINOPOLIS","STA CASA DE MIS PE JOAO SCHNEIDER",s("HG/PSA")],
+["MATAO","IRM SANTA CASA DE MIS DE MATAO",s("HD/HG/M/PSA/PSP")],
+["MAUA","HOSP E MATERNIDADE BRASIL UNID MAUA",s("HCA/HD/HG/HON/HP/PSA/PSP")],
+["MAUA","SANTA CASA DE MAUA",["PSA/PSP","PSA/PSP","HCA/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HOF/HON/HOR/HP/M/PSA/PSP"]],
+["MOGI DAS CRUZES","CENTRO URO E NEFRO MOGI DAS CRUZES",s("HD")],
+["MOGI DAS CRUZES","HOSPITAL E MATERNIDADE IPIRANGA",["HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","-","HD/HG/PSA/PSP","-","HD/HG/PSA/PSP","-","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP"]],
+["MOGI DAS CRUZES","HOSPITAL MOGIANO",["-","-","HCA/HD/HG","HCA/HD/HG","HCA/HD/HG","HCA/HD/HG","HCA/HD/HG","HCA/HD/HG","HCA/HD/HG","HCA/HD/HG","HCA/HD/HG","HCA/HD/HG"]],
+["MOGI DAS CRUZES","MOGI MATER HOSPITAL E MATERNIDADE",s("HD/HG/M/PSA/PSP")],
+["MOGI DAS CRUZES","NOTRE DAME INTERMEDICA SAUDE S.A.",["-","-","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP"]],
+["MOGI DAS CRUZES","STA CASA MISERIC MOGI DAS CRUZES",["-","-","HG/PSA","HG/PSA","HG/PSA","HG/PSA","HG/PSA","HG/PSA","HG/PSA","HG/PSA","HG/PSA","HG/PSA"]],
+["MONTE ALTO","IRM DE MIS DO HOSP DA STA CS MONTE",s("HD/HG/M/PSA/PSP")],
+["MORRO AGUDO","HOSP SAO MARCOS DA SAMA",s("HG/M/PSA")],
+["OSASCO","HOSPITAL E MAT SAO LUIZ OSASCO",s("HCA/HD/HG/HON/HP/M/PSA/PSP")],
+["OSASCO","NOTRE DAME INTERMEDICA SAUDE S.A.",["-","-","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP"]],
+["OSASCO","PRO CRIANCA PRONT SOC INFANTIL",s("PSP")],
+["OSVALDO CRUZ","IRM STA CASA DE MIS DE OSVALDO CRUZ",s("HD/HG/M/PSA/PSP")],
+["PEDERNEIRAS","SANTA CASA MISERICORDIA PEDERNEIRAS",s("HCA/HD/HOF/HOR/M/PSA")],
+["PENAPOLIS","IRM DA STA CASA DE MIS DE PENAPOLIS",s("HG/M")],
+["PEREIRA BARRETO","STA CASA MISERIC DE PEREIRA BARRETO",s("HOR/M/PSA/PSP")],
+["PIEDADE","SANTA CASA PIEDADE",s("HD/HP/M/PSA/PSP")],
+["PINDAMONHANGABA","HOSPITAL 10 DE JULHO",["-","-","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP"]],
+["PINDAMONHANGABA","STA CASA DE MIS DE PINDAMONHANGABA",s("HD/HG/M/PSA/PSP")],
+["PIRACICABA","ASSOC DOS FORN DE CANA DE PIRACICAB",s("HD/HG/M/PSA/PSP")],
+["PIRASSUNUNGA","IRM STA CASA MIS PIRASSUNUNGA",s("HD/HG/M/PSA")],
+["PONTAL","SANTA CASA MISERICORDIA DE PONTAL",["HD/HG/M/PSA","HD/HG/M/PSA","-","-","HD/HG/M/PSA","HD/HG/M/PSA","HD/HG/M/PSA","HD/HG/M/PSA","HD/HG/M/PSA","HD/HG/M/PSA","HD/HG/M/PSA","HD/HG/M/PSA"]],
+["PORTO FELIZ","IRM STA CASA MISERIC DE PORTO FELIZ",["HD/HG/M/PSA","HD/HG/M/PSA","HD/HG/M/PSA","HD/HG/M","HD/HG/M/PSA","HD/HG/M/PSA","HD/HG/M/PSA","HD/HG/M/PSA","HD/HG/M/PSA","HD/HG/M/PSA","HD/HG/M/PSA","HD/HG/M/PSA"]],
+["PRAIA GRANDE","P S ANA COSTA",["HCA/HD/PSA/PSP","HCA/HD/PSA/PSP","HCA/HD/PSA/PSP","HCA/HD/PSA/PSP","-","HCA/HD/PSA/PSP","-","HCA/HD/PSA/PSP","-","HCA/HD/PSA/PSP","HCA/HD/PSA/PSP","HCA/HD/PSA/PSP"]],
+["PRAIA GRANDE","CASA DE S DE SANTOS PRAIA GRANDE",s("-")],
+["PRESIDENTE PRUDENTE","ASSOC ASSIST ADOLPHO BEZERRA DE MEN",s("HD")],
+["PRESIDENTE PRUDENTE","HOSP DR ARISTOTELES OLIVEIRA MARTIN",["-","-","HCA/HD/HOF/HON/HOR/HP/PSA/PSP","HCA/HD/HOF/HON/HOR/HP/PSA/PSP","HCA/HD/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HOF/HON/HOR/HP/M/PSA/PSP"]],
+["PRESIDENTE PRUDENTE","HOSPITAL IAMADA",s("HD/HON/HOR/HP/M/PSA/PSP")],
+["PRESIDENTE PRUDENTE","HOSPITAL UNIMED",s("HCA/HD/HON/HOR/HP/M/PSA/PSP")],
+["PRESIDENTE VENCESLAU","STA CASA DE PRES VENCESLAU",s("HG/PSA")],
+["REGISTRO","ASSOC PROT E ASSIS MAT INF REGISTRO",s("HD/HG/M/PSA/PSP")],
+["REGISTRO","HOSP PRONT SOC E MAT SAO JOSE SA",s("HD/HG/M/PSA/PSP")],
+["RIBEIRAO PIRES","HOSPITAL RIBEIRAO PIRES",s("HCA/HD/HG/HON/HP/M/PSA/PSP")],
+["RIBEIRAO PRETO","CENTRO DE OFTAL ESPECIALIZADA",["-","-","HD/HOF","HD/HOF","HD/HOF","HD/HOF","HD/HOF","HD/HOF","HD/HOF","HD/HOF","HD/HOF","HD/HOF"]],
+["RIBEIRAO PRETO","FAEPA",["-","-","-","-","HCA/HD/HG/HOF","HCA/HD/HG/HOF","HCA/HD/HG/HOF","HCA/HD/HG/HOF","HCA/HD/HG/HOF","HCA/HD/HG/HOF","HCA/HD/HG/HOF","HCA/HD/HG/HOF"]],
+["RIBEIRAO PRETO","HOSP OFTALMOLOGICO RIBEIRAO PRETO",s("HD/HOF")],
+["RIBEIRAO PRETO","HOSP SAO LUCAS",["-","-","-","-","HG/PSA","HG/PSA","HG/PSA","HG/PSA","HG/PSA","HG/PSA","HG/PSA","HG/PSA"]],
+["RIBEIRAO PRETO","HOSP SAO LUCAS RIBEIRANIA",["-","-","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP"]],
+["RIBEIRAO PRETO","HOSPITAL E MATERNIDADE RP",s("HD/HP/M/PSP")],
+["RIBEIRAO PRETO","HOSPITAL IMACULADA CONCEICAO",s("HD/HG/PSA")],
+["RIBEIRAO PRETO","HOSPITAL RIBEIRAO PRETO",s("HD/HG/PSA")],
+["RIBEIRAO PRETO","HOSPITAL VIVER",["-","-","-","-","HD/HOF/HON/HOR","HD/HOF/HON/HOR","HD/HOF/HON/HOR","HD/HOF/HON/HOR","HD/HOF/HON/HOR","HD/HOF/HON/HOR","HD/HOF/HON/HOR","HD/HOF/HON/HOR"]],
+["RIBEIRAO PRETO","SANTA CASA DE RIBEIRAO PRETO",s("HD/HG/M/PSA/PSP")],
+["RIO CLARO","HOSP SANTA FILOMENA",s("HG/M/PSA/PSP")],
+["SANTA BARBARA D OESTE","HOSP SAMARITANO STA BARBARA D OESTE",["-","-","-","-","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP"]],
+["SANTA BARBARA D OESTE","HOSP STA BARBARA",s("HG/M")],
+["SANTA FE DO SUL","IRM STA CASA MIS DE STA FE DO SUL",s("HD/HG/M/PSA/PSP")],
+["SANTA ISABEL","IRM DA STA CASA DE MIS DE",s("HG/PSA")],
+["SANTO ANDRE","DAY HOSPITAL ANA ROSA LTDA",["-","-","HD","HD","HD","HD","HD","HD","HD","HD","HD","HD"]],
+["SANTO ANDRE","HOSP E MAT BRASIL S A",["HCA/HP/M/PSP","HCA/HP/M/PSP","-","-","HCA/HD/HG/HON/HP/M/PSA/PSP","HCA/HD/HG/HON/HP/M/PSA/PSP","HCA/HD/HG/HON/HP/M/PSA/PSP","HCA/HD/HG/HON/HP/M/PSA/PSP","HCA/HD/HG/HON/HP/M/PSA/PSP","HCA/HD/HG/HON/HP/M/PSA/PSP","HCA/HD/HG/HON/HP/M/PSA/PSP","HCA/HD/HG/HON/HP/M/PSA/PSP"]],
+["SANTO ANDRE","HOSP E MAT DR CHRISTOVAO DA GAMA SA",["-","-","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","-","HD/HG/M/PSA/PSP","-","HD/HG/M/PSA/PSP","-","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP"]],
+["SANTO ANDRE","HOSPITAL E MATERNIDADE BARTIRA",s("HCA/HD/HG/HON/HP/PSA/PSP")],
+["SANTOS","CASA DE SAUDE DE SANTOS",["-","-","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP"]],
+["SANTOS","HOSP ANA COSTA",["HCA/HD/HG/HOF/M/PSA/PSP","HCA/HD/HG/HOF/M/PSA/PSP","HCA/HD/HG/HOF/M/PSA/PSP","HCA/HD/HG/HOF/M/PSA/PSP","-","HCA/HD/HG/HOF/M/PSA/PSP","-","HCA/HD/HG/HOF/M/PSA/PSP","-","HCA/HD/HG/HOF/M/PSA/PSP","HCA/HD/HG/HOF/M/PSA/PSP","HCA/HD/HG/HOF/M/PSA/PSP"]],
+["SANTOS","HOSP E PS INFANTIL GONZAGA",s("HD/HP/PSP")],
+["SANTOS","HOSP FREI GALVAO",["-","-","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP"]],
+["SANTOS","HOSPITAL SAO LUCAS",["-","-","HG/M/PSA","HG/M/PSA","HG/M/PSA","HG/M/PSA","HG/M/PSA","HG/M/PSA","HG/M/PSA","HG/M/PSA","HG/M/PSA","HG/M/PSA"]],
+["SANTOS","SANTA CASA DE SANTOS",s("HD/HG/M/PSA/PSP")],
+["SANTOS","SOC PORT DE BENEFICENCIA",s("-")],
+["SAO BENTO DO SAPUCAI","STA CASA MIS SAO BENTO SAPUCAI",s("HD/HG/M/PSA/PSP")],
+["SAO BERNARDO DO CAMPO","CENTRO DE TRAT BEZERRA DE MENEZES",s("HD")],
+["SAO BERNARDO DO CAMPO","CLINICA TERAPEUTICA SONHO DE VIDA L",s("-")],
+["SAO BERNARDO DO CAMPO","HOSPITAL DE OLHOS ABC",["-","-","HD/HOF","HD/HOF","HD/HOF","HD/HOF","HD/HOF","HD/HOF","HD/HOF","HD/HOF","HD/HOF","HD/HOF"]],
+["SAO BERNARDO DO CAMPO","HOSPITAL IFOR",["HCA/HD/HON/HOR","HCA/HD/HON/HOR","HCA/HD/HOR","HCA/HD/HOR","HCA/HD/HOR","HCA/HD/HOR","HCA/HD/HOR","HCA/HD/HOR","HCA/HD/HOR","HCA/HD/HOR","HCA/HD/HOR","HCA/HD/HOR"]],
+["SAO BERNARDO DO CAMPO","HOSPITAL ITACOLOMY JARDIM DO MAR",["-","-","PSA","PSA","-","HD/HG/PSA","-","HD/HG/PSA","-","HD/HG/PSA","HD/HG/PSA","HD/HG/PSA"]],
+["SAO BERNARDO DO CAMPO","HOSPITAL SAO BERNARDO",["-","-","HD/HG/PSA","HD/HG/PSA","HD/HG/PSA","HD/HG/PSA","HD/HG/PSA","HD/HG/PSA","HD/HG/PSA","HD/HG/PSA","HD/HG/PSA","HD/HG/PSA"]],
+["SAO BERNARDO DO CAMPO","HOSPITAL SAO LUIZ - SAO BERNARDO",["HCA/HD/HG/HON/HP/PSA/PSP","HCA/HD/HG/HON/HP/PSA/PSP","-","-","HCA/HD/HG/HON/HP/PSA/PSP","HCA/HD/HG/HON/HP/PSA/PSP","HCA/HD/HG/HON/HP/PSA/PSP","HCA/HD/HG/HON/HP/PSA/PSP","HCA/HD/HG/HON/HP/PSA/PSP","HCA/HD/HG/HON/HP/PSA/PSP","HCA/HD/HG/HON/HP/PSA/PSP","HCA/HD/HG/HON/HP/PSA/PSP"]],
+["SAO BERNARDO DO CAMPO","NOTRE DAME INTERMEDICA SAUDE S.A.",["-","-","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP"]],
+["SAO BERNARDO DO CAMPO","SANTA MARCELINA SAUDE - SBC",s("HD/HOR/PSA")],
+["SAO CAETANO DO SUL","HOSP N SRA DE FATIMA",s("HD/HG/M/PSA/PSP")],
+["SAO CAETANO DO SUL","HOSPITAL DI THIENE SAO CAETANO LTDA",["-","-","HD/HG/M/PSA","HD/HG/M/PSA","HD/HG/M/PSA","HD/HG/M/PSA","HD/HG/M/PSA","HD/HG/M/PSA","HD/HG/M/PSA","HD/HG/M/PSA","HD/HG/M/PSA","HD/HG/M/PSA"]],
+["SAO CAETANO DO SUL","HOSPITAL SAO LUIZ - SAO CAETANO",["-","-","-","-","HCA/HD/HG/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HON/HOR/HP/M/PSA/PSP"]],
+["SAO CARLOS","NORDEN HOSPITAL",s("HCA/HD/HG/HOF/PSA/PSP")],
+["SAO CARLOS","SANTA CASA DE SAO CARLOS",s("HCA/HG/HOF/HP/M/PSA")],
+["SAO JOAO DA BOA VISTA","STA CASA DE MIS DONA CAROLINA MALHE",s("HG/PSA/PSP")],
+["SAO JOAQUIM DA BARRA","STA CASA DE MIS DE SAO JOAQUIM DA B",s("HG/M/PSA/PSP")],
+["SAO JOSE DO RIO PRETO","ASSOC PORT BENEF DE SAO JOSE DO RIO",["-","-","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP"]],
+["SAO JOSE DO RIO PRETO","ATEND GER E PSIQ ANDRADE E MONTANHE",s("HD")],
+["SAO JOSE DO RIO PRETO","HOSP AUSTA",["-","-","HCA/HD/HG/HON/M/PSA/PSP","HCA/HD/HG/HON/M/PSA/PSP","HCA/HD/HG/HON/M/PSA/PSP","HCA/HD/HG/HON/M/PSA/PSP","HCA/HD/HG/HON/M/PSA/PSP","HCA/HD/HG/HON/M/PSA/PSP","HCA/HD/HG/HON/M/PSA/PSP","HCA/HD/HG/HON/M/PSA/PSP","HCA/HD/HG/HON/M/PSA/PSP","HCA/HD/HG/HON/M/PSA/PSP"]],
+["SAO JOSE DO RIO PRETO","HOSP DO CORACAO RIO PRETO SC LTDA",["-","-","HCA/HD","HCA/HD","HCA/HD","HCA/HD","HCA/HD","HCA/HD","HCA/HD","HCA/HD","HCA/HD","HCA/HD"]],
+["SAO JOSE DO RIO PRETO","HOSPITAL DE BASE",s("HD/HG/M/PSA/PSP")],
+["SAO JOSE DO RIO PRETO","HOSPITAL SANTA HELENA",s("HD/HG/PSA/PSP")],
+["SAO JOSE DO RIO PRETO","SANTA CASA MIS DE S J RIO PRETO",s("HG/M/PSA/PSP")],
+["SAO JOSE DOS CAMPOS","CTO TRAT FABIANA MACEDO DE MORAIS",s("HD/HON/HP/PSP")],
+["SAO JOSE DOS CAMPOS","EXCIMER LASER VALE DO PARAIBA LTDA",s("HD/HOF")],
+["SAO JOSE DOS CAMPOS","HOSP INF ANTONINHO ROCHA MARMO",s("HD/HOR/HP/M/PSA")],
+["SAO JOSE DOS CAMPOS","HOSPITAL ORTO",["-","-","HD/HOR","HD/HOR","HD/HOR","HD/HOR","HD/HOR","HD/HOR","HD/HOR","HD/HOR","HD/HOR","HD/HOR"]],
+["SAO JOSE DOS CAMPOS","HOSPITAL PEDIATRICO - SAO JOSE",["-","-","HD/HP/PSP","HD/HP/PSP","HD/HP/PSP","HD/HP/PSP","HD/HP/PSP","HD/HP/PSP","HD/HP/PSP","HD/HP/PSP","HD/HP/PSP","HD/HP/PSP"]],
+["SAO JOSE DOS CAMPOS","HOSPITAL PIO XII",s("HD/HG/PSA")],
+["SAO JOSE DOS CAMPOS","HOSPITAL POLICLIN",s("HD/HG/M/PSA/PSP")],
+["SAO JOSE DOS CAMPOS","HOSPITAL SAO JOSE",["-","-","HD/HG/HOR/M/PSA","HD/HG/HOR/M/PSA","HD/HG/HOR/M/PSA","HD/HG/HOR/M/PSA","HD/HG/HOR/M/PSA","HD/HG/HOR/M/PSA","HD/HG/HOR/M/PSA","HD/HG/HOR/M/PSA","HD/HG/HOR/M/PSA","HD/HG/HOR/M/PSA"]],
+["SAO JOSE DOS CAMPOS","HOSPITAL VIVALLE",["-","-","HD/HG/HON/M/PSA","HD/HG/HON/M/PSA","HD/HG/HON/M/PSA","HD/HG/HON/M/PSA","HD/HG/HON/M/PSA","HD/HG/HON/M/PSA","HD/HG/HON/M/PSA","HD/HG/HON/M/PSA","HD/HG/HON/M/PSA","HD/HG/HON/M/PSA"]],
+["SAO JOSE DOS CAMPOS","INSTITUTO CHUI",s("HD")],
+["SAO JOSE DOS CAMPOS","IRM DA STA CASA DE S JOSE DOS CAMPO",s("HCA/HD/HOF/HP/M/PSA/PSP")],
+["SAO JOSE DOS CAMPOS","PRONTIL HOSP INFANTIL",s("HD/HP/PSP")],
+["SAO JOSE DOS CAMPOS","HOSPITAL ORTHOSERVICE",s("-")],
+["SAO PAULO","A.C.CAMARGO CANCER CENTER - UNIDADE",["-","-","HD","HD","HD","HD","HD","HD","HD","HD","HD","HD"]],
+["SAO PAULO","AACD",["-","-","-","-","HD/HOF/HOR","HD/HOF/HOR","HD/HOF/HOR","HD/HOF/HOR","HD/HOF/HOR","HD/HOF/HOR","HD/HOF/HOR","HD/HOF/HOR"]],
+["SAO PAULO","BLANC SP",["HCA/HD/HOR","HCA/HD/HOR","HCA/HD/HG/HOR","HCA/HD/HG/HOR","HCA/HD/HOR","HCA/HD/HOR","HCA/HD/HOR","HCA/HD/HOR","HCA/HD/HOR","HCA/HD/HOR","HCA/HD/HOR","HCA/HD/HOR"]],
+["SAO PAULO","CEMA HOSP ESPECIALIZADO",s("HD/HOF")],
+["SAO PAULO","CLIN INFANTIL SANTA ISABELLA",s("HP/PSP")],
+["SAO PAULO","CLINISUL SERV MED ZONA SUL LTDA SC",["-","-","PSA","PSA","PSA","PSA","PSA","PSA","PSA","PSA","PSA","PSA"]],
+["SAO PAULO","DAY HOSP DE ERMELINO MATARAZZO SC",s("-")],
+["SAO PAULO","DAYCLINIC",["-","-","HD","HD","HD","HD","HD","HD","HD","HD","HD","HD"]],
+["SAO PAULO","HOSP A C CAMARGO",["-","-","HD/HON","HD/HON","HD/HON","HD/HON","HD/HON","HD/HON","HD/HON","HD/HON","HD/HON","HD/HON"]],
+["SAO PAULO","HOSP ALBERT SABIN",s("HD/HG/PSA/PSP")],
+["SAO PAULO","HOSP CENTRAL DE GUAIANASES",s("HCA/HD/HG/HON/HP/M/PSA/PSP")],
+["SAO PAULO","HOSP DAS CLINICAS FMUSP",["HD/HG/HON/HOR/HP/PSP","HD/HG/HON/HOR/HP/PSP","HD/HG/HOF/HON/HOR/HP/PSP","HD/HG/HOF/HON/HOR/HP/PSP","HD/HG/HOF/HON/HOR/HP/PSP","HD/HG/HOF/HON/HOR/HP/PSP","HD/HG/HOF/HON/HOR/HP/PSP","HD/HG/HOF/HON/HOR/HP/PSP","HD/HG/HOF/HON/HOR/HP/PSP","HD/HG/HOF/HON/HOR/HP/PSP","HD/HG/HOF/HON/HOR/HP/PSP","HD/HG/HOF/HON/HOR/HP/PSP"]],
+["SAO PAULO","HOSP DO RIM E HIPERTENSAO",s("HD")],
+["SAO PAULO","HOSP E MAT OITO MAIO LTDA",["-","-","PSA","PSA","PSA","PSA","PSA","PSA","PSA","PSA","PSA","PSA"]],
+["SAO PAULO","HOSP E MAT SANTA JOANA SA",["-","-","-","-","HD/M","HD/M","M","M","M","M","M","M"]],
+["SAO PAULO","HOSP E MAT SANTA MARIA",["M","M","M","M","M","M","-","-","-","-","-","-"]],
+["SAO PAULO","HOSP E MAT SAO LUIZ ANALIA FRANCO",["-","-","-","-","-","-","HCA/HD/HG/HON/HP/M/PSA/PSP","HCA/HD/HG/HON/HP/M/PSA/PSP","HCA/HD/HG/HON/HP/M/PSA/PSP","HCA/HD/HG/HON/HP/M/PSA/PSP","HCA/HD/HG/HON/HP/M/PSA/PSP","HCA/HD/HG/HON/HP/M/PSA/PSP"]],
+["SAO PAULO","HOSP E MAT VIDAS SC LTDA",["-","-","M","M","M","M","M","M","M","M","M","M"]],
+["SAO PAULO","HOSP E MATERNIDADE SAO RAFAEL",["-","-","-","-","HD/HG","HD/HG","HD/HG","HD/HG","HD/HG","HD/HG","HD/HG","HD/HG"]],
+["SAO PAULO","HOSP GRAACC INST DE ONCOL PED (IOP)",s("HD/HON")],
+["SAO PAULO","HOSP INDEPENDENCIA",["-","-","HD/HG/M","HD/HG/M","HD/HG/M","HD/HG/M","HD/HG/M","HD/HG/M","HD/HG/M","HD/HG/M","HD/HG/M","HD/HG/M"]],
+["SAO PAULO","HOSP ISRAELITA ALBERT EINSTEIN",["-","-","-","-","-","-","-","-","-","-","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP"]],
+["SAO PAULO","HOSP ITAQUERA SC LTDA",["-","-","HG/PSA/PSP","HG/PSA/PSP","HG/PSA/PSP","HG/PSA/PSP","HG/PSA/PSP","HG/PSA/PSP","HG/PSA/PSP","HG/PSA/PSP","HG/PSA/PSP","HG/PSA/PSP"]],
+["SAO PAULO","HOSP NIPO BRASILEIRO",s("HG/M/PSA/PSP")],
+["SAO PAULO","HOSP OSWALDO CRUZ",["-","-","-","-","-","-","HD/HG/PSA","HD/HG/PSA","HD/HG/PSA","HD/HG/PSA","HD/HG/PSA","HD/HG/PSA"]],
+["SAO PAULO","HOSP PROF EDMUNDO VASCONCELOS",["-","-","-","-","-","-","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP"]],
+["SAO PAULO","HOSP SANTA CATARINA",["-","-","-","-","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP"]],
+["SAO PAULO","HOSP SANTA CRUZ",["-","-","HG","HG","HG","HG","HG","HG","HG","HG","HG","HG"]],
+["SAO PAULO","HOSP SAO PAULO",["-","-","HD/HG","HD/HG","HD/HG","HD/HG","HD/HG","HD/HG","HD/HG","HD/HG","HD/HG","HD/HG"]],
+["SAO PAULO","HOSP STA RITA",s("HD/HG/PSA")],
+["SAO PAULO","HOSPITAL ALVORADA MOEMA",["-","-","HG/PSA/PSP","HG/PSA/PSP","-","HD/HG/PSA/PSP","-","HD/HG/PSA/PSP","-","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP"]],
+["SAO PAULO","HOSPITAL BP",["HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/HOR/PSA/PSP","HD/HG/HOR/PSA/PSP","HD/HG/HOR/PSA/PSP","HD/HG/HOR/PSA/PSP","HD/HG/HOR/PSA/PSP","HD/HG/HOR/PSA/PSP","HD/HG/HOR/PSA/PSP","HD/HG/HOR/PSA/PSP","HD/HG/HOR/PSA/PSP","HD/HG/HOR/PSA/PSP"]],
+["SAO PAULO","HOSPITAL BP MIRANTE",["-","-","-","-","-","-","HCA/HD/HOF/HON/HOR/PSA/PSP","HCA/HD/HOF/HON/HOR/PSA/PSP","HCA/HD/HOF/HON/HOR/PSA/PSP","HCA/HD/HOF/HON/HOR/PSA/PSP","HCA/HD/HOF/HON/HOR/PSA/PSP","HCA/HD/HOF/HON/HOR/PSA/PSP"]],
+["SAO PAULO","HOSPITAL CENTRAL DO TATUAPE",["HCA/HD/HG/HON/HOR/PSA","HCA/HD/HG/HON/HOR/PSA","HCA/HD/HG/HON/HOR/PSA","HCA/HD/HG/HON/HOR/PSA","HCA/HD/HG/HON/HOR/HP/PSA","HCA/HD/HG/HON/HOR/HP/PSA","HCA/HD/HG/HON/HOR/HP/PSA","HCA/HD/HG/HON/HOR/HP/PSA","HCA/HD/HG/HON/HOR/HP/PSA","HCA/HD/HG/HON/HOR/HP/PSA","HCA/HD/HG/HON/HOR/HP/PSA","HCA/HD/HG/HON/HOR/HP/PSA"]],
+["SAO PAULO","HOSPITAL CENTRAL SUL",s("HCA/HD/HG/HON/PSA")],
+["SAO PAULO","HOSPITAL DA CRIANCA",s("HCA/HD/HON/HP/PSP")],
+["SAO PAULO","HOSPITAL DE OLHOS DE SAO PAULO",["-","-","HD/HOF","HD/HOF","HD/HOF","HD/HOF","HD/HOF","HD/HOF","HD/HOF","HD/HOF","HD/HOF","HD/HOF"]],
+["SAO PAULO","HOSPITAL DE OLHOS PAULISTA",["-","-","HD/HOF","HD/HOF","HD/HOF","HD/HOF","HD/HOF","HD/HOF","HD/HOF","HD/HOF","HD/HOF","HD/HOF"]],
+["SAO PAULO","HOSPITAL DIA UNIDADE VILA MARIANA",s("HD")],
+["SAO PAULO","HOSPITAL DO CORACAO",["-","-","-","-","-","-","HCA/HD","HCA/HD","HCA/HD","HCA/HD","HCA/HD","HCA/HD"]],
+["SAO PAULO","HOSPITAL DO SEPACO",s("HD/HG/M/PSA/PSP")],
+["SAO PAULO","HOSPITAL DOM ALVARENGA",s("HD/HG/PSA")],
+["SAO PAULO","HOSPITAL E MAT PRESIDENTE SOC SIMPL",s("HD/HG/PSA/PSP")],
+["SAO PAULO","HOSPITAL IGESP",["-","-","HD/HG/PSA","HD/HG/PSA","HD/HG/PSA","HD/HG/PSA","HD/HG/PSA","HD/HG/PSA","HD/HG/PSA","HD/HG/PSA","HD/HG/PSA","HD/HG/PSA"]],
+["SAO PAULO","HOSPITAL INFANTIL SABARA",["-","-","-","-","-","-","HD/HON/HP/PSP","HD/HON/HP/PSP","HD/HON/HP/PSP","HD/HON/HP/PSP","HD/HON/HP/PSP","HD/HON/HP/PSP"]],
+["SAO PAULO","HOSPITAL JD HELENA",["-","-","HG/M/PSA/PSP","HG/M/PSA/PSP","HG/M/PSA/PSP","HG/M/PSA/PSP","HG/M/PSA/PSP","HG/M/PSA/PSP","HG/M/PSA/PSP","HG/M/PSA/PSP","HG/M/PSA/PSP","HG/M/PSA/PSP"]],
+["SAO PAULO","HOSPITAL LEFORTE",["HCA/HD/HG/HOR/HP/PSA/PSP","HCA/HD/HG/HOR/HP/PSA/PSP","HCA/HD/HG/HOF/HOR/HP/PSA/PSP","HCA/HD/HG/HOF/HOR/HP/PSA/PSP","-","HCA/HD/HG/HOF/HOR/HP/PSA/PSP","-","HCA/HD/HG/HOF/HOR/HP/PSA/PSP","-","HCA/HD/HG/HOF/HOR/HP/PSA/PSP","HCA/HD/HG/HOF/HOR/HP/PSA/PSP","HCA/HD/HG/HOF/HOR/HP/PSA/PSP"]],
+["SAO PAULO","HOSPITAL METROPOLITANO",["-","-","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","-","HD/HG/M/PSA/PSP","-","HD/HG/M/PSA/PSP","-","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP"]],
+["SAO PAULO","HOSPITAL NOVE DE JULHO S A",["-","-","-","-","-","-","-","HD/HG/PSA/PSP","-","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP"]],
+["SAO PAULO","HOSPITAL PAULISTA LTDA",["-","-","HD","HD","HD","HD","HD","HD","HD","HD","HD","HD"]],
+["SAO PAULO","HOSPITAL RUBEN BERTA",s("HD/HP")],
+["SAO PAULO","HOSPITAL SAHA",["-","-","-","-","HD/HOR","HD/HOR","HD/HOR","HD/HOR","HD/HOR","HD/HOR","HD/HOR","HD/HOR"]],
+["SAO PAULO","HOSPITAL SAINT PATRICK - PORTINARI",["-","-","HD/HG/HOR/M/PSA/PSP","HD/HG/HOR/M/PSA/PSP","HD/HG/HOR/M/PSA/PSP","HD/HG/HOR/M/PSA/PSP","HD/HG/HOR/M/PSA/PSP","HD/HG/HOR/M/PSA/PSP","HD/HG/HOR/M/PSA/PSP","HD/HG/HOR/M/PSA/PSP","HD/HG/HOR/M/PSA/PSP","HD/HG/HOR/M/PSA/PSP"]],
+["SAO PAULO","HOSPITAL SAMARITANO",["-","-","-","-","-","-","-","HD/HG/M/PSA/PSP","-","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP"]],
+["SAO PAULO","HOSPITAL SANTA MARCELINA",s("HD/HG/PSA/PSP")],
+["SAO PAULO","HOSPITAL SANTA PAULA",["HD/HG/PSA","HD/HG/PSA","-","-","-","HCA/HD/HG/PSA","-","HCA/HD/HG/PSA","-","HCA/HD/HG/PSA","HCA/HD/HG/PSA","HCA/HD/HG/PSA"]],
+["SAO PAULO","HOSPITAL SANTA VIRGINIA",["-","-","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP"]],
+["SAO PAULO","HOSPITAL SAO CAMILO IPIRANGA",["-","-","-","-","HD/HG/PSA","HD/HG/PSA","HD/HG/PSA","HD/HG/PSA","HD/HG/PSA","HD/HG/PSA","HD/HG/PSA","HD/HG/PSA"]],
+["SAO PAULO","HOSPITAL SAO CAMILO POMPEIA",["-","-","-","-","HG/PSA/PSP","HG/PSA/PSP","HG/PSA/PSP","HG/PSA/PSP","HG/PSA/PSP","HG/PSA/PSP","HG/PSA/PSP","HG/PSA/PSP"]],
+["SAO PAULO","HOSPITAL SAO CAMILO SANTANA",["-","-","-","-","HG/PSA/PSP","HG/PSA/PSP","HG/PSA/PSP","HG/PSA/PSP","HG/PSA/PSP","HG/PSA/PSP","HG/PSA/PSP","HG/PSA/PSP"]],
+["SAO PAULO","HOSPITAL SAO LUIZ JABAQUARA",s("HCA/HD/HG/HON/HP/PSA")],
+["SAO PAULO","HOSPITAL SIRIO LIBANES",["-","-","-","-","-","-","-","-","-","-","HD/HG/PSA/PSP","HD/HG/PSA/PSP"]],
+["SAO PAULO","HOSPITAL SIRIO LIBANES UNID ITAIM",["-","-","-","-","-","-","HON","HON","-","-","HD/HON","HD/HON"]],
+["SAO PAULO","HOSPITAL STA ISABEL",s("HCA/HD/HG/HON/HP/PSA")],
+["SAO PAULO","HOSPITAL VILA NOVA STAR",["-","-","-","-","-","-","HP","HP","HG/HP/PSA/PSP","HG/HP/PSA/PSP","HG/HP/PSA/PSP","HG/HP/PSA/PSP"]],
+["SAO PAULO","HOSPITAL VILLA LOBOS",s("HCA/HD/HG/HON/HOR/HP/PSA/PSP")],
+["SAO PAULO","HSANP - HOSPITAL",["-","-","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M","HD/HG/M","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP"]],
+["SAO PAULO","INCOR INSTITUTO DO CORACAO",["-","-","HCA/HD","HCA/HD","HCA/HD","HCA/HD","HCA/HD","HCA/HD","HCA/HD","HCA/HD","HCA/HD","HCA/HD"]],
+["SAO PAULO","INST BRAS DE CONTROLE DO CANCER",s("HON/PSA")],
+["SAO PAULO","MATERNIDADE SAO LUIZ STAR",["-","-","-","-","-","-","HD/M","HD/M","HD/M","HD/M","HD/M","HD/M"]],
+["SAO PAULO","PRO MATRE PAULISTA",["-","-","-","-","-","-","M","M","M","M","M","M"]],
+["SAO PAULO","REDE OPERA",["-","-","HD","HD","HD","HD","HD","HD","HD","HD","HD","HD"]],
+["SAO PAULO","SAO LUIZ UNIDADE ITAIM",["-","-","-","-","-","-","HCA/HD/HG/HON/PSA","HCA/HD/HG/HON/PSA","HCA/HD/HG/HON/PSA","HCA/HD/HG/HON/PSA","HCA/HD/HG/HON/PSA","HCA/HD/HG/HON/PSA"]],
+["SAO PAULO","SAO LUIZ UNIDADE MORUMBI",["-","-","-","-","-","-","HCA/HD/HG/HON/HP/PSA/PSP","HCA/HD/HG/HON/HP/PSA/PSP","HCA/HD/HG/HON/HP/PSA/PSP","HCA/HD/HG/HON/HP/PSA/PSP","HCA/HD/HG/HON/HP/PSA/PSP","HCA/HD/HG/HON/HP/PSA/PSP"]],
+["SAO PAULO","UNIDADE AVANC EINSTEIN IBIRAPUERA",["-","-","-","-","-","-","-","-","-","-","PSA/PSP","PSA/PSP"]],
+["SAO PAULO","UNIDADE AVANCADA EINSTEIN PERDIZES",["-","-","-","-","-","-","-","-","-","-","HD/PSA/PSP","HD/PSA/PSP"]],
+["SAO PAULO","UNIDADE AVANCADA LUZ SANTO AMARO",["-","-","PSA/PSP","PSA/PSP","-","PSA/PSP","-","PSA/PSP","-","PSA/PSP","PSA/PSP","PSA/PSP"]],
+["SAO PAULO","UNIDADE EINSTEIN CHACARA KLABIN",["-","-","-","-","-","-","-","-","-","-","PSA/PSP","PSA/PSP"]],
+["SAO PAULO","HOSPITAL LEFORTE LIBERDADE",s("-")],
+["SAO PAULO","HOSP A OSWALDO CRUZ - UNID CPO BELO",s("-")],
+["SAO PEDRO","SANTA CASA DE SAO PEDRO",["-","-","HD/HG/M/PSA","HD/HG/M/PSA","HD/HG/M/PSA","HD/HG/M/PSA","HD/HG/M/PSA","HD/HG/M/PSA","HD/HG/M/PSA","HD/HG/M/PSA","HD/HG/M/PSA","HD/HG/M/PSA"]],
+["SAO ROQUE","HOSPITAL SAO FRANCISCO EIRELI",s("HCA/HD/HG/M/PSA")],
+["SAO SEBASTIAO","HOSP DE CLINICAS DE SAO SEBASTIAO",s("HCA/HG/HOF/HON/HOR/HP/M/PSA/PSP")],
+["SAO VICENTE","HOSP ANA COSTA",["HCA/HD/HG/HOF/M/PSA/PSP","HCA/HD/HG/HOF/M/PSA/PSP","HCA/HD/HG/HOF/M/PSA/PSP","HCA/HD/HG/HOF/M/PSA/PSP","-","HCA/HD/HG/HOF/M/PSA/PSP","-","HCA/HD/HG/HOF/M/PSA/PSP","-","HCA/HD/HG/HOF/M/PSA/PSP","HCA/HD/HG/HOF/M/PSA/PSP","HCA/HD/HG/HOF/M/PSA/PSP"]],
+["SAO VICENTE","IRMANDADE DO HOSPITAL SAO JOSE",s("HD/HG/PSA/PSP")],
+["SERTAOZINHO","HOSP NETTO CAMPELLO DE SERTAOZINHO",s("HG/M/PSA/PSP")],
+["SOROCABA","CORTS CLIN ORTOPEDICA",s("HD/HOR")],
+["SOROCABA","FUND SAO PAULO HOSP STA LUCINDA",s("HG")],
+["SOROCABA","GPACI",s("HON/HP/PSP")],
+["SOROCABA","HOSPITAL EVANGELICO DE SOROCABA",["-","-","HG/PSA","HG/PSA","HG/PSA","HG/PSA","HG/PSA","HG/PSA","HG/PSA","HG/PSA","HG/PSA","HG/PSA"]],
+["SOROCABA","HOSPITAL MODELO",s("HOF/HON/M/PSA")],
+["SOROCABA","HOSPITAL OFTALMOLOGICO DE SOROCABA",s("HD/HOF")],
+["SOROCABA","NOTRE DAME INTERMEDICA SAUDE S.A",s("HCA/HD/HG/HOF/HON/HP/PSA/PSP")],
+["SOROCABA","UNIMED",["-","-","-","-","-","-","-","-","-","-","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP"]],
+["SUZANO","HOSPITAL SAINT NICHOLAS MEDICAL",s("HD/HG/PSA/PSP")],
+["SUZANO","HOSPITAL SANTA MARIA DE SUZANO SA",s("HG/M/PSA")],
+["TABOAO DA SERRA","FAMILY HOSPITAL",s("HCA/HD/HOR/HP/M/PSA")],
+["TATUI","STA CASA MIS DE TATUI",s("HOF/HON/HOR/HP/M")],
+["TAUBATE","CLIN ORTO TRAUM UBARANA SC LTDA",["-","-","-","-","HD","HD","HD","HD","HD","HD","HD","HD"]],
+["TAUBATE","HOSP REGIONAL DO VALE DO PARAIBA",["-","-","HCA/HD/HOF/HON/HOR/HP/PSA/PSP","HCA/HD/HOF/HON/HOR/HP/PSA/PSP","HCA/HD/HOF/HON/HOR/HP/PSA/PSP","HCA/HD/HOF/HON/HOR/HP/PSA/PSP","HCA/HD/HOF/HON/HOR/HP/PSA/PSP","HCA/HD/HOF/HON/HOR/HP/PSA/PSP","HCA/HD/HOF/HON/HOR/HP/PSA/PSP","HCA/HD/HOF/HON/HOR/HP/PSA/PSP","HCA/HD/HOF/HON/HOR/HP/PSA/PSP","HCA/HD/HOF/HON/HOR/HP/PSA/PSP"]],
+["TAUBATE","INST ANGIOL CIR V VALE PARAIBA SC",["-","-","HD","HD","HD","HD","HD","HD","HD","HD","HD","HD"]],
+["TAUBATE","INST VALE PARAIBANO DE CIRURGIAS",["-","-","HD/HOR","HD/HOR","HD/HOR","HD/HOR","HD/HOR","HD/HOR","HD/HOR","HD/HOR","HD/HOR","HD/HOR"]],
+["TAUBATE","POLICLIN SA SERV MED HOSPITALARES",s("HD/HON/HOR/HP/M/PSA/PSP")],
+["TEODORO SAMPAIO","HOSP REGIONAL DE TEODORO SAMPAIO",s("HD/M/PSA")],
+["TIETE","STA CASA MIS DE TIETE",s("HD/HG/M")],
+["TUPA","SANTA CASA DE MISERICORDIA DE TUPA",s("HG/M")],
+["UBATUBA","STA CASA DE MISER DE UBATUBA",s("HG/M/PSA/PSP")],
+["VALINHOS","HOSPITAL E MATERNIDADE GALILEO",s("HCA/HD/HG/HOF/HON/HOR/HP/PSA")],
+["VALINHOS","IRM DE STA CASA DE MIS DE VALINHOS",s("HCA/HD/HOF/HON/HOR/HP/M/PSA/PSP")],
+["VARGEM GRANDE DO SUL","HOSPITAL DE CARIDADE",s("HG/M/PSA")],
+["VARZEA PAULISTA","HOSP PAULO SACRAMENTO",s("HCA/HD/HG/HP/M/PSA/PSP")],
+["VINHEDO","SANTA CASA DE VINHEDO",s("HD/HG/PSA/PSP")],
+["VOTUPORANGA","SANTA CASA",s("HCA/HD/HOF/HOR/HP/M/PSA")]
+];
+
+</script>
+
+<script>
+/* ─── REDE CREDENCIADA · BUSCA (lista compacta) ─── */
+(function(){
+  if(!window.REDE_DADOS) return;
+  const norm = s => (s||"").toString().toLowerCase()
+      .normalize("NFD").replace(/[\u0300-\u036f]/g,"")
+      .replace(/[^a-z0-9\s]/g," ").replace(/\s+/g," ").trim();
+
+  const PLANOS = window.REDE_PLANOS;
+  // pre-compute searchable data
+  const HOSPITAIS = window.REDE_DADOS.map(r => ({
+    c: r[0], n: r[1],
+    nc: norm(r[0]), nn: norm(r[1]),
+    plans: r[2],
+    // names of plans this hospital accepts (where coverage != "-")
+    accepted: r[2].map((cov,i) => cov === "-" ? null : PLANOS[i]).filter(Boolean)
+  }));
+
+  // populate plan dropdown
+  const sel = document.getElementById("rede-plan-filter");
+  PLANOS.forEach((p,i)=>{
+    const o = document.createElement("option");
+    o.value = i; o.textContent = p; sel.appendChild(o);
+  });
+
+  // chip color class based on plan name
+  function chipClass(planName){
+    if(/Direto/i.test(planName))         return "chip-direto";
+    if(/^Exato/i.test(planName))         return "chip-exato";
+    if(/Cl[áa]ssico/i.test(planName))    return "chip-classico";
+    if(/Especial Mais/i.test(planName))  return "chip-especial-mais";
+    if(/^Especial /i.test(planName))     return "chip-especial";
+    if(/Executivo/i.test(planName))      return "chip-executivo";
+    if(/Prestige/i.test(planName))       return "chip-prestige";
+    return "chip-direto";
+  }
+
+  let displayLimit = 20;
+  let currentFiltered = [];
+
+  function renderRede(){
+    const results = document.getElementById("rede-results");
+    const countEl = document.getElementById("rede-count");
+    const loadBtn = document.getElementById("rede-load-more");
+    const slice = currentFiltered.slice(0, displayLimit);
+
+    countEl.innerHTML = currentFiltered.length === 0
+      ? "Nenhum resultado encontrado"
+      : `<strong>${currentFiltered.length}</strong> prestador${currentFiltered.length !== 1 ? "es" : ""} encontrado${currentFiltered.length !== 1 ? "s" : ""} <span style="margin-left:8px;text-transform:none;letter-spacing:0;font-weight:500;">· exibindo ${Math.min(displayLimit, currentFiltered.length)}</span>`;
+
+    if(currentFiltered.length === 0){
+      results.innerHTML = '<div class="rede-empty">Nenhum prestador encontrado para os filtros selecionados.<br><span style="font-size:12px;opacity:.85;">Tente outro termo ou selecione "Todos os planos".</span></div>';
+      loadBtn.style.display = "none";
+      return;
+    }
+
+    results.innerHTML = slice.map(h => `
+      <div class="rede-item">
+        <div class="rede-item-icon">H</div>
+        <div class="rede-item-info">
+          <div class="rede-item-name">${h.n}</div>
+          <div class="rede-item-city">${h.c} — SP</div>
+          <div class="rede-chips">${h.accepted.map(p => `<span class="chip ${chipClass(p)}">${p}</span>`).join("")}</div>
+        </div>
+      </div>
+    `).join("");
+
+    loadBtn.style.display = currentFiltered.length > displayLimit ? "block" : "none";
+  }
+
+  function filterRede(){
+    const q = norm(document.getElementById("rede-search").value);
+    const planIdx = parseInt(sel.value, 10);
+    displayLimit = 20;
+    currentFiltered = HOSPITAIS.filter(h => {
+      const matchText = !q || h.nn.includes(q) || h.nc.includes(q);
+      const matchPlan = planIdx < 0 || (h.plans[planIdx] !== "-" && h.plans[planIdx]);
+      return matchText && matchPlan;
+    });
+    currentFiltered.sort((a,b) => a.nc.localeCompare(b.nc) || a.nn.localeCompare(b.nn));
+    renderRede();
+  }
+
+  document.getElementById("rede-search").addEventListener("input", filterRede);
+  sel.addEventListener("change", filterRede);
+  document.getElementById("rede-load-more").addEventListener("click", () => {
+    displayLimit += 20;
+    renderRede();
+  });
+
+  // initial
+  filterRede();
+})();
+</script>
+
+</body>
+</html>
