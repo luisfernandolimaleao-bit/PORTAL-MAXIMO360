@@ -1,0 +1,21 @@
+{
+  "projects": {
+    "default": "consultabradsaude"
+  },
+  "targets": {
+    "consultabradsaude": {
+      "hosting": {
+        "bradesco": [
+          "consultabradsaude"
+        ],
+        "sulamerica": [
+          "consulta360sulamerica"
+        ],
+        "indicai360": [
+          "indicai360"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}
