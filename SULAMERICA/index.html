@@ -893,6 +893,44 @@
     #rede .rede-item-name{white-space:normal;}
   }
 
+  /* ─── COMPARATIVO 12 PLANOS ─── */
+  .cmp-family { margin-bottom: 14px; }
+  .cmp-family-label {
+    display: block; font-family: 'Montserrat', sans-serif; font-size: 10px;
+    font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase;
+    color: var(--gray); margin-bottom: 7px;
+  }
+  .cmp-family .cmp-chips { margin-bottom: 0; }
+  .cmp-chip b { font-weight: 800; opacity: .75; margin-left: 3px; }
+  .cmp-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 4px; }
+  .cmp-table { min-width: 640px; }
+  .cmp-table th, .cmp-table td { white-space: nowrap; }
+  .cmp-table th.feature-col, .cmp-table td.feature-col {
+    position: sticky; left: 0; z-index: 3; min-width: 210px; white-space: normal;
+  }
+  .cmp-table thead th.feature-col { background: var(--navy); }
+  .cmp-table tbody td.feature-col { background: var(--white); }
+  .cmp-table tbody tr:hover td.feature-col { background: #fdf6f1; }
+  .cmp-th-name { display: block; }
+  .cmp-th-acom {
+    display: inline-block; margin-top: 5px; padding: 2px 7px; border-radius: 20px;
+    border: 1px solid rgba(255,255,255,.45); font-size: 8.5px; font-weight: 700;
+    letter-spacing: .5px; text-transform: uppercase; color: rgba(255,255,255,.9);
+  }
+  .cmp-table tbody tr.cmp-group-row td {
+    background: var(--navy) !important; color: rgba(255,255,255,.92);
+    font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 800;
+    letter-spacing: 1.2px; text-transform: uppercase; padding: 9px 14px; text-align: left;
+  }
+  .cmp-legend {
+    margin-top: 14px; background: rgba(244,121,32,0.06); border-left: 3px solid var(--orange);
+    padding: 13px 16px; border-radius: 0 8px 8px 0; font-family: 'Lato', sans-serif;
+    font-size: 12.5px; line-height: 1.65; color: #444;
+  }
+  @media (max-width: 780px) {
+    .cmp-table th.feature-col, .cmp-table td.feature-col { min-width: 150px; font-size: 12px; }
+  }
+
   @media print {
     nav, .scroll-top, .cmp-controls, footer, .contact-section, .sa-disclaimer, #rede .search-box-wrap, #rede .rede-load-more { display: none !important; }
     #rede .rede-results-area { max-height:none !important; overflow:visible !important; }
@@ -1045,37 +1083,37 @@
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;">
           <div class="benefit-card" style="border-left-color:var(--gray)">
             <div class="benefit-icon">🔷</div>
-            <h4>Direto Nacional / Regional</h4>
+            <h4>Direto Nacional [E] / [A]</h4>
             <p>Plano de entrada com rede referenciada regional ou nacional. Cobertura AHO. Reembolso em PS na área de abrangência. Não possui reembolso para consultas eletivas.</p>
           </div>
           <div class="benefit-card" style="border-left-color:#6366f1">
             <div class="benefit-icon">⬛</div>
-            <h4>Exato Enf / Apto</h4>
+            <h4>Exato [E] / [A]</h4>
             <p>Plano com cobertura AHO e reembolso limitado. Médico na Tela, Psicólogo na Tela, Assistência Viagem Nacional e Lab IN.</p>
           </div>
           <div class="benefit-card">
             <div class="benefit-icon">🟠</div>
-            <h4>Clássico 100 / Vital</h4>
+            <h4>Clássico 100 [E] / Clássico Vital [E]</h4>
             <p>Cobertura AHO com reembolso R$ 110,25 (enf). Inclui Lab IN, Médico na Tela, Psicólogo na Tela e Assistência Viagem Nacional.</p>
           </div>
           <div class="benefit-card" style="border-left-color:#22c55e">
             <div class="benefit-icon">🟢</div>
-            <h4>Especial 100 / Vital</h4>
+            <h4>Especial 100 [A] / Especial Vital [A]</h4>
             <p>Reembolso R$ 180,00 (apto). Inclui Seguro Viagem Internacional, Assistência Viagem Nacional, Médico na Tela e Central Exclusiva.</p>
           </div>
           <div class="benefit-card" style="border-left-color:#3b82f6">
             <div class="benefit-icon">🔵</div>
-            <h4>Especial Mais / Vital</h4>
+            <h4>Especial Mais [A] / Especial Mais Vital [A]</h4>
             <p>Reembolso R$ 330,75 (apto). Check-up anual, Vacinas, Concierge Maternidade, Central Exclusiva e Seguro Viagem Internacional.</p>
           </div>
           <div class="benefit-card" style="border-left-color:#f59e0b">
             <div class="benefit-icon">⭐</div>
-            <h4>Executivo R1/R2/R3</h4>
+            <h4>Executivo [A] · R1/R2/R3</h4>
             <p>Reembolso de R$ 500 a R$ 880 (apto). Retaguarda Einstein/Sírio, Transplantes adicionais, Check-up, todas as coberturas anteriores.</p>
           </div>
           <div class="benefit-card" style="border-left-color:#ec4899">
             <div class="benefit-icon">💎</div>
-            <h4>Prestige</h4>
+            <h4>Prestige [A]</h4>
             <p>Reembolso R$ 1.000,00 (apto). Remoção Especial, Motorista Amigo, Fonoaudiologia ilimitada, Escleroterapia ilimitada, Psicomotricidade ilimitada, Retaguarda, Transplantes.</p>
           </div>
         </div>
@@ -1084,37 +1122,37 @@
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;">
           <div class="benefit-card" style="border-left-color:var(--gray)">
             <div class="benefit-icon">🔷</div>
-            <h4>Direto Nacional</h4>
+            <h4>Direto Nacional [E] / [A]</h4>
             <p>Entrada da linha PME Mais. Médico na Tela Especialistas e Pronto Atendimento, Psicólogo na Tela, Lab IN (DF). Vigência 24 meses.</p>
           </div>
           <div class="benefit-card" style="border-left-color:#6366f1">
             <div class="benefit-icon">⬛</div>
-            <h4>Exato Enf / Apto</h4>
+            <h4>Exato [E] / [A]</h4>
             <p>Todos os benefícios do Direto + Assistência Viagem Nacional. Médico na Tela disponível.</p>
           </div>
           <div class="benefit-card">
             <div class="benefit-icon">🟠</div>
-            <h4>Clássico 100 / Vital Enf</h4>
+            <h4>Clássico 100 [E] / Clássico Vital [E]</h4>
             <p>Reembolso enf R$ 110,25. Assistência Viagem Nacional, Lab IN, Médico na Tela e Psicólogo na Tela.</p>
           </div>
           <div class="benefit-card" style="border-left-color:#22c55e">
             <div class="benefit-icon">🟢</div>
-            <h4>Especial 100 / Vital</h4>
+            <h4>Especial 100 [A] / Especial Vital [A]</h4>
             <p>Reembolso R$ 180,00. Seguro Viagem Internacional, Assistência Viagem Nacional, Central Exclusiva.</p>
           </div>
           <div class="benefit-card" style="border-left-color:#3b82f6">
             <div class="benefit-icon">🔵</div>
-            <h4>Especial Mais / Vital</h4>
+            <h4>Especial Mais [A] / Especial Mais Vital [A]</h4>
             <p>Reembolso R$ 330,75. Check-up no Hospital Vila Nova Star, Vacinas, Retaguarda (Rede Star + Einstein + Sírio), Concierge Maternidade.</p>
           </div>
           <div class="benefit-card" style="border-left-color:#f59e0b">
             <div class="benefit-icon">⭐</div>
-            <h4>Executivo R1/R2/R3</h4>
+            <h4>Executivo [A] · R1/R2/R3</h4>
             <p>Reembolso R$ 500 a R$ 880. Check-up opcional, Transplantes adicionais, Retaguarda Einstein+Sírio, Vacinas, Concierge.</p>
           </div>
           <div class="benefit-card" style="border-left-color:#ec4899">
             <div class="benefit-icon">💎</div>
-            <h4>Prestige</h4>
+            <h4>Prestige [A]</h4>
             <p>Reembolso R$ 1.000,00. Remoção Especial, Motorista Amigo, Escleroterapia e Fonoaudiologia ilimitadas, check-up titulares+dependentes acima 29 anos.</p>
           </div>
         </div>
@@ -1181,7 +1219,7 @@
 <section id="comparativo" style="background:var(--white); padding:90px 80px;">
   <div class="section-label">Comparativo de Planos</div>
   <div class="section-title">Compare lado a lado</div>
-  <div class="section-sub">Escolha os planos que deseja comparar e exporte o resultado em PDF para apresentar ao cliente.</div>
+  <div class="section-sub">Os 12 planos do portfólio nacional, lado a lado — com a rede credenciada de SP calculada direto da lâmina oficial. Exporte em PDF para apresentar ao cliente.</div>
 
   <div class="sa-disclaimer">
     <div class="sa-disclaimer-icon">!</div>
@@ -1190,18 +1228,45 @@
 
   <div class="cmp-controls">
     <div class="cmp-label">Selecione os planos para comparar (mínimo 2)</div>
-    <div class="cmp-chips">
-      <div class="cmp-chip active" data-plan="Direto/Exato"     onclick="cmpToggle(this)"><span class="cmp-chip-check"></span>Direto / Exato</div>
-      <div class="cmp-chip active" data-plan="Clássico 100"     onclick="cmpToggle(this)"><span class="cmp-chip-check"></span>Clássico 100 / Vital</div>
-      <div class="cmp-chip"        data-plan="Especial 100"     onclick="cmpToggle(this)"><span class="cmp-chip-check"></span>Especial 100 / Vital</div>
-      <div class="cmp-chip active" data-plan="Especial Mais"    onclick="cmpToggle(this)"><span class="cmp-chip-check"></span>Especial Mais / Vital</div>
-      <div class="cmp-chip"        data-plan="Executivo"        onclick="cmpToggle(this)"><span class="cmp-chip-check"></span>Executivo</div>
-      <div class="cmp-chip active" data-plan="Prestige"         onclick="cmpToggle(this)"><span class="cmp-chip-check"></span>Prestige</div>
+
+    <div class="cmp-family">
+      <span class="cmp-family-label">Entrada</span>
+      <div class="cmp-chips">
+        <div class="cmp-chip" data-plan="Direto Nacional [E]" onclick="cmpToggle(this)"><span class="cmp-chip-check"></span>Direto Nacional <b>[E]</b></div>
+        <div class="cmp-chip" data-plan="Direto Nacional [A]" onclick="cmpToggle(this)"><span class="cmp-chip-check"></span>Direto Nacional <b>[A]</b></div>
+        <div class="cmp-chip" data-plan="Exato [E]" onclick="cmpToggle(this)"><span class="cmp-chip-check"></span>Exato <b>[E]</b></div>
+        <div class="cmp-chip" data-plan="Exato [A]" onclick="cmpToggle(this)"><span class="cmp-chip-check"></span>Exato <b>[A]</b></div>
+      </div>
     </div>
+
+    <div class="cmp-family">
+      <span class="cmp-family-label">Intermediários</span>
+      <div class="cmp-chips">
+        <div class="cmp-chip" data-plan="Clássico Vital [E]" onclick="cmpToggle(this)"><span class="cmp-chip-check"></span>Clássico Vital <b>[E]</b></div>
+        <div class="cmp-chip active" data-plan="Clássico 100 [E]" onclick="cmpToggle(this)"><span class="cmp-chip-check"></span>Clássico 100 <b>[E]</b></div>
+        <div class="cmp-chip" data-plan="Especial Vital [A]" onclick="cmpToggle(this)"><span class="cmp-chip-check"></span>Especial Vital <b>[A]</b></div>
+        <div class="cmp-chip active" data-plan="Especial 100 [A]" onclick="cmpToggle(this)"><span class="cmp-chip-check"></span>Especial 100 <b>[A]</b></div>
+      </div>
+    </div>
+
+    <div class="cmp-family">
+      <span class="cmp-family-label">Alto padrão</span>
+      <div class="cmp-chips">
+        <div class="cmp-chip" data-plan="Especial Mais Vital [A]" onclick="cmpToggle(this)"><span class="cmp-chip-check"></span>Especial Mais Vital <b>[A]</b></div>
+        <div class="cmp-chip active" data-plan="Especial Mais [A]" onclick="cmpToggle(this)"><span class="cmp-chip-check"></span>Especial Mais <b>[A]</b></div>
+        <div class="cmp-chip" data-plan="Executivo [A]" onclick="cmpToggle(this)"><span class="cmp-chip-check"></span>Executivo <b>[A]</b></div>
+        <div class="cmp-chip active" data-plan="Prestige [A]" onclick="cmpToggle(this)"><span class="cmp-chip-check"></span>Prestige <b>[A]</b></div>
+      </div>
+    </div>
+
     <div class="cmp-actions">
-      <button class="cmp-action-btn" onclick="cmpPreset('all')">Todos os planos</button>
-      <button class="cmp-action-btn" onclick="cmpPreset('entrada')">Entrada (Direto · Clássico)</button>
-      <button class="cmp-action-btn" onclick="cmpPreset('premium')">Premium (Executivo · Prestige)</button>
+      <button class="cmp-action-btn" onclick="cmpPreset('all')">Todos os 12</button>
+      <button class="cmp-action-btn" onclick="cmpPreset('enfermaria')">Só Enfermaria [E]</button>
+      <button class="cmp-action-btn" onclick="cmpPreset('apartamento')">Só Apartamento [A]</button>
+      <button class="cmp-action-btn" onclick="cmpPreset('entrada')">Entrada (Direto · Exato)</button>
+      <button class="cmp-action-btn" onclick="cmpPreset('vital')">Linha Vital</button>
+      <button class="cmp-action-btn" onclick="cmpPreset('cem')">Linha 100 / Mais</button>
+      <button class="cmp-action-btn" onclick="cmpPreset('premium')">Alto padrão</button>
       <button class="cmp-action-btn" onclick="cmpClear()">Limpar</button>
       <button class="cmp-action-btn export" onclick="exportComparativo()">Exportar PDF</button>
       <span class="cmp-summary" id="cmp-summary"></span>
@@ -1215,7 +1280,7 @@
 <section id="rede" style="background:var(--white); padding:90px 80px;">
   <div class="section-label">Rede Credenciada · SP</div>
   <div class="section-title">Hospitais SulAmérica — Estado de SP</div>
-  <div class="section-sub">Pesquise hospitais e veja quais planos SulAmérica cada prestador atende. Lâmina oficial, atualização de <b>abril/2026</b>.</div>
+  <div class="section-sub">Pesquise hospitais e veja quais planos SulAmérica cada prestador atende. Lâmina oficial, atualização de <b>junho/2026</b>.</div>
 
   <div class="rede-disclaimer">
     <div class="rede-disclaimer-icon">!</div>
@@ -1753,28 +1818,563 @@
   }
 
   // ─── COMPARATIVO INTERATIVO ───
+  const CMP_PLANOS = ["Direto Nacional [E]", "Direto Nacional [A]", "Exato [E]", "Exato [A]", "Clássico Vital [E]", "Clássico 100 [E]", "Especial Vital [A]", "Especial 100 [A]", "Especial Mais Vital [A]", "Especial Mais [A]", "Executivo [A]", "Prestige [A]"];
   const CMP_DATA = {
-    'Direto/Exato':      { 'Acomodação': 'Enf./Apto', 'Cobertura': 'AHO', 'Reembolso eletivo': '—', 'Reembolso PS': 'Sim (área)', 'Médico na Tela Esp.': '✔', 'Médico na Tela PA': '✔', 'Psicólogo na Tela': '✔', 'Lab IN': 'DF apenas', 'Assistência Viagem Nacional': 'Apenas Exato', 'Seguro Viagem Internacional': '—', 'Central Exclusiva 24h': '—', 'Vacinas (calendário)': '—', 'Concierge Maternidade': '—', 'Conciergeria': '—', 'Retaguarda Einstein/Sírio': '—', 'Transplantes adicionais': '—', 'Remoção Especial': '—', 'Motorista Amigo': '—', 'Escleroterapia s/ limite': '—', 'Cirurgia Refrativa s/ limite': '—', 'Check-up anual isento': '—' },
-    'Clássico 100':      { 'Acomodação': 'Enfermaria', 'Cobertura': 'AHO', 'Reembolso eletivo': 'R$ 110,25', 'Reembolso PS': 'R$ 110,25', 'Médico na Tela Esp.': '✔', 'Médico na Tela PA': '✔', 'Psicólogo na Tela': '✔', 'Lab IN': '✔', 'Assistência Viagem Nacional': '✔', 'Seguro Viagem Internacional': '—', 'Central Exclusiva 24h': '—', 'Vacinas (calendário)': '—', 'Concierge Maternidade': '—', 'Conciergeria': '—', 'Retaguarda Einstein/Sírio': '—', 'Transplantes adicionais': '—', 'Remoção Especial': '—', 'Motorista Amigo': '—', 'Escleroterapia s/ limite': '—', 'Cirurgia Refrativa s/ limite': '—', 'Check-up anual isento': '—' },
-    'Especial 100':      { 'Acomodação': 'Apartamento', 'Cobertura': 'AHO', 'Reembolso eletivo': 'R$ 180,00', 'Reembolso PS': 'R$ 180,00', 'Médico na Tela Esp.': '✔', 'Médico na Tela PA': '✔', 'Psicólogo na Tela': '✔', 'Lab IN': '✔', 'Assistência Viagem Nacional': '✔', 'Seguro Viagem Internacional': '✔', 'Central Exclusiva 24h': '✔', 'Vacinas (calendário)': '—', 'Concierge Maternidade': '—', 'Conciergeria': '—', 'Retaguarda Einstein/Sírio': '—', 'Transplantes adicionais': '—', 'Remoção Especial': '—', 'Motorista Amigo': '—', 'Escleroterapia s/ limite': '—', 'Cirurgia Refrativa s/ limite': '—', 'Check-up anual isento': '—' },
-    'Especial Mais':     { 'Acomodação': 'Apartamento', 'Cobertura': 'AHO', 'Reembolso eletivo': 'R$ 330,75', 'Reembolso PS': 'R$ 330,75', 'Médico na Tela Esp.': '✔', 'Médico na Tela PA': '✔', 'Psicólogo na Tela': '✔', 'Lab IN': '✔', 'Assistência Viagem Nacional': '✔', 'Seguro Viagem Internacional': '✔', 'Central Exclusiva 24h': '✔', 'Vacinas (calendário)': '✔', 'Concierge Maternidade': '✔ (SP)', 'Conciergeria': '—', 'Retaguarda Einstein/Sírio': '—', 'Transplantes adicionais': '—', 'Remoção Especial': '—', 'Motorista Amigo': '—', 'Escleroterapia s/ limite': '—', 'Cirurgia Refrativa s/ limite': '—', 'Check-up anual isento': '✔' },
-    'Executivo':         { 'Acomodação': 'Apartamento', 'Cobertura': 'AHO', 'Reembolso eletivo': 'R$ 500,00', 'Reembolso PS': 'R$ 500,00', 'Médico na Tela Esp.': '✔', 'Médico na Tela PA': '✔', 'Psicólogo na Tela': '✔', 'Lab IN': '✔', 'Assistência Viagem Nacional': '✔', 'Seguro Viagem Internacional': '✔', 'Central Exclusiva 24h': '✔', 'Vacinas (calendário)': '✔', 'Concierge Maternidade': '✔', 'Conciergeria': '—', 'Retaguarda Einstein/Sírio': '✔', 'Transplantes adicionais': '—', 'Remoção Especial': '—', 'Motorista Amigo': '—', 'Escleroterapia s/ limite': '—', 'Cirurgia Refrativa s/ limite': '—', 'Check-up anual isento': 'Opcional' },
-    'Prestige':          { 'Acomodação': 'Apartamento', 'Cobertura': 'AHO', 'Reembolso eletivo': 'R$ 1.000,00', 'Reembolso PS': 'R$ 1.000,00', 'Médico na Tela Esp.': '✔', 'Médico na Tela PA': '✔', 'Psicólogo na Tela': '✔', 'Lab IN': '✔', 'Assistência Viagem Nacional': '✔', 'Seguro Viagem Internacional': '✔', 'Central Exclusiva 24h': '✔', 'Vacinas (calendário)': '✔', 'Concierge Maternidade': '✔', 'Conciergeria': '✔', 'Retaguarda Einstein/Sírio': '✔', 'Transplantes adicionais': '✔', 'Remoção Especial': '✔ (SP/RJ)', 'Motorista Amigo': '✔ (SP/RJ)', 'Escleroterapia s/ limite': '✔', 'Cirurgia Refrativa s/ limite': '✔', 'Check-up anual isento': '✔' }
+    "Direto Nacional [E]": {
+      "seg": "AHO",
+      "abr": "Nacional",
+      "reElet": "—",
+      "rePS": "PS na área",
+      "reParto": "—",
+      "mtEsp": "✔",
+      "mtPA": "✔",
+      "psic": "✔",
+      "labin": "DF apenas",
+      "viagemNac": "—",
+      "viagemInt": "—",
+      "central": "—",
+      "vacinas": "—",
+      "concierge": "—",
+      "checkup": "—",
+      "retaguarda": "—",
+      "transpl": "—",
+      "conciergeria": "—",
+      "remocao": "—",
+      "motorista": "—",
+      "esclero": "—",
+      "refrativa": "—",
+      "fono": "—",
+      "acom": "Enfermaria",
+      "rede": "Direta (dirigida)",
+      "fam": "Direto",
+      "cor": "#94a3b8"
+    },
+    "Direto Nacional [A]": {
+      "seg": "AHO",
+      "abr": "Nacional",
+      "reElet": "—",
+      "rePS": "PS na área",
+      "reParto": "—",
+      "mtEsp": "✔",
+      "mtPA": "✔",
+      "psic": "✔",
+      "labin": "DF apenas",
+      "viagemNac": "—",
+      "viagemInt": "—",
+      "central": "—",
+      "vacinas": "—",
+      "concierge": "—",
+      "checkup": "—",
+      "retaguarda": "—",
+      "transpl": "—",
+      "conciergeria": "—",
+      "remocao": "—",
+      "motorista": "—",
+      "esclero": "—",
+      "refrativa": "—",
+      "fono": "—",
+      "acom": "Apartamento",
+      "rede": "Direta (dirigida)",
+      "fam": "Direto",
+      "cor": "#94a3b8"
+    },
+    "Exato [E]": {
+      "seg": "AHO",
+      "abr": "Nacional",
+      "reElet": "—",
+      "rePS": "R$ 90,00",
+      "reParto": "—",
+      "mtEsp": "✔",
+      "mtPA": "✔",
+      "psic": "✔",
+      "labin": "✔",
+      "viagemNac": "✔",
+      "viagemInt": "—",
+      "central": "—",
+      "vacinas": "—",
+      "concierge": "—",
+      "checkup": "—",
+      "retaguarda": "—",
+      "transpl": "—",
+      "conciergeria": "—",
+      "remocao": "—",
+      "motorista": "—",
+      "esclero": "—",
+      "refrativa": "—",
+      "fono": "—",
+      "acom": "Enfermaria",
+      "rede": "Reduzida",
+      "fam": "Exato",
+      "cor": "#6366f1"
+    },
+    "Exato [A]": {
+      "seg": "AHO",
+      "abr": "Nacional",
+      "reElet": "—",
+      "rePS": "R$ 90,00",
+      "reParto": "—",
+      "mtEsp": "✔",
+      "mtPA": "✔",
+      "psic": "✔",
+      "labin": "✔",
+      "viagemNac": "✔",
+      "viagemInt": "—",
+      "central": "—",
+      "vacinas": "—",
+      "concierge": "—",
+      "checkup": "—",
+      "retaguarda": "—",
+      "transpl": "—",
+      "conciergeria": "—",
+      "remocao": "—",
+      "motorista": "—",
+      "esclero": "—",
+      "refrativa": "—",
+      "fono": "—",
+      "acom": "Apartamento",
+      "rede": "Reduzida",
+      "fam": "Exato",
+      "cor": "#6366f1"
+    },
+    "Clássico Vital [E]": {
+      "seg": "AHO",
+      "abr": "Nacional",
+      "reElet": "R$ 110,25",
+      "rePS": "R$ 110,25",
+      "reParto": "—",
+      "mtEsp": "✔",
+      "mtPA": "✔",
+      "psic": "✔",
+      "labin": "✔",
+      "viagemNac": "✔",
+      "viagemInt": "—",
+      "central": "—",
+      "vacinas": "—",
+      "concierge": "—",
+      "checkup": "—",
+      "retaguarda": "—",
+      "transpl": "—",
+      "conciergeria": "—",
+      "remocao": "—",
+      "motorista": "—",
+      "esclero": "—",
+      "refrativa": "—",
+      "fono": "—",
+      "acom": "Enfermaria",
+      "rede": "Reduzida (Vital)",
+      "fam": "Clássico",
+      "cor": "#F47920"
+    },
+    "Clássico 100 [E]": {
+      "seg": "AHO",
+      "abr": "Nacional",
+      "reElet": "R$ 110,25",
+      "rePS": "R$ 110,25",
+      "reParto": "—",
+      "mtEsp": "✔",
+      "mtPA": "✔",
+      "psic": "✔",
+      "labin": "✔",
+      "viagemNac": "✔",
+      "viagemInt": "—",
+      "central": "—",
+      "vacinas": "—",
+      "concierge": "—",
+      "checkup": "—",
+      "retaguarda": "—",
+      "transpl": "—",
+      "conciergeria": "—",
+      "remocao": "—",
+      "motorista": "—",
+      "esclero": "—",
+      "refrativa": "—",
+      "fono": "—",
+      "acom": "Enfermaria",
+      "rede": "Completa",
+      "fam": "Clássico",
+      "cor": "#F47920"
+    },
+    "Especial Vital [A]": {
+      "seg": "AHO",
+      "abr": "Nacional",
+      "reElet": "R$ 180,00",
+      "rePS": "R$ 180,00",
+      "reParto": "R$ 3.313,38",
+      "mtEsp": "✔",
+      "mtPA": "✔",
+      "psic": "✔",
+      "labin": "✔",
+      "viagemNac": "✔",
+      "viagemInt": "✔",
+      "central": "✔",
+      "vacinas": "—",
+      "concierge": "—",
+      "checkup": "—",
+      "retaguarda": "—",
+      "transpl": "—",
+      "conciergeria": "—",
+      "remocao": "—",
+      "motorista": "—",
+      "esclero": "—",
+      "refrativa": "—",
+      "fono": "—",
+      "acom": "Apartamento",
+      "rede": "Reduzida (Vital)",
+      "fam": "Especial",
+      "cor": "#22c55e"
+    },
+    "Especial 100 [A]": {
+      "seg": "AHO",
+      "abr": "Nacional",
+      "reElet": "R$ 180,00",
+      "rePS": "R$ 180,00",
+      "reParto": "R$ 3.313,38",
+      "mtEsp": "✔",
+      "mtPA": "✔",
+      "psic": "✔",
+      "labin": "✔",
+      "viagemNac": "✔",
+      "viagemInt": "✔",
+      "central": "✔",
+      "vacinas": "—",
+      "concierge": "—",
+      "checkup": "—",
+      "retaguarda": "—",
+      "transpl": "—",
+      "conciergeria": "—",
+      "remocao": "—",
+      "motorista": "—",
+      "esclero": "—",
+      "refrativa": "—",
+      "fono": "—",
+      "acom": "Apartamento",
+      "rede": "Completa",
+      "fam": "Especial",
+      "cor": "#22c55e"
+    },
+    "Especial Mais Vital [A]": {
+      "seg": "AHO",
+      "abr": "Nacional",
+      "reElet": "R$ 330,75",
+      "rePS": "R$ 330,75",
+      "reParto": "R$ 3.313,38",
+      "mtEsp": "✔",
+      "mtPA": "✔",
+      "psic": "✔",
+      "labin": "✔",
+      "viagemNac": "✔",
+      "viagemInt": "✔",
+      "central": "✔",
+      "vacinas": "✔",
+      "concierge": "✔ (SP)",
+      "checkup": "✔",
+      "retaguarda": "—",
+      "transpl": "—",
+      "conciergeria": "—",
+      "remocao": "—",
+      "motorista": "—",
+      "esclero": "—",
+      "refrativa": "—",
+      "fono": "—",
+      "acom": "Apartamento",
+      "rede": "Reduzida (Vital)",
+      "fam": "Especial Mais",
+      "cor": "#3b82f6"
+    },
+    "Especial Mais [A]": {
+      "seg": "AHO",
+      "abr": "Nacional",
+      "reElet": "R$ 330,75",
+      "rePS": "R$ 330,75",
+      "reParto": "R$ 3.313,38",
+      "mtEsp": "✔",
+      "mtPA": "✔",
+      "psic": "✔",
+      "labin": "✔",
+      "viagemNac": "✔",
+      "viagemInt": "✔",
+      "central": "✔",
+      "vacinas": "✔",
+      "concierge": "✔ (SP)",
+      "checkup": "✔",
+      "retaguarda": "—",
+      "transpl": "—",
+      "conciergeria": "—",
+      "remocao": "—",
+      "motorista": "—",
+      "esclero": "—",
+      "refrativa": "—",
+      "fono": "—",
+      "acom": "Apartamento",
+      "rede": "Completa",
+      "fam": "Especial Mais",
+      "cor": "#3b82f6"
+    },
+    "Executivo [A]": {
+      "seg": "AHO",
+      "abr": "Nacional",
+      "reElet": "R$ 500 a R$ 880",
+      "rePS": "R$ 500 a R$ 880",
+      "reParto": "R$ 13.487 a R$ 28.681",
+      "mtEsp": "✔",
+      "mtPA": "✔",
+      "psic": "✔",
+      "labin": "✔",
+      "viagemNac": "✔",
+      "viagemInt": "✔",
+      "central": "✔",
+      "vacinas": "✔",
+      "concierge": "✔",
+      "checkup": "Opcional",
+      "retaguarda": "✔",
+      "transpl": "✔",
+      "conciergeria": "—",
+      "remocao": "—",
+      "motorista": "—",
+      "esclero": "—",
+      "refrativa": "—",
+      "fono": "—",
+      "acom": "Apartamento",
+      "rede": "Completa + alto padrão",
+      "fam": "Executivo",
+      "cor": "#f59e0b"
+    },
+    "Prestige [A]": {
+      "seg": "AHO",
+      "abr": "Nacional",
+      "reElet": "R$ 1.000,00",
+      "rePS": "R$ 1.000,00",
+      "reParto": "R$ 51.581,62",
+      "mtEsp": "✔",
+      "mtPA": "✔",
+      "psic": "✔",
+      "labin": "✔",
+      "viagemNac": "✔",
+      "viagemInt": "✔",
+      "central": "✔",
+      "vacinas": "✔",
+      "concierge": "✔",
+      "checkup": "✔",
+      "retaguarda": "✔",
+      "transpl": "✔",
+      "conciergeria": "✔",
+      "remocao": "✔ (SP/RJ)",
+      "motorista": "✔ (SP/RJ)",
+      "esclero": "✔",
+      "refrativa": "✔",
+      "fono": "✔",
+      "acom": "Apartamento",
+      "rede": "Completa + alto padrão",
+      "fam": "Prestige",
+      "cor": "#ec4899"
+    }
   };
+  const CMP_GROUPS = [
+    [
+      "Estrutura do plano",
+      [
+        [
+          "Acomodação",
+          "acom"
+        ],
+        [
+          "Segmentação",
+          "seg"
+        ],
+        [
+          "Abrangência",
+          "abr"
+        ],
+        [
+          "Rede referenciada",
+          "rede"
+        ]
+      ]
+    ],
+    [
+      "Rede credenciada · Estado de SP",
+      [
+        [
+          "Hospitais no estado de SP",
+          "@sp"
+        ],
+        [
+          "Hospitais na capital",
+          "@cap"
+        ],
+        [
+          "Einstein · Sírio-Libanês",
+          "@einstein"
+        ],
+        [
+          "Rede Star (V. Nova Star · S. Luiz Morumbi/Itaim)",
+          "@star"
+        ],
+        [
+          "Oswaldo Cruz · HCor · Santa Catarina",
+          "@alta"
+        ]
+      ]
+    ],
+    [
+      "Reembolso (AHO)",
+      [
+        [
+          "Consulta eletiva",
+          "reElet"
+        ],
+        [
+          "Consulta pronto-socorro",
+          "rePS"
+        ],
+        [
+          "Parto normal (referência)",
+          "reParto"
+        ]
+      ]
+    ],
+    [
+      "Saúde digital",
+      [
+        [
+          "Médico na Tela — Especialistas",
+          "mtEsp"
+        ],
+        [
+          "Médico na Tela — Pronto Atend.",
+          "mtPA"
+        ],
+        [
+          "Psicólogo na Tela",
+          "psic"
+        ],
+        [
+          "Lab IN (coleta domiciliar)",
+          "labin"
+        ]
+      ]
+    ],
+    [
+      "Benefícios e assistências",
+      [
+        [
+          "Assistência Viagem Nacional",
+          "viagemNac"
+        ],
+        [
+          "Seguro Viagem Internacional",
+          "viagemInt"
+        ],
+        [
+          "Central Exclusiva 24h",
+          "central"
+        ],
+        [
+          "Vacinas (calendário)",
+          "vacinas"
+        ],
+        [
+          "Concierge Maternidade",
+          "concierge"
+        ],
+        [
+          "Check-up anual",
+          "checkup"
+        ],
+        [
+          "Retaguarda Einstein/Sírio",
+          "retaguarda"
+        ],
+        [
+          "Transplantes adicionais",
+          "transpl"
+        ],
+        [
+          "Conciergeria",
+          "conciergeria"
+        ],
+        [
+          "Remoção Especial",
+          "remocao"
+        ],
+        [
+          "Motorista Amigo",
+          "motorista"
+        ],
+        [
+          "Fonoaudiologia sem limite",
+          "fono"
+        ],
+        [
+          "Escleroterapia sem limite",
+          "esclero"
+        ],
+        [
+          "Cirurgia refrativa sem limite",
+          "refrativa"
+        ]
+      ]
+    ]
+  ];
 
-  function cmpToggle(el) {
-    el.classList.toggle('active');
-    cmpRender();
+  /* ── estatísticas de rede calculadas a partir da lâmina (REDE_DADOS) ── */
+  let CMP_REDE_CACHE = null;
+  function cmpRedeStats() {
+    if (CMP_REDE_CACHE) return CMP_REDE_CACHE;
+    if (!window.REDE_DADOS || !window.REDE_PLANOS) return null;
+    const marcas = {
+      einstein: ["ALBERT EINSTEIN", "SIRIO LIBANES"],
+      star:     ["VILA NOVA STAR", "SAO LUIZ UNIDADE MORUMBI", "SAO LUIZ UNIDADE ITAIM"],
+      alta:     ["OSWALDO CRUZ", "HOSPITAL DO CORACAO", "SANTA CATARINA"]
+    };
+    const up = s => (s || "").toUpperCase();
+    const st = {};
+    window.REDE_PLANOS.forEach((p, i) => {
+      const s = { sp: 0, cap: 0, einstein: [0, 0], star: [0, 0], alta: [0, 0] };
+      window.REDE_DADOS.forEach(r => {
+        const tem = r[2][i] && r[2][i] !== "-";
+        if (tem) { s.sp++; if (up(r[0]) === "SAO PAULO") s.cap++; }
+        Object.keys(marcas).forEach(g => {
+          if (marcas[g].some(m => up(r[1]).includes(m))) {
+            s[g][1]++; if (tem) s[g][0]++;
+          }
+        });
+      });
+      st[p] = s;
+    });
+    CMP_REDE_CACHE = st;
+    return st;
   }
+
+  function cmpDyn(plan, campo) {
+    const st = cmpRedeStats();
+    if (!st || !st[plan]) return "···";
+    const s = st[plan];
+    if (campo === "@sp")  return s.sp + " hospitais";
+    if (campo === "@cap") return s.cap + " na capital";
+    const g = campo.slice(1);
+    if (!s[g]) return "···";
+    const [tem, tot] = s[g];
+    if (tem === 0)   return "—";
+    if (tem === tot) return "✔ (" + tot + ")";
+    return tem + " de " + tot;
+  }
+
+  function cmpToggle(el) { el.classList.toggle('active'); cmpRender(); }
   function cmpClear() {
     document.querySelectorAll('.cmp-chip').forEach(c => c.classList.remove('active'));
     cmpRender();
   }
   function cmpPreset(type) {
+    const P = CMP_PLANOS;
     const presets = {
-      all:      ['Direto/Exato','Clássico 100','Especial 100','Especial Mais','Executivo','Prestige'],
-      entrada:  ['Direto/Exato','Clássico 100'],
-      premium:  ['Executivo','Prestige']
+      all:        P,
+      enfermaria: P.filter(p => p.includes('[E]')),
+      apartamento:P.filter(p => p.includes('[A]')),
+      entrada:    ['Direto Nacional [E]','Direto Nacional [A]','Exato [E]','Exato [A]'],
+      vital:      P.filter(p => p.includes('Vital')),
+      cem:        ['Clássico 100 [E]','Especial 100 [A]','Especial Mais [A]'],
+      premium:    ['Especial Mais [A]','Executivo [A]','Prestige [A]']
     };
     const wanted = presets[type] || [];
     document.querySelectorAll('.cmp-chip').forEach(c => {
@@ -1783,34 +2383,58 @@
     cmpRender();
   }
   function getCmpSelected() {
-    return Array.from(document.querySelectorAll('.cmp-chip.active')).map(c => c.dataset.plan);
+    return CMP_PLANOS.filter(p =>
+      document.querySelector('.cmp-chip.active[data-plan="' + p + '"]'));
   }
   function cellClass(v) {
     if (v === '✔') return '<span class="check">✔</span>';
-    if (v === '—' || v === '') return '<span class="cross">—</span>';
+    if (typeof v === 'string' && v.indexOf('✔') === 0) return '<span class="check">' + v + '</span>';
+    if (v === '—' || v === '' || v == null) return '<span class="cross">—</span>';
     return v;
   }
   function cmpRender() {
     const selected = getCmpSelected();
     const result = document.getElementById('cmp-result');
     const summary = document.getElementById('cmp-summary');
+    if (!result) return;
     summary.innerHTML = selected.length === 0
       ? 'Nenhum plano selecionado'
-      : `<strong>${selected.length}</strong> plano${selected.length !== 1 ? 's' : ''} selecionado${selected.length !== 1 ? 's' : ''}`;
+      : '<strong>' + selected.length + '</strong> plano' + (selected.length !== 1 ? 's' : '') +
+        ' selecionado' + (selected.length !== 1 ? 's' : '');
     if (selected.length < 2) {
       result.innerHTML = '<div class="cmp-empty">Selecione ao menos 2 planos para visualizar o comparativo.</div>';
       return;
     }
-    const features = Object.keys(CMP_DATA[selected[0]]);
-    let html = '<div style="overflow-x:auto;"><table class="compare-table"><thead><tr><th class="feature-col">Diferencial</th>';
-    selected.forEach(p => { html += `<th>${p}</th>`; });
-    html += '</tr></thead><tbody>';
-    features.forEach(f => {
-      html += `<tr><td class="feature-col">${f}</td>`;
-      selected.forEach(p => { html += `<td>${cellClass(CMP_DATA[p][f] || '—')}</td>`; });
-      html += '</tr>';
+    let html = '<div class="cmp-scroll"><table class="compare-table cmp-table"><thead><tr>' +
+               '<th class="feature-col">Item</th>';
+    selected.forEach(p => {
+      const d = CMP_DATA[p] || {};
+      const nome = p.replace(/\s\[[EA]\]$/, '');
+      const acom = p.indexOf('[E]') > -1 ? 'Enfermaria' : 'Apartamento';
+      html += '<th><span class="cmp-th-name">' + nome + '</span>' +
+              '<span class="cmp-th-acom" style="border-color:' + (d.cor || '#fff') + '">' + acom + '</span></th>';
     });
-    html += '</tbody></table></div>';
+    html += '</tr></thead><tbody>';
+    CMP_GROUPS.forEach(g => {
+      html += '<tr class="cmp-group-row"><td class="feature-col" colspan="' + (selected.length + 1) + '">' + g[0] + '</td></tr>';
+      g[1].forEach(f => {
+        const label = f[0], campo = f[1];
+        html += '<tr><td class="feature-col">' + label + '</td>';
+        selected.forEach(p => {
+          const v = campo.charAt(0) === '@' ? cmpDyn(p, campo) : (CMP_DATA[p] || {})[campo];
+          html += '<td>' + cellClass(v) + '</td>';
+        });
+        html += '</tr>';
+      });
+    });
+    html += '</tbody></table></div>' +
+      '<div class="cmp-legend"><strong>Legenda:</strong> [E] Enfermaria · [A] Apartamento · ' +
+      'AHO = Ambulatorial + Hospitalar com Obstetrícia. ' +
+      'As linhas <strong>Vital</strong> têm a mesma tabela de reembolso da linha equivalente, ' +
+      'diferenciando-se pela <strong>rede referenciada reduzida</strong> — a contagem de hospitais acima ' +
+      'vem da lâmina de rede SP de junho/2026. Executivo possui faixas R1/R2/R3 ' +
+      '(R$ 500,00 / R$ 660,00 / R$ 880,00). Valores de reembolso conforme tabela AHO; ' +
+      'confirme a tabela vigente no Portal do Corretor.</div>';
     result.innerHTML = html;
   }
 
@@ -1845,7 +2469,15 @@
         .cross { color:#9ca3af; font-size:14px; }
         .disclaimer { background:rgba(244,121,32,0.08); border-left:3px solid #F47920; padding:12px 16px; font-size:11.5px; color:#444; margin-top:30px; line-height:1.5; }
         .footer { font-size:9.5px; color:#9ca3af; margin-top:24px; text-align:center; }
-        @media print { @page { size:landscape; margin:1cm; } }
+        .cmp-scroll { overflow: visible; }
+        tbody tr.cmp-group-row td { background:#1B2A5C !important; color:#fff; font-family:'Montserrat',sans-serif; font-size:9px; font-weight:800; letter-spacing:1px; text-transform:uppercase; text-align:left; padding:7px 10px; }
+        .cmp-th-name { display:block; }
+        .cmp-th-acom { display:inline-block; margin-top:3px; padding:1px 6px; border:1px solid rgba(255,255,255,.5); border-radius:20px; font-size:7.5px; font-weight:700; text-transform:uppercase; color:rgba(255,255,255,.9); }
+        .cmp-legend { background:rgba(244,121,32,0.08); border-left:3px solid #F47920; padding:10px 14px; font-size:10.5px; line-height:1.55; color:#444; margin-top:12px; }
+        table.cmp-many { font-size:9px; }
+        table.cmp-many th, table.cmp-many td { padding:6px 4px; }
+        table.cmp-many td.feature-col, table.cmp-many th.feature-col { font-size:9px; }
+        @media print { @page { size:landscape; margin:0.8cm; } }
       </style>
       </head><body>
         <div class="doc-header">
@@ -1858,8 +2490,8 @@
             <div class="doc-sub">Assessoria de Seguros</div>
           </div>
         </div>
-        <h2>Planos comparados: ${selected.join(' · ')}</h2>
-        ${tableHtml}
+        <h2>Planos comparados (${selected.length}): ${selected.join(' · ')}</h2>
+        ${selected.length > 6 ? tableHtml.replace('cmp-table', 'cmp-table cmp-many') : tableHtml}
         <div class="disclaimer"><strong>Consulta rápida.</strong> Esta tabela é resumida para apoio comercial. Toda informação deve ser validada nos canais oficiais da <strong>SulAmérica</strong> antes de qualquer apresentação ao cliente.</div>
         <div class="footer">Gerado em ${new Date().toLocaleDateString('pt-BR')} · © Maximo 360 · Material de Apoio ao Corretor</div>
         <script>window.onload = () => { setTimeout(() => window.print(), 300); }</${'script'}>
@@ -1915,338 +2547,330 @@ window.REDE_TIPOS = {
 /* s(x) → array de 12 valores iguais */
 function s(x){return [x,x,x,x,x,x,x,x,x,x,x,x];}
 window.REDE_DADOS = [
-["ALTINOPOLIS","HOSP DE MISERICORDIA DE ALTINOPOLIS",s("HCA/HD/HG/M/PSA")],
-["AMERICANA","CLIN SAO LUCAS SC",["HD/HG","HD/HG","HD/HG","HD/HG","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSP","HD/HG/PSA/PSP"]],
+["ALTINOPOLIS","HOSP DE MISERICORDIA DE ALTINOPOLIS",s("HD/HG/M/PSA")],
+["AMERICANA","CLIN SAO LUCAS SC",["HD/HG", "HD/HG", "HD/HG", "HD/HG", "HD/HG/HOR/PSA/PSP", "HD/HG/HOR/PSA/PSP", "HD/HG/HOR/PSA/PSP", "HD/HG/HOR/PSA/PSP", "HD/HG/HOR/PSA/PSP", "HD/HG/HOR/PSA/PSP", "HD/HG/HOR/PSP", "HD/HG/HOR/PSA/PSP"]],
 ["AMERICANA","HOSPITAL SAO FRANCISCO DE AMERICANA",s("HD/HG/M/PSA/PSP")],
-["AMERICANA","INST PRO VISAO AMERICANA SC LTDA",s("HD/HOF")],
+["AMERICANA","INST PRO VISAO AMERICANA SC LTDA",s("HD")],
 ["AMPARO","BENEFICENCIA PORTUGUESA",s("HD/HG/PSA")],
-["ARARAQUARA","HOSPITAL ARARAQUARA",["-","-","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP"]],
+["ARARAQUARA","HOSPITAL ARARAQUARA",["-", "-", "HD/HG/PSA/PSP", "HD/HG/PSA/PSP", "HD/HG/PSA/PSP", "HD/HG/PSA/PSP", "HD/HG/PSA/PSP", "HD/HG/PSA/PSP", "HD/HG/PSA/PSP", "HD/HG/PSA/PSP", "HD/HG/PSA/PSP", "HD/HG/PSA/PSP"]],
 ["ARARAQUARA","SANTA CASA MISERICORDIA ARARAQUARA",s("HG/PSA/PSP")],
-["ARARAQUARA","MAT GOTA DE LEITE DE ARARAQUARA",s("-")],
-["ARARAS","PRO SAUDE",s("HD/HG/HOF/M/PSA")],
-["ARUJA","HOSPITAL IPIRANGA ARUJA",s("HCA/HD/HG/M/PSA")],
+["ARARAQUARA","MAT GOTA DE LEITE DE ARARAQUARA",s("HP/M")],
+["ARARAS","PRO SAUDE",s("HD/HG/M/PSA")],
+["ARUJA","HOSPITAL IPIRANGA ARUJA",s("HD/HG/M/PSA")],
 ["ASSIS","HOSP DE OLHOS OESTE PAULISTA LTDA",s("HD/HOF")],
 ["ASSIS","HOSPITAL E MATERNIDADE DE ASSIS S.A",s("HD/HOR/M/PSA/PSP")],
 ["ASSIS","IAM - ATENDIMENTO MEDICO HOSPITALAR",s("M")],
-["ASSIS","SANTA CASA DE ASSIS",s("HD/HG/M/PSA/PSP")],
-["ATIBAIA","ALBERT SABIN HOSPITAL E MATERNIDADE",["-","-","HCA/HD/HOF/HP/M/PSA/PSP","HCA/HD/HOF/HP/M/PSA/PSP","HCA/HD/HOF/HP/M/PSA/PSP","HCA/HD/HOF/HP/M/PSA/PSP","HCA/HD/HOF/HP/M/PSA/PSP","HCA/HD/HOF/HP/M/PSA/PSP","HCA/HD/HOF/HP/M/PSA/PSP","HCA/HD/HOF/HP/M/PSA/PSP","HCA/HD/HOF/HP/M/PSA/PSP","HCA/HD/HOF/HP/M/PSA/PSP"]],
-["ATIBAIA","HOSP NOVO ATIBAIA",["HCA/HD/HG/HOF/HON/HP/M/PSA/PSP","HCA/HD/HG/HOF/HON/HP/M/PSA/PSP","HCA/HD/HG/HOF/HP/M/PSA/PSP","HCA/HD/HG/HOF/HP/M/PSA/PSP","HCA/HD/HG/HOF/HP/M/PSA/PSP","HCA/HD/HG/HOF/HP/M/PSA/PSP","HCA/HD/HG/HOF/HP/M/PSA/PSP","HCA/HD/HG/HOF/HP/M/PSA/PSP","HCA/HD/HG/HOF/HP/M/PSA/PSP","HCA/HD/HG/HOF/HP/M/PSA/PSP","HCA/HD/HG/HOF/HP/M/PSA/PSP","HCA/HD/HG/HOF/HP/M/PSA/PSP"]],
-["BARRETOS","HOSPITAL DIA DE BARRETOS",["-","-","HCA/HD/HG/M","HCA/HD/HG/M","HCA/HD/HG/M","HCA/HD/HG/M","HCA/HD/HG/M","HCA/HD/HG/M","HCA/HD/HG/M","HCA/HD/HG/M","HCA/HD/HG/M","HCA/HD/HG/M"]],
-["BARRETOS","HOSPITAL SAO JORGE",["HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HCA/HD/HG/HOF/M/PSA/PSP","HCA/HD/HG/HOF/M/PSA/PSP","HCA/HD/HG/HOF/M/PSA/PSP","HCA/HD/HG/HOF/M/PSA/PSP","HCA/HD/HG/HOF/M/PSA/PSP","HCA/HD/HG/HOF/M/PSA/PSP","HCA/HD/HG/HOF/M/PSA/PSP","HCA/HD/HG/HOF/M/PSA/PSP","HCA/HD/HG/HOF/M/PSA/PSP","HCA/HD/HG/HOF/M/PSA/PSP"]],
-["BARUERI","HOSPITAL SAO LUIZ ALPHAVILLE",["-","-","-","-","HCA/PSA/PSP","HCA/PSA/PSP","HCA/HD/HG/HON/HP/PSA/PSP","HCA/HD/HG/HON/HP/PSA/PSP","HCA/HD/HG/HON/HP/PSA/PSP","HCA/HD/HG/HON/HP/PSA/PSP","HCA/HD/HG/HON/HP/PSA/PSP","HCA/HD/HG/HON/HP/PSA/PSP"]],
-["BARUERI","HOSPITALIS",["HCA/HG/M/PSA/PSP","HCA/HG/M/PSA/PSP","HCA/HG/HOF/M/PSA/PSP","HCA/HG/HOF/M/PSA/PSP","HCA/HG/HOF/M/PSA/PSP","HCA/HG/HOF/M/PSA/PSP","HCA/HG/HOF/M/PSA/PSP","HCA/HG/HOF/M/PSA/PSP","HCA/HG/HOF/M/PSA/PSP","HCA/HG/HOF/M/PSA/PSP","HCA/HG/HOF/M/PSA/PSP","HCA/HG/HOF/M/PSA/PSP"]],
-["BARUERI","NOVO DE JULHO ALPHAVILLE",s("-")],
-["BARUERI","UNID AVANCADA EINSTEIN ALPHAVILLE",["-","-","-","-","-","-","-","-","-","-","PSA/PSP","PSA/PSP"]],
-["BATATAIS","HOSPITAL MAJOR ANTONIO CANDIDO",s("HG/HOF/M/PSA/PSP")],
+["ASSIS","SANTA CASA DE ASSIS",s("HD/HG/HOR/M/PSA/PSP")],
+["ATIBAIA","ALBERT SABIN HOSPITAL E MATERNIDADE",["-", "-", "HD/HOF/M/PSA/PSP", "HD/HOF/M/PSA/PSP", "HD/HOF/M/PSA/PSP", "HD/HOF/M/PSA/PSP", "HD/HOF/M/PSA/PSP", "HD/HOF/M/PSA/PSP", "HD/HOF/M/PSA/PSP", "HD/HOF/M/PSA/PSP", "HD/HOF/M/PSA/PSP", "HD/HOF/M/PSA/PSP"]],
+["ATIBAIA","HOSP NOVO ATIBAIA",s("HD/HG/M/PSA/PSP")],
+["BARRETOS","HOSPITAL DIA DE BARRETOS",["-", "-", "HD/HG/M", "HD/HG/M", "HD/HG/M", "HD/HG/M", "HD/HG/M", "HD/HG/M", "HD/HG/M", "HD/HG/M", "HD/HG/M", "HD/HG/M"]],
+["BARRETOS","HOSPITAL SAO JORGE",["-", "-", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP"]],
+["BARUERI","HOSPITAL SAO LUIZ ALPHAVILLE",["-", "-", "-", "-", "PSA/PSP", "PSA/PSP", "HD/HG/PSA/PSP", "HD/HG/PSA/PSP", "HD/HG/PSA/PSP", "HD/HG/PSA/PSP", "HD/HG/PSA/PSP", "HD/HG/PSA/PSP"]],
+["BARUERI","HOSPITALIS",s("HG/HOR/M/PSA/PSP")],
+["BARUERI","UNID AVANCADA EINSTEIN ALPHAVILLE",["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "PSA/PSP", "PSA/PSP"]],
+["BATATAIS","HOSPITAL MAJOR ANTONIO CANDIDO",s("HG/M/PSA/PSP")],
 ["BAURU","HOSP BENEFICENCIA PORTUGUESA",s("HD/HG/PSA/PSP")],
 ["BAURU","HOSPITAL BAURU",s("HD/HG/M/PSA/PSP")],
-["BEBEDOURO","HOSPITAL UNIMED - SAMARITANO",s("HD/HOF/HON/HOR/HP/M/PSP")],
+["BEBEDOURO","HOSPITAL UNIMED - SAMARITANO",s("HD/HOF/HON/HOR/M/PSP")],
 ["BEBEDOURO","HOSPITAL UNIMED - SANTA CASA",s("HOF/HOR/PSA")],
 ["BOITUVA","HOSPITAL SAO LUIZ",s("HG/M")],
-["BOTUCATU","FUND PARA O DESENVOLV MED E HOSP",s("HCA/HD/HOF/HON/HOR/HP")],
-["BRAGANCA PAULISTA","HOSP UNIV SAO FRANCISCO NA PROV DE",s("HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP")],
-["BRAGANCA PAULISTA","SANTA CASA DE MIS BRAGANCA PAULISTA",s("HCA/HG/M/PSA/PSP")],
-["CAIEIRAS","HOSPITAL DAS CLINICAS CAIEIRAS",["HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","-","HD/HG/M/PSA/PSP","-","HD/HG/M/PSA/PSP","-","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP"]],
-["CAJAMAR","HOSP PAULO SACRAMENTO",s("HCA/HD/HG/HP/M/PSA/PSP")],
-["CAMPINAS","CAMPINAS DAY HOSPITAL SC LTDA",["-","-","HD/HOF/HOR/HP","HD/HOF/HOR/HP","HD/HOF/HOR/HP","HD/HOF/HOR/HP","HD/HOF/HOR/HP","HD/HOF/HOR/HP","HD/HOF/HOR/HP","HD/HOF/HOR/HP","HD/HOF/HOR/HP","HD/HOF/HOR/HP"]],
-["CAMPINAS","CASA DE SAUDE",["-","-","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP"]],
-["CAMPINAS","CEN INFANTIL INV HEM DR BOLDRINI",s("HON/HP")],
-["CAMPINAS","FUNDACAO CENTRO MEDICO CAMPINAS",s("HD/HG/PSA/PSP")],
-["CAMPINAS","HOSP VERA CRUZ SA",["-","-","-","-","-","-","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP"]],
-["CAMPINAS","HOSPITAL MADRE THEODORA CAMPINAS",["HD/HG/M","HD/HG/M","HD/HG/M","HD/HG/M","-","HD/HG/M","-","HD/HG/M","-","HD/HG/M","HD/HG/M","HD/HG/M"]],
-["CAMPINAS","HOSPITAL RENASCENCA CAMPINAS",["-","-","-","-","HD/HOF/HON/HOR/HP/M/PSA/PSP","HD/HOF/HON/HOR/HP/M/PSA/PSP","HD/HOF/HON/HOR/HP/M/PSA/PSP","HD/HOF/HON/HOR/HP/M/PSA/PSP","HD/HOF/HON/HOR/HP/M/PSA/PSP","HD/HOF/HON/HOR/HP/M/PSA/PSP","HD/HOF/HON/HOR/HP/M/PSA/PSP","HD/HOF/HON/HOR/HP/M/PSA/PSP"]],
-["CAMPINAS","HOSPITAL SAMARITANO DE CAMPINAS",["-","-","HCA/HD/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HOF/HON/HOR/HP/M/PSA/PSP"]],
+["BOTUCATU","FUND PARA O DESENVOLV MED E HOSP",s("HD/HOF/HON/HOR")],
+["BRAGANCA PAULISTA","HOSP UNIV SAO FRANCISCO NA PROV DE",s("HD/HG/HON/HOR/M/PSA/PSP")],
+["BRAGANCA PAULISTA","SANTA CASA DE MIS BRAGANCA PAULISTA",s("HG/HOR/M/PSA/PSP")],
+["CACAPAVA","P S STA LUCIA",s("HOR")],
+["CAIEIRAS","HOSPITAL DAS CLINICAS CAIEIRAS",["HD/HG/HOR/M/PSA/PSP", "HD/HG/HOR/M/PSA/PSP", "HD/HG/HOR/M/PSA/PSP", "HD/HG/HOR/M/PSA/PSP", "-", "HD/HG/HOR/M/PSA/PSP", "-", "HD/HG/HOR/M/PSA/PSP", "-", "HD/HG/HOR/M/PSA/PSP", "HD/HG/HOR/M/PSA/PSP", "HD/HG/HOR/M/PSA/PSP"]],
+["CAJAMAR","HOSP PAULO SACRAMENTO",["-", "-", "-", "-", "HD", "HD", "HD", "HD", "HD", "HD", "HD", "HD"]],
+["CAMPINAS","CAMPINAS DAY HOSPITAL SC LTDA",["-", "-", "HD/HOF/HOR", "HD/HOF/HOR", "HD/HOF/HOR", "HD/HOF/HOR", "HD/HOF/HOR", "HD/HOF/HOR", "HD/HOF/HOR", "HD/HOF/HOR", "HD/HOF/HOR", "HD/HOF/HOR"]],
+["CAMPINAS","CASA DE SAUDE",["-", "-", "HD/HG/PSA/PSP", "HD/HG/PSA/PSP", "HD/HG/PSA/PSP", "HD/HG/PSA/PSP", "HD/HG/PSA/PSP", "HD/HG/PSA/PSP", "HD/HG/PSA/PSP", "HD/HG/PSA/PSP", "HD/HG/PSA/PSP", "HD/HG/PSA/PSP"]],
+["CAMPINAS","CEN INFANTIL INV HEM DR BOLDRINI",s("HON")],
+["CAMPINAS","FUNDACAO CENTRO MEDICO CAMPINAS",s("HD/HG/HOR/PSA/PSP")],
+["CAMPINAS","HOSP VERA CRUZ SA",["-", "-", "-", "-", "-", "-", "HD/HG/HOR/M/PSA/PSP", "HD/HG/HOR/M/PSA/PSP", "HD/HG/HOR/M/PSA/PSP", "HD/HG/HOR/M/PSA/PSP", "HD/HG/HOR/M/PSA/PSP", "HD/HG/HOR/M/PSA/PSP"]],
+["CAMPINAS","HOSPITAL MADRE THEODORA CAMPINAS",["HD/HG/M", "HD/HG/M", "HD/HG/M", "HD/HG/M", "-", "HD/HG/M", "-", "HD/HG/M", "-", "HD/HG/M", "HD/HG/M", "HD/HG/M"]],
+["CAMPINAS","HOSPITAL RENASCENCA CAMPINAS",["-", "-", "-", "-", "HD/HOF/HON/HOR/M/PSA/PSP", "HD/HOF/HON/HOR/M/PSA/PSP", "HD/HOF/HON/HOR/M/PSA/PSP", "HD/HOF/HON/HOR/M/PSA/PSP", "HD/HOF/HON/HOR/M/PSA/PSP", "HD/HOF/HON/HOR/M/PSA/PSP", "HD/HOF/HON/HOR/M/PSA/PSP", "HD/HOF/HON/HOR/M/PSA/PSP"]],
+["CAMPINAS","HOSPITAL SAMARITANO DE CAMPINAS",["-", "-", "HCA/HD/HOF/HON/HOR/M/PSA/PSP", "HCA/HD/HOF/HON/HOR/M/PSA/PSP", "HCA/HD/HOF/HON/HOR/M/PSA/PSP", "HCA/HD/HOF/HON/HOR/M/PSA/PSP", "HCA/HD/HOF/HON/HOR/M/PSA/PSP", "HCA/HD/HOF/HON/HOR/M/PSA/PSP", "HCA/HD/HOF/HON/HOR/M/PSA/PSP", "HCA/HD/HOF/HON/HOR/M/PSA/PSP", "HCA/HD/HOF/HON/HOR/M/PSA/PSP", "HCA/HD/HOF/HON/HOR/M/PSA/PSP"]],
 ["CAMPINAS","HOSPITAL SANTA TEREZA",s("HD/HG/M/PSA/PSP")],
-["CAMPINAS","HOSPITAL SAO LUIZ CAMPINAS",["-","-","-","-","HCA/HD/HG/HON/HP/M/PSA/PSP","HCA/HD/HG/HON/HP/M/PSA/PSP","HCA/HD/HG/HON/HP/M/PSA/PSP","HCA/HD/HG/HON/HP/M/PSA/PSP","HCA/HD/HG/HON/HP/M/PSA/PSP","HCA/HD/HG/HON/HP/M/PSA/PSP","HCA/HD/HG/HON/HP/M/PSA/PSP","HCA/HD/HG/HON/HP/M/PSA/PSP"]],
-["CAMPINAS","INSTITUTO OFTALMO OTORRINOLARINGOLO",["-","-","HD/HOF","HD/HOF","HD/HOF","HD/HOF","HD/HOF","HD/HOF","HD/HOF","HD/HOF","HD/HOF","HD/HOF"]],
-["CAMPINAS","INST PENIDO BURNIER",s("-")],
-["CAMPOS DO JORDAO","HOSPITAL LEONOR MENDES DE BARROS",s("HCA/HD/HG/HOF/PSA")],
+["CAMPINAS","HOSPITAL SAO LUIZ CAMPINAS",["-", "-", "-", "-", "HD/HG/HOR/M/PSA/PSP", "HD/HG/HOR/M/PSA/PSP", "HD/HG/HOR/M/PSA/PSP", "HD/HG/HOR/M/PSA/PSP", "HD/HG/HOR/M/PSA/PSP", "HD/HG/HOR/M/PSA/PSP", "HD/HG/HOR/M/PSA/PSP", "HD/HG/HOR/M/PSA/PSP"]],
+["CAMPINAS","INSTITUTO OFTALMO OTORRINOLARINGOLO",["-", "-", "HD", "HD", "HD", "HD", "HD", "HD", "HD", "HD", "HD", "HD"]],
+["CAMPINAS","INST PENIDO BURNIER",s("HOF")],
+["CAMPOS DO JORDAO","HOSPITAL LEONOR MENDES DE BARROS",s("HD/HG/PSA")],
 ["CAPAO BONITO","ASS BENEF STA CASA MISER CAP BONITO",s("HOR/M/PSA")],
 ["CAPIVARI","SANTA CASA DE CAPIVARI",s("HG/M/PSA")],
 ["CARAGUATATUBA","CASA DE SAUDE STELLA MARIS",s("HG/M/PSA")],
-["CARAPICUIBA","HOSPITAL CENTRAL OESTE",s("HCA/HD/HG/HON/HP/PSA/PSP")],
-["CATANDUVA","HOSPITAL PADRE ALBINO",s("HD/HOF/HON/HOR/HP/M/PSA/PSP")],
-["CERQUILHO","SANTA CASA DE MISER DE CERQUILHO",s("HG/M/PSA")],
-["COSMOPOLIS","SANTA CASA DE MIS DE COSMOPOLIS",s("HG/M/PSA/PSP")],
-["COTIA","HOSPITAL SAO FRANCISCO SC LTDA",s("HCA/HD/HG/M/PSA/PSP")],
+["CARAPICUIBA","HOSPITAL CENTRAL OESTE",s("HD/HG/HOR/PSA/PSP")],
+["CATANDUVA","HOSPITAL PADRE ALBINO",s("HD/HOF/HON/HOR/M/PSA/PSP")],
+["CERQUILHO","SANTA CASA DE MISER DE CERQUILHO",s("HG/HOR/M/PSA")],
+["COSMOPOLIS","SANTA CASA DE MIS DE COSMOPOLIS",s("HG/HOR/M/PSA/PSP")],
+["COTIA","HOSPITAL SAO FRANCISCO SC LTDA",s("HD/HG/HOR/M/PSA/PSP")],
 ["CRAVINHOS","SOC BENEF DE CRAVINHOS SANTA CASA",s("HG/PSA/PSP")],
-["CRUZEIRO","CLINICA DE CIRURGIA SANTO ANTONIO",s("HD/HOF")],
+["CRUZEIRO","CLINICA DE CIRURGIA SANTO ANTONIO",s("HD")],
 ["CRUZEIRO","SANTA CASA MISERICORDIA DE CRUZEIRO",s("HG/M/PSA/PSP")],
-["CUBATAO","HOSP ANA COSTA",["HCA/HD/HG/HOF/M/PSA/PSP","HCA/HD/HG/HOF/M/PSA/PSP","HCA/HD/HG/HOF/M/PSA/PSP","HCA/HD/HG/HOF/M/PSA/PSP","-","HCA/HD/HG/HOF/M/PSA/PSP","-","HCA/HD/HG/HOF/M/PSA/PSP","-","HCA/HD/HG/HOF/M/PSA/PSP","HCA/HD/HG/HOF/M/PSA/PSP","HCA/HD/HG/HOF/M/PSA/PSP"]],
+["CUBATAO","HOSP ANA COSTA",["HD/HG/PSA/PSP", "HD/HG/PSA/PSP", "HD/HG/PSA/PSP", "HD/HG/PSA/PSP", "-", "HD/HG/PSA/PSP", "-", "HD/HG/PSA/PSP", "-", "HD/HG/PSA/PSP", "HD/HG/PSA/PSP", "HD/HG/PSA/PSP"]],
 ["DESCALVADO","IRMANDADE SANT CASA MISER DESCALVAD",s("HG/M/PSA/PSP")],
-["DIADEMA","INNOVA HOSPITAIS ASSOCIADOS",["-","-","HD/HG/PSA/PSP","HD/HG/PSA/PSP","-","HD/HG/PSA/PSP","-","HD/HG/PSA/PSP","-","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP"]],
-["FERNANDOPOLIS","HOSP DAS CLINICAS FERNANDOPOLISSC",s("HCA/HD/HG")],
-["FERNANDOPOLIS","IRM STA CS DE MISER FERNANDOPOLIS",s("HG/PSA")],
-["FRANCA","HOSPITAL FRANCA",s("HCA/HD/HOF/HON/HOR/HP/M/PSA/PSP")],
-["FRANCA","HOSPITAL SAO JOAQUIM",s("HCA/HD/HG/HON/M/PSA/PSP")],
-["FRANCA","SAO JOAQUIM HOSPITAL E MATERNIDADE",s("-")],
-["GUARA","SANTA CASA DE MISERC DE GUARA",s("HCA/HD/HG/HOF/M/PSA")],
+["DIADEMA","INNOVA HOSPITAIS ASSOCIADOS",["-", "-", "HD/HG/HOR/PSA/PSP", "HD/HG/HOR/PSA/PSP", "-", "HD/HG/HOR/PSA/PSP", "-", "HD/HG/HOR/PSA/PSP", "-", "HD/HG/HOR/PSA/PSP", "HD/HG/HOR/PSA/PSP", "HD/HG/HOR/PSA/PSP"]],
+["FERNANDOPOLIS","HOSP DAS CLINICAS FERNANDOPOLISSC",s("HD/HG")],
+["FERNANDOPOLIS","IRM STA CS DE MISER FERNANDOPOLIS",s("HG/HOR/PSA")],
+["FRANCA","HOSPITAL FRANCA",s("HD/HOF/HON/HOR/HP/M/PSA/PSP")],
+["FRANCA","HOSPITAL SAO JOAQUIM",s("HCA/HD/HG/HOR/M/PSA/PSP")],
+["FRANCA","SAO JOAQUIM HOSPITAL E MATERNIDADE",s("HCA/HD/HG/HOR/M/PSA/PSP")],
+["GUARA","SANTA CASA DE MISERC DE GUARA",s("HD/HG/HOR/M/PSA")],
 ["GUARAREMA","SANTA CASA DE MISER DE GUARAREMA",s("HD/HG/M/PSA")],
-["GUARATINGUETA","CENTRO HOSPITALAR GUARATINGUETA VIN",["-","-","HCA/HD/HOF","HCA/HD/HOF","HCA/HD/HOF","HCA/HD/HOF","HCA/HD/HOF","HCA/HD/HOF","HCA/HD/HOF","HCA/HD/HOF","HCA/HD/HOF","HCA/HD/HOF"]],
+["GUARATINGUETA","CENTRO HOSPITALAR GUARATINGUETA VIN",["-", "-", "HD", "HD", "HD", "HD", "HD", "HD", "HD", "HD", "HD", "HD"]],
 ["GUARATINGUETA","IRM SR PASSOS STA CASA MIS GUARATIN",s("HD/HG/M/PSA/PSP")],
-["GUARUJA","CASA DE SAUDE DO GUARUJA",s("HCA/HD/HG/HOF/HP/PSA/PSP")],
-["GUARUJA","HOSP FREI GALVAO",["-","-","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP"]],
-["GUARUJA","P S ANA COSTA UNID ENS DO GUARUJA",["PSA/PSP","PSA/PSP","PSA/PSP","PSA/PSP","-","PSA/PSP","-","PSA/PSP","-","PSA/PSP","PSA/PSP","PSA/PSP"]],
-["GUARULHOS","HOSP STELLA MARIS",["-","-","HG/PSA","HG/PSA","HG/PSA","HG/PSA","HG/PSA","HG/PSA","HG/PSA","HG/PSA","HG/PSA","HG/PSA"]],
-["GUARULHOS","HOSPITAL CARLOS CHAGAS",["-","-","HD/HG/M/PSA","HD/HG/M/PSA","-","HD/HG/M/PSA","-","HD/HG/M/PSA","-","HD/HG/M/PSA","HD/HG/M/PSA","HD/HG/M/PSA"]],
-["GUARULHOS","HOSPITAL DE OLHOS CRO LTDA",["-","-","HD/HOF","HD/HOF","HD/HOF","HD/HOF","HD/HOF","HD/HOF","HD/HOF","HD/HOF","HD/HOF","HD/HOF"]],
-["GUARULHOS","HOSPITAL E MATERNIDADE GUARULHOS",s("HCA/HD/HOR/HP/M/PSA/PSP")],
-["GUARULHOS","HOSPITAL SAO LUIZ GUARULHOS",["-","-","-","-","HCA/HD/HG/HON/HP/M/PSA/PSP","HCA/HD/HG/HON/HP/M/PSA/PSP","HCA/HD/HG/HON/HP/M/PSA/PSP","HCA/HD/HG/HON/HP/M/PSA/PSP","HCA/HD/HG/HON/HP/M/PSA/PSP","HCA/HD/HG/HON/HP/M/PSA/PSP","HCA/HD/HG/HON/HP/M/PSA/PSP","HCA/HD/HG/HON/HP/M/PSA/PSP"]],
-["HORTOLANDIA","HOSPITAL SAMARITANO HORTOLANDIA",s("HCA/HD/HOF/HON/HOR/HP/M/PSA/PSP")],
+["GUARUJA","CASA DE SAUDE DO GUARUJA",s("HD/HG/PSA/PSP")],
+["GUARUJA","HOSP FREI GALVAO",["-", "-", "PSP", "PSP", "HD/HG/PSP", "HD/HG/PSP", "HD/HG/PSP", "HD/HG/PSP", "HD/HG/PSP", "HD/HG/PSP", "HD/HG/PSP", "HD/HG/PSP"]],
+["GUARUJA","P S ANA COSTA UNID ENS DO GUARUJA",["PSA/PSP", "PSA/PSP", "PSA/PSP", "PSA/PSP", "-", "PSA/PSP", "-", "PSA/PSP", "-", "PSA/PSP", "PSA/PSP", "PSA/PSP"]],
+["GUARULHOS","HOSP STELLA MARIS",["-", "-", "HG/PSA", "HG/PSA", "HG/PSA", "HG/PSA", "HG/PSA", "HG/PSA", "HG/PSA", "HG/PSA", "HG/PSA", "HG/PSA"]],
+["GUARULHOS","HOSPITAL CARLOS CHAGAS",["-", "-", "HD/HG/HOR/M/PSA", "HD/HG/HOR/M/PSA", "-", "HD/HG/HOR/M/PSA", "-", "HD/HG/HOR/M/PSA", "-", "HD/HG/HOR/M/PSA", "HD/HG/HOR/M/PSA", "HD/HG/HOR/M/PSA"]],
+["GUARULHOS","HOSPITAL DE OLHOS CRO LTDA",["-", "-", "HD", "HD", "HD", "HD", "HD", "HD", "HD", "HD", "HD", "HD"]],
+["GUARULHOS","HOSPITAL E MATERNIDADE GUARULHOS",s("HD/HOR/HP/M/PSA/PSP")],
+["GUARULHOS","HOSPITAL SAO LUIZ GUARULHOS",["-", "-", "-", "-", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP"]],
+["HORTOLANDIA","HOSPITAL SAMARITANO HORTOLANDIA",s("HD/HOF/HON/HOR/M/PSA/PSP")],
 ["IBITINGA","HOSPITAL IBITINGA LTDA",s("HD/HG/M")],
 ["IBIUNA","ESTANCIA MORRO GRANDE",s("HD")],
 ["INDAIATUBA","CTO CENTRO TRAUMATO ORTOPEDICO",s("HD")],
-["INDAIATUBA","HOSPITAL SANTA IGNES SC LTDA",s("HD/HG/M/PSA/PSP")],
-["INDAIATUBA","INDAIATUBA DAY HOSPITAL",["-","-","HCA/HD","HCA/HD","HCA/HD","HCA/HD","HCA/HD","HCA/HD","HCA/HD","HCA/HD","HCA/HD","HCA/HD"]],
+["INDAIATUBA","HOSPITAL SANTA IGNES SC LTDA",s("HD/HG/HOR/M/PSA/PSP")],
+["INDAIATUBA","INDAIATUBA DAY HOSPITAL",["-", "-", "HD", "HD", "HD", "HD", "HD", "HD", "HD", "HD", "HD", "HD"]],
+["INDAIATUBA","HOSP AUGUSTO DE OLIVEIRA CAMARGO",s("HG/HOR/M/PSA/PSP")],
 ["ITAPECERICA DA SERRA","HOSPITAL SANTA MONICA",s("HD")],
-["ITAPEVI","HOSPITAL YES",s("HCA/HD/HG/HP/M/PSA/PSP")],
-["ITAPEVI","NOTRE DAME INTERMEDICA SAUDE S.A.",["-","-","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP"]],
-["ITAPIRA","IRM STA CASA MIS DE ITAPIRA",s("HCA/HD/HG/HOF/HP/M/PSA/PSP")],
+["ITAPEVI","HOSPITAL YES",s("HD/HG/HOR/M/PSA/PSP")],
+["ITAPEVI","NOTRE DAME INTERMEDICA SAUDE S.A.",["-", "-", "HD/HG/HOR/PSA/PSP", "HD/HG/HOR/PSA/PSP", "HD/HG/HOR/PSA/PSP", "HD/HG/HOR/PSA/PSP", "HD/HG/HOR/PSA/PSP", "HD/HG/HOR/PSA/PSP", "HD/HG/HOR/PSA/PSP", "HD/HG/HOR/PSA/PSP", "HD/HG/HOR/PSA/PSP", "HD/HG/HOR/PSA/PSP"]],
+["ITAPIRA","IRM STA CASA MIS DE ITAPIRA",s("HD/HG/M/PSA/PSP")],
 ["ITAPOLIS","STA CASA DE MIS MAT DA JULIETA LIRA",s("HD/HG/M/PSA/PSP")],
 ["ITARARE","SANTA CASA DE MISERICORDIA ITARARE",s("HG/M")],
 ["ITATIBA","HOSPITAL ITATIBA LTDA",s("HD/HG/M/PSA/PSP")],
 ["ITATIBA","STA CASA DE MISER DE ITATIBA",s("HD/HG/M/PSA/PSP")],
-["ITU","NOVO HOSPITAL ROD - UNIMED SALTO",["-","-","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP"]],
-["ITUVERAVA","HOSPITAL SAO JORGE",["HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HCA/HD/HG/HOF/M/PSA/PSP","HCA/HD/HG/HOF/M/PSA/PSP","HCA/HD/HG/HOF/M/PSA/PSP","HCA/HD/HG/HOF/M/PSA/PSP","HCA/HD/HG/HOF/M/PSA/PSP","HCA/HD/HG/HOF/M/PSA/PSP","HCA/HD/HG/HOF/M/PSA/PSP","HCA/HD/HG/HOF/M/PSA/PSP","HCA/HD/HG/HOF/M/PSA/PSP","HCA/HD/HG/HOF/M/PSA/PSP"]],
-["ITUVERAVA","STA CASA DE ITUVERAVA",s("HD/HG/M/PSA/PSP")],
+["ITU","NOVO HOSPITAL ROD - UNIMED SALTO",["-", "-", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP"]],
+["ITUVERAVA","HOSPITAL SAO JORGE",s("HD/HG/M/PSA/PSP")],
+["ITUVERAVA","STA CASA DE ITUVERAVA",s("HD/HG/HOR/M/PSA/PSP")],
 ["JABOTICABAL","HOSPITAL SAO MARCOS S A",s("HG")],
 ["JACAREI","CLIN BONANOMI",s("HD")],
 ["JACAREI","HOSP ALVORADA SC LTDA",s("HD/HG/M/PSA")],
-["JACAREI","HOSP CLIN ANTONIO AFONSO SC LTDA",s("HCA/HD/HG/M/PSA")],
-["JACAREI","HOSP E MATER SAO FRANCISCO DE ASSIS",["HCA/HD/HG/HON/M/PSA/PSP","HCA/HD/HG/HON/M/PSA/PSP","HCA/HD/HG/HON/HOR/M/PSA/PSP","HCA/HD/HG/HON/HOR/M/PSA/PSP","HCA/HD/HG/HON/HOR/M/PSA/PSP","HCA/HD/HG/HON/HOR/M/PSA/PSP","HCA/HD/HG/HON/HOR/M/PSA/PSP","HCA/HD/HG/HON/HOR/M/PSA/PSP","HCA/HD/HG/HON/HOR/M/PSA/PSP","HCA/HD/HG/HON/HOR/M/PSA/PSP","HCA/HD/HG/HON/HOR/M/PSA/PSP","HCA/HD/HG/HON/HOR/M/PSA/PSP"]],
-["JACAREI","STA CASA DE MIS DE JACAREI",["-","-","HG/M/PSA","HG/M/PSA","HG/M/PSA","HG/M/PSA","HG/M/PSA","HG/M/PSA","HG/M/PSA","HG/M/PSA","HG/M/PSA","HG/M/PSA"]],
+["JACAREI","HOSP CLIN ANTONIO AFONSO SC LTDA",s("HD/HG/HOR/M/PSA")],
+["JACAREI","HOSP E MATER SAO FRANCISCO DE ASSIS",["HD/HG/HON/M/PSA/PSP", "HD/HG/HON/M/PSA/PSP", "HD/HG/HON/HOR/M/PSA/PSP", "HD/HG/HON/HOR/M/PSA/PSP", "HD/HG/HON/HOR/M/PSA/PSP", "HD/HG/HON/HOR/M/PSA/PSP", "HD/HG/HON/HOR/M/PSA/PSP", "HD/HG/HON/HOR/M/PSA/PSP", "HD/HG/HON/HOR/M/PSA/PSP", "HD/HG/HON/HOR/M/PSA/PSP", "HD/HG/HON/HOR/M/PSA/PSP", "HD/HG/HON/HOR/M/PSA/PSP"]],
+["JACAREI","STA CASA DE MIS DE JACAREI",["-", "-", "HG/M/PSA", "HG/M/PSA", "HG/M/PSA", "HG/M/PSA", "HG/M/PSA", "HG/M/PSA", "HG/M/PSA", "HG/M/PSA", "HG/M/PSA", "HG/M/PSA"]],
 ["JARINU","HOSPITAL ISRAELITA ST. JAMES DE JAR",s("PSA")],
 ["JAU","SANTA CASA DE JAHU",s("HD/HG/M/PSA/PSP")],
 ["JOSE BONIFACIO","SANTA CASA MIS JB",s("HD/HG/M/PSA")],
-["JUNDIAI","CENTRO MED HOSP PITANGUEIRAS SC",["HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","-","HD/HG/M/PSA/PSP","-","HD/HG/M/PSA/PSP","-","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP"]],
-["JUNDIAI","HOSP PAULO SACRAMENTO",s("HCA/HD/HG/HP/M/PSA/PSP")],
-["JUNDIAI","HOSP SANTA ELISA",s("HCA/HD/HOF/HON/HOR/HP/M/PSA/PSP")],
+["JUNDIAI","CENTRO MED HOSP PITANGUEIRAS SC",["HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP", "HD/HG/HOR/M/PSA/PSP", "HD/HG/HOR/M/PSA/PSP", "-", "HD/HG/HOR/M/PSA/PSP", "-", "HD/HG/HOR/M/PSA/PSP", "-", "HD/HG/HOR/M/PSA/PSP", "HD/HG/HOR/M/PSA/PSP", "HD/HG/HOR/M/PSA/PSP"]],
+["JUNDIAI","HOSP PAULO SACRAMENTO",s("HCA/HD/HG/HOR/M/PSA/PSP")],
+["JUNDIAI","HOSP SANTA ELISA",s("HCA/HD/HOF/HON/HOR/M/PSA/PSP")],
 ["JUNDIAI","HOSPITAL DIA OFTALMOLOGICO",s("HD/HOF")],
 ["LARANJAL PAULISTA","IRM DA STA CS DE MIS DE LARANJAL PT",s("HG/M/PSA/PSP")],
 ["LENCOIS PAULISTA","HOSP NS DA PIEDADE",s("HD/HOF/HOR/HP/M")],
 ["LIMEIRA","HOSPITAL MEDICAL",s("HD/HG/M/PSA/PSP")],
-["LIMEIRA","SANTA CASA DE LIMEIRA",s("HCA/HG/M/PSA/PSP")],
-["LINS","HOSPITAL LINS",s("HD/HOF/HOR/HP/M/PSA/PSP")],
+["LIMEIRA","SANTA CASA DE LIMEIRA",s("HG/HOR/M/PSA/PSP")],
+["LINS","HOSPITAL LINS",s("HD/HOF/HOR/M/PSA/PSP")],
 ["LINS","SANTA CASA DE LINS",s("HD/HG/PSA")],
-["LORENA","HOSP UNIMED DE LORENA",s("HOF/HOR/HP/M")],
+["LORENA","HOSP UNIMED DE LORENA",s("HOF/HOR/M")],
 ["LORENA","SANTA CASA M LORENA",s("HG/M/PSA/PSP")],
-["LOUVEIRA","IRMANDADE DA SANTA CASA DE LOUVEIRA",s("HCA/HD/HG/M/PSA/PSP")],
-["LUCELIA","SANTA CASA DE MISERICORDIA LUCELIA",s("HG/HOF/PSA")],
-["MARILIA","HOSP UNIVERSITARIO DE MARILIA",s("HD/HG/HON/M/PSA")],
+["LOUVEIRA","IRMANDADE DA SANTA CASA DE LOUVEIRA",s("HD/HG/HOR/M/PSA/PSP")],
+["LUCELIA","SANTA CASA DE MISERICORDIA LUCELIA",s("HG/PSA")],
+["MARILIA","HOSP UNIVERSITARIO DE MARILIA",s("HD/HG/M/PSA")],
 ["MARILIA","HOSPITAL ESPIRITA DE MARILIA",s("HD")],
 ["MARILIA","SANTA CASA DE MARILIA",s("HCA/HD/HON/HOR/PSA/PSP")],
 ["MARTINOPOLIS","STA CASA DE MIS PE JOAO SCHNEIDER",s("HG/PSA")],
 ["MATAO","IRM SANTA CASA DE MIS DE MATAO",s("HD/HG/M/PSA/PSP")],
-["MAUA","HOSP E MATERNIDADE BRASIL UNID MAUA",s("HCA/HD/HG/HON/HP/PSA/PSP")],
-["MAUA","SANTA CASA DE MAUA",["PSA/PSP","PSA/PSP","HCA/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HOF/HON/HOR/HP/M/PSA/PSP"]],
+["MAUA","HOSP E MATERNIDADE BRASIL UNID MAUA",s("HD/HG/HOR/PSA/PSP")],
+["MAUA","SANTA CASA DE MAUA",["PSA/PSP", "PSA/PSP", "HOF/HON/HOR/M/PSA/PSP", "HOF/HON/HOR/M/PSA/PSP", "HOF/HON/HOR/M/PSA/PSP", "HOF/HON/HOR/M/PSA/PSP", "HOF/HON/HOR/M/PSA/PSP", "HOF/HON/HOR/M/PSA/PSP", "HOF/HON/HOR/M/PSA/PSP", "HOF/HON/HOR/M/PSA/PSP", "HOF/HON/HOR/M/PSA/PSP", "HOF/HON/HOR/M/PSA/PSP"]],
 ["MOGI DAS CRUZES","CENTRO URO E NEFRO MOGI DAS CRUZES",s("HD")],
-["MOGI DAS CRUZES","HOSPITAL E MATERNIDADE IPIRANGA",["HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","-","HD/HG/PSA/PSP","-","HD/HG/PSA/PSP","-","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP"]],
-["MOGI DAS CRUZES","HOSPITAL MOGIANO",["-","-","HCA/HD/HG","HCA/HD/HG","HCA/HD/HG","HCA/HD/HG","HCA/HD/HG","HCA/HD/HG","HCA/HD/HG","HCA/HD/HG","HCA/HD/HG","HCA/HD/HG"]],
+["MOGI DAS CRUZES","HOSPITAL E MATERNIDADE IPIRANGA",["HD/HG/HOR/PSA/PSP", "HD/HG/HOR/PSA/PSP", "HD/HG/HOR/PSA/PSP", "HD/HG/HOR/PSA/PSP", "-", "HD/HG/HOR/PSA/PSP", "-", "HD/HG/HOR/PSA/PSP", "-", "HD/HG/HOR/PSA/PSP", "HD/HG/HOR/PSA/PSP", "HD/HG/HOR/PSA/PSP"]],
+["MOGI DAS CRUZES","HOSPITAL MOGIANO",["-", "-", "HD/HG", "HD/HG", "HD/HG", "HD/HG", "HD/HG", "HD/HG", "HD/HG", "HD/HG", "HD/HG", "HD/HG"]],
 ["MOGI DAS CRUZES","MOGI MATER HOSPITAL E MATERNIDADE",s("HD/HG/M/PSA/PSP")],
-["MOGI DAS CRUZES","NOTRE DAME INTERMEDICA SAUDE S.A.",["-","-","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP"]],
-["MOGI DAS CRUZES","STA CASA MISERIC MOGI DAS CRUZES",["-","-","HG/PSA","HG/PSA","HG/PSA","HG/PSA","HG/PSA","HG/PSA","HG/PSA","HG/PSA","HG/PSA","HG/PSA"]],
+["MOGI DAS CRUZES","NOTRE DAME INTERMEDICA SAUDE S.A.",["-", "-", "HD/HG/HOF/HON/HOR/PSA/PSP", "HD/HG/HOF/HON/HOR/PSA/PSP", "HD/HG/HOF/HON/HOR/PSA/PSP", "HD/HG/HOF/HON/HOR/PSA/PSP", "HD/HG/HOF/HON/HOR/PSA/PSP", "HD/HG/HOF/HON/HOR/PSA/PSP", "HD/HG/HOF/HON/HOR/PSA/PSP", "HD/HG/HOF/HON/HOR/PSA/PSP", "HD/HG/HOF/HON/HOR/PSA/PSP", "HD/HG/HOF/HON/HOR/PSA/PSP"]],
+["MOGI DAS CRUZES","STA CASA MISERIC MOGI DAS CRUZES",["-", "-", "HG/PSA", "HG/PSA", "HG/PSA", "HG/PSA", "HG/PSA", "HG/PSA", "HG/PSA", "HG/PSA", "HG/PSA", "HG/PSA"]],
 ["MONTE ALTO","IRM DE MIS DO HOSP DA STA CS MONTE",s("HD/HG/M/PSA/PSP")],
 ["MORRO AGUDO","HOSP SAO MARCOS DA SAMA",s("HG/M/PSA")],
-["OSASCO","HOSPITAL E MAT SAO LUIZ OSASCO",s("HCA/HD/HG/HON/HP/M/PSA/PSP")],
-["OSASCO","NOTRE DAME INTERMEDICA SAUDE S.A.",["-","-","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP"]],
+["OSASCO","HOSPITAL E MAT SAO LUIZ OSASCO",["HD/HG/HON/M/PSA/PSP", "HD/HG/HON/M/PSA/PSP", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP"]],
+["OSASCO","NOTRE DAME INTERMEDICA SAUDE S.A.",["-", "-", "HD/HG/HON/HOR/M/PSA/PSP", "HD/HG/HON/HOR/M/PSA/PSP", "HD/HG/HON/HOR/M/PSA/PSP", "HD/HG/HON/HOR/M/PSA/PSP", "HD/HG/HON/HOR/M/PSA/PSP", "HD/HG/HON/HOR/M/PSA/PSP", "HD/HG/HON/HOR/M/PSA/PSP", "HD/HG/HON/HOR/M/PSA/PSP", "HD/HG/HON/HOR/M/PSA/PSP", "HD/HG/HON/HOR/M/PSA/PSP"]],
 ["OSASCO","PRO CRIANCA PRONT SOC INFANTIL",s("PSP")],
 ["OSVALDO CRUZ","IRM STA CASA DE MIS DE OSVALDO CRUZ",s("HD/HG/M/PSA/PSP")],
-["PEDERNEIRAS","SANTA CASA MISERICORDIA PEDERNEIRAS",s("HCA/HD/HOF/HOR/M/PSA")],
+["PEDERNEIRAS","SANTA CASA MISERICORDIA PEDERNEIRAS",s("HD/HOF/HOR/M/PSA")],
 ["PENAPOLIS","IRM DA STA CASA DE MIS DE PENAPOLIS",s("HG/M")],
 ["PEREIRA BARRETO","STA CASA MISERIC DE PEREIRA BARRETO",s("HOR/M/PSA/PSP")],
-["PIEDADE","SANTA CASA PIEDADE",s("HD/HP/M/PSA/PSP")],
-["PINDAMONHANGABA","HOSPITAL 10 DE JULHO",["-","-","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP"]],
+["PIEDADE","SANTA CASA PIEDADE",s("HD/M/PSA/PSP")],
+["PINDAMONHANGABA","HOSPITAL 10 DE JULHO",["-", "-", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP"]],
 ["PINDAMONHANGABA","STA CASA DE MIS DE PINDAMONHANGABA",s("HD/HG/M/PSA/PSP")],
-["PIRACICABA","ASSOC DOS FORN DE CANA DE PIRACICAB",s("HD/HG/M/PSA/PSP")],
+["PIRACICABA","ASSOC DOS FORN DE CANA DE PIRACICAB",s("HD/HG/HOR/M/PSA/PSP")],
 ["PIRASSUNUNGA","IRM STA CASA MIS PIRASSUNUNGA",s("HD/HG/M/PSA")],
-["PONTAL","SANTA CASA MISERICORDIA DE PONTAL",["HD/HG/M/PSA","HD/HG/M/PSA","-","-","HD/HG/M/PSA","HD/HG/M/PSA","HD/HG/M/PSA","HD/HG/M/PSA","HD/HG/M/PSA","HD/HG/M/PSA","HD/HG/M/PSA","HD/HG/M/PSA"]],
-["PORTO FELIZ","IRM STA CASA MISERIC DE PORTO FELIZ",["HD/HG/M/PSA","HD/HG/M/PSA","HD/HG/M/PSA","HD/HG/M","HD/HG/M/PSA","HD/HG/M/PSA","HD/HG/M/PSA","HD/HG/M/PSA","HD/HG/M/PSA","HD/HG/M/PSA","HD/HG/M/PSA","HD/HG/M/PSA"]],
-["PRAIA GRANDE","P S ANA COSTA",["HCA/HD/PSA/PSP","HCA/HD/PSA/PSP","HCA/HD/PSA/PSP","HCA/HD/PSA/PSP","-","HCA/HD/PSA/PSP","-","HCA/HD/PSA/PSP","-","HCA/HD/PSA/PSP","HCA/HD/PSA/PSP","HCA/HD/PSA/PSP"]],
-["PRAIA GRANDE","CASA DE S DE SANTOS PRAIA GRANDE",s("-")],
+["PONTAL","SANTA CASA MISERICORDIA DE PONTAL",["HD/HG/M/PSA", "HD/HG/M/PSA", "-", "-", "HD/HG/M/PSA", "HD/HG/M/PSA", "HD/HG/M/PSA", "HD/HG/M/PSA", "HD/HG/M/PSA", "HD/HG/M/PSA", "HD/HG/M/PSA", "HD/HG/M/PSA"]],
+["PORTO FELIZ","IRM STA CASA MISERIC DE PORTO FELIZ",["HD/HG/M/PSA", "HD/HG/M/PSA", "HD/HG/M/PSA", "HD/HG/M", "HD/HG/M/PSA", "HD/HG/M/PSA", "HD/HG/M/PSA", "HD/HG/M/PSA", "HD/HG/M/PSA", "HD/HG/M/PSA", "HD/HG/M/PSA", "HD/HG/M/PSA"]],
+["PRAIA GRANDE","P S ANA COSTA",["HD/PSA/PSP", "HD/PSA/PSP", "HD/PSA/PSP", "HD/PSA/PSP", "-", "HD/PSA/PSP", "-", "HD/PSA/PSP", "-", "HD/PSA/PSP", "HD/PSA/PSP", "HD/PSA/PSP"]],
+["PRAIA GRANDE","CASA DE S DE SANTOS PRAIA GRANDE",s("HD/HG/PSA/PSP")],
 ["PRESIDENTE PRUDENTE","ASSOC ASSIST ADOLPHO BEZERRA DE MEN",s("HD")],
-["PRESIDENTE PRUDENTE","HOSP DR ARISTOTELES OLIVEIRA MARTIN",["-","-","HCA/HD/HOF/HON/HOR/HP/PSA/PSP","HCA/HD/HOF/HON/HOR/HP/PSA/PSP","HCA/HD/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HOF/HON/HOR/HP/M/PSA/PSP"]],
-["PRESIDENTE PRUDENTE","HOSPITAL IAMADA",s("HD/HON/HOR/HP/M/PSA/PSP")],
-["PRESIDENTE PRUDENTE","HOSPITAL UNIMED",s("HCA/HD/HON/HOR/HP/M/PSA/PSP")],
-["PRESIDENTE VENCESLAU","STA CASA DE PRES VENCESLAU",s("HG/PSA")],
+["PRESIDENTE PRUDENTE","HOSP DR ARISTOTELES OLIVEIRA MARTIN",["-", "-", "HD/HOF/HON/HOR/PSA/PSP", "HD/HOF/HON/HOR/PSA/PSP", "HD/HOF/HON/HOR/M/PSA/PSP", "HD/HOF/HON/HOR/M/PSA/PSP", "HD/HOF/HON/HOR/M/PSA/PSP", "HD/HOF/HON/HOR/M/PSA/PSP", "HD/HOF/HON/HOR/M/PSA/PSP", "HD/HOF/HON/HOR/M/PSA/PSP", "HD/HOF/HON/HOR/M/PSA/PSP", "HD/HOF/HON/HOR/M/PSA/PSP"]],
+["PRESIDENTE PRUDENTE","HOSPITAL IAMADA",s("HD/HG/HON/HOR/M/PSA/PSP")],
+["PRESIDENTE PRUDENTE","HOSPITAL UNIMED",s("HD/HG/HON/HOR/M/PSA/PSP")],
+["PRESIDENTE VENCESLAU","STA CASA DE PRES VENCESLAU",s("HG/HOR/PSA")],
 ["REGISTRO","ASSOC PROT E ASSIS MAT INF REGISTRO",s("HD/HG/M/PSA/PSP")],
-["REGISTRO","HOSP PRONT SOC E MAT SAO JOSE SA",s("HD/HG/M/PSA/PSP")],
-["RIBEIRAO PIRES","HOSPITAL RIBEIRAO PIRES",s("HCA/HD/HG/HON/HP/M/PSA/PSP")],
-["RIBEIRAO PRETO","CENTRO DE OFTAL ESPECIALIZADA",["-","-","HD/HOF","HD/HOF","HD/HOF","HD/HOF","HD/HOF","HD/HOF","HD/HOF","HD/HOF","HD/HOF","HD/HOF"]],
-["RIBEIRAO PRETO","FAEPA",["-","-","-","-","HCA/HD/HG/HOF","HCA/HD/HG/HOF","HCA/HD/HG/HOF","HCA/HD/HG/HOF","HCA/HD/HG/HOF","HCA/HD/HG/HOF","HCA/HD/HG/HOF","HCA/HD/HG/HOF"]],
+["REGISTRO","HOSP PRONT SOC E MAT SAO JOSE SA",s("HD/HG/HOR/M/PSA/PSP")],
+["RIBEIRAO PIRES","HOSPITAL RIBEIRAO PIRES",["HD/HG/HON/M/PSA/PSP", "HD/HG/HON/M/PSA/PSP", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP"]],
+["RIBEIRAO PRETO","CENTRO DE OFTAL ESPECIALIZADA",["-", "-", "HD/HOF", "HD/HOF", "HD/HOF", "HD/HOF", "HD/HOF", "HD/HOF", "HD/HOF", "HD/HOF", "HD/HOF", "HD/HOF"]],
+["RIBEIRAO PRETO","FAEPA",["-", "-", "-", "-", "HD/HG", "HD/HG", "HD/HG", "HD/HG", "HD/HG", "HD/HG", "HD/HG", "HD/HG"]],
 ["RIBEIRAO PRETO","HOSP OFTALMOLOGICO RIBEIRAO PRETO",s("HD/HOF")],
-["RIBEIRAO PRETO","HOSP SAO LUCAS",["-","-","-","-","HG/PSA","HG/PSA","HG/PSA","HG/PSA","HG/PSA","HG/PSA","HG/PSA","HG/PSA"]],
-["RIBEIRAO PRETO","HOSP SAO LUCAS RIBEIRANIA",["-","-","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP"]],
+["RIBEIRAO PRETO","HOSP SAO LUCAS",["-", "-", "-", "-", "HG/HOR/PSA", "HG/HOR/PSA", "HG/HOR/PSA", "HG/HOR/PSA", "HG/HOR/PSA", "HG/HOR/PSA", "HG/HOR/PSA", "HG/HOR/PSA"]],
+["RIBEIRAO PRETO","HOSP SAO LUCAS RIBEIRANIA",["-", "-", "HD/HG/PSA/PSP", "HD/HG/PSA/PSP", "HD/HG/PSA/PSP", "HD/HG/PSA/PSP", "HD/HG/PSA/PSP", "HD/HG/PSA/PSP", "HD/HG/PSA/PSP", "HD/HG/PSA/PSP", "HD/HG/PSA/PSP", "HD/HG/PSA/PSP"]],
 ["RIBEIRAO PRETO","HOSPITAL E MATERNIDADE RP",s("HD/HP/M/PSP")],
-["RIBEIRAO PRETO","HOSPITAL IMACULADA CONCEICAO",s("HD/HG/PSA")],
-["RIBEIRAO PRETO","HOSPITAL RIBEIRAO PRETO",s("HD/HG/PSA")],
-["RIBEIRAO PRETO","HOSPITAL VIVER",["-","-","-","-","HD/HOF/HON/HOR","HD/HOF/HON/HOR","HD/HOF/HON/HOR","HD/HOF/HON/HOR","HD/HOF/HON/HOR","HD/HOF/HON/HOR","HD/HOF/HON/HOR","HD/HOF/HON/HOR"]],
-["RIBEIRAO PRETO","SANTA CASA DE RIBEIRAO PRETO",s("HD/HG/M/PSA/PSP")],
+["RIBEIRAO PRETO","HOSPITAL IMACULADA CONCEICAO",s("HD/HG/HOR/PSA")],
+["RIBEIRAO PRETO","HOSPITAL RIBEIRAO PRETO",s("HD/HG/HOR/PSA")],
+["RIBEIRAO PRETO","HOSPITAL VIVER",["-", "-", "-", "-", "HD/HOF/HON/HOR", "HD/HOF/HON/HOR", "HD/HOF/HON/HOR", "HD/HOF/HON/HOR", "HD/HOF/HON/HOR", "HD/HOF/HON/HOR", "HD/HOF/HON/HOR", "HD/HOF/HON/HOR"]],
+["RIBEIRAO PRETO","SANTA CASA DE RIBEIRAO PRETO",s("HD/HG/HOR/M/PSA/PSP")],
 ["RIO CLARO","HOSP SANTA FILOMENA",s("HG/M/PSA/PSP")],
-["SANTA BARBARA D OESTE","HOSP SAMARITANO STA BARBARA D OESTE",["-","-","-","-","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP"]],
+["SANTA BARBARA D OESTE","HOSP SAMARITANO STA BARBARA D OESTE",["-", "-", "-", "-", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP"]],
 ["SANTA BARBARA D OESTE","HOSP STA BARBARA",s("HG/M")],
 ["SANTA FE DO SUL","IRM STA CASA MIS DE STA FE DO SUL",s("HD/HG/M/PSA/PSP")],
 ["SANTA ISABEL","IRM DA STA CASA DE MIS DE",s("HG/PSA")],
-["SANTO ANDRE","DAY HOSPITAL ANA ROSA LTDA",["-","-","HD","HD","HD","HD","HD","HD","HD","HD","HD","HD"]],
-["SANTO ANDRE","HOSP E MAT BRASIL S A",["HCA/HP/M/PSP","HCA/HP/M/PSP","-","-","HCA/HD/HG/HON/HP/M/PSA/PSP","HCA/HD/HG/HON/HP/M/PSA/PSP","HCA/HD/HG/HON/HP/M/PSA/PSP","HCA/HD/HG/HON/HP/M/PSA/PSP","HCA/HD/HG/HON/HP/M/PSA/PSP","HCA/HD/HG/HON/HP/M/PSA/PSP","HCA/HD/HG/HON/HP/M/PSA/PSP","HCA/HD/HG/HON/HP/M/PSA/PSP"]],
-["SANTO ANDRE","HOSP E MAT DR CHRISTOVAO DA GAMA SA",["-","-","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","-","HD/HG/M/PSA/PSP","-","HD/HG/M/PSA/PSP","-","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP"]],
-["SANTO ANDRE","HOSPITAL E MATERNIDADE BARTIRA",s("HCA/HD/HG/HON/HP/PSA/PSP")],
-["SANTOS","CASA DE SAUDE DE SANTOS",["-","-","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP"]],
-["SANTOS","HOSP ANA COSTA",["HCA/HD/HG/HOF/M/PSA/PSP","HCA/HD/HG/HOF/M/PSA/PSP","HCA/HD/HG/HOF/M/PSA/PSP","HCA/HD/HG/HOF/M/PSA/PSP","-","HCA/HD/HG/HOF/M/PSA/PSP","-","HCA/HD/HG/HOF/M/PSA/PSP","-","HCA/HD/HG/HOF/M/PSA/PSP","HCA/HD/HG/HOF/M/PSA/PSP","HCA/HD/HG/HOF/M/PSA/PSP"]],
-["SANTOS","HOSP E PS INFANTIL GONZAGA",s("HD/HP/PSP")],
-["SANTOS","HOSP FREI GALVAO",["-","-","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP"]],
-["SANTOS","HOSPITAL SAO LUCAS",["-","-","HG/M/PSA","HG/M/PSA","HG/M/PSA","HG/M/PSA","HG/M/PSA","HG/M/PSA","HG/M/PSA","HG/M/PSA","HG/M/PSA","HG/M/PSA"]],
-["SANTOS","SANTA CASA DE SANTOS",s("HD/HG/M/PSA/PSP")],
-["SANTOS","SOC PORT DE BENEFICENCIA",s("-")],
+["SANTO ANDRE","DAY HOSPITAL ANA ROSA LTDA",["-", "-", "HD", "HD", "HD", "HD", "HD", "HD", "HD", "HD", "HD", "HD"]],
+["SANTO ANDRE","HOSP E MAT BRASIL S A",["M/PSP", "M/PSP", "-", "-", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP"]],
+["SANTO ANDRE","HOSP E MAT DR CHRISTOVAO DA GAMA SA",["-", "-", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP", "-", "HD/HG/M/PSA/PSP", "-", "HD/HG/M/PSA/PSP", "-", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP"]],
+["SANTO ANDRE","HOSPITAL E MATERNIDADE BARTIRA",["HD/HG/HON/PSA/PSP", "HD/HG/HON/PSA/PSP", "HD/HG/PSA/PSP", "HD/HG/PSA/PSP", "HD/HG/PSA/PSP", "HD/HG/PSA/PSP", "HD/HG/PSA/PSP", "HD/HG/PSA/PSP", "HD/HG/PSA/PSP", "HD/HG/PSA/PSP", "HD/HG/PSA/PSP", "HD/HG/PSA/PSP"]],
+["SANTOS","CASA DE SAUDE DE SANTOS",["-", "-", "HD/HG/HOR/M/PSA/PSP", "HD/HG/HOR/M/PSA/PSP", "HD/HG/HOR/M/PSA/PSP", "HD/HG/HOR/M/PSA/PSP", "HD/HG/HOR/M/PSA/PSP", "HD/HG/HOR/M/PSA/PSP", "HD/HG/HOR/M/PSA/PSP", "HD/HG/HOR/M/PSA/PSP", "HD/HG/HOR/M/PSA/PSP", "HD/HG/HOR/M/PSA/PSP"]],
+["SANTOS","HOSP ANA COSTA",["HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP", "-", "HD/HG/M/PSA/PSP", "-", "HD/HG/M/PSA/PSP", "-", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP"]],
+["SANTOS","HOSP E PS INFANTIL GONZAGA",s("HD/PSP")],
+["SANTOS","HOSP FREI GALVAO",["-", "-", "HD/HG/HOR/PSA/PSP", "HD/HG/HOR/PSA/PSP", "HD/HG/HOR/PSA/PSP", "HD/HG/HOR/PSA/PSP", "HD/HG/HOR/PSA/PSP", "HD/HG/HOR/PSA/PSP", "HD/HG/HOR/PSA/PSP", "HD/HG/HOR/PSA/PSP", "HD/HG/HOR/PSA/PSP", "HD/HG/HOR/PSA/PSP"]],
+["SANTOS","HOSPITAL SAO LUCAS",["-", "-", "HG/M/PSA", "HG/M/PSA", "HG/M/PSA", "HG/M/PSA", "HG/M/PSA", "HG/M/PSA", "HG/M/PSA", "HG/M/PSA", "HG/M/PSA", "HG/M/PSA"]],
+["SANTOS","SANTA CASA DE SANTOS",s("HD/HG/HOR/M/PSA/PSP")],
 ["SAO BENTO DO SAPUCAI","STA CASA MIS SAO BENTO SAPUCAI",s("HD/HG/M/PSA/PSP")],
 ["SAO BERNARDO DO CAMPO","CENTRO DE TRAT BEZERRA DE MENEZES",s("HD")],
-["SAO BERNARDO DO CAMPO","CLINICA TERAPEUTICA SONHO DE VIDA L",s("-")],
-["SAO BERNARDO DO CAMPO","HOSPITAL DE OLHOS ABC",["-","-","HD/HOF","HD/HOF","HD/HOF","HD/HOF","HD/HOF","HD/HOF","HD/HOF","HD/HOF","HD/HOF","HD/HOF"]],
-["SAO BERNARDO DO CAMPO","HOSPITAL IFOR",["HCA/HD/HON/HOR","HCA/HD/HON/HOR","HCA/HD/HOR","HCA/HD/HOR","HCA/HD/HOR","HCA/HD/HOR","HCA/HD/HOR","HCA/HD/HOR","HCA/HD/HOR","HCA/HD/HOR","HCA/HD/HOR","HCA/HD/HOR"]],
-["SAO BERNARDO DO CAMPO","HOSPITAL ITACOLOMY JARDIM DO MAR",["-","-","PSA","PSA","-","HD/HG/PSA","-","HD/HG/PSA","-","HD/HG/PSA","HD/HG/PSA","HD/HG/PSA"]],
-["SAO BERNARDO DO CAMPO","HOSPITAL SAO BERNARDO",["-","-","HD/HG/PSA","HD/HG/PSA","HD/HG/PSA","HD/HG/PSA","HD/HG/PSA","HD/HG/PSA","HD/HG/PSA","HD/HG/PSA","HD/HG/PSA","HD/HG/PSA"]],
-["SAO BERNARDO DO CAMPO","HOSPITAL SAO LUIZ - SAO BERNARDO",["HCA/HD/HG/HON/HP/PSA/PSP","HCA/HD/HG/HON/HP/PSA/PSP","-","-","HCA/HD/HG/HON/HP/PSA/PSP","HCA/HD/HG/HON/HP/PSA/PSP","HCA/HD/HG/HON/HP/PSA/PSP","HCA/HD/HG/HON/HP/PSA/PSP","HCA/HD/HG/HON/HP/PSA/PSP","HCA/HD/HG/HON/HP/PSA/PSP","HCA/HD/HG/HON/HP/PSA/PSP","HCA/HD/HG/HON/HP/PSA/PSP"]],
-["SAO BERNARDO DO CAMPO","NOTRE DAME INTERMEDICA SAUDE S.A.",["-","-","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HOF/HON/HOR/HP/M/PSA/PSP"]],
-["SAO BERNARDO DO CAMPO","SANTA MARCELINA SAUDE - SBC",s("HD/HOR/PSA")],
+["SAO BERNARDO DO CAMPO","HOSPITAL DE OLHOS ABC",["-", "-", "HD/HOF", "HD/HOF", "HD/HOF", "HD/HOF", "HD/HOF", "HD/HOF", "HD/HOF", "HD/HOF", "HD/HOF", "HD/HOF"]],
+["SAO BERNARDO DO CAMPO","HOSPITAL IFOR",s("HD/HOR")],
+["SAO BERNARDO DO CAMPO","HOSPITAL SAO BERNARDO",["-", "-", "HD/HG/HOR/PSA", "HD/HG/HOR/PSA", "HD/HG/HOR/PSA", "HD/HG/HOR/PSA", "HD/HG/HOR/PSA", "HD/HG/HOR/PSA", "HD/HG/HOR/PSA", "HD/HG/HOR/PSA", "HD/HG/HOR/PSA", "HD/HG/HOR/PSA"]],
+["SAO BERNARDO DO CAMPO","HOSPITAL SAO LUIZ - SAO BERNARDO",["HD/HG/HON/PSA/PSP", "HD/HG/HON/PSA/PSP", "-", "-", "HD/HG/PSA/PSP", "HD/HG/PSA/PSP", "HD/HG/PSA/PSP", "HD/HG/PSA/PSP", "HD/HG/PSA/PSP", "HD/HG/PSA/PSP", "HD/HG/PSA/PSP", "HD/HG/PSA/PSP"]],
+["SAO BERNARDO DO CAMPO","NOTRE DAME INTERMEDICA SAUDE S.A.",["-", "-", "HD/HP/M/PSP", "HD/HP/M/PSP", "HD/HP/M/PSP", "HD/HP/M/PSP", "HD/HP/M/PSP", "HD/HP/M/PSP", "HD/HP/M/PSP", "HD/HP/M/PSP", "HD/HP/M/PSP", "HD/HP/M/PSP"]],
 ["SAO CAETANO DO SUL","HOSP N SRA DE FATIMA",s("HD/HG/M/PSA/PSP")],
-["SAO CAETANO DO SUL","HOSPITAL DI THIENE SAO CAETANO LTDA",["-","-","HD/HG/M/PSA","HD/HG/M/PSA","HD/HG/M/PSA","HD/HG/M/PSA","HD/HG/M/PSA","HD/HG/M/PSA","HD/HG/M/PSA","HD/HG/M/PSA","HD/HG/M/PSA","HD/HG/M/PSA"]],
-["SAO CAETANO DO SUL","HOSPITAL SAO LUIZ - SAO CAETANO",["-","-","-","-","HCA/HD/HG/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HON/HOR/HP/M/PSA/PSP","HCA/HD/HG/HON/HOR/HP/M/PSA/PSP"]],
-["SAO CARLOS","NORDEN HOSPITAL",s("HCA/HD/HG/HOF/PSA/PSP")],
-["SAO CARLOS","SANTA CASA DE SAO CARLOS",s("HCA/HG/HOF/HP/M/PSA")],
+["SAO CAETANO DO SUL","HOSPITAL DI THIENE SAO CAETANO LTDA",["-", "-", "HD/HG/M/PSA", "HD/HG/M/PSA", "HD/HG/M/PSA", "HD/HG/M/PSA", "HD/HG/M/PSA", "HD/HG/M/PSA", "HD/HG/M/PSA", "HD/HG/M/PSA", "HD/HG/M/PSA", "HD/HG/M/PSA"]],
+["SAO CAETANO DO SUL","HOSPITAL SAO LUIZ - SAO CAETANO",["-", "-", "-", "-", "HD/HG/HOR/M/PSA/PSP", "HD/HG/HOR/M/PSA/PSP", "HD/HG/HOR/M/PSA/PSP", "HD/HG/HOR/M/PSA/PSP", "HD/HG/HOR/M/PSA/PSP", "HD/HG/HOR/M/PSA/PSP", "HD/HG/HOR/M/PSA/PSP", "HD/HG/HOR/M/PSA/PSP"]],
+["SAO CARLOS","NORDEN HOSPITAL",s("HD/HG/PSA/PSP")],
+["SAO CARLOS","SANTA CASA DE SAO CARLOS",s("HG/M/PSA")],
 ["SAO JOAO DA BOA VISTA","STA CASA DE MIS DONA CAROLINA MALHE",s("HG/PSA/PSP")],
 ["SAO JOAQUIM DA BARRA","STA CASA DE MIS DE SAO JOAQUIM DA B",s("HG/M/PSA/PSP")],
-["SAO JOSE DO RIO PRETO","ASSOC PORT BENEF DE SAO JOSE DO RIO",["-","-","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP"]],
+["SAO JOSE DO RIO PRETO","ASSOC PORT BENEF DE SAO JOSE DO RIO",["-", "-", "HD/HG/HOR/PSA/PSP", "HD/HG/HOR/PSA/PSP", "HD/HG/HOR/PSA/PSP", "HD/HG/HOR/PSA/PSP", "HD/HG/HOR/PSA/PSP", "HD/HG/HOR/PSA/PSP", "HD/HG/HOR/PSA/PSP", "HD/HG/HOR/PSA/PSP", "HD/HG/HOR/PSA/PSP", "HD/HG/HOR/PSA/PSP"]],
 ["SAO JOSE DO RIO PRETO","ATEND GER E PSIQ ANDRADE E MONTANHE",s("HD")],
-["SAO JOSE DO RIO PRETO","HOSP AUSTA",["-","-","HCA/HD/HG/HON/M/PSA/PSP","HCA/HD/HG/HON/M/PSA/PSP","HCA/HD/HG/HON/M/PSA/PSP","HCA/HD/HG/HON/M/PSA/PSP","HCA/HD/HG/HON/M/PSA/PSP","HCA/HD/HG/HON/M/PSA/PSP","HCA/HD/HG/HON/M/PSA/PSP","HCA/HD/HG/HON/M/PSA/PSP","HCA/HD/HG/HON/M/PSA/PSP","HCA/HD/HG/HON/M/PSA/PSP"]],
-["SAO JOSE DO RIO PRETO","HOSP DO CORACAO RIO PRETO SC LTDA",["-","-","HCA/HD","HCA/HD","HCA/HD","HCA/HD","HCA/HD","HCA/HD","HCA/HD","HCA/HD","HCA/HD","HCA/HD"]],
+["SAO JOSE DO RIO PRETO","HOSP DO CORACAO RIO PRETO SC LTDA",["-", "-", "HD", "HD", "HD", "HD", "HD", "HD", "HD", "HD", "HD", "HD"]],
 ["SAO JOSE DO RIO PRETO","HOSPITAL DE BASE",s("HD/HG/M/PSA/PSP")],
-["SAO JOSE DO RIO PRETO","HOSPITAL SANTA HELENA",s("HD/HG/PSA/PSP")],
 ["SAO JOSE DO RIO PRETO","SANTA CASA MIS DE S J RIO PRETO",s("HG/M/PSA/PSP")],
-["SAO JOSE DOS CAMPOS","CTO TRAT FABIANA MACEDO DE MORAIS",s("HD/HON/HP/PSP")],
+["SAO JOSE DO RIO PRETO","AUSTA HOSPITAL",["-", "-", "HD/HG/HOR/M/PSA/PSP", "HD/HG/HOR/M/PSA/PSP", "HD/HG/HOR/M/PSA/PSP", "HD/HG/HOR/M/PSA/PSP", "HD/HG/HOR/M/PSA/PSP", "HD/HG/HOR/M/PSA/PSP", "HD/HG/HOR/M/PSA/PSP", "HD/HG/HOR/M/PSA/PSP", "HD/HG/HOR/M/PSA/PSP", "HD/HG/HOR/M/PSA/PSP"]],
+["SAO JOSE DOS CAMPOS","CTO TRAT FABIANA MACEDO DE MORAIS",s("HD/HP/PSP")],
 ["SAO JOSE DOS CAMPOS","EXCIMER LASER VALE DO PARAIBA LTDA",s("HD/HOF")],
-["SAO JOSE DOS CAMPOS","HOSP INF ANTONINHO ROCHA MARMO",s("HD/HOR/HP/M/PSA")],
-["SAO JOSE DOS CAMPOS","HOSPITAL ORTO",["-","-","HD/HOR","HD/HOR","HD/HOR","HD/HOR","HD/HOR","HD/HOR","HD/HOR","HD/HOR","HD/HOR","HD/HOR"]],
-["SAO JOSE DOS CAMPOS","HOSPITAL PEDIATRICO - SAO JOSE",["-","-","HD/HP/PSP","HD/HP/PSP","HD/HP/PSP","HD/HP/PSP","HD/HP/PSP","HD/HP/PSP","HD/HP/PSP","HD/HP/PSP","HD/HP/PSP","HD/HP/PSP"]],
+["SAO JOSE DOS CAMPOS","HOSP INF ANTONINHO ROCHA MARMO",s("HD/HOR/M/PSA")],
+["SAO JOSE DOS CAMPOS","HOSPITAL ORTO",["-", "-", "HD/HOR", "HD/HOR", "HD/HOR", "HD/HOR", "HD/HOR", "HD/HOR", "HD/HOR", "HD/HOR", "HD/HOR", "HD/HOR"]],
+["SAO JOSE DOS CAMPOS","HOSPITAL PEDIATRICO - SAO JOSE",["-", "-", "HD/PSP", "HD/PSP", "HD/PSP", "HD/PSP", "HD/PSP", "HD/PSP", "HD/PSP", "HD/PSP", "HD/PSP", "HD/PSP"]],
 ["SAO JOSE DOS CAMPOS","HOSPITAL PIO XII",s("HD/HG/PSA")],
-["SAO JOSE DOS CAMPOS","HOSPITAL POLICLIN",s("HD/HG/M/PSA/PSP")],
-["SAO JOSE DOS CAMPOS","HOSPITAL SAO JOSE",["-","-","HD/HG/HOR/M/PSA","HD/HG/HOR/M/PSA","HD/HG/HOR/M/PSA","HD/HG/HOR/M/PSA","HD/HG/HOR/M/PSA","HD/HG/HOR/M/PSA","HD/HG/HOR/M/PSA","HD/HG/HOR/M/PSA","HD/HG/HOR/M/PSA","HD/HG/HOR/M/PSA"]],
-["SAO JOSE DOS CAMPOS","HOSPITAL VIVALLE",["-","-","HD/HG/HON/M/PSA","HD/HG/HON/M/PSA","HD/HG/HON/M/PSA","HD/HG/HON/M/PSA","HD/HG/HON/M/PSA","HD/HG/HON/M/PSA","HD/HG/HON/M/PSA","HD/HG/HON/M/PSA","HD/HG/HON/M/PSA","HD/HG/HON/M/PSA"]],
+["SAO JOSE DOS CAMPOS","HOSPITAL POLICLIN",s("HD/HG/HOR/M/PSA")],
+["SAO JOSE DOS CAMPOS","HOSPITAL SAO JOSE",["-", "-", "HD/HG/HOR/M/PSA", "HD/HG/HOR/M/PSA", "HD/HG/HOR/M/PSA", "HD/HG/HOR/M/PSA", "HD/HG/HOR/M/PSA", "HD/HG/HOR/M/PSA", "HD/HG/HOR/M/PSA", "HD/HG/HOR/M/PSA", "HD/HG/HOR/M/PSA", "HD/HG/HOR/M/PSA"]],
+["SAO JOSE DOS CAMPOS","HOSPITAL VIVALLE",["-", "-", "HD/HG/HON/M/PSA", "HD/HG/HON/M/PSA", "HD/HG/HON/M/PSA", "HD/HG/HON/M/PSA", "HD/HG/HON/M/PSA", "HD/HG/HON/M/PSA", "HD/HG/HON/M/PSA", "HD/HG/HON/M/PSA", "HD/HG/HON/M/PSA", "HD/HG/HON/M/PSA"]],
 ["SAO JOSE DOS CAMPOS","INSTITUTO CHUI",s("HD")],
-["SAO JOSE DOS CAMPOS","IRM DA STA CASA DE S JOSE DOS CAMPO",s("HCA/HD/HOF/HP/M/PSA/PSP")],
-["SAO JOSE DOS CAMPOS","PRONTIL HOSP INFANTIL",s("HD/HP/PSP")],
-["SAO JOSE DOS CAMPOS","HOSPITAL ORTHOSERVICE",s("-")],
-["SAO PAULO","A.C.CAMARGO CANCER CENTER - UNIDADE",["-","-","HD","HD","HD","HD","HD","HD","HD","HD","HD","HD"]],
-["SAO PAULO","AACD",["-","-","-","-","HD/HOF/HOR","HD/HOF/HOR","HD/HOF/HOR","HD/HOF/HOR","HD/HOF/HOR","HD/HOF/HOR","HD/HOF/HOR","HD/HOF/HOR"]],
-["SAO PAULO","BLANC SP",["HCA/HD/HOR","HCA/HD/HOR","HCA/HD/HG/HOR","HCA/HD/HG/HOR","HCA/HD/HOR","HCA/HD/HOR","HCA/HD/HOR","HCA/HD/HOR","HCA/HD/HOR","HCA/HD/HOR","HCA/HD/HOR","HCA/HD/HOR"]],
+["SAO JOSE DOS CAMPOS","IRM DA STA CASA DE S JOSE DOS CAMPO",["HCA/HD/HOF/M/PSA/PSP", "HCA/HD/HOF/HOR/M/PSA/PSP", "HCA/HD/HOF/M/PSA/PSP", "HCA/HD/HOF/HOR/M/PSA/PSP", "HCA/HD/HOF/HOR/M/PSA/PSP", "HCA/HD/HOF/HOR/M/PSA/PSP", "HCA/HD/HOF/HOR/M/PSA/PSP", "HCA/HD/HOF/HOR/M/PSA/PSP", "HCA/HD/HOF/HOR/M/PSA/PSP", "HCA/HD/HOF/HOR/M/PSA/PSP", "HCA/HD/HOF/HOR/M/PSA/PSP", "HCA/HD/HOF/HOR/M/PSA/PSP"]],
+["SAO JOSE DOS CAMPOS","PRONTIL HOSP INFANTIL",s("HD/PSP")],
+["SAO JOSE DOS CAMPOS","HOSPITAL ORTHOSERVICE",["-", "-", "HOR", "HOR", "HOR", "HOR", "HOR", "HOR", "HOR", "HOR", "HOR", "HOR"]],
+["SAO PAULO","A.C.CAMARGO CANCER CENTER - UNIDADE",["-", "-", "HD", "HD", "HD", "HD", "HD", "HD", "HD", "HD", "HD", "HD"]],
+["SAO PAULO","AACD",["-", "-", "-", "-", "HD/HOF/HOR", "HD/HOF/HOR", "HD/HOF/HOR", "HD/HOF/HOR", "HD/HOF/HOR", "HD/HOF/HOR", "HD/HOF/HOR", "HD/HOF/HOR"]],
+["SAO PAULO","BLANC SP",["HD/HOR", "HD/HOR", "HD/HG/HOR", "HD/HG/HOR", "HD/HOR", "HD/HOR", "HD/HOR", "HD/HOR", "HD/HOR", "HD/HOR", "HD/HOR", "HD/HOR"]],
 ["SAO PAULO","CEMA HOSP ESPECIALIZADO",s("HD/HOF")],
-["SAO PAULO","CLIN INFANTIL SANTA ISABELLA",s("HP/PSP")],
-["SAO PAULO","CLINISUL SERV MED ZONA SUL LTDA SC",["-","-","PSA","PSA","PSA","PSA","PSA","PSA","PSA","PSA","PSA","PSA"]],
-["SAO PAULO","DAY HOSP DE ERMELINO MATARAZZO SC",s("-")],
-["SAO PAULO","DAYCLINIC",["-","-","HD","HD","HD","HD","HD","HD","HD","HD","HD","HD"]],
-["SAO PAULO","HOSP A C CAMARGO",["-","-","HD/HON","HD/HON","HD/HON","HD/HON","HD/HON","HD/HON","HD/HON","HD/HON","HD/HON","HD/HON"]],
-["SAO PAULO","HOSP ALBERT SABIN",s("HD/HG/PSA/PSP")],
-["SAO PAULO","HOSP CENTRAL DE GUAIANASES",s("HCA/HD/HG/HON/HP/M/PSA/PSP")],
-["SAO PAULO","HOSP DAS CLINICAS FMUSP",["HD/HG/HON/HOR/HP/PSP","HD/HG/HON/HOR/HP/PSP","HD/HG/HOF/HON/HOR/HP/PSP","HD/HG/HOF/HON/HOR/HP/PSP","HD/HG/HOF/HON/HOR/HP/PSP","HD/HG/HOF/HON/HOR/HP/PSP","HD/HG/HOF/HON/HOR/HP/PSP","HD/HG/HOF/HON/HOR/HP/PSP","HD/HG/HOF/HON/HOR/HP/PSP","HD/HG/HOF/HON/HOR/HP/PSP","HD/HG/HOF/HON/HOR/HP/PSP","HD/HG/HOF/HON/HOR/HP/PSP"]],
+["SAO PAULO","CLINISUL SERV MED ZONA SUL LTDA SC",["-", "-", "PSA", "PSA", "PSA", "PSA", "PSA", "PSA", "PSA", "PSA", "PSA", "PSA"]],
+["SAO PAULO","DAYCLINIC",["-", "-", "HD", "HD", "HD", "HD", "HD", "HD", "HD", "HD", "HD", "HD"]],
+["SAO PAULO","HOSP A C CAMARGO",["-", "-", "HD/HON", "HD/HON", "HD/HON", "HD/HON", "HD/HON", "HD/HON", "HD/HON", "HD/HON", "HD/HON", "HD/HON"]],
+["SAO PAULO","HOSP ALBERT SABIN",s("HD/HG/HOR/PSA")],
+["SAO PAULO","HOSP DAS CLINICAS FMUSP",s("HD/HG/HON/HOR/PSP")],
 ["SAO PAULO","HOSP DO RIM E HIPERTENSAO",s("HD")],
-["SAO PAULO","HOSP E MAT OITO MAIO LTDA",["-","-","PSA","PSA","PSA","PSA","PSA","PSA","PSA","PSA","PSA","PSA"]],
-["SAO PAULO","HOSP E MAT SANTA JOANA SA",["-","-","-","-","HD/M","HD/M","M","M","M","M","M","M"]],
-["SAO PAULO","HOSP E MAT SANTA MARIA",["M","M","M","M","M","M","-","-","-","-","-","-"]],
-["SAO PAULO","HOSP E MAT SAO LUIZ ANALIA FRANCO",["-","-","-","-","-","-","HCA/HD/HG/HON/HP/M/PSA/PSP","HCA/HD/HG/HON/HP/M/PSA/PSP","HCA/HD/HG/HON/HP/M/PSA/PSP","HCA/HD/HG/HON/HP/M/PSA/PSP","HCA/HD/HG/HON/HP/M/PSA/PSP","HCA/HD/HG/HON/HP/M/PSA/PSP"]],
-["SAO PAULO","HOSP E MAT VIDAS SC LTDA",["-","-","M","M","M","M","M","M","M","M","M","M"]],
-["SAO PAULO","HOSP E MATERNIDADE SAO RAFAEL",["-","-","-","-","HD/HG","HD/HG","HD/HG","HD/HG","HD/HG","HD/HG","HD/HG","HD/HG"]],
+["SAO PAULO","HOSP E MAT OITO MAIO LTDA",["-", "-", "PSA", "PSA", "PSA", "PSA", "PSA", "PSA", "PSA", "PSA", "PSA", "PSA"]],
+["SAO PAULO","HOSP E MAT SANTA JOANA SA",["-", "-", "-", "-", "HD/M", "HD/M", "M", "M", "M", "M", "M", "M"]],
+["SAO PAULO","HOSP E MAT SANTA MARIA",["M", "M", "M", "M", "M", "M", "-", "-", "-", "-", "-", "-"]],
+["SAO PAULO","HOSP E MAT SAO LUIZ ANALIA FRANCO",["-", "-", "-", "-", "-", "-", "HD/HG/HOR/M/PSA/PSP", "HD/HG/HOR/M/PSA/PSP", "HD/HG/HOR/M/PSA/PSP", "HD/HG/HOR/M/PSA/PSP", "HD/HG/HOR/M/PSA/PSP", "HD/HG/HOR/M/PSA/PSP"]],
+["SAO PAULO","HOSP E MAT VIDAS SC LTDA",["-", "-", "M", "M", "M", "M", "M", "M", "M", "M", "M", "M"]],
+["SAO PAULO","HOSP E MATERNIDADE SAO RAFAEL",["-", "-", "-", "-", "HD/HG", "HD/HG", "HD/HG", "HD/HG", "HD/HG", "HD/HG", "HD/HG", "HD/HG"]],
 ["SAO PAULO","HOSP GRAACC INST DE ONCOL PED (IOP)",s("HD/HON")],
-["SAO PAULO","HOSP INDEPENDENCIA",["-","-","HD/HG/M","HD/HG/M","HD/HG/M","HD/HG/M","HD/HG/M","HD/HG/M","HD/HG/M","HD/HG/M","HD/HG/M","HD/HG/M"]],
-["SAO PAULO","HOSP ISRAELITA ALBERT EINSTEIN",["-","-","-","-","-","-","-","-","-","-","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP"]],
-["SAO PAULO","HOSP ITAQUERA SC LTDA",["-","-","HG/PSA/PSP","HG/PSA/PSP","HG/PSA/PSP","HG/PSA/PSP","HG/PSA/PSP","HG/PSA/PSP","HG/PSA/PSP","HG/PSA/PSP","HG/PSA/PSP","HG/PSA/PSP"]],
+["SAO PAULO","HOSP INDEPENDENCIA",["-", "-", "HD/HG/M", "HD/HG/M", "HD/HG/M", "HD/HG/M", "HD/HG/M", "HD/HG/M", "HD/HG/M", "HD/HG/M", "HD/HG/M", "HD/HG/M"]],
+["SAO PAULO","HOSP ISRAELITA ALBERT EINSTEIN",["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP"]],
+["SAO PAULO","HOSP ITAQUERA SC LTDA",["-", "-", "HG/PSA/PSP", "HG/PSA/PSP", "HG/PSA/PSP", "HG/PSA/PSP", "HG/PSA/PSP", "HG/PSA/PSP", "HG/PSA/PSP", "HG/PSA/PSP", "HG/PSA/PSP", "HG/PSA/PSP"]],
 ["SAO PAULO","HOSP NIPO BRASILEIRO",s("HG/M/PSA/PSP")],
-["SAO PAULO","HOSP OSWALDO CRUZ",["-","-","-","-","-","-","HD/HG/PSA","HD/HG/PSA","HD/HG/PSA","HD/HG/PSA","HD/HG/PSA","HD/HG/PSA"]],
-["SAO PAULO","HOSP PROF EDMUNDO VASCONCELOS",["-","-","-","-","-","-","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP"]],
-["SAO PAULO","HOSP SANTA CATARINA",["-","-","-","-","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP"]],
-["SAO PAULO","HOSP SANTA CRUZ",["-","-","HG","HG","HG","HG","HG","HG","HG","HG","HG","HG"]],
-["SAO PAULO","HOSP SAO PAULO",["-","-","HD/HG","HD/HG","HD/HG","HD/HG","HD/HG","HD/HG","HD/HG","HD/HG","HD/HG","HD/HG"]],
+["SAO PAULO","HOSP OSWALDO CRUZ",["-", "-", "-", "-", "-", "-", "HD/HG/PSA", "HD/HG/PSA", "HD/HG/PSA", "HD/HG/PSA", "HD/HG/PSA", "HD/HG/PSA"]],
+["SAO PAULO","HOSP PROF EDMUNDO VASCONCELOS",["-", "-", "-", "HD/HG/HOF/HOR/PSA/PSP", "-", "-", "HD/HG/PSA/PSP", "HD/HG/PSA/PSP", "HD/HG/PSA/PSP", "HD/HG/PSA/PSP", "HD/HG/PSA/PSP", "HD/HG/PSA/PSP"]],
+["SAO PAULO","HOSP SANTA CATARINA",["-", "-", "-", "-", "HD/HG/HOR/PSA/PSP", "HD/HG/HOR/PSA/PSP", "HD/HG/HOR/PSA/PSP", "HD/HG/HOR/PSA/PSP", "HD/HG/HOR/PSA/PSP", "HD/HG/HOR/PSA/PSP", "HD/HG/HOR/PSA/PSP", "HD/HG/HOR/PSA/PSP"]],
+["SAO PAULO","HOSP SANTA CRUZ",["-", "-", "HG", "HG", "HG", "HG", "HG", "HG", "HG", "HG", "HG", "HG"]],
+["SAO PAULO","HOSP SAO PAULO",["-", "-", "HD/HG", "HD/HG", "HD/HG", "HD/HG", "HD/HG", "HD/HG", "HD/HG", "HD/HG", "HD/HG", "HD/HG"]],
 ["SAO PAULO","HOSP STA RITA",s("HD/HG/PSA")],
-["SAO PAULO","HOSPITAL ALVORADA MOEMA",["-","-","HG/PSA/PSP","HG/PSA/PSP","-","HD/HG/PSA/PSP","-","HD/HG/PSA/PSP","-","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP"]],
-["SAO PAULO","HOSPITAL BP",["HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/HOR/PSA/PSP","HD/HG/HOR/PSA/PSP","HD/HG/HOR/PSA/PSP","HD/HG/HOR/PSA/PSP","HD/HG/HOR/PSA/PSP","HD/HG/HOR/PSA/PSP","HD/HG/HOR/PSA/PSP","HD/HG/HOR/PSA/PSP","HD/HG/HOR/PSA/PSP","HD/HG/HOR/PSA/PSP"]],
-["SAO PAULO","HOSPITAL BP MIRANTE",["-","-","-","-","-","-","HCA/HD/HOF/HON/HOR/PSA/PSP","HCA/HD/HOF/HON/HOR/PSA/PSP","HCA/HD/HOF/HON/HOR/PSA/PSP","HCA/HD/HOF/HON/HOR/PSA/PSP","HCA/HD/HOF/HON/HOR/PSA/PSP","HCA/HD/HOF/HON/HOR/PSA/PSP"]],
-["SAO PAULO","HOSPITAL CENTRAL DO TATUAPE",["HCA/HD/HG/HON/HOR/PSA","HCA/HD/HG/HON/HOR/PSA","HCA/HD/HG/HON/HOR/PSA","HCA/HD/HG/HON/HOR/PSA","HCA/HD/HG/HON/HOR/HP/PSA","HCA/HD/HG/HON/HOR/HP/PSA","HCA/HD/HG/HON/HOR/HP/PSA","HCA/HD/HG/HON/HOR/HP/PSA","HCA/HD/HG/HON/HOR/HP/PSA","HCA/HD/HG/HON/HOR/HP/PSA","HCA/HD/HG/HON/HOR/HP/PSA","HCA/HD/HG/HON/HOR/HP/PSA"]],
-["SAO PAULO","HOSPITAL CENTRAL SUL",s("HCA/HD/HG/HON/PSA")],
-["SAO PAULO","HOSPITAL DA CRIANCA",s("HCA/HD/HON/HP/PSP")],
-["SAO PAULO","HOSPITAL DE OLHOS DE SAO PAULO",["-","-","HD/HOF","HD/HOF","HD/HOF","HD/HOF","HD/HOF","HD/HOF","HD/HOF","HD/HOF","HD/HOF","HD/HOF"]],
-["SAO PAULO","HOSPITAL DE OLHOS PAULISTA",["-","-","HD/HOF","HD/HOF","HD/HOF","HD/HOF","HD/HOF","HD/HOF","HD/HOF","HD/HOF","HD/HOF","HD/HOF"]],
+["SAO PAULO","HOSPITAL ALVORADA MOEMA",["-", "-", "HG/HOR/PSA/PSP", "HG/HOR/PSA/PSP", "-", "HD/HG/HOR/PSA/PSP", "-", "HD/HG/HOR/PSA/PSP", "-", "HD/HG/HOR/PSA/PSP", "HD/HG/HOR/PSA/PSP", "HD/HG/HOR/PSA/PSP"]],
+["SAO PAULO","HOSPITAL BP",["HD/HG/PSA/PSP", "HD/HG/PSA/PSP", "HD/HG/HOR/PSA/PSP", "HD/HG/HOR/PSA/PSP", "HD/HG/HOR/PSA/PSP", "HD/HG/HOR/PSA/PSP", "HD/HG/HOR/PSA/PSP", "HD/HG/HOR/PSA/PSP", "HD/HG/HOR/PSA/PSP", "HD/HG/HOR/PSA/PSP", "HD/HG/HOR/PSA/PSP", "HD/HG/HOR/PSA/PSP"]],
+["SAO PAULO","HOSPITAL BP MIRANTE",["-", "-", "-", "-", "-", "-", "HD/HOF/HON/HOR/PSA/PSP", "HD/HOF/HON/HOR/PSA/PSP", "HD/HOF/HON/HOR/PSA/PSP", "HD/HOF/HON/HOR/PSA/PSP", "HD/HOF/HON/HOR/PSA/PSP", "HD/HOF/HON/HOR/PSA/PSP"]],
+["SAO PAULO","HOSPITAL CENTRAL DO TATUAPE",s("HCA/HD/HG/HOR/PSA")],
+["SAO PAULO","HOSPITAL CENTRAL SUL",s("HD/HG/HOR/PSA")],
+["SAO PAULO","HOSPITAL DA CRIANCA",s("HD/PSP")],
+["SAO PAULO","HOSPITAL DE OLHOS DE SAO PAULO",["-", "-", "HD/HOF", "HD/HOF", "HD/HOF", "HD/HOF", "HD/HOF", "HD/HOF", "HD/HOF", "HD/HOF", "HD/HOF", "HD/HOF"]],
+["SAO PAULO","HOSPITAL DE OLHOS PAULISTA",["-", "-", "HD/HOF", "HD/HOF", "HD/HOF", "HD/HOF", "HD/HOF", "HD/HOF", "HD/HOF", "HD/HOF", "HD/HOF", "HD/HOF"]],
 ["SAO PAULO","HOSPITAL DIA UNIDADE VILA MARIANA",s("HD")],
-["SAO PAULO","HOSPITAL DO CORACAO",["-","-","-","-","-","-","HCA/HD","HCA/HD","HCA/HD","HCA/HD","HCA/HD","HCA/HD"]],
-["SAO PAULO","HOSPITAL DO SEPACO",s("HD/HG/M/PSA/PSP")],
-["SAO PAULO","HOSPITAL DOM ALVARENGA",s("HD/HG/PSA")],
-["SAO PAULO","HOSPITAL E MAT PRESIDENTE SOC SIMPL",s("HD/HG/PSA/PSP")],
-["SAO PAULO","HOSPITAL IGESP",["-","-","HD/HG/PSA","HD/HG/PSA","HD/HG/PSA","HD/HG/PSA","HD/HG/PSA","HD/HG/PSA","HD/HG/PSA","HD/HG/PSA","HD/HG/PSA","HD/HG/PSA"]],
-["SAO PAULO","HOSPITAL INFANTIL SABARA",["-","-","-","-","-","-","HD/HON/HP/PSP","HD/HON/HP/PSP","HD/HON/HP/PSP","HD/HON/HP/PSP","HD/HON/HP/PSP","HD/HON/HP/PSP"]],
-["SAO PAULO","HOSPITAL JD HELENA",["-","-","HG/M/PSA/PSP","HG/M/PSA/PSP","HG/M/PSA/PSP","HG/M/PSA/PSP","HG/M/PSA/PSP","HG/M/PSA/PSP","HG/M/PSA/PSP","HG/M/PSA/PSP","HG/M/PSA/PSP","HG/M/PSA/PSP"]],
-["SAO PAULO","HOSPITAL LEFORTE",["HCA/HD/HG/HOR/HP/PSA/PSP","HCA/HD/HG/HOR/HP/PSA/PSP","HCA/HD/HG/HOF/HOR/HP/PSA/PSP","HCA/HD/HG/HOF/HOR/HP/PSA/PSP","-","HCA/HD/HG/HOF/HOR/HP/PSA/PSP","-","HCA/HD/HG/HOF/HOR/HP/PSA/PSP","-","HCA/HD/HG/HOF/HOR/HP/PSA/PSP","HCA/HD/HG/HOF/HOR/HP/PSA/PSP","HCA/HD/HG/HOF/HOR/HP/PSA/PSP"]],
-["SAO PAULO","HOSPITAL METROPOLITANO",["-","-","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","-","HD/HG/M/PSA/PSP","-","HD/HG/M/PSA/PSP","-","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP"]],
-["SAO PAULO","HOSPITAL NOVE DE JULHO S A",["-","-","-","-","-","-","-","HD/HG/PSA/PSP","-","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP"]],
-["SAO PAULO","HOSPITAL PAULISTA LTDA",["-","-","HD","HD","HD","HD","HD","HD","HD","HD","HD","HD"]],
-["SAO PAULO","HOSPITAL RUBEN BERTA",s("HD/HP")],
-["SAO PAULO","HOSPITAL SAHA",["-","-","-","-","HD/HOR","HD/HOR","HD/HOR","HD/HOR","HD/HOR","HD/HOR","HD/HOR","HD/HOR"]],
-["SAO PAULO","HOSPITAL SAINT PATRICK - PORTINARI",["-","-","HD/HG/HOR/M/PSA/PSP","HD/HG/HOR/M/PSA/PSP","HD/HG/HOR/M/PSA/PSP","HD/HG/HOR/M/PSA/PSP","HD/HG/HOR/M/PSA/PSP","HD/HG/HOR/M/PSA/PSP","HD/HG/HOR/M/PSA/PSP","HD/HG/HOR/M/PSA/PSP","HD/HG/HOR/M/PSA/PSP","HD/HG/HOR/M/PSA/PSP"]],
-["SAO PAULO","HOSPITAL SAMARITANO",["-","-","-","-","-","-","-","HD/HG/M/PSA/PSP","-","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP"]],
+["SAO PAULO","HOSPITAL DO CORACAO",["-", "-", "-", "-", "-", "-", "HCA/HD/HOR", "HCA/HD/HOR", "HCA/HD/HOR", "HCA/HD/HOR", "HCA/HD/HOR", "HCA/HD/HOR"]],
+["SAO PAULO","HOSPITAL DO SEPACO",s("HD/HG/HOR/M/PSA/PSP")],
+["SAO PAULO","HOSPITAL DOM ALVARENGA",s("HD/HG/HOR/PSA")],
+["SAO PAULO","HOSPITAL E MAT PRESIDENTE SOC SIMPL",s("HD/HG/HOR/PSA/PSP")],
+["SAO PAULO","HOSPITAL IGESP",["-", "-", "HD/HG/HOR/PSA", "HD/HG/HOR/PSA", "HD/HG/HOR/PSA", "HD/HG/HOR/PSA", "HD/HG/HOR/PSA", "HD/HG/HOR/PSA", "HD/HG/HOR/PSA", "HD/HG/HOR/PSA", "HD/HG/HOR/PSA", "HD/HG/HOR/PSA"]],
+["SAO PAULO","HOSPITAL INFANTIL SABARA",["-", "-", "-", "-", "-", "-", "HD/HP/PSP", "HD/HP/PSP", "HD/HP/PSP", "HD/HP/PSP", "HD/HP/PSP", "HD/HP/PSP"]],
+["SAO PAULO","HOSPITAL JD HELENA",["-", "-", "HG/M/PSA/PSP", "HG/M/PSA/PSP", "HG/M/PSA/PSP", "HG/M/PSA/PSP", "HG/M/PSA/PSP", "HG/M/PSA/PSP", "HG/M/PSA/PSP", "HG/M/PSA/PSP", "HG/M/PSA/PSP", "HG/M/PSA/PSP"]],
+["SAO PAULO","HOSPITAL LEFORTE",["HD/HG/HOR/PSA/PSP", "HD/HG/HOR/PSA/PSP", "HD/HG/HOF/HOR/PSA/PSP", "HD/HG/HOF/HOR/PSA/PSP", "-", "HD/HG/HOF/HOR/PSA/PSP", "-", "HD/HG/HOF/HOR/PSA/PSP", "-", "HD/HG/HOF/HOR/PSA/PSP", "HD/HG/HOF/HOR/PSA/PSP", "HD/HG/HOF/HOR/PSA/PSP"]],
+["SAO PAULO","HOSPITAL METROPOLITANO",["-", "-", "HD/HG/HOR/M/PSA/PSP", "HD/HG/HOR/M/PSA/PSP", "-", "HD/HG/HOR/M/PSA/PSP", "-", "HD/HG/HOR/M/PSA/PSP", "-", "HD/HG/HOR/M/PSA/PSP", "HD/HG/HOR/M/PSA/PSP", "HD/HG/HOR/M/PSA/PSP"]],
+["SAO PAULO","HOSPITAL NOVE DE JULHO S A",["-", "-", "-", "-", "-", "-", "-", "HD/HG/HOR/PSA/PSP", "-", "HD/HG/HOR/PSA/PSP", "HD/HG/HOR/PSA/PSP", "HD/HG/HOR/PSA/PSP"]],
+["SAO PAULO","HOSPITAL PAULISTA LTDA",["-", "-", "HD", "HD", "HD", "HD", "HD", "HD", "HD", "HD", "HD", "HD"]],
+["SAO PAULO","HOSPITAL RUBEN BERTA",s("HD")],
+["SAO PAULO","HOSPITAL SAHA",["-", "-", "-", "-", "HD/HOR", "HD/HOR", "HD/HOR", "HD/HOR", "HD/HOR", "HD/HOR", "HD/HOR", "HD/HOR"]],
+["SAO PAULO","HOSPITAL SAINT PATRICK - PORTINARI",["-", "-", "HD/HG/HOR/M/PSA/PSP", "HD/HG/HOR/M/PSA/PSP", "HD/HG/HOR/M/PSA/PSP", "HD/HG/HOR/M/PSA/PSP", "HD/HG/HOR/M/PSA/PSP", "HD/HG/HOR/M/PSA/PSP", "HD/HG/HOR/M/PSA/PSP", "HD/HG/HOR/M/PSA/PSP", "HD/HG/HOR/M/PSA/PSP", "HD/HG/HOR/M/PSA/PSP"]],
+["SAO PAULO","HOSPITAL SAMARITANO",["-", "-", "-", "-", "-", "-", "-", "HD/HG/M/PSA/PSP", "-", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP", "HD/HG/M/PSA/PSP"]],
+["SAO PAULO","HOSPITAL SANTA ISABEL",s("HD/HG/PSA")],
 ["SAO PAULO","HOSPITAL SANTA MARCELINA",s("HD/HG/PSA/PSP")],
-["SAO PAULO","HOSPITAL SANTA PAULA",["HD/HG/PSA","HD/HG/PSA","-","-","-","HCA/HD/HG/PSA","-","HCA/HD/HG/PSA","-","HCA/HD/HG/PSA","HCA/HD/HG/PSA","HCA/HD/HG/PSA"]],
-["SAO PAULO","HOSPITAL SANTA VIRGINIA",["-","-","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP","HD/HG/PSA/PSP"]],
-["SAO PAULO","HOSPITAL SAO CAMILO IPIRANGA",["-","-","-","-","HD/HG/PSA","HD/HG/PSA","HD/HG/PSA","HD/HG/PSA","HD/HG/PSA","HD/HG/PSA","HD/HG/PSA","HD/HG/PSA"]],
-["SAO PAULO","HOSPITAL SAO CAMILO POMPEIA",["-","-","-","-","HG/PSA/PSP","HG/PSA/PSP","HG/PSA/PSP","HG/PSA/PSP","HG/PSA/PSP","HG/PSA/PSP","HG/PSA/PSP","HG/PSA/PSP"]],
-["SAO PAULO","HOSPITAL SAO CAMILO SANTANA",["-","-","-","-","HG/PSA/PSP","HG/PSA/PSP","HG/PSA/PSP","HG/PSA/PSP","HG/PSA/PSP","HG/PSA/PSP","HG/PSA/PSP","HG/PSA/PSP"]],
-["SAO PAULO","HOSPITAL SAO LUIZ JABAQUARA",s("HCA/HD/HG/HON/HP/PSA")],
-["SAO PAULO","HOSPITAL SIRIO LIBANES",["-","-","-","-","-","-","-","-","-","-","HD/HG/PSA/PSP","HD/HG/PSA/PSP"]],
-["SAO PAULO","HOSPITAL SIRIO LIBANES UNID ITAIM",["-","-","-","-","-","-","HON","HON","-","-","HD/HON","HD/HON"]],
-["SAO PAULO","HOSPITAL STA ISABEL",s("HCA/HD/HG/HON/HP/PSA")],
-["SAO PAULO","HOSPITAL VILA NOVA STAR",["-","-","-","-","-","-","HP","HP","HG/HP/PSA/PSP","HG/HP/PSA/PSP","HG/HP/PSA/PSP","HG/HP/PSA/PSP"]],
+["SAO PAULO","HOSPITAL SANTA PAULA",["HD/HG/HOR/PSA", "HD/HG/HOR/PSA", "-", "-", "-", "HD/HG/HOR/PSA", "-", "HD/HG/HOR/PSA", "-", "HD/HG/HOR/PSA", "HD/HG/HOR/PSA", "HD/HG/HOR/PSA"]],
+["SAO PAULO","HOSPITAL SANTA VIRGINIA",["-", "-", "HD/HG/PSA/PSP", "HD/HG/PSA/PSP", "HD/HG/PSA/PSP", "HD/HG/PSA/PSP", "HD/HG/PSA/PSP", "HD/HG/PSA/PSP", "HD/HG/PSA/PSP", "HD/HG/PSA/PSP", "HD/HG/PSA/PSP", "HD/HG/PSA/PSP"]],
+["SAO PAULO","HOSPITAL SAO CAMILO IPIRANGA",["-", "-", "-", "-", "HD/HG/PSA", "HD/HG/PSA", "HD/HG/PSA", "HD/HG/PSA", "HD/HG/PSA", "HD/HG/PSA", "HD/HG/PSA", "HD/HG/PSA"]],
+["SAO PAULO","HOSPITAL SAO CAMILO POMPEIA",["-", "-", "-", "-", "HG/HOR/PSA/PSP", "HG/HOR/PSA/PSP", "HG/HOR/PSA/PSP", "HG/HOR/PSA/PSP", "HG/HOR/PSA/PSP", "HG/HOR/PSA/PSP", "HG/HOR/PSA/PSP", "HG/HOR/PSA/PSP"]],
+["SAO PAULO","HOSPITAL SAO CAMILO SANTANA",["-", "-", "-", "-", "HG/PSA/PSP", "HG/PSA/PSP", "HG/PSA/PSP", "HG/PSA/PSP", "HG/PSA/PSP", "HG/PSA/PSP", "HG/PSA/PSP", "HG/PSA/PSP"]],
+["SAO PAULO","HOSPITAL SAO LUIZ JABAQUARA",["HD/HG/HON/PSA", "HD/HG/HON/PSA", "HD/HG/PSA", "HD/HG/PSA", "HD/HG/PSA", "HD/HG/PSA", "HD/HG/PSA", "HD/HG/PSA", "HD/HG/PSA", "HD/HG/PSA", "HD/HG/PSA", "HD/HG/PSA"]],
+["SAO PAULO","HOSPITAL SIRIO LIBANES",["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "HD/HG/PSA/PSP", "HD/HG/PSA/PSP"]],
+["SAO PAULO","HOSPITAL SIRIO LIBANES UNID ITAIM",["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "HD", "HD"]],
+["SAO PAULO","HOSPITAL STA ISABEL",s("HD/HG/PSA")],
+["SAO PAULO","HOSPITAL VILA NOVA STAR",["-", "-", "-", "-", "-", "-", "HP", "HP", "HG/HP/PSA/PSP", "HG/HP/PSA/PSP", "HG/HP/PSA/PSP", "HG/HP/PSA/PSP"]],
 ["SAO PAULO","HOSPITAL VILLA LOBOS",s("HCA/HD/HG/HON/HOR/HP/PSA/PSP")],
-["SAO PAULO","HSANP - HOSPITAL",["-","-","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M","HD/HG/M","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP"]],
-["SAO PAULO","INCOR INSTITUTO DO CORACAO",["-","-","HCA/HD","HCA/HD","HCA/HD","HCA/HD","HCA/HD","HCA/HD","HCA/HD","HCA/HD","HCA/HD","HCA/HD"]],
+["SAO PAULO","HSANP - HOSPITAL",["-", "-", "HD/HG/HOR/M/PSA/PSP", "HD/HG/HOR/M/PSA/PSP", "HD/HG/M", "HD/HG/M", "HD/HG/HOR/M/PSA/PSP", "HD/HG/HOR/M/PSA/PSP", "HD/HG/HOR/M/PSA/PSP", "HD/HG/HOR/M/PSA/PSP", "HD/HG/HOR/M/PSA/PSP", "HD/HG/HOR/M/PSA/PSP"]],
+["SAO PAULO","INCOR INSTITUTO DO CORACAO",["-", "-", "HCA/HD", "HCA/HD", "HCA/HD", "HCA/HD", "HCA/HD", "HCA/HD", "HCA/HD", "HCA/HD", "HCA/HD", "HCA/HD"]],
 ["SAO PAULO","INST BRAS DE CONTROLE DO CANCER",s("HON/PSA")],
-["SAO PAULO","MATERNIDADE SAO LUIZ STAR",["-","-","-","-","-","-","HD/M","HD/M","HD/M","HD/M","HD/M","HD/M"]],
-["SAO PAULO","PRO MATRE PAULISTA",["-","-","-","-","-","-","M","M","M","M","M","M"]],
-["SAO PAULO","REDE OPERA",["-","-","HD","HD","HD","HD","HD","HD","HD","HD","HD","HD"]],
-["SAO PAULO","SAO LUIZ UNIDADE ITAIM",["-","-","-","-","-","-","HCA/HD/HG/HON/PSA","HCA/HD/HG/HON/PSA","HCA/HD/HG/HON/PSA","HCA/HD/HG/HON/PSA","HCA/HD/HG/HON/PSA","HCA/HD/HG/HON/PSA"]],
-["SAO PAULO","SAO LUIZ UNIDADE MORUMBI",["-","-","-","-","-","-","HCA/HD/HG/HON/HP/PSA/PSP","HCA/HD/HG/HON/HP/PSA/PSP","HCA/HD/HG/HON/HP/PSA/PSP","HCA/HD/HG/HON/HP/PSA/PSP","HCA/HD/HG/HON/HP/PSA/PSP","HCA/HD/HG/HON/HP/PSA/PSP"]],
-["SAO PAULO","UNIDADE AVANC EINSTEIN IBIRAPUERA",["-","-","-","-","-","-","-","-","-","-","PSA/PSP","PSA/PSP"]],
-["SAO PAULO","UNIDADE AVANCADA EINSTEIN PERDIZES",["-","-","-","-","-","-","-","-","-","-","HD/PSA/PSP","HD/PSA/PSP"]],
-["SAO PAULO","UNIDADE AVANCADA LUZ SANTO AMARO",["-","-","PSA/PSP","PSA/PSP","-","PSA/PSP","-","PSA/PSP","-","PSA/PSP","PSA/PSP","PSA/PSP"]],
-["SAO PAULO","UNIDADE EINSTEIN CHACARA KLABIN",["-","-","-","-","-","-","-","-","-","-","PSA/PSP","PSA/PSP"]],
-["SAO PAULO","HOSPITAL LEFORTE LIBERDADE",s("-")],
-["SAO PAULO","HOSP A OSWALDO CRUZ - UNID CPO BELO",s("-")],
-["SAO PEDRO","SANTA CASA DE SAO PEDRO",["-","-","HD/HG/M/PSA","HD/HG/M/PSA","HD/HG/M/PSA","HD/HG/M/PSA","HD/HG/M/PSA","HD/HG/M/PSA","HD/HG/M/PSA","HD/HG/M/PSA","HD/HG/M/PSA","HD/HG/M/PSA"]],
-["SAO ROQUE","HOSPITAL SAO FRANCISCO EIRELI",s("HCA/HD/HG/M/PSA")],
-["SAO SEBASTIAO","HOSP DE CLINICAS DE SAO SEBASTIAO",s("HCA/HG/HOF/HON/HOR/HP/M/PSA/PSP")],
-["SAO VICENTE","HOSP ANA COSTA",["HCA/HD/HG/HOF/M/PSA/PSP","HCA/HD/HG/HOF/M/PSA/PSP","HCA/HD/HG/HOF/M/PSA/PSP","HCA/HD/HG/HOF/M/PSA/PSP","-","HCA/HD/HG/HOF/M/PSA/PSP","-","HCA/HD/HG/HOF/M/PSA/PSP","-","HCA/HD/HG/HOF/M/PSA/PSP","HCA/HD/HG/HOF/M/PSA/PSP","HCA/HD/HG/HOF/M/PSA/PSP"]],
+["SAO PAULO","MATERNIDADE SAO LUIZ STAR",["-", "-", "-", "-", "-", "-", "HD/M", "HD/M", "HD/M", "HD/M", "HD/M", "HD/M"]],
+["SAO PAULO","PRO MATRE PAULISTA",["-", "-", "-", "-", "-", "-", "M", "M", "M", "M", "M", "M"]],
+["SAO PAULO","REDE OPERA",["-", "-", "HD", "HD", "HD", "HD", "HD", "HD", "HD", "HD", "HD", "HD"]],
+["SAO PAULO","SAO LUIZ UNIDADE ITAIM",["-", "-", "-", "-", "-", "-", "HD/HG/PSA", "HD/HG/PSA", "HD/HG/PSA", "HD/HG/PSA", "HD/HG/PSA", "HD/HG/PSA"]],
+["SAO PAULO","SAO LUIZ UNIDADE MORUMBI",["-", "-", "-", "-", "-", "-", "HD/HG/HOR/PSA/PSP", "HD/HG/HOR/PSA/PSP", "HD/HG/HOR/PSA/PSP", "HD/HG/HOR/PSA/PSP", "HD/HG/HOR/PSA/PSP", "HD/HG/HOR/PSA/PSP"]],
+["SAO PAULO","UNIDADE AVANC EINSTEIN IBIRAPUERA",["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "PSA/PSP", "PSA/PSP"]],
+["SAO PAULO","UNIDADE AVANCADA EINSTEIN PERDIZES",["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "HD/PSA/PSP", "HD/PSA/PSP"]],
+["SAO PAULO","UNIDADE AVANCADA LUZ SANTO AMARO",["-", "-", "PSA/PSP", "PSA/PSP", "-", "PSA/PSP", "-", "PSA/PSP", "-", "PSA/PSP", "PSA/PSP", "PSA/PSP"]],
+["SAO PAULO","UNIDADE EINSTEIN CHACARA KLABIN",["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "PSA/PSP", "PSA/PSP"]],
+["SAO PAULO","HOSPITAL LEFORTE LIBERDADE",["HD/HG/HOR/PSA/PSP", "HD/HG/HOR/PSA/PSP", "HD/HG/HOF/HOR/PSA/PSP", "HD/HG/HOF/HOR/PSA/PSP", "-", "HD/HG/HOF/HOR/PSA/PSP", "-", "HD/HG/HOF/HOR/PSA/PSP", "-", "HD/HG/HOF/HOR/PSA/PSP", "HD/HG/HOF/HOR/PSA/PSP", "HD/HG/HOF/HOR/PSA/PSP"]],
+["SAO PAULO","HOSP A OSWALDO CRUZ - UNID CPO BELO",["-", "-", "-", "-", "-", "-", "HD", "HD", "HD", "HD", "HD", "HD"]],
+["SAO PAULO","CLINICA INFANTIL SANTA ISABELLA",s("PSP")],
+["SAO PAULO","HOSPITAL CENTRAL LESTE",s("HD/HG/M/PSA/PSP")],
+["SAO PAULO","CLIN FRAT ZONA NORTE SC LTDA",["-", "-", "HOR", "HOR", "HOR", "HOR", "HOR", "HOR", "HOR", "HOR", "HOR", "HOR"]],
+["SAO PEDRO","SANTA CASA DE SAO PEDRO",["-", "-", "HD/HG/M/PSA", "HD/HG/M/PSA", "HD/HG/M/PSA", "HD/HG/M/PSA", "HD/HG/M/PSA", "HD/HG/M/PSA", "HD/HG/M/PSA", "HD/HG/M/PSA", "HD/HG/M/PSA", "HD/HG/M/PSA"]],
+["SAO ROQUE","HOSPITAL SAO FRANCISCO EIRELI",s("HD/HG/M/PSA")],
+["SAO SEBASTIAO","HOSP DE CLINICAS DE SAO SEBASTIAO",s("HG/HOF/HON/HOR/HP/M/PSA/PSP")],
+["SAO VICENTE","HOSP ANA COSTA",["HD/HG/PSA/PSP", "HD/HG/PSA/PSP", "HD/HG/PSA/PSP", "HD/HG/PSA/PSP", "-", "HD/HG/PSA/PSP", "-", "HD/HG/PSA/PSP", "-", "HD/HG/PSA/PSP", "HD/HG/PSA/PSP", "HD/HG/PSA/PSP"]],
 ["SAO VICENTE","IRMANDADE DO HOSPITAL SAO JOSE",s("HD/HG/PSA/PSP")],
 ["SERTAOZINHO","HOSP NETTO CAMPELLO DE SERTAOZINHO",s("HG/M/PSA/PSP")],
 ["SOROCABA","CORTS CLIN ORTOPEDICA",s("HD/HOR")],
 ["SOROCABA","FUND SAO PAULO HOSP STA LUCINDA",s("HG")],
-["SOROCABA","GPACI",s("HON/HP/PSP")],
-["SOROCABA","HOSPITAL EVANGELICO DE SOROCABA",["-","-","HG/PSA","HG/PSA","HG/PSA","HG/PSA","HG/PSA","HG/PSA","HG/PSA","HG/PSA","HG/PSA","HG/PSA"]],
+["SOROCABA","GPACI",s("HON/PSP")],
+["SOROCABA","HOSPITAL EVANGELICO DE SOROCABA",["-", "-", "HG/HOR/PSA", "HG/HOR/PSA", "HG/HOR/PSA", "HG/HOR/PSA", "HG/HOR/PSA", "HG/HOR/PSA", "HG/HOR/PSA", "HG/HOR/PSA", "HG/HOR/PSA", "HG/HOR/PSA"]],
 ["SOROCABA","HOSPITAL MODELO",s("HOF/HON/M/PSA")],
 ["SOROCABA","HOSPITAL OFTALMOLOGICO DE SOROCABA",s("HD/HOF")],
-["SOROCABA","NOTRE DAME INTERMEDICA SAUDE S.A",s("HCA/HD/HG/HOF/HON/HP/PSA/PSP")],
-["SOROCABA","UNIMED",["-","-","-","-","-","-","-","-","-","-","HD/HG/M/PSA/PSP","HD/HG/M/PSA/PSP"]],
-["SUZANO","HOSPITAL SAINT NICHOLAS MEDICAL",s("HD/HG/PSA/PSP")],
+["SOROCABA","NOTRE DAME INTERMEDICA SAUDE S.A",s("HD/HG/HON/HOR/PSA/PSP")],
+["SOROCABA","ORTHO TRAUMA",s("HOR")],
+["SUZANO","HOSPITAL SAINT NICHOLAS MEDICAL",s("HD/HG/HOR/PSA/PSP")],
 ["SUZANO","HOSPITAL SANTA MARIA DE SUZANO SA",s("HG/M/PSA")],
-["TABOAO DA SERRA","FAMILY HOSPITAL",s("HCA/HD/HOR/HP/M/PSA")],
-["TATUI","STA CASA MIS DE TATUI",s("HOF/HON/HOR/HP/M")],
-["TAUBATE","CLIN ORTO TRAUM UBARANA SC LTDA",["-","-","-","-","HD","HD","HD","HD","HD","HD","HD","HD"]],
-["TAUBATE","HOSP REGIONAL DO VALE DO PARAIBA",["-","-","HCA/HD/HOF/HON/HOR/HP/PSA/PSP","HCA/HD/HOF/HON/HOR/HP/PSA/PSP","HCA/HD/HOF/HON/HOR/HP/PSA/PSP","HCA/HD/HOF/HON/HOR/HP/PSA/PSP","HCA/HD/HOF/HON/HOR/HP/PSA/PSP","HCA/HD/HOF/HON/HOR/HP/PSA/PSP","HCA/HD/HOF/HON/HOR/HP/PSA/PSP","HCA/HD/HOF/HON/HOR/HP/PSA/PSP","HCA/HD/HOF/HON/HOR/HP/PSA/PSP","HCA/HD/HOF/HON/HOR/HP/PSA/PSP"]],
-["TAUBATE","INST ANGIOL CIR V VALE PARAIBA SC",["-","-","HD","HD","HD","HD","HD","HD","HD","HD","HD","HD"]],
-["TAUBATE","INST VALE PARAIBANO DE CIRURGIAS",["-","-","HD/HOR","HD/HOR","HD/HOR","HD/HOR","HD/HOR","HD/HOR","HD/HOR","HD/HOR","HD/HOR","HD/HOR"]],
-["TAUBATE","POLICLIN SA SERV MED HOSPITALARES",s("HD/HON/HOR/HP/M/PSA/PSP")],
+["TABOAO DA SERRA","FAMILY HOSPITAL",s("HD/HOR/HP/M/PSA")],
+["TATUI","STA CASA MIS DE TATUI",s("HOF/HON/HOR/M")],
+["TAUBATE","CLIN ORTO TRAUM UBARANA SC LTDA",["-", "-", "HOR", "HOR", "HD/HOR", "HD/HOR", "HD/HOR", "HD/HOR", "HD/HOR", "HD/HOR", "HD/HOR", "HD/HOR"]],
+["TAUBATE","HOSP REGIONAL DO VALE DO PARAIBA",["-", "-", "HCA/HD/HOF/HON/HOR/PSA/PSP", "HCA/HD/HOF/HON/HOR/PSA/PSP", "HCA/HD/HOF/HON/HOR/PSA/PSP", "HCA/HD/HOF/HON/HOR/PSA/PSP", "HCA/HD/HOF/HON/HOR/PSA/PSP", "HCA/HD/HOF/HON/HOR/PSA/PSP", "HCA/HD/HOF/HON/HOR/PSA/PSP", "HCA/HD/HOF/HON/HOR/PSA/PSP", "HCA/HD/HOF/HON/HOR/PSA/PSP", "HCA/HD/HOF/HON/HOR/PSA/PSP"]],
+["TAUBATE","INST ANGIOL CIR V VALE PARAIBA SC",["-", "-", "HD", "HD", "HD", "HD", "HD", "HD", "HD", "HD", "HD", "HD"]],
+["TAUBATE","INST VALE PARAIBANO DE CIRURGIAS",["-", "-", "HD/HOR", "HD/HOR", "HD/HOR", "HD/HOR", "HD/HOR", "HD/HOR", "HD/HOR", "HD/HOR", "HD/HOR", "HD/HOR"]],
+["TAUBATE","POLICLIN SA SERV MED HOSPITALARES",s("HD/HOR/HP/M/PSA/PSP")],
 ["TEODORO SAMPAIO","HOSP REGIONAL DE TEODORO SAMPAIO",s("HD/M/PSA")],
 ["TIETE","STA CASA MIS DE TIETE",s("HD/HG/M")],
 ["TUPA","SANTA CASA DE MISERICORDIA DE TUPA",s("HG/M")],
 ["UBATUBA","STA CASA DE MISER DE UBATUBA",s("HG/M/PSA/PSP")],
-["VALINHOS","HOSPITAL E MATERNIDADE GALILEO",s("HCA/HD/HG/HOF/HON/HOR/HP/PSA")],
-["VALINHOS","IRM DE STA CASA DE MIS DE VALINHOS",s("HCA/HD/HOF/HON/HOR/HP/M/PSA/PSP")],
-["VARGEM GRANDE DO SUL","HOSPITAL DE CARIDADE",s("HG/M/PSA")],
-["VARZEA PAULISTA","HOSP PAULO SACRAMENTO",s("HCA/HD/HG/HP/M/PSA/PSP")],
-["VINHEDO","SANTA CASA DE VINHEDO",s("HD/HG/PSA/PSP")],
-["VOTUPORANGA","SANTA CASA",s("HCA/HD/HOF/HOR/HP/M/PSA")]
+["VALINHOS","HOSPITAL E MATERNIDADE GALILEO",s("HD/HG/HOF/HON/HOR/PSA")],
 ];
 
 </script>
@@ -2343,6 +2967,9 @@ window.REDE_DADOS = [
 
   // initial
   filterRede();
+
+  // rede carregada → recalcula as linhas de rede do comparativo
+  if (typeof cmpRender === 'function') { CMP_REDE_CACHE = null; cmpRender(); }
 })();
 </script>
 

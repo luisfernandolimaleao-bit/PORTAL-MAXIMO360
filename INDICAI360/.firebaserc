@@ -1,0 +1,15 @@
+{
+  "projects": {
+    "default": "consultabradsaude"
+  },
+  "targets": {
+    "consultabradsaude": {
+      "hosting": {
+        "indicai360": [
+          "indicai360"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}
