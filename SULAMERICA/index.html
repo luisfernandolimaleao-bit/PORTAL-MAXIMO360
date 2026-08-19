@@ -678,6 +678,63 @@
   }
   .sa-disclaimer strong { color: var(--orange-dark); }
 
+  /* ─── GLOSSÁRIO DE SIGLAS (AHO/HO/PS/R1-R3/[E]/[A]) ─── */
+  .gloss {
+    border-bottom: 1.5px dotted var(--orange); cursor: help;
+    position: relative; white-space: nowrap;
+  }
+  .gloss sup {
+    color: var(--orange); font-weight: 900; font-size: 9px; margin-left: 1px;
+  }
+  .gloss::after {
+    content: attr(data-def);
+    position: absolute; left: 50%; bottom: calc(100% + 10px); transform: translateX(-50%) translateY(4px);
+    width: max-content; max-width: 260px;
+    background: var(--navy-dark); color: var(--white);
+    font-family: 'Lato', sans-serif; font-size: 12px; font-weight: 400; line-height: 1.5;
+    white-space: normal; text-align: left;
+    padding: 10px 12px; border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+    opacity: 0; visibility: hidden; pointer-events: none;
+    transition: opacity 0.15s ease, transform 0.15s ease; z-index: 40;
+  }
+  .gloss::before {
+    content: ""; position: absolute; left: 50%; bottom: 100%; transform: translateX(-50%) translateY(4px);
+    border: 6px solid transparent; border-top-color: var(--navy-dark);
+    opacity: 0; visibility: hidden; transition: opacity 0.15s ease; z-index: 40;
+  }
+  .gloss:hover::after, .gloss:hover::before,
+  .gloss:focus::after, .gloss:focus::before,
+  .gloss.open::after, .gloss.open::before {
+    opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0);
+  }
+
+  /* ─── CHIP DE LINK PARA BENEFÍCIO (deep-link) ─── */
+  .benefit-link-chip {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 5px 12px; border-radius: 16px;
+    background: rgba(27,42,92,0.06); border: 1px solid rgba(27,42,92,0.15);
+    color: var(--navy); font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700;
+    text-decoration: none; cursor: pointer; transition: all 0.2s;
+  }
+  .benefit-link-chip:hover { background: var(--orange); border-color: var(--orange); color: var(--white); }
+  .benefit-link-chip::after { content: "→"; font-weight: 900; }
+
+  /* ─── CARDS DE PLANO SEPARADOS ─── */
+  .plano-fam-label {
+    grid-column: 1 / -1; font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 800;
+    letter-spacing: 1.8px; text-transform: uppercase; color: var(--orange-dark);
+    margin-top: 14px; padding-bottom: 4px; border-bottom: 2px solid rgba(244,121,32,0.2);
+  }
+  .plano-fam-label:first-child { margin-top: 0; }
+  .plano-destaque { color: var(--navy); font-weight: 700; margin-bottom: 6px; }
+  .plano-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+
+  @keyframes beneficioFlash {
+    0%, 100% { box-shadow: var(--shadow); border-left-color: var(--orange); }
+    30% { box-shadow: 0 0 0 4px rgba(244,121,32,0.35), var(--shadow-hover); }
+  }
+  .benefit-card.flash { animation: beneficioFlash 1.4s ease; }
+
   /* ─── CONTACT CARDS ─── */
   .contact-cards-grid {
     display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 32px;
@@ -1003,8 +1060,8 @@
         <div class="milestone"><div class="milestone-dot"></div><div class="milestone-text"><span class="milestone-year">1895</span> — Fundação em Porto Alegre como Sul América Terrestres, Marítimos e Acidentes</div></div>
         <div class="milestone"><div class="milestone-dot"></div><div class="milestone-text"><span class="milestone-year">1940s</span> — Expansão nacional e diversificação para seguros de vida e saúde</div></div>
         <div class="milestone"><div class="milestone-dot"></div><div class="milestone-text"><span class="milestone-year">2000s</span> — Líder em saúde suplementar; lançamento dos planos empresariais PME</div></div>
-        <div class="milestone"><div class="milestone-dot"></div><div class="milestone-text"><span class="milestone-year">2020s</span> — Inovação digital: apps, telemedicina, Médico na Tela e Psicólogo na Tela</div></div>
-        <div class="milestone"><div class="milestone-dot"></div><div class="milestone-text"><span class="milestone-year">2026</span> — Nova geração de planos com Cuidado 360°, Lab IN e Concierge</div></div>
+        <div class="milestone"><div class="milestone-dot"></div><div class="milestone-text"><span class="milestone-year">2020s</span> — Inovação digital: apps, telemedicina, <a onclick="goToBeneficio(event,'medico-especialistas')" style="color:var(--orange-dark);cursor:pointer;">Médico na Tela</a> e <a onclick="goToBeneficio(event,'psicologo')" style="color:var(--orange-dark);cursor:pointer;">Psicólogo na Tela</a></div></div>
+        <div class="milestone"><div class="milestone-dot"></div><div class="milestone-text"><span class="milestone-year">2026</span> — Nova geração de planos com Cuidado 360°, <a onclick="goToBeneficio(event,'labin')" style="color:var(--orange-dark);cursor:pointer;">Lab IN</a> e <a onclick="goToBeneficio(event,'concierge')" style="color:var(--orange-dark);cursor:pointer;">Concierge</a></div></div>
       </div>
     </div>
     <div class="history-text">
@@ -1031,7 +1088,7 @@
     <div class="product-card" onclick="document.querySelector('#planos').scrollIntoView({behavior:'smooth'})">
       <div class="product-icon">🏥</div>
       <h3>Saúde PME</h3>
-      <p>Planos nacionais e regionais para empresas de 3 a 29 vidas. Coberturas AHO e HO com rede referenciada de excelência.</p>
+      <p>Planos nacionais e regionais para empresas de 3 a 29 vidas. Coberturas <span class="gloss" tabindex="0" data-def="AHO — Ambulatorial e Hospitalar com Obstetrícia. Cobre consultas, exames, cirurgias, internações e partos.">AHO<sup>?</sup></span> e <span class="gloss" tabindex="0" data-def="HO — Hospitalar com Obstetrícia. Cobre urgência/emergência, pré-natal, cirurgias e internações — sem reembolso de consultas eletivas.">HO<sup>?</sup></span> com rede referenciada de excelência.</p>
       <span class="product-tag">3 a 29 vidas</span>
     </div>
     <div class="product-card" onclick="document.querySelector('#planos').scrollIntoView({behavior:'smooth'})">
@@ -1080,80 +1137,184 @@
         <button class="subtab-btn" onclick="switchSubTab('pmemais', this)">PME Mais (30–99 vidas)</button>
       </div>
       <div class="subtab-content active" id="subtab-pme">
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;">
+          <div class="plano-fam-label">Entrada</div>
           <div class="benefit-card" style="border-left-color:var(--gray)">
             <div class="benefit-icon">🔷</div>
-            <h4>Direto Nacional [E] / [A]</h4>
-            <p>Plano de entrada com rede referenciada regional ou nacional. Cobertura AHO. Reembolso em PS na área de abrangência. Não possui reembolso para consultas eletivas.</p>
+            <h4>Direto Nacional <span class="gloss" tabindex="0" data-def="[E] Enfermaria — acomodação coletiva em caso de internação.">[E]<sup>?</sup></span></h4>
+            <p class="plano-destaque">✦ Entrada mais econômica da linha Direto — cobertura <span class="gloss" tabindex="0" data-def="AHO — Ambulatorial e Hospitalar com Obstetrícia. Cobre consultas, exames, cirurgias, internações e partos.">AHO<sup>?</sup></span> com reembolso apenas em <span class="gloss" tabindex="0" data-def="PS — Pronto-Socorro. Atendimento de urgência e emergência.">PS<sup>?</sup></span> na área de abrangência.</p>
+            <p>Rede referenciada regional ou nacional, acomodação em enfermaria. Não possui reembolso para consultas eletivas.</p>
+            <div class="plano-chips"><a class="benefit-link-chip" onclick="goToBeneficio(event,'medico-especialistas')">Médico na Tela</a><a class="benefit-link-chip" onclick="goToBeneficio(event,'psicologo')">Psicólogo na Tela</a></div>
+          </div>
+          <div class="benefit-card" style="border-left-color:var(--gray)">
+            <div class="benefit-icon">🔷</div>
+            <h4>Direto Nacional <span class="gloss" tabindex="0" data-def="[A] Apartamento — acomodação individual em caso de internação.">[A]<sup>?</sup></span></h4>
+            <p class="plano-destaque">✦ Mesma estrutura do Direto Nacional [E], com acomodação em apartamento individual.</p>
+            <p>Cobertura AHO, reembolso apenas em PS na área de abrangência. Ideal para quem já quer apartamento no plano de entrada.</p>
+            <div class="plano-chips"><a class="benefit-link-chip" onclick="goToBeneficio(event,'medico-especialistas')">Médico na Tela</a><a class="benefit-link-chip" onclick="goToBeneficio(event,'psicologo')">Psicólogo na Tela</a></div>
           </div>
           <div class="benefit-card" style="border-left-color:#6366f1">
             <div class="benefit-icon">⬛</div>
-            <h4>Exato [E] / [A]</h4>
-            <p>Plano com cobertura AHO e reembolso limitado. Médico na Tela, Psicólogo na Tela, Assistência Viagem Nacional e Lab IN.</p>
+            <h4>Exato <span class="gloss" tabindex="0" data-def="[E] Enfermaria — acomodação coletiva em caso de internação.">[E]<sup>?</sup></span></h4>
+            <p class="plano-destaque">✦ Sobe o padrão do Direto com reembolso fixo em PS (R$ 90,00) e já inclui Lab IN e Assistência Viagem Nacional.</p>
+            <p>Cobertura AHO, rede referenciada reduzida, acomodação em enfermaria.</p>
+            <div class="plano-chips"><a class="benefit-link-chip" onclick="goToBeneficio(event,'medico-especialistas')">Médico na Tela</a><a class="benefit-link-chip" onclick="goToBeneficio(event,'psicologo')">Psicólogo na Tela</a><a class="benefit-link-chip" onclick="goToBeneficio(event,'labin')">Lab IN</a></div>
           </div>
-          <div class="benefit-card">
+          <div class="benefit-card" style="border-left-color:#6366f1">
+            <div class="benefit-icon">⬛</div>
+            <h4>Exato <span class="gloss" tabindex="0" data-def="[A] Apartamento — acomodação individual em caso de internação.">[A]<sup>?</sup></span></h4>
+            <p class="plano-destaque">✦ Mesma cobertura do Exato [E], com acomodação em apartamento.</p>
+            <p>Cobertura AHO, rede referenciada reduzida, reembolso fixo em PS (R$ 90,00).</p>
+            <div class="plano-chips"><a class="benefit-link-chip" onclick="goToBeneficio(event,'medico-especialistas')">Médico na Tela</a><a class="benefit-link-chip" onclick="goToBeneficio(event,'psicologo')">Psicólogo na Tela</a><a class="benefit-link-chip" onclick="goToBeneficio(event,'labin')">Lab IN</a></div>
+          </div>
+          <div class="plano-fam-label">Intermediários</div>
+          <div class="benefit-card" style="border-left-color:#F47920">
             <div class="benefit-icon">🟠</div>
-            <h4>Clássico 100 [E] / Clássico Vital [E]</h4>
-            <p>Cobertura AHO com reembolso R$ 110,25 (enf). Inclui Lab IN, Médico na Tela, Psicólogo na Tela e Assistência Viagem Nacional.</p>
+            <h4>Clássico Vital <span class="gloss" tabindex="0" data-def="[E] Enfermaria — acomodação coletiva em caso de internação.">[E]<sup>?</sup></span></h4>
+            <p class="plano-destaque">✦ Linha Vital: mesma tabela de reembolso do Clássico 100, com rede referenciada reduzida em troca de um prêmio mais competitivo.</p>
+            <p>Reembolso de R$ 110,25 em enfermaria. Inclui Lab IN, Médico na Tela, Psicólogo na Tela e Assistência Viagem Nacional.</p>
+            <div class="plano-chips"><a class="benefit-link-chip" onclick="goToBeneficio(event,'labin')">Lab IN</a><a class="benefit-link-chip" onclick="goToBeneficio(event,'medico-especialistas')">Médico na Tela</a><a class="benefit-link-chip" onclick="goToBeneficio(event,'psicologo')">Psicólogo na Tela</a></div>
+          </div>
+          <div class="benefit-card" style="border-left-color:#F47920">
+            <div class="benefit-icon">🟠</div>
+            <h4>Clássico 100 <span class="gloss" tabindex="0" data-def="[E] Enfermaria — acomodação coletiva em caso de internação.">[E]<sup>?</sup></span></h4>
+            <p class="plano-destaque">✦ Linha Tradicional, mesmo reembolso do Clássico Vital, com rede referenciada completa.</p>
+            <p>Reembolso de R$ 110,25 em enfermaria. Inclui Lab IN, Médico na Tela, Psicólogo na Tela e Assistência Viagem Nacional.</p>
+            <div class="plano-chips"><a class="benefit-link-chip" onclick="goToBeneficio(event,'labin')">Lab IN</a><a class="benefit-link-chip" onclick="goToBeneficio(event,'medico-especialistas')">Médico na Tela</a><a class="benefit-link-chip" onclick="goToBeneficio(event,'psicologo')">Psicólogo na Tela</a></div>
           </div>
           <div class="benefit-card" style="border-left-color:#22c55e">
             <div class="benefit-icon">🟢</div>
-            <h4>Especial 100 [A] / Especial Vital [A]</h4>
-            <p>Reembolso R$ 180,00 (apto). Inclui Seguro Viagem Internacional, Assistência Viagem Nacional, Médico na Tela e Central Exclusiva.</p>
+            <h4>Especial Vital <span class="gloss" tabindex="0" data-def="[A] Apartamento — acomodação individual em caso de internação.">[A]<sup>?</sup></span></h4>
+            <p class="plano-destaque">✦ Primeiro plano da linha com Seguro Viagem Internacional e Central Exclusiva 24h — linha Vital, rede reduzida.</p>
+            <p>Reembolso de R$ 180,00 em apartamento. Inclui Assistência Viagem Nacional e Médico na Tela.</p>
+            <div class="plano-chips"><a class="benefit-link-chip" onclick="goToBeneficio(event,'seguro-viagem')">Seguro Viagem</a><a class="benefit-link-chip" onclick="goToBeneficio(event,'central')">Central Exclusiva</a><a class="benefit-link-chip" onclick="goToBeneficio(event,'labin')">Lab IN</a></div>
+          </div>
+          <div class="benefit-card" style="border-left-color:#22c55e">
+            <div class="benefit-icon">🟢</div>
+            <h4>Especial 100 <span class="gloss" tabindex="0" data-def="[A] Apartamento — acomodação individual em caso de internação.">[A]<sup>?</sup></span></h4>
+            <p class="plano-destaque">✦ Mesmo patamar do Especial Vital, com rede referenciada completa (linha Tradicional).</p>
+            <p>Reembolso de R$ 180,00 em apartamento. Inclui Seguro Viagem Internacional, Assistência Viagem Nacional e Central Exclusiva.</p>
+            <div class="plano-chips"><a class="benefit-link-chip" onclick="goToBeneficio(event,'seguro-viagem')">Seguro Viagem</a><a class="benefit-link-chip" onclick="goToBeneficio(event,'central')">Central Exclusiva</a><a class="benefit-link-chip" onclick="goToBeneficio(event,'labin')">Lab IN</a></div>
+          </div>
+          <div class="plano-fam-label">Alto padrão</div>
+          <div class="benefit-card" style="border-left-color:#3b82f6">
+            <div class="benefit-icon">🔵</div>
+            <h4>Especial Mais Vital <span class="gloss" tabindex="0" data-def="[A] Apartamento — acomodação individual em caso de internação.">[A]<sup>?</sup></span></h4>
+            <p class="plano-destaque">✦ Agrega Check-up anual, Vacinas e Concierge Maternidade — linha Vital, rede reduzida.</p>
+            <p>Reembolso de R$ 330,75 em apartamento. Inclui Seguro Viagem Internacional e Central Exclusiva.</p>
+            <div class="plano-chips"><a class="benefit-link-chip" onclick="goToBeneficio(event,'checkup')">Check-up</a><a class="benefit-link-chip" onclick="goToBeneficio(event,'concierge')">Time Concierge</a><a class="benefit-link-chip" onclick="goToBeneficio(event,'seguro-viagem')">Seguro Viagem</a></div>
           </div>
           <div class="benefit-card" style="border-left-color:#3b82f6">
             <div class="benefit-icon">🔵</div>
-            <h4>Especial Mais [A] / Especial Mais Vital [A]</h4>
-            <p>Reembolso R$ 330,75 (apto). Check-up anual, Vacinas, Concierge Maternidade, Central Exclusiva e Seguro Viagem Internacional.</p>
+            <h4>Especial Mais <span class="gloss" tabindex="0" data-def="[A] Apartamento — acomodação individual em caso de internação.">[A]<sup>?</sup></span></h4>
+            <p class="plano-destaque">✦ Mesmo pacote do Especial Mais Vital, com rede referenciada completa e Check-up no Hospital Vila Nova Star.</p>
+            <p>Reembolso de R$ 330,75 em apartamento. Check-up anual, Vacinas, Concierge Maternidade, Central Exclusiva e Seguro Viagem Internacional.</p>
+            <div class="plano-chips"><a class="benefit-link-chip" onclick="goToBeneficio(event,'checkup')">Check-up</a><a class="benefit-link-chip" onclick="goToBeneficio(event,'concierge')">Time Concierge</a><a class="benefit-link-chip" onclick="goToBeneficio(event,'seguro-viagem')">Seguro Viagem</a></div>
           </div>
           <div class="benefit-card" style="border-left-color:#f59e0b">
             <div class="benefit-icon">⭐</div>
-            <h4>Executivo [A] · R1/R2/R3</h4>
-            <p>Reembolso de R$ 500 a R$ 880 (apto). Retaguarda Einstein/Sírio, Transplantes adicionais, Check-up, todas as coberturas anteriores.</p>
+            <h4>Executivo <span class="gloss" tabindex="0" data-def="[A] Apartamento — acomodação individual em caso de internação.">[A]<sup>?</sup></span> · <span class="gloss" tabindex="0" data-def="Faixas de reembolso do plano Executivo: R1 = R$ 500,00 · R2 = R$ 660,00 · R3 = R$ 880,00 (consulta eletiva).">R1/R2/R3<sup>?</sup></span></h4>
+            <p class="plano-destaque">✦ Retaguarda Einstein/Sírio-Libanês e Transplantes adicionais, com reembolso em 3 faixas.</p>
+            <p>Reembolso de R$ 500 a R$ 880 em apartamento, mais todas as coberturas dos planos anteriores. Check-up opcional.</p>
+            <div class="plano-chips"><a class="benefit-link-chip" onclick="goToBeneficio(event,'retaguarda')">Retaguarda</a><a class="benefit-link-chip" onclick="goToBeneficio(event,'transplante')">Transplante Extra Rol</a><a class="benefit-link-chip" onclick="goToBeneficio(event,'checkup')">Check-up</a><a class="benefit-link-chip" onclick="goToBeneficio(event,'concierge')">Time Concierge</a></div>
           </div>
           <div class="benefit-card" style="border-left-color:#ec4899">
             <div class="benefit-icon">💎</div>
-            <h4>Prestige [A]</h4>
-            <p>Reembolso R$ 1.000,00 (apto). Remoção Especial, Motorista Amigo, Fonoaudiologia ilimitada, Escleroterapia ilimitada, Psicomotricidade ilimitada, Retaguarda, Transplantes.</p>
+            <h4>Prestige <span class="gloss" tabindex="0" data-def="[A] Apartamento — acomodação individual em caso de internação.">[A]<sup>?</sup></span></h4>
+            <p class="plano-destaque">✦ Cobertura mais completa do portfólio: Transplante Extra Rol, Remoção Especial, Motorista Amigo e sessões ilimitadas de Escleroterapia e Fonoaudiologia.</p>
+            <p>Reembolso de R$ 1.000,00 em apartamento — o teto da tabela. Cirurgia Refrativa sem limite de grau.</p>
+            <div class="plano-chips"><a class="benefit-link-chip" onclick="goToBeneficio(event,'transplante')">Transplante Extra Rol</a><a class="benefit-link-chip" onclick="goToBeneficio(event,'remocao-especial')">Remoção Especial</a><a class="benefit-link-chip" onclick="goToBeneficio(event,'motorista-amigo')">Motorista Amigo</a><a class="benefit-link-chip" onclick="goToBeneficio(event,'cirurgia-refrativa')">Cirurgia Refrativa</a></div>
           </div>
         </div>
       </div>
       <div class="subtab-content" id="subtab-pmemais">
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;">
+          <div class="plano-fam-label">Entrada</div>
           <div class="benefit-card" style="border-left-color:var(--gray)">
             <div class="benefit-icon">🔷</div>
-            <h4>Direto Nacional [E] / [A]</h4>
-            <p>Entrada da linha PME Mais. Médico na Tela Especialistas e Pronto Atendimento, Psicólogo na Tela, Lab IN (DF). Vigência 24 meses.</p>
+            <h4>Direto Nacional <span class="gloss" tabindex="0" data-def="[E] Enfermaria — acomodação coletiva em caso de internação.">[E]<sup>?</sup></span></h4>
+            <p class="plano-destaque">✦ Entrada da linha PME Mais, com vigência de 24 meses.</p>
+            <p>Médico na Tela Especialistas e Pronto Atendimento, Psicólogo na Tela e Lab IN exclusivo para a região do Distrito Federal (DF).</p>
+            <div class="plano-chips"><a class="benefit-link-chip" onclick="goToBeneficio(event,'medico-especialistas')">Médico na Tela</a><a class="benefit-link-chip" onclick="goToBeneficio(event,'psicologo')">Psicólogo na Tela</a><a class="benefit-link-chip" onclick="goToBeneficio(event,'labin')">Lab IN (DF)</a></div>
+          </div>
+          <div class="benefit-card" style="border-left-color:var(--gray)">
+            <div class="benefit-icon">🔷</div>
+            <h4>Direto Nacional <span class="gloss" tabindex="0" data-def="[A] Apartamento — acomodação individual em caso de internação.">[A]<sup>?</sup></span></h4>
+            <p class="plano-destaque">✦ Mesma entrada da linha PME Mais, com acomodação em apartamento.</p>
+            <p>Vigência de 24 meses. Médico na Tela, Psicólogo na Tela e Lab IN (DF).</p>
+            <div class="plano-chips"><a class="benefit-link-chip" onclick="goToBeneficio(event,'medico-especialistas')">Médico na Tela</a><a class="benefit-link-chip" onclick="goToBeneficio(event,'psicologo')">Psicólogo na Tela</a><a class="benefit-link-chip" onclick="goToBeneficio(event,'labin')">Lab IN (DF)</a></div>
           </div>
           <div class="benefit-card" style="border-left-color:#6366f1">
             <div class="benefit-icon">⬛</div>
-            <h4>Exato [E] / [A]</h4>
-            <p>Todos os benefícios do Direto + Assistência Viagem Nacional. Médico na Tela disponível.</p>
+            <h4>Exato <span class="gloss" tabindex="0" data-def="[E] Enfermaria — acomodação coletiva em caso de internação.">[E]<sup>?</sup></span></h4>
+            <p class="plano-destaque">✦ Todos os benefícios do Direto, mais Assistência Viagem Nacional e Lab IN em qualquer região.</p>
+            <p>Cobertura AHO, rede referenciada reduzida, reembolso fixo em PS (R$ 90,00).</p>
+            <div class="plano-chips"><a class="benefit-link-chip" onclick="goToBeneficio(event,'medico-especialistas')">Médico na Tela</a><a class="benefit-link-chip" onclick="goToBeneficio(event,'labin')">Lab IN</a></div>
           </div>
-          <div class="benefit-card">
+          <div class="benefit-card" style="border-left-color:#6366f1">
+            <div class="benefit-icon">⬛</div>
+            <h4>Exato <span class="gloss" tabindex="0" data-def="[A] Apartamento — acomodação individual em caso de internação.">[A]<sup>?</sup></span></h4>
+            <p class="plano-destaque">✦ Mesma cobertura do Exato [E], com acomodação em apartamento.</p>
+            <p>Assistência Viagem Nacional incluída, reembolso fixo em PS (R$ 90,00).</p>
+            <div class="plano-chips"><a class="benefit-link-chip" onclick="goToBeneficio(event,'medico-especialistas')">Médico na Tela</a><a class="benefit-link-chip" onclick="goToBeneficio(event,'labin')">Lab IN</a></div>
+          </div>
+          <div class="plano-fam-label">Intermediários</div>
+          <div class="benefit-card" style="border-left-color:#F47920">
             <div class="benefit-icon">🟠</div>
-            <h4>Clássico 100 [E] / Clássico Vital [E]</h4>
-            <p>Reembolso enf R$ 110,25. Assistência Viagem Nacional, Lab IN, Médico na Tela e Psicólogo na Tela.</p>
+            <h4>Clássico Vital <span class="gloss" tabindex="0" data-def="[E] Enfermaria — acomodação coletiva em caso de internação.">[E]<sup>?</sup></span></h4>
+            <p class="plano-destaque">✦ Linha Vital com rede referenciada reduzida e o mesmo reembolso do Clássico 100.</p>
+            <p>Reembolso de R$ 110,25 em enfermaria. Assistência Viagem Nacional, Lab IN, Médico na Tela e Psicólogo na Tela.</p>
+            <div class="plano-chips"><a class="benefit-link-chip" onclick="goToBeneficio(event,'labin')">Lab IN</a><a class="benefit-link-chip" onclick="goToBeneficio(event,'medico-especialistas')">Médico na Tela</a></div>
+          </div>
+          <div class="benefit-card" style="border-left-color:#F47920">
+            <div class="benefit-icon">🟠</div>
+            <h4>Clássico 100 <span class="gloss" tabindex="0" data-def="[E] Enfermaria — acomodação coletiva em caso de internação.">[E]<sup>?</sup></span></h4>
+            <p class="plano-destaque">✦ Linha Tradicional com rede referenciada completa.</p>
+            <p>Reembolso de R$ 110,25 em enfermaria. Assistência Viagem Nacional, Lab IN, Médico na Tela e Psicólogo na Tela.</p>
+            <div class="plano-chips"><a class="benefit-link-chip" onclick="goToBeneficio(event,'labin')">Lab IN</a><a class="benefit-link-chip" onclick="goToBeneficio(event,'medico-especialistas')">Médico na Tela</a></div>
           </div>
           <div class="benefit-card" style="border-left-color:#22c55e">
             <div class="benefit-icon">🟢</div>
-            <h4>Especial 100 [A] / Especial Vital [A]</h4>
-            <p>Reembolso R$ 180,00. Seguro Viagem Internacional, Assistência Viagem Nacional, Central Exclusiva.</p>
+            <h4>Especial Vital <span class="gloss" tabindex="0" data-def="[A] Apartamento — acomodação individual em caso de internação.">[A]<sup>?</sup></span></h4>
+            <p class="plano-destaque">✦ Seguro Viagem Internacional e Central Exclusiva — linha Vital, rede reduzida.</p>
+            <p>Reembolso de R$ 180,00 em apartamento. Assistência Viagem Nacional incluída.</p>
+            <div class="plano-chips"><a class="benefit-link-chip" onclick="goToBeneficio(event,'seguro-viagem')">Seguro Viagem</a><a class="benefit-link-chip" onclick="goToBeneficio(event,'central')">Central Exclusiva</a></div>
+          </div>
+          <div class="benefit-card" style="border-left-color:#22c55e">
+            <div class="benefit-icon">🟢</div>
+            <h4>Especial 100 <span class="gloss" tabindex="0" data-def="[A] Apartamento — acomodação individual em caso de internação.">[A]<sup>?</sup></span></h4>
+            <p class="plano-destaque">✦ Mesmo patamar do Especial Vital, com rede referenciada completa.</p>
+            <p>Reembolso de R$ 180,00 em apartamento. Seguro Viagem Internacional, Assistência Viagem Nacional e Central Exclusiva.</p>
+            <div class="plano-chips"><a class="benefit-link-chip" onclick="goToBeneficio(event,'seguro-viagem')">Seguro Viagem</a><a class="benefit-link-chip" onclick="goToBeneficio(event,'central')">Central Exclusiva</a></div>
+          </div>
+          <div class="plano-fam-label">Alto padrão</div>
+          <div class="benefit-card" style="border-left-color:#3b82f6">
+            <div class="benefit-icon">🔵</div>
+            <h4>Especial Mais Vital <span class="gloss" tabindex="0" data-def="[A] Apartamento — acomodação individual em caso de internação.">[A]<sup>?</sup></span></h4>
+            <p class="plano-destaque">✦ Check-up no Hospital Vila Nova Star, Vacinas e Retaguarda (Rede Star + Einstein + Sírio) — linha Vital.</p>
+            <p>Reembolso de R$ 330,75 em apartamento. Concierge Maternidade incluída.</p>
+            <div class="plano-chips"><a class="benefit-link-chip" onclick="goToBeneficio(event,'checkup')">Check-up</a><a class="benefit-link-chip" onclick="goToBeneficio(event,'retaguarda')">Retaguarda</a><a class="benefit-link-chip" onclick="goToBeneficio(event,'concierge')">Time Concierge</a></div>
           </div>
           <div class="benefit-card" style="border-left-color:#3b82f6">
             <div class="benefit-icon">🔵</div>
-            <h4>Especial Mais [A] / Especial Mais Vital [A]</h4>
-            <p>Reembolso R$ 330,75. Check-up no Hospital Vila Nova Star, Vacinas, Retaguarda (Rede Star + Einstein + Sírio), Concierge Maternidade.</p>
+            <h4>Especial Mais <span class="gloss" tabindex="0" data-def="[A] Apartamento — acomodação individual em caso de internação.">[A]<sup>?</sup></span></h4>
+            <p class="plano-destaque">✦ Mesmo pacote do Especial Mais Vital, com rede referenciada completa.</p>
+            <p>Reembolso de R$ 330,75 em apartamento. Check-up no Hospital Vila Nova Star, Vacinas, Retaguarda (Rede Star + Einstein + Sírio) e Concierge Maternidade.</p>
+            <div class="plano-chips"><a class="benefit-link-chip" onclick="goToBeneficio(event,'checkup')">Check-up</a><a class="benefit-link-chip" onclick="goToBeneficio(event,'retaguarda')">Retaguarda</a><a class="benefit-link-chip" onclick="goToBeneficio(event,'concierge')">Time Concierge</a></div>
           </div>
           <div class="benefit-card" style="border-left-color:#f59e0b">
             <div class="benefit-icon">⭐</div>
-            <h4>Executivo [A] · R1/R2/R3</h4>
-            <p>Reembolso R$ 500 a R$ 880. Check-up opcional, Transplantes adicionais, Retaguarda Einstein+Sírio, Vacinas, Concierge.</p>
+            <h4>Executivo <span class="gloss" tabindex="0" data-def="[A] Apartamento — acomodação individual em caso de internação.">[A]<sup>?</sup></span> · <span class="gloss" tabindex="0" data-def="Faixas de reembolso do plano Executivo: R1 = R$ 500,00 · R2 = R$ 660,00 · R3 = R$ 880,00 (consulta eletiva).">R1/R2/R3<sup>?</sup></span></h4>
+            <p class="plano-destaque">✦ Check-up opcional, Transplantes adicionais e Retaguarda Einstein+Sírio.</p>
+            <p>Reembolso de R$ 500 a R$ 880 em apartamento. Vacinas e Time Concierge incluídos.</p>
+            <div class="plano-chips"><a class="benefit-link-chip" onclick="goToBeneficio(event,'retaguarda')">Retaguarda</a><a class="benefit-link-chip" onclick="goToBeneficio(event,'transplante')">Transplante Extra Rol</a><a class="benefit-link-chip" onclick="goToBeneficio(event,'checkup')">Check-up</a><a class="benefit-link-chip" onclick="goToBeneficio(event,'concierge')">Time Concierge</a></div>
           </div>
           <div class="benefit-card" style="border-left-color:#ec4899">
             <div class="benefit-icon">💎</div>
-            <h4>Prestige [A]</h4>
-            <p>Reembolso R$ 1.000,00. Remoção Especial, Motorista Amigo, Escleroterapia e Fonoaudiologia ilimitadas, check-up titulares+dependentes acima 29 anos.</p>
+            <h4>Prestige <span class="gloss" tabindex="0" data-def="[A] Apartamento — acomodação individual em caso de internação.">[A]<sup>?</sup></span></h4>
+            <p class="plano-destaque">✦ Remoção Especial, Motorista Amigo, Escleroterapia e Fonoaudiologia ilimitadas.</p>
+            <p>Reembolso de R$ 1.000,00 em apartamento. Check-up para titulares e dependentes a partir de 29 anos.</p>
+            <div class="plano-chips"><a class="benefit-link-chip" onclick="goToBeneficio(event,'transplante')">Transplante Extra Rol</a><a class="benefit-link-chip" onclick="goToBeneficio(event,'remocao-especial')">Remoção Especial</a><a class="benefit-link-chip" onclick="goToBeneficio(event,'motorista-amigo')">Motorista Amigo</a><a class="benefit-link-chip" onclick="goToBeneficio(event,'checkup')">Check-up</a></div>
           </div>
         </div>
       </div>
@@ -1316,28 +1477,28 @@
     <div><strong>Consulta rápida.</strong> Disponibilidade dos benefícios pode variar por plano e região. Valide sempre nos canais oficiais da <strong>SulAmérica</strong>.</div>
   </div>
   <div class="benefits-grid">
-    <div class="benefit-card">
+    <div class="benefit-card" id="beneficio-medico-especialistas">
       <div class="benefit-icon">👨‍⚕️</div>
       <h4>Médico na Tela — Especialistas</h4>
       <p>Agende teleconsulta com especialistas da rede referenciada. Receba receita e solicitação de exame via SMS. Disponível pelo App SulAmérica Saúde.</p>
     </div>
-    <div class="benefit-card">
+    <div class="benefit-card" id="beneficio-medico-pa">
       <div class="benefit-icon">🚑</div>
       <h4>Médico na Tela — Pronto Atendimento</h4>
       <p>Clínicos gerais e pediatras disponíveis 24h por dia, 7 dias por semana. Fale sobre sintomas simples diretamente pelo celular.</p>
     </div>
-    <div class="benefit-card">
+    <div class="benefit-card" id="beneficio-psicologo">
       <div class="benefit-icon">🧠</div>
       <h4>Psicólogo na Tela</h4>
       <p>Sessões de psicoterapia por vídeo, 24h, todos os dias. Equipe treinada para atendimento online com conforto e acolhimento.</p>
     </div>
-    <div class="benefit-card">
+    <div class="benefit-card" id="beneficio-labin">
       <div class="benefit-icon">🧪</div>
       <h4>Lab IN</h4>
       <p>Realização de exames (sangue, urina e fezes) com agendamento rápido pelo App. Coleta no local de escolha do beneficiário.</p>
       <p style="font-size:12px;opacity:.85;margin-top:8px;">Agendamento feito exclusivamente pelo App SulAmérica Saúde — não há central telefônica dedicada para a coleta domiciliar.</p>
     </div>
-    <div class="benefit-card">
+    <div class="benefit-card" id="beneficio-seguro-viagem">
       <div class="benefit-icon">🌍</div>
       <h4>Seguro Viagem Internacional</h4>
       <p>Atendimento médico em viagens internacionais. Cobertura exigida pelo Tratado de Schengen, Telemedicina e muito mais (Especial 100+).</p>
@@ -1349,58 +1510,60 @@
       <p style="font-size:12px;opacity:.85;margin-top:8px;">Antecedência mínima: <strong>10 dias</strong> antes da viagem. Emissão pelo Saúde Online (site) ou, nos planos elegíveis, via Concierge — apólice enviada por e-mail.</p>
       <p style="font-size:12px;opacity:.85;margin-top:8px;">Quando acionar: assim que ocorrer o imprevisto na viagem (doença, acidente, necessidade de traslado etc.), o segurado deve acionar a Central SulAmérica. Cobre viagens aéreas, marítimas e terrestres (carro acima de 100km e ônibus). Se as despesas médicas excederem o limite do plano, é possível pedir reembolso do valor excedente. Não válido para os Planos Diretos.</p>
     </div>
-    <div class="benefit-card">
+    <div class="benefit-card" id="beneficio-cirurgia-refrativa">
       <div class="benefit-icon">👁️</div>
       <h4>Cirurgia Refrativa</h4>
       <p>Correção de miopia, hipermetropia, astigmatismo e presbiopia — <strong>sem limite de grau/dioptria</strong> (cobertura extra rol).</p>
       <p style="font-size:12px;opacity:.85;margin-top:8px;">Exclusiva do plano <strong>Prestige</strong>. Atendimento pela rede referenciada, via central ou time Concierge.</p>
     </div>
-    <div class="benefit-card">
+    <div class="benefit-card" id="beneficio-concierge">
       <div class="benefit-icon">🎩</div>
       <h4>Time Concierge</h4>
       <p>Equipe de atendimento personalizado que organiza e aciona, para o segurado, benefícios como Check-up, Vacinas, Cirurgia Refrativa, Escleroterapia, Remoção Especial, Motorista Amigo e Consulta ao Viajante.</p>
+      <div class="plano-chips"><a class="benefit-link-chip" onclick="goToBeneficio(event,'checkup')">Check-up</a><a class="benefit-link-chip" onclick="goToBeneficio(event,'cirurgia-refrativa')">Cirurgia Refrativa</a><a class="benefit-link-chip" onclick="goToBeneficio(event,'remocao-especial')">Remoção Especial</a><a class="benefit-link-chip" onclick="goToBeneficio(event,'motorista-amigo')">Motorista Amigo</a></div>
       <p style="font-size:12px;opacity:.85;margin-top:8px;">Disponível principalmente no plano <strong>Prestige</strong> (alguns benefícios também no Executivo, nas carteiras PME Mais e Empresarial). Funciona como canal alternativo à central de atendimento.</p>
     </div>
-    <div class="benefit-card">
+    <div class="benefit-card" id="beneficio-retaguarda">
       <div class="benefit-icon">🩺</div>
       <h4>Equipe de Retaguarda</h4>
       <p>Médicos de diversas especialidades reforçam internações de Urgência e Emergência abertas via Pronto Socorro, apoiando a equipe do hospital.</p>
       <p style="font-size:12px;opacity:.85;margin-top:8px;">Rede Star: Especial Mais Vital, Especial Mais, Executivo e Prestige. Einstein e Sírio Libanês: Executivo e Prestige. Acionada pelo próprio hospital — honorários pagos diretamente pela SulAmérica.</p>
     </div>
-    <div class="benefit-card">
+    <div class="benefit-card" id="beneficio-checkup">
       <div class="benefit-icon">🧬</div>
       <h4>Check-up Preventivo Anual</h4>
       <p>Bateria de exames preventivos com recorrência de 12 meses, isenta de coparticipação.</p>
       <p style="font-size:12px;opacity:.85;margin-top:8px;">Especial Mais, Especial Mais Vital e Executivo¹: titular a partir de 29 anos. Prestige: titular e dependentes a partir de 29 anos. Solicitação pela rede referenciada, central ou time Concierge. ¹ Contratação opcional nas carteiras PME Mais, Empresarial e ASO.</p>
     </div>
-    <div class="benefit-card">
+    <div class="benefit-card" id="beneficio-remocao-especial">
       <div class="benefit-icon">🚨</div>
       <h4>Remoção Especial</h4>
       <p>Ambulância simples para remover o segurado quando ele não está em condições de usar transporte comum, por necessidade médica.</p>
       <p style="font-size:12px;opacity:.85;margin-top:8px;">Exclusiva do plano <strong>Prestige</strong>. Limite de 2 utilizações por ano de vigência do contrato. Disponível somente nos municípios de São Paulo e Rio de Janeiro. Solicitação via central ou time Concierge.</p>
     </div>
-    <div class="benefit-card">
+    <div class="benefit-card" id="beneficio-transplante">
       <div class="benefit-icon">🫀</div>
       <h4>Transplante Extra Rol</h4>
       <p>Cobertura adicional de transplantes além dos já garantidos por lei, incluindo despesas assistenciais com doador vivo.</p>
       <p style="font-size:12px;opacity:.85;margin-top:8px;"><strong>Órgãos extra rol:</strong> coração, pâncreas, pâncreas-rim e pulmão. <strong>Já cobertos por lei (Rol ANS):</strong> rim, córnea, medula óssea e fígado. Exclusivo do plano <strong>Prestige</strong>.</p>
     </div>
-    <div class="benefit-card">
+    <div class="benefit-card" id="beneficio-motorista-amigo">
       <div class="benefit-icon">🚗</div>
       <h4>Motorista Amigo da Saúde</h4>
-      <p>Motorista para retorno do segurado ao domicílio caso fique impossibilitado de dirigir por recomendação médica (SP e RJ — Prestige).</p>
+      <p>Motorista particular busca o segurado <strong>e o veículo dele</strong> e leva os dois de volta pra casa, quando ele fica impossibilitado de dirigir por recomendação médica (ex.: após sedação, procedimento ou mal-estar súbito).</p>
+      <p style="font-size:12px;opacity:.85;margin-top:8px;">Como funciona: a solicitação é feita pela central de atendimento ou pelo time Concierge, mediante orientação médica. Exclusivo do plano <strong>Prestige</strong>, disponível apenas nos municípios de <strong>São Paulo e Rio de Janeiro</strong>.</p>
     </div>
-    <div class="benefit-card">
+    <div class="benefit-card" id="beneficio-app">
       <div class="benefit-icon">📱</div>
       <h4>App SulAmérica Saúde</h4>
       <p>Carteirinha digital offline, consulta à rede, extrato de utilização, status de autorizações, VPP e muito mais no smartphone.</p>
     </div>
-    <div class="benefit-card">
+    <div class="benefit-card" id="beneficio-sulamais">
       <div class="benefit-icon">💊</div>
       <h4>SulA Mais — Descontos</h4>
       <p>Rede com descontos em mais de 25.000 farmácias. Descontos em medicamentos, perfumaria, vacinas e materiais hospitalares.</p>
     </div>
-    <div class="benefit-card">
+    <div class="benefit-card" id="beneficio-central">
       <div class="benefit-icon">🎯</div>
       <h4>Central Exclusiva (Especial Mais+)</h4>
       <p>Atendimento em até 20 segundos. Atendentes nível sênior e bilíngue. Todas as solicitações com o mesmo atendente, sem transbordo.</p>
@@ -1810,6 +1973,38 @@
     }
   }
 
+  /* ─── GLOSSÁRIO DE SIGLAS ─── */
+  const GLOSS = {
+    aho: "AHO — Ambulatorial e Hospitalar com Obstetrícia. Cobre consultas, exames, cirurgias, internações e partos.",
+    ho: "HO — Hospitalar com Obstetrícia. Cobre urgência/emergência, pré-natal, cirurgias e internações — sem reembolso de consultas eletivas.",
+    ps: "PS — Pronto-Socorro. Atendimento de urgência e emergência.",
+    r123: "Faixas de reembolso do plano Executivo: R1 = R$ 500,00 · R2 = R$ 660,00 · R3 = R$ 880,00 (consulta eletiva).",
+    e: "[E] Enfermaria — acomodação coletiva em caso de internação.",
+    a: "[A] Apartamento — acomodação individual em caso de internação."
+  };
+  function gloss(term, label) {
+    const def = GLOSS[term] || "";
+    return `<span class="gloss" tabindex="0" data-def="${def.replace(/"/g,'&quot;')}">${label || term.toUpperCase()}<sup>?</sup></span>`;
+  }
+  document.addEventListener('click', (e) => {
+    const t = e.target.closest ? e.target.closest('.gloss') : null;
+    document.querySelectorAll('.gloss.open').forEach(g => { if (g !== t) g.classList.remove('open'); });
+    if (t) t.classList.toggle('open');
+  });
+
+  /* ─── LINK PROFUNDO PARA CARDS DE BENEFÍCIO ─── */
+  function goToBeneficio(e, slug) {
+    if (e && e.preventDefault) e.preventDefault();
+    const id = slug.indexOf('beneficio-') === 0 ? slug : 'beneficio-' + slug;
+    const el = document.getElementById(id);
+    if (!el) return;
+    const top = el.getBoundingClientRect().top + window.scrollY - 90;
+    window.scrollTo({ top, behavior: 'smooth' });
+    el.classList.remove('flash'); void el.offsetWidth;
+    el.classList.add('flash');
+    setTimeout(() => el.classList.remove('flash'), 1500);
+  }
+
   function goToPlanos() {
     const el = document.getElementById('planos');
     if (el) {
@@ -1891,7 +2086,8 @@
       "acom": "Enfermaria",
       "rede": "Direta (dirigida)",
       "fam": "Direto",
-      "cor": "#94a3b8"
+      "cor": "#94a3b8",
+      "destaque": "Entrada mais econômica da linha Direto — cobertura AHO com reembolso apenas em Pronto-Socorro (PS) na área de abrangência."
     },
     "Direto Nacional [A]": {
       "seg": "AHO",
@@ -1920,7 +2116,8 @@
       "acom": "Apartamento",
       "rede": "Direta (dirigida)",
       "fam": "Direto",
-      "cor": "#94a3b8"
+      "cor": "#94a3b8",
+      "destaque": "Mesma estrutura do Direto Nacional [E], com acomodação em apartamento individual."
     },
     "Exato [E]": {
       "seg": "AHO",
@@ -1949,7 +2146,8 @@
       "acom": "Enfermaria",
       "rede": "Reduzida",
       "fam": "Exato",
-      "cor": "#6366f1"
+      "cor": "#6366f1",
+      "destaque": "Sobe o padrão do Direto com reembolso fixo em PS (R$ 90,00) e já inclui Lab IN e Assistência Viagem Nacional."
     },
     "Exato [A]": {
       "seg": "AHO",
@@ -1978,7 +2176,8 @@
       "acom": "Apartamento",
       "rede": "Reduzida",
       "fam": "Exato",
-      "cor": "#6366f1"
+      "cor": "#6366f1",
+      "destaque": "Mesma cobertura do Exato [E], com acomodação em apartamento."
     },
     "Clássico Vital [E]": {
       "seg": "AHO",
@@ -2007,7 +2206,8 @@
       "acom": "Enfermaria",
       "rede": "Reduzida (Vital)",
       "fam": "Clássico",
-      "cor": "#F47920"
+      "cor": "#F47920",
+      "destaque": "Linha Vital: mesma tabela de reembolso do Clássico 100, com rede referenciada reduzida em troca de um prêmio mais competitivo."
     },
     "Clássico 100 [E]": {
       "seg": "AHO",
@@ -2036,7 +2236,8 @@
       "acom": "Enfermaria",
       "rede": "Completa",
       "fam": "Clássico",
-      "cor": "#F47920"
+      "cor": "#F47920",
+      "destaque": "Linha Tradicional, mesmo reembolso do Clássico Vital, com rede referenciada completa."
     },
     "Especial Vital [A]": {
       "seg": "AHO",
@@ -2065,7 +2266,8 @@
       "acom": "Apartamento",
       "rede": "Reduzida (Vital)",
       "fam": "Especial",
-      "cor": "#22c55e"
+      "cor": "#22c55e",
+      "destaque": "Primeiro plano da linha com Seguro Viagem Internacional e Central Exclusiva 24h — linha Vital, rede reduzida."
     },
     "Especial 100 [A]": {
       "seg": "AHO",
@@ -2094,7 +2296,8 @@
       "acom": "Apartamento",
       "rede": "Completa",
       "fam": "Especial",
-      "cor": "#22c55e"
+      "cor": "#22c55e",
+      "destaque": "Mesmo patamar do Especial Vital, com rede referenciada completa (linha Tradicional)."
     },
     "Especial Mais Vital [A]": {
       "seg": "AHO",
@@ -2123,7 +2326,8 @@
       "acom": "Apartamento",
       "rede": "Reduzida (Vital)",
       "fam": "Especial Mais",
-      "cor": "#3b82f6"
+      "cor": "#3b82f6",
+      "destaque": "Agrega Check-up anual, Vacinas e Concierge Maternidade — linha Vital, rede reduzida."
     },
     "Especial Mais [A]": {
       "seg": "AHO",
@@ -2152,7 +2356,8 @@
       "acom": "Apartamento",
       "rede": "Completa",
       "fam": "Especial Mais",
-      "cor": "#3b82f6"
+      "cor": "#3b82f6",
+      "destaque": "Mesmo pacote do Especial Mais Vital, com rede referenciada completa e Check-up no Hospital Vila Nova Star."
     },
     "Executivo [A]": {
       "seg": "AHO",
@@ -2181,7 +2386,8 @@
       "acom": "Apartamento",
       "rede": "Completa + alto padrão",
       "fam": "Executivo",
-      "cor": "#f59e0b"
+      "cor": "#f59e0b",
+      "destaque": "Retaguarda Einstein/Sírio-Libanês e Transplantes adicionais, com reembolso em 3 faixas (R1/R2/R3)."
     },
     "Prestige [A]": {
       "seg": "AHO",
@@ -2210,7 +2416,8 @@
       "acom": "Apartamento",
       "rede": "Completa + alto padrão",
       "fam": "Prestige",
-      "cor": "#ec4899"
+      "cor": "#ec4899",
+      "destaque": "Cobertura mais completa do portfólio: Transplante Extra Rol, Remoção Especial, Motorista Amigo e sessões ilimitadas de Escleroterapia e Fonoaudiologia."
     }
   };
   const CMP_GROUPS = [
@@ -2361,6 +2568,15 @@
     ]
   ];
 
+  /* ── mapeamento campo do comparativo → card de benefício (link profundo) ── */
+  const FIELD_TO_BENEFICIO = {
+    mtEsp: 'beneficio-medico-especialistas', mtPA: 'beneficio-medico-pa', psic: 'beneficio-psicologo',
+    labin: 'beneficio-labin', viagemInt: 'beneficio-seguro-viagem', central: 'beneficio-central',
+    concierge: 'beneficio-concierge', conciergeria: 'beneficio-concierge', checkup: 'beneficio-checkup',
+    retaguarda: 'beneficio-retaguarda', transpl: 'beneficio-transplante', remocao: 'beneficio-remocao-especial',
+    motorista: 'beneficio-motorista-amigo', refrativa: 'beneficio-cirurgia-refrativa'
+  };
+
   /* ── estatísticas de rede calculadas a partir da lâmina (REDE_DADOS) ── */
   let CMP_REDE_CACHE = null;
   function cmpRedeStats() {
@@ -2461,9 +2677,19 @@
     html += '</tr></thead><tbody>';
     CMP_GROUPS.forEach(g => {
       html += '<tr class="cmp-group-row"><td class="feature-col" colspan="' + (selected.length + 1) + '">' + g[0] + '</td></tr>';
+      if (g[0].indexOf('Rede credenciada') === 0) {
+        html += '<tr class="cmp-group-note"><td class="feature-col" colspan="' + (selected.length + 1) + '" ' +
+          'style="font-size:11px;font-weight:400;color:var(--gray);padding-top:2px;padding-bottom:10px;">' +
+          'Contagem de hospitais da lâmina oficial de SP que atendem cada plano. Nas linhas Einstein/Sírio, Rede Star ' +
+          'e Oswaldo Cruz/HCor/Santa Catarina, "X de Y" = quantos hospitais daquele grupo específico (de um total fixo Y) aceitam o plano.</td></tr>';
+      }
       g[1].forEach(f => {
         const label = f[0], campo = f[1];
-        html += '<tr><td class="feature-col">' + label + '</td>';
+        const slug = FIELD_TO_BENEFICIO[campo];
+        const labelHtml = slug
+          ? '<a href="#' + slug + '" onclick="goToBeneficio(event,\'' + slug + '\')" style="color:var(--navy);font-weight:700;text-decoration:underline;text-decoration-color:rgba(244,121,32,0.5);">' + label + '</a>'
+          : label;
+        html += '<tr><td class="feature-col">' + labelHtml + '</td>';
         selected.forEach(p => {
           const v = campo.charAt(0) === '@' ? cmpDyn(p, campo) : (CMP_DATA[p] || {})[campo];
           html += '<td>' + cellClass(v) + '</td>';
@@ -2473,12 +2699,13 @@
     });
     html += '</tbody></table></div>' +
       '<div class="cmp-legend"><strong>Legenda:</strong> [E] Enfermaria · [A] Apartamento · ' +
-      'AHO = Ambulatorial + Hospitalar com Obstetrícia. ' +
+      'AHO = Ambulatorial + Hospitalar com Obstetrícia · HO = Hospitalar com Obstetrícia (sem consulta eletiva). ' +
       'As linhas <strong>Vital</strong> têm a mesma tabela de reembolso da linha equivalente, ' +
       'diferenciando-se pela <strong>rede referenciada reduzida</strong> — a contagem de hospitais acima ' +
-      'vem da lâmina de rede SP de junho/2026. Executivo possui faixas R1/R2/R3 ' +
+      'vem da lâmina de rede SP de junho/2026 (veja a explicação no grupo "Rede credenciada" acima). ' +
+      'Executivo possui faixas R1/R2/R3 ' +
       '(R$ 500,00 / R$ 660,00 / R$ 880,00). Valores de reembolso conforme tabela AHO; ' +
-      'confirme a tabela vigente no Portal do Corretor.</div>';
+      'confirme a tabela vigente no Portal do Corretor. Rótulos sublinhados em laranja levam até a explicação completa do benefício.</div>';
     result.innerHTML = html;
   }
 
@@ -3014,6 +3241,217 @@ window.REDE_DADOS = [
 
   // rede carregada → recalcula as linhas de rede do comparativo
   if (typeof cmpRender === 'function') { CMP_REDE_CACHE = null; cmpRender(); }
+})();
+</script>
+
+<!-- ══════════════════════════════════════════════════════════════
+     AMERIQUINHA — EXPERIMENTAL
+     Buscador inteligente do portal, sem custo de API (sem geração de
+     texto livre — apenas localiza o conteúdo real da página e leva
+     até lá). Bloco isolado: pode ser removido inteiro (deste
+     comentário até o fechamento do </script> logo acima do </body>)
+     sem afetar nenhuma outra parte do site.
+     ══════════════════════════════════════════════════════════════ -->
+<style>
+  #aq-fab {
+    position: fixed; right: 24px; bottom: 24px; z-index: 999;
+    width: 60px; height: 60px; border-radius: 50%; border: none; cursor: pointer;
+    background: linear-gradient(135deg, var(--orange), var(--orange-dark));
+    box-shadow: 0 8px 28px rgba(244,121,32,0.45);
+    font-size: 28px; display: flex; align-items: center; justify-content: center;
+    animation: aqBreathe 2.8s ease-in-out infinite;
+    transition: transform 0.2s;
+  }
+  #aq-fab:hover { transform: scale(1.08); }
+  @keyframes aqBreathe {
+    0%, 100% { box-shadow: 0 8px 28px rgba(244,121,32,0.45); transform: scale(1); }
+    50% { box-shadow: 0 8px 36px rgba(244,121,32,0.7); transform: scale(1.05); }
+  }
+  #aq-fab-badge {
+    position: absolute; top: -4px; left: -4px; background: var(--navy); color: var(--white);
+    font-family: 'Montserrat', sans-serif; font-size: 9px; font-weight: 800;
+    padding: 2px 6px; border-radius: 10px; white-space: nowrap; box-shadow: var(--shadow);
+  }
+  #aq-panel {
+    position: fixed; right: 24px; bottom: 96px; z-index: 999;
+    width: 360px; max-width: calc(100vw - 48px); max-height: 70vh;
+    background: var(--white); border-radius: 18px; box-shadow: 0 20px 60px rgba(13,26,62,0.35);
+    display: none; flex-direction: column; overflow: hidden;
+    font-family: 'Lato', sans-serif;
+  }
+  #aq-panel.open { display: flex; }
+  #aq-head {
+    background: linear-gradient(135deg, var(--navy), var(--navy-dark)); color: var(--white);
+    padding: 16px 18px; display: flex; align-items: center; justify-content: space-between;
+  }
+  #aq-head-title { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 15px; display: flex; align-items: center; gap: 8px; }
+  #aq-close { background: none; border: none; color: rgba(255,255,255,0.7); font-size: 20px; cursor: pointer; line-height: 1; }
+  #aq-close:hover { color: var(--white); }
+  #aq-body { padding: 16px; overflow-y: auto; flex: 1; }
+  #aq-input-row { display: flex; gap: 8px; margin-bottom: 12px; }
+  #aq-input {
+    flex: 1; border: 2px solid var(--gray-light); border-radius: 10px; padding: 10px 12px;
+    font-family: 'Lato', sans-serif; font-size: 13.5px; outline: none; color: var(--text);
+  }
+  #aq-input:focus { border-color: var(--orange); }
+  #aq-ask { background: var(--orange); color: var(--white); border: none; border-radius: 10px; padding: 0 16px; font-weight: 800; cursor: pointer; }
+  #aq-ask:hover { background: var(--orange-dark); }
+  .aq-hint { font-size: 11px; color: var(--gray); margin-bottom: 12px; }
+  .aq-suggestions { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 4px; }
+  .aq-sugg-chip {
+    font-size: 11px; padding: 6px 10px; border-radius: 14px; background: var(--off-white);
+    border: 1px solid var(--gray-light); color: var(--navy); cursor: pointer; font-weight: 700;
+  }
+  .aq-sugg-chip:hover { background: rgba(244,121,32,0.1); border-color: var(--orange); }
+  .aq-result { background: var(--off-white); border-left: 3px solid var(--orange); border-radius: 8px; padding: 12px 14px; margin-bottom: 10px; }
+  .aq-result-title { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 13px; color: var(--navy); margin-bottom: 4px; }
+  .aq-result-snippet { font-size: 12px; color: var(--gray-dark); line-height: 1.5; margin-bottom: 8px; }
+  .aq-result-go {
+    display: inline-flex; align-items: center; gap: 4px; font-size: 11.5px; font-weight: 800;
+    color: var(--orange-dark); cursor: pointer; text-decoration: none;
+  }
+  .aq-result-go:hover { text-decoration: underline; }
+  .aq-empty { font-size: 12.5px; color: var(--gray); line-height: 1.6; }
+</style>
+
+<button id="aq-fab" onclick="aqToggle()" aria-label="Abrir assistente Ameriquinha" title="Pergunte à Ameriquinha">
+  🧡
+  <span id="aq-fab-badge">Pergunte!</span>
+</button>
+
+<div id="aq-panel">
+  <div id="aq-head">
+    <div id="aq-head-title">🧡 Ameriquinha</div>
+    <button id="aq-close" onclick="aqToggle()">✕</button>
+  </div>
+  <div id="aq-body">
+    <div class="aq-input-row" id="aq-input-row" style="display:flex;gap:8px;margin-bottom:12px;">
+      <input id="aq-input" type="text" placeholder="Pergunte algo... ex: como funciona o motorista amigo?" onkeydown="if(event.key==='Enter') aqAsk()">
+      <button id="aq-ask" onclick="aqAsk()">Ir</button>
+    </div>
+    <div class="aq-hint">Busco a resposta real dentro do portal e te levo até o lugar certo.</div>
+    <div id="aq-results">
+      <div class="aq-suggestions" id="aq-suggestions"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const AQ_norm = s => (s||"").toString().toLowerCase()
+      .normalize("NFD").replace(/[̀-ͯ]/g,"")
+      .replace(/[^a-z0-9\s]/g," ").replace(/\s+/g," ").trim();
+
+  const AQ_SYNONYMS = {
+    'beneficio-motorista-amigo': 'carro dirigir veiculo motorista impossibilitado',
+    'beneficio-cirurgia-refrativa': 'olho vista miopia grau oculos lente dioptria',
+    'beneficio-seguro-viagem': 'viagem exterior internacional exterior antecedencia valor limite cobertura passaporte',
+    'beneficio-transplante': 'transplante orgao coracao pulmao rim pancreas doador',
+    'beneficio-checkup': 'checkup check up exame anual preventivo hospital',
+    'beneficio-labin': 'exame sangue coleta domiciliar laboratorio agendamento telefone',
+    'beneficio-concierge': 'concierge atendimento vip time',
+    'beneficio-retaguarda': 'retaguarda einstein sirio libanes internacao pronto socorro',
+    'beneficio-remocao-especial': 'remocao ambulancia transporte',
+    'beneficio-central': 'central atendimento exclusiva rapido',
+    'beneficio-medico-especialistas': 'medico teleconsulta especialista tela',
+    'beneficio-medico-pa': 'pronto atendimento urgencia emergencia clinico pediatra',
+    'beneficio-psicologo': 'psicologo terapia saude mental psicoterapia',
+    'beneficio-app': 'aplicativo carteirinha app celular',
+    'beneficio-sulamais': 'desconto farmacia sulamais'
+  };
+
+  const AQ_EXTRA = [
+    { id: 'planos', title: 'Planos SulAmérica', snippet: 'Conheça os 12 planos separados por família (Entrada, Intermediários, Alto padrão), cada um com reembolso, cobertura e destaque.', kw: 'planos comparar especial 100 vital executivo prestige direto exato classico' },
+    { id: 'comparativo', title: 'Comparativo de planos', snippet: 'Compare até 12 planos lado a lado, incluindo a contagem de hospitais credenciados em SP por plano.', kw: 'comparar comparativo tabela rede credenciada hospitais quantidade numero' },
+    { id: 'rede', title: 'Rede Credenciada SP', snippet: 'Busque hospitais por nome ou cidade e veja quais planos cada um atende.', kw: 'hospital rede credenciada sp buscar procurar' },
+    { id: 'carencia', title: 'Prazos de Carência', snippet: 'Tabela de carência por grupo de procedimento (urgência, consultas, internações, parto, transplantes etc.).', kw: 'carencia prazo espera dias meses' },
+    { id: 'regras', title: 'Como Contratar', snippet: 'Regras de contratação, documentação necessária e condições comerciais PME/PME Mais.', kw: 'contratar documentos regras cadastro aceitacao' },
+    { id: 'odonto', title: 'Planos Odontológicos', snippet: 'Conheça os planos SulAmérica Odonto PME.', kw: 'odonto dentista dental' }
+  ];
+
+  let AQ_INDEX = [];
+  function aqBuildIndex(){
+    AQ_INDEX = [];
+    document.querySelectorAll('#beneficios .benefit-card[id]').forEach(card => {
+      const id = card.id;
+      const h4 = card.querySelector('h4');
+      const title = h4 ? h4.textContent.trim() : id;
+      const paras = Array.from(card.querySelectorAll('p')).map(p => p.textContent.trim()).join(' ');
+      AQ_INDEX.push({
+        id, title, snippet: paras.slice(0, 220) + (paras.length > 220 ? '…' : ''),
+        kw: AQ_norm(title + ' ' + paras + ' ' + (AQ_SYNONYMS[id] || ''))
+      });
+    });
+    AQ_EXTRA.forEach(e => AQ_INDEX.push({ id: e.id, title: e.title, snippet: e.snippet, kw: AQ_norm(e.title + ' ' + e.snippet + ' ' + e.kw) }));
+  }
+
+  const AQ_EXAMPLES = [
+    'Como funciona o motorista amigo?',
+    'Seguro viagem valor',
+    'Cirurgia refrativa tem limite?',
+    'Transplante extra rol quais órgãos?'
+  ];
+
+  function aqRenderSuggestions(){
+    document.getElementById('aq-suggestions').innerHTML = AQ_EXAMPLES.map(q =>
+      `<span class="aq-sugg-chip" onclick="document.getElementById('aq-input').value='${q.replace(/'/g, "\\'")}'; aqAsk();">${q}</span>`
+    ).join('');
+  }
+
+  function aqScore(entry, words){
+    let score = 0;
+    words.forEach(w => {
+      if (!w) return;
+      if (entry.kw.indexOf(w) > -1) score += 1;
+      if (AQ_norm(entry.title).indexOf(w) > -1) score += 2;
+    });
+    return score;
+  }
+
+  window.aqToggle = function(){
+    const panel = document.getElementById('aq-panel');
+    panel.classList.toggle('open');
+    if (panel.classList.contains('open')) {
+      if (!AQ_INDEX.length) aqBuildIndex();
+      if (!document.getElementById('aq-suggestions').innerHTML) aqRenderSuggestions();
+      setTimeout(() => document.getElementById('aq-input').focus(), 100);
+    }
+  };
+
+  window.aqGoTo = function(id){
+    const el = document.getElementById(id);
+    if (!el) return;
+    document.getElementById('aq-panel').classList.remove('open');
+    const top = el.getBoundingClientRect().top + window.scrollY - 90;
+    window.scrollTo({ top, behavior: 'smooth' });
+    if (el.classList.contains('benefit-card')) {
+      el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash');
+      setTimeout(() => el.classList.remove('flash'), 1500);
+    }
+  };
+
+  window.aqAsk = function(){
+    if (!AQ_INDEX.length) aqBuildIndex();
+    const q = document.getElementById('aq-input').value.trim();
+    const results = document.getElementById('aq-results');
+    if (!q) { results.innerHTML = '<div class="aq-suggestions" id="aq-suggestions"></div>'; aqRenderSuggestions(); return; }
+    const words = AQ_norm(q).split(' ').filter(Boolean);
+    const scored = AQ_INDEX.map(e => ({ e, s: aqScore(e, words) })).filter(x => x.s > 0).sort((a, b) => b.s - a.s).slice(0, 3);
+
+    if (!scored.length) {
+      results.innerHTML = '<div class="aq-empty">Não encontrei nada sobre isso ainda! 🧡 Tenta perguntar sobre planos, benefícios, rede credenciada ou carência — ou clica em uma sugestão:</div>' +
+        '<div class="aq-suggestions" id="aq-suggestions" style="margin-top:10px;"></div>';
+      aqRenderSuggestions();
+      return;
+    }
+    results.innerHTML = scored.map(({ e }) => `
+      <div class="aq-result">
+        <div class="aq-result-title">${e.title}</div>
+        <div class="aq-result-snippet">${e.snippet}</div>
+        <a class="aq-result-go" onclick="aqGoTo('${e.id}')">Ver no portal →</a>
+      </div>
+    `).join('');
+  };
 })();
 </script>
 
