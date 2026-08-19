@@ -609,8 +609,9 @@
   .contact-link:hover { color: var(--orange); }
   footer {
     background: #080e1f; padding: 24px 80px;
-    display: flex; justify-content: space-between; align-items: center;
+    display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;
   }
+  footer .footer-credit { flex-basis: 100%; text-align: center; margin-top: 6px; }
   footer p { font-size: 12px; color: rgba(255,255,255,0.3); }
   footer span { color: var(--orange); }
 
@@ -1131,7 +1132,7 @@
     <path d="M0,96L48,112C96,128,192,160,288,154.7C384,149,480,107,576,90.7C672,75,768,85,864,96C960,107,1056,117,1152,112C1248,107,1344,85,1392,74.7L1440,64L1440,200L1392,200C1344,200,1248,200,1152,200C1056,200,960,200,864,200C768,200,672,200,576,200C480,200,384,200,288,200C192,200,96,200,48,200L0,200Z" fill="rgba(244,121,32,0.3)"/>
   </svg>
   <div class="hero-content">
-    <div class="hero-badge">🏆 Guia Completo do Corretor · Versão Abril 2026</div>
+    <div class="hero-badge">🏆 Guia Completo do Corretor · Versão Agosto 2026</div>
     <h1>SulAmérica<br><em>Saúde &amp; Odonto</em><br>PME</h1>
     <p>O guia completo com todos os planos, diferenciais, regras de comercialização e benefícios para você fechar mais negócios com segurança.</p>
     <div class="hero-btns">
@@ -2001,12 +2002,13 @@
     <h4>Links Úteis</h4>
     <a href="https://sulamerica.com.br" target="_blank" rel="noopener" class="contact-link">sulamerica.com.br</a>
     <a href="https://portal.sulamericaseguros.com.br" target="_blank" rel="noopener" class="contact-link">Portal do Corretor</a>
-    <p style="margin-top:16px;font-size:11px;color:rgba(255,255,255,0.4)">Versão: <strong style="color:var(--orange)">Abril 2026 V2</strong><br>Material para uso exclusivo do corretor</p>
+    <p style="margin-top:16px;font-size:11px;color:rgba(255,255,255,0.4)">Versão: <strong style="color:var(--orange)">Agosto 2026</strong><br>Material para uso exclusivo do corretor</p>
   </div>
 </div>
 <footer>
   <p>© 2026 <span>Maximo 360</span> &nbsp;·&nbsp; Assessoria de Seguros &nbsp;—&nbsp; Material de Apoio ao Corretor</p>
   <p>Comercial: <span>(11) 9 9149-6012</span> &nbsp;|&nbsp; Suporte: <span>(11) 4992-7099</span></p>
+  <p class="footer-credit" style="font-size:11px;opacity:.6;">Desenvolvido por <span>PrimeX Technology</span> — Soluções Inteligentes</p>
 </footer>
 
 <button class="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>

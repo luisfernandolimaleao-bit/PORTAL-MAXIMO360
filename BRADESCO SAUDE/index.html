@@ -683,9 +683,10 @@
   .footer-maximo { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 28px; color: var(--white); letter-spacing: -0.5px; line-height: 1; }
   .footer-maximo span { color: var(--red); }
   .footer-logo-horizontal { height: 56px; width: auto; display: block; margin-top: 18px; }
-  footer { background: #080305; padding: 24px 80px; display: flex; justify-content: space-between; align-items: center; }
+  footer { background: #080305; padding: 24px 80px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; }
   footer p { font-size: 12px; color: rgba(255,255,255,0.3); }
   footer span { color: var(--red); }
+  footer .footer-credit { flex-basis: 100%; text-align: center; margin-top: 6px; }
 
   /* ─── SCROLL TOP ─── */
   .scroll-top {
@@ -2556,6 +2557,7 @@ rtExportPopulatePlanos();
 <footer>
   <p>© 2026 <span>Maximo 360</span> &nbsp;·&nbsp; Assessoria de Seguros &nbsp;—&nbsp; Material de Apoio ao Corretor</p>
   <p>Comercial: <span>(11) 9 9300-2951</span> &nbsp;|&nbsp; Suporte: <span>(11) 4992-7099</span></p>
+  <p class="footer-credit" style="font-size:11px;opacity:.6;">Desenvolvido por <span>PrimeX Technology</span> — Soluções Inteligentes</p>
 </footer>
 
 <button class="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
