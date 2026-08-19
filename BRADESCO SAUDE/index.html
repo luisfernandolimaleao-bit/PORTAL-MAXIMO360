@@ -2007,6 +2007,11 @@ rtExportPopulatePlanos();
     <div class="benefit-card"><h4>Vila Olímpia</h4><p class="novamed-addr">Rua Beira Rio, 48 — Vila Olímpia, São Paulo</p><p class="novamed-esp">Medicina de Família, Cardiologia, Dermatologia, Endocrinologia e Metabologia, Gastroenterologia, Ginecologia e Obstetrícia, Nutrição, Oftalmologia, Ortopedia e Traumatologia, Otorrinolaringologia, Pediatria, Psicologia, Urologia</p><p class="novamed-ex"><strong>Exames:</strong> Coleta de Exames Laboratoriais, Eletrocardiograma, Ultrassonografia</p></div>
   </div>
 
+  <button id="novamed-toggle-btn" onclick="novamedToggleOutros()" style="display:flex;align-items:center;gap:8px;margin:28px auto 0;padding:12px 24px;border-radius:10px;border:1.5px solid var(--red);background:var(--white);color:var(--red);font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;cursor:pointer;">
+    <span id="novamed-toggle-label">Ver unidades de outros estados (11)</span> <span id="novamed-toggle-arrow">▾</span>
+  </button>
+
+  <div id="novamed-outros-estados" style="display:none;">
   <div class="novamed-state-label">Rio de Janeiro (5 unidades)</div>
   <div class="novamed-grid">
     <div class="benefit-card"><h4>Barra da Tijuca</h4><p class="novamed-addr">Av. Ministro Ivan Lins, 300 — Barra da Tijuca, Rio de Janeiro</p><p class="novamed-esp">Medicina de Família, Cardiologia, Dermatologia, Endocrinologia e Metabologia, Gastroenterologia, Ginecologia e Obstetrícia, Nutrição, Oftalmologia, Ortopedia e Traumatologia, Otorrinolaringologia, Pediatria, Psicologia, Urologia</p><p class="novamed-ex"><strong>Exames:</strong> Coleta de Exames Laboratoriais, Eletrocardiograma, Ultrassonografia</p></div>
@@ -2028,6 +2033,7 @@ rtExportPopulatePlanos();
     <div class="benefit-card"><h4>Porto Alegre (RS)</h4><p class="novamed-addr">R. Ramiro Barcelos, 652 — Moinhos de Vento, Porto Alegre</p><p class="novamed-esp">Medicina de Família, Cardiologia, Dermatologia, Endocrinologia e Metabologia, Gastroenterologia, Ginecologia e Obstetrícia, Nutrição, Oftalmologia, Ortopedia e Traumatologia, Otorrinolaringologia, Pediatria, Psicologia, Urologia</p><p class="novamed-ex"><strong>Exames:</strong> Coleta de Exames Laboratoriais, Eletrocardiograma, Ultrassonografia</p></div>
     <div class="benefit-card"><h4>Recife (PE)</h4><p class="novamed-addr">Av. República do Líbano, 251 — Shopping RioMar, Pina, Recife</p><p class="novamed-esp">Medicina de Família, Cardiologia, Dermatologia, Endocrinologia e Metabologia, Gastroenterologia, Ginecologia e Obstetrícia, Nutrição, Oftalmologia, Ortopedia e Traumatologia, Otorrinolaringologia, Pediatria, Psicologia, Urologia</p><p class="novamed-ex"><strong>Exames:</strong> Coleta de Exames Laboratoriais, Eletrocardiograma, Ultrassonografia</p></div>
     <div class="benefit-card"><h4>Belo Horizonte (MG)</h4><p class="novamed-addr">Av. dos Andradas, 3.323 — Edifício Rossi, Santa Tereza, Belo Horizonte</p><p class="novamed-esp">Medicina de Família, Cardiologia, Dermatologia, Endocrinologia e Metabologia, Gastroenterologia, Ginecologia e Obstetrícia, Nutrição, Oftalmologia, Ortopedia e Traumatologia, Otorrinolaringologia, Pediatria, Psicologia, Urologia</p><p class="novamed-ex"><strong>Exames:</strong> Coleta de Exames Laboratoriais, Eletrocardiograma, Ultrassonografia</p></div>
+  </div>
   </div>
 
   <div style="font-size:11.5px;color:var(--gray);margin-top:16px;">Fonte: material institucional Meu Doutor Novamed. Novas unidades são adicionadas periodicamente — confirme sempre em <strong>novamedsaude.com.br</strong> ou pela Central 4004 2734. Veja também a <a href="#rede" onclick="navScroll(event,'rede')" style="color:var(--red);font-weight:700;">Rede Credenciada</a> para outras unidades de SP.</div>
@@ -5763,6 +5769,16 @@ const DOCX_DATA = {
 
 let docxMode = 'saude';
 let docxActiveId = null;
+
+function novamedToggleOutros() {
+  const box = document.getElementById('novamed-outros-estados');
+  const label = document.getElementById('novamed-toggle-label');
+  const arrow = document.getElementById('novamed-toggle-arrow');
+  const isOpen = box.style.display !== 'none';
+  box.style.display = isOpen ? 'none' : 'block';
+  label.textContent = isOpen ? 'Ver unidades de outros estados (11)' : 'Ocultar unidades de outros estados';
+  arrow.textContent = isOpen ? '▾' : '▴';
+}
 
 function docxSetMode(mode) {
   docxMode = mode;
