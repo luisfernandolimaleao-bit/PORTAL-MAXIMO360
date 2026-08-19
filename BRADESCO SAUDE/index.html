@@ -1007,9 +1007,8 @@
     <a href="#reembolso" onclick="navScroll(event,'reembolso')">Reembolso</a>
     <a href="#beneficios" onclick="navScroll(event,'beneficios')">Benefícios</a>
     <a href="#carencia" onclick="navScroll(event,'carencia')">Carência</a>
-    <a href="#regras" onclick="navScroll(event,'regras')">Regras</a>
+    <a href="#regras" onclick="navScroll(event,'regras')">Regras e Documentação</a>
     <a href="#coparticipacao" onclick="navScroll(event,'coparticipacao')">Coparticipação</a>
-    <a href="#documentacao" onclick="navScroll(event,'documentacao')">Documentação</a>
     <a href="#dental" onclick="navScroll(event,'dental')">Dental</a>
     <a href="#rede" onclick="navScroll(event,'rede')">Rede</a>
     <a href="#contato" onclick="navScroll(event,'contato')">Contato</a>
@@ -2040,8 +2039,8 @@ rtExportPopulatePlanos();
 <!-- REGRAS COMERCIAIS -->
 <section id="regras" class="rules-section" style="padding:90px 80px;">
   <div class="section-label">Regras Comerciais</div>
-  <div class="section-title">Como Contratar</div>
-  <div class="section-sub">Estruturas, modalidades, coberturas, coparticipação, aceitação, prazos e abrangência para o SPG Bradesco.</div>
+  <div class="section-title">Como Contratar e Documentação Necessária</div>
+  <div class="section-sub">Estruturas, modalidades, coberturas, coparticipação, quem pode entrar, documentos exigidos e prazos para o SPG Bradesco.</div>
 
   <div class="l99-disclaimer">
     <div class="l99-disclaimer-icon">!</div>
@@ -2080,28 +2079,34 @@ rtExportPopulatePlanos();
     </div>
   </div>
 
-  <!-- INFO BANNER — equivalente ao Flex Banner da SulAmérica -->
-  <div class="info-banner">
-    <div class="info-banner-icon">+</div>
-    <div class="info-banner-content">
-      <h3>Aceitação — Quem pode entrar no SPG</h3>
-      <p><strong>Titulares:</strong> sócios, empregados CLT e administradores conforme regras da estrutura.</p>
-      <p><strong>Dependentes:</strong> filhos solteiros ou casados até 44a 11m 29d. Cônjuges conforme modalidade.</p>
-      <p><strong>Agregados:</strong> precisam ter congênere ativo há 6+ meses e ser a 3ª vida. Aceitos: irmãos, sobrinhos, sogro/sogra, padrastro/madrasta, pai/mãe até 65 anos.</p>
-      <p><strong>CAEPF / MEI:</strong> mínimo 6 meses de abertura. Faz para Produtor Rural e Cartórios. MEI: fatura única por contrato.</p>
-      <p><strong>Prestadores de serviços:</strong> a partir da 3ª vida titular e 5ª vida total. Fatura nunca separada.</p>
-      <div class="info-tags">
-        <span class="info-tag">SPG 3: 3–29 vidas</span>
-        <span class="info-tag">SPG 30: 30–99 vidas</span>
-        <span class="info-tag">SPG 100: 100–199 vidas</span>
-        <span class="info-tag">Portabilidade: natureza 213-5 ou CAEPF</span>
-      </div>
-    </div>
+  <div class="info-tags" style="margin-top:8px;">
+    <span class="info-tag">SPG 3: 3–29 vidas</span>
+    <span class="info-tag">SPG 30: 30–99 vidas</span>
+    <span class="info-tag">SPG 100: 100–199 vidas</span>
+    <span class="info-tag">Portabilidade: natureza 213-5 ou CAEPF</span>
   </div>
 
-  <!-- DOCUMENTAÇÃO -->
+  <!-- QUEM PODE FAZER PARTE + DOCUMENTAÇÃO (interativo) -->
   <div style="margin-top:48px;">
-    <h3 style="font-family:'Montserrat',sans-serif;font-size:20px;font-weight:700;color:var(--navy);margin-bottom:24px;">Prazos e Documentação</h3>
+    <h3 style="font-family:'Montserrat',sans-serif;font-size:20px;font-weight:700;color:var(--navy);margin-bottom:8px;">Quem Pode Fazer Parte e Documentação Necessária</h3>
+    <p style="font-size:13.5px;color:var(--gray);margin-bottom:20px;">Selecione o tipo de empresa ou de segurado e veja exatamente quais são as condições de aceitação e os documentos exigidos. Alterne entre Saúde e Dental.</p>
+
+    <div class="docx-mode-switch">
+      <button class="docx-mode-btn active" id="docx-mode-saude" onclick="docxSetMode('saude')"><span class="dot"></span>Bradesco Saúde</button>
+      <button class="docx-mode-btn" id="docx-mode-dental" onclick="docxSetMode('dental')"><span class="dot"></span>Bradesco Dental</button>
+    </div>
+
+    <div class="docx-layout">
+      <aside class="docx-sidebar" id="docx-sidebar"></aside>
+      <div class="docx-panel" id="docx-panel"></div>
+    </div>
+
+    <div class="alert-box" style="margin-top:24px;"><strong>Importante:</strong> Não serão aceitas rasuras no preenchimento. Para casos especiais (internados, crônicos, home care, demitidos/aposentados ou transferências entre contratos Bradesco), contate uma sucursal. Consulte o gestor comercial da Assessoria Maximo 360 para validação.</div>
+  </div>
+
+  <!-- PRAZOS E DOCUMENTAÇÃO OPERACIONAL -->
+  <div style="margin-top:48px;">
+    <h3 style="font-family:'Montserrat',sans-serif;font-size:20px;font-weight:700;color:var(--navy);margin-bottom:24px;">Prazos e Documentação Operacional</h3>
     <div class="doc-grid">
       <div class="doc-card">
         <div class="doc-card-header">Prazos Operacionais</div>
@@ -2301,30 +2306,6 @@ rtExportPopulatePlanos();
   </div>
 
   <div class="alert-box" style="margin-top:24px;"><strong>Importante:</strong> No caso dos planos Empresariais (200+ vidas), devido à customização dos produtos, as regras podem ou não seguir o descrito acima. Consulte sempre o gestor comercial da Assessoria Maximo 360 para validação.</div>
-</section>
-
-<!-- DOCUMENTAÇÃO -->
-<section id="documentacao" class="docx-section" style="padding:90px 80px;">
-  <div class="section-label">Implantação de Contrato</div>
-  <div class="section-title">Documentação Necessária</div>
-  <div class="section-sub">Selecione o tipo de empresa ou beneficiário e veja exatamente quais condições e documentos precisam ser enviados para a Bradesco. Alterne entre Saúde e Dental.</div>
-
-  <div class="l99-disclaimer">
-    <div class="l99-disclaimer-icon">!</div>
-    <div><strong>Consulta rápida.</strong> A lista abaixo é um resumo do Manual do Corretor para apoio à venda. A área de aceitação pode solicitar documentos adicionais. Valide sempre nos canais oficiais da <strong>Bradesco Seguros</strong>.</div>
-  </div>
-
-  <div class="docx-mode-switch">
-    <button class="docx-mode-btn active" id="docx-mode-saude" onclick="docxSetMode('saude')"><span class="dot"></span>Bradesco Saúde</button>
-    <button class="docx-mode-btn" id="docx-mode-dental" onclick="docxSetMode('dental')"><span class="dot"></span>Bradesco Dental</button>
-  </div>
-
-  <div class="docx-layout">
-    <aside class="docx-sidebar" id="docx-sidebar"></aside>
-    <div class="docx-panel" id="docx-panel"></div>
-  </div>
-
-  <div class="alert-box" style="margin-top:24px;"><strong>Importante:</strong> Não serão aceitas rasuras no preenchimento. Para casos especiais (internados, crônicos, home care, demitidos/aposentados ou transferências entre contratos Bradesco), contate uma sucursal. Consulte o gestor comercial da Assessoria Maximo 360 para validação.</div>
 </section>
 
 <!-- DENTAL -->
@@ -5576,6 +5557,30 @@ const DOCX_DATA = {
               'Filhos incapacitados: cópia do Imposto de Renda + Laudo Médico de invalidez laboral',
               'Ficha de inclusão (sem rasuras na Declaração de Saúde)'
             ]
+          },
+          {
+            id: 's-agregados', ico: 'AG', name: 'Agregados',
+            sub: 'Irmãos, sobrinhos, sogro/sogra, padrasto/madrasta e pai/mãe — regras específicas de congênere e ordem de inclusão.',
+            cond: [
+              'Precisam ter congênere ativo há 6 (seis) meses ou mais',
+              'Só podem ser incluídos a partir da 3ª vida do grupo (não podem ser a 1ª ou a 2ª vida)',
+              'Categorias aceitas: irmãos, sobrinhos, sogro/sogra, padrasto/madrasta e pai/mãe (até 65 anos)'
+            ],
+            docs: [
+              'Carta de permanência ou comprovante do plano congênere anterior, com 6+ meses de vigência',
+              'Documento comprovando o vínculo familiar com o titular (RG/Certidão, conforme o parentesco)',
+              'Demais documentos equivalentes aos de Dependentes, no que couber'
+            ],
+            note: 'No Bradesco Dental, Agregados NÃO são elegíveis como beneficiário titular — junto com prestadores de serviço e procuradores.'
+          },
+          {
+            id: 's-prestbenef', ico: 'PS', name: 'Prestadores de Serviços (como beneficiário)',
+            sub: 'Pessoa física prestando serviço à empresa, incluída como beneficiária do plano.',
+            cond: [
+              'Aceito a partir da 3ª vida titular e 5ª vida total do grupo',
+              'A fatura do prestador nunca é emitida separadamente — sempre junto da empresa contratante'
+            ],
+            docs: ['Contrato de prestação de serviço', 'Documentação equivalente à de Empregado/Diretor, no que couber']
           }
         ]
       }
@@ -5893,6 +5898,16 @@ document.querySelector('.scroll-top').style.transition = 'opacity 0.3s';
     transition: transform 0.25s;
   }
   #br-fab:hover #br-fab-img { transform: scale(1.08); }
+  @keyframes brFlap {
+    0%, 100% { transform: scale(1,1) rotate(0deg); }
+    10% { transform: scale(1.18,0.82) rotate(-10deg); }
+    20% { transform: scale(0.88,1.12) rotate(10deg); }
+    30% { transform: scale(1.18,0.82) rotate(-10deg); }
+    40% { transform: scale(0.88,1.12) rotate(10deg); }
+    55% { transform: scale(1.1,0.9) rotate(-6deg); }
+    70% { transform: scale(0.95,1.05) rotate(4deg); }
+  }
+  #br-fab-img.flap { animation: brFlap 0.7s ease-in-out; }
   @keyframes brFly {
     0%   { transform: translate(0, 0) rotate(0deg); }
     25%  { transform: translate(-6px, -14px) rotate(-4deg); }
@@ -6006,8 +6021,7 @@ document.querySelector('.scroll-top').style.transition = 'opacity 0.3s';
     { id: 'reembolso', title: 'Exemplos de Reembolso', snippet: 'Valores de reembolso por procedimento em cada plano.', kw: 'reembolso valores consulta exame internacao' },
     { id: 'beneficios', title: 'Benefícios para o Segurado', snippet: 'Diferenciais digitais e coberturas extra dos planos Bradesco Saúde.', kw: 'beneficios diferenciais app teleconsulta' },
     { id: 'carencia', title: 'Prazos de Carência', snippet: 'Tabela de carência por grupo de procedimento.', kw: 'carencia prazo espera dias meses' },
-    { id: 'regras', title: 'Como Contratar', snippet: 'Condições comerciais e regras de contratação PJ.', kw: 'contratar regras condicoes compulsorio' },
-    { id: 'documentacao', title: 'Documentação Necessária', snippet: 'Selecione o tipo de empresa ou beneficiário e veja as condições e documentos exigidos.', kw: 'documentacao documentos quem pode agregado mei empresa dependente' },
+    { id: 'regras', title: 'Como Contratar e Documentação Necessária', snippet: 'Condições comerciais, quem pode entrar no plano e documentos exigidos por tipo de empresa e segurado.', kw: 'contratar regras condicoes compulsorio documentacao documentos quem pode empresa dependente' },
     { id: 'coparticipacao', title: 'Coparticipação', snippet: 'Limites e regras de coparticipação por plano.', kw: 'coparticipacao copart limite valor' },
     { id: 'dental', title: 'Bradesco Dental', snippet: 'Planos odontológicos SPG, coberturas e preços.', kw: 'dental odonto odontologico' },
     { id: 'rede', title: 'Rede Credenciada', snippet: 'Busque hospitais e prestadores credenciados.', kw: 'hospital rede credenciada buscar' }
@@ -6026,7 +6040,9 @@ document.querySelector('.scroll-top').style.transition = 'opacity 0.3s';
     's-expat': 'expatriado estrangeiro',
     's-afastado': 'afastado inss',
     's-demaposentado': 'demitido aposentado',
-    's-dependentes': 'dependente conjuge filho'
+    's-dependentes': 'dependente conjuge filho',
+    's-agregados': 'agregado agregados irmao sobrinho sogro sogra padrasto madrasta parentes',
+    's-prestbenef': 'prestador prestadores servico beneficiario terceirizado'
   };
 
   let BR_INDEX = [];
@@ -6054,8 +6070,8 @@ document.querySelector('.scroll-top').style.transition = 'opacity 0.3s';
   const BR_EXAMPLES = [
     'Documentos para MEI',
     'Regra de coparticipação',
-    'Carência para internação',
-    'Quem pode ser dependente?'
+    'Quem pode ser agregado?',
+    'Prestador de serviço pode entrar?'
   ];
 
   function brRenderSuggestions(){
@@ -6075,6 +6091,11 @@ document.querySelector('.scroll-top').style.transition = 'opacity 0.3s';
   }
 
   window.brToggle = function(){
+    const img = document.getElementById('br-fab-img');
+    if (img) {
+      img.classList.remove('flap'); void img.offsetWidth; img.classList.add('flap');
+      setTimeout(() => img.classList.remove('flap'), 700);
+    }
     const panel = document.getElementById('br-panel');
     panel.classList.toggle('open');
     if (panel.classList.contains('open')) {
