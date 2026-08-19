@@ -273,6 +273,18 @@
   .benefit-card h4 { font-family: 'Montserrat', sans-serif; font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
   .benefit-card p { font-size: 13px; line-height: 1.6; color: var(--gray); }
 
+  /* ─── MEU DOUTOR NOVAMED — UNIDADES ─── */
+  .novamed-state-label {
+    font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 800;
+    letter-spacing: 1.5px; text-transform: uppercase; color: var(--red);
+    margin: 32px 0 14px; padding-bottom: 6px; border-bottom: 2px solid var(--red-soft);
+  }
+  .novamed-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+  .novamed-grid .benefit-card h4 { margin-bottom: 6px; }
+  .novamed-addr { font-size: 12px; color: var(--gray); margin-bottom: 8px; }
+  .novamed-esp { font-size: 12.5px; color: #444; line-height: 1.6; }
+  .novamed-ex { font-size: 11.5px; color: var(--gray); opacity: .9; margin-top: 8px; }
+
   /* ─── CARÊNCIA ─── */
   .carencia-table { width: 100%; border-collapse: collapse; border-radius: 12px; overflow: hidden; box-shadow: var(--shadow); }
   .carencia-table thead tr { background: var(--red); }
@@ -1953,7 +1965,7 @@ rtExportPopulatePlanos();
     <div class="benefit-card">
       <div class="benefit-icon">+</div>
       <h4>O que é</h4>
-      <p>Programa de médico de referência pessoal — uma espécie de "médico de família" — com agenda prioritária e sem fila, nas clínicas Meu Doutor / Novamed do Grupo Bradesco Seguros.</p>
+      <p>Nova proposta em saúde com foco em <strong>atenção primária</strong>, projetada para acolher o beneficiário e sua família. Padrão de atendimento diferenciado, profissionais especializados, ampla infraestrutura e inovação tecnológica — consultas e exames laboratoriais e de imagem em um modelo integrado, num só lugar.</p>
     </div>
     <div class="benefit-card">
       <div class="benefit-icon">+</div>
@@ -1963,25 +1975,62 @@ rtExportPopulatePlanos();
     </div>
     <div class="benefit-card">
       <div class="benefit-icon">+</div>
-      <h4>Laboratório A+</h4>
-      <p>Nas unidades de Santo André e São Bernardo do Campo, o programa conta com laboratório próprio (A+) integrado à clínica.</p>
+      <h4>Central de Agendamento</h4>
+      <p><strong>Exames:</strong> 4004 2734 (Central)</p>
+      <p style="margin-top:6px;"><strong>Consultas:</strong> pelo App Bradesco Saúde ou Mediservice, pelo site <strong>novamedsaude.com.br</strong>, ou pela Central 4004 2734</p>
+    </div>
+    <div class="benefit-card">
+      <div class="benefit-icon">+</div>
+      <h4>Horários e Contato</h4>
+      <p><strong>Unidades:</strong> seg–sex 6h30–20h · sáb 6h30–14h</p>
+      <p style="margin-top:4px;"><strong>Laboratório:</strong> seg–sáb 6h30–12h</p>
+      <p style="font-size:12px;opacity:.85;margin-top:8px;">sac@novamedsaude.com.br · Responsável técnico: Dr.ª Nicolle Lamanna Vilas Boas (CRM 152129)</p>
     </div>
   </div>
 
-  <h3 style="font-family:'Montserrat',sans-serif;font-size:20px;font-weight:700;color:var(--navy);margin:48px 0 24px;">Unidades</h3>
-  <div style="overflow-x:auto;">
-    <table class="compare-table">
-      <thead><tr><th class="feature-col">Unidade</th><th style="text-align:left">Cidade</th><th style="text-align:left">Planos que atendem nesta unidade</th></tr></thead>
-      <tbody>
-        <tr><td class="feature-col">Meu Doutor — Santo André</td><td style="text-align:left;font-size:13px;">Santo André (SP)</td><td style="text-align:left;font-size:13px;">Com Laboratório A+ integrado</td></tr>
-        <tr><td class="feature-col">Novamed São Bernardo do Campo</td><td style="text-align:left;font-size:13px;">São Bernardo do Campo (SP)</td><td style="text-align:left;font-size:13px;">Efetivo Plus, Ideal</td></tr>
-        <tr><td class="feature-col">Novamed Unidade Paulista</td><td style="text-align:left;font-size:13px;">São Paulo (SP)</td><td style="text-align:left;font-size:13px;">Nacional II, Nacional III</td></tr>
-        <tr><td class="feature-col">Novamed Unidade Tatuapé</td><td style="text-align:left;font-size:13px;">São Paulo (SP)</td><td style="text-align:left;font-size:13px;">Efetivo, Nacional III</td></tr>
-        <tr><td class="feature-col">Meu Doutor — Francisco Morato</td><td style="text-align:left;font-size:13px;">Francisco Morato (SP)</td><td style="text-align:left;font-size:13px;">Efetivo Plus, Nacional II, Nacional III, Nacional Plus, Premium</td></tr>
-      </tbody>
-    </table>
+  <h3 style="font-family:'Montserrat',sans-serif;font-size:20px;font-weight:700;color:var(--navy);margin:48px 0 8px;">Unidades — 23 clínicas em 7 estados</h3>
+  <p style="font-size:13.5px;color:var(--gray);margin-bottom:24px;">Endereço e especialidades de cada unidade, conforme material oficial Meu Doutor Novamed. "Em breve, mais unidades" — a rede está em expansão.</p>
+
+  <div class="novamed-state-label">São Paulo (12 unidades)</div>
+  <div class="novamed-grid">
+    <div class="benefit-card"><h4>Barra Funda</h4><p class="novamed-addr">Av. Marquês de São Vicente, 77 — Barra Funda, São Paulo</p><p class="novamed-esp">Medicina de Família, Cardiologia, Dermatologia, Endocrinologia e Metabologia, Gastroenterologia, Ginecologia e Obstetrícia, Nutrição, Oftalmologia, Ortopedia e Traumatologia, Otorrinolaringologia, Pediatria, Psicologia, Urologia</p><p class="novamed-ex"><strong>Exames:</strong> Análises Clínicas, Eletrocardiograma, Ultrassonografia</p></div>
+    <div class="benefit-card"><h4>Lapa</h4><p class="novamed-addr">R. Pio XI, 62 — Alto da Lapa, São Paulo</p><p class="novamed-esp">Medicina de Família, Cardiologia, Dermatologia, Endocrinologia e Metabologia, Gastroenterologia, Ginecologia e Obstetrícia, Ortopedia e Traumatologia, Otorrinolaringologia, Pediatria, Urologia</p><p class="novamed-ex"><strong>Exames:</strong> Coleta de Exames Laboratoriais, Eletrocardiograma</p></div>
+    <div class="benefit-card"><h4>Guarulhos</h4><p class="novamed-addr">R. João Gonçalves, 212 — Centro, Guarulhos</p><p class="novamed-esp">Medicina de Família, Cardiologia, Dermatologia, Endocrinologia e Metabologia, Fisioterapia, Fonoaudiologia, Gastroenterologia, Ginecologia e Obstetrícia, Nutrição, Oftalmologia, Ortopedia e Traumatologia, Otorrinolaringologia, Pediatria, Psicologia, Urologia</p><p class="novamed-ex"><strong>Exames:</strong> Coleta de Exames Laboratoriais, Eletrocardiograma, Mamografia, Ultrassonografia</p></div>
+    <div class="benefit-card"><h4>Osasco</h4><p class="novamed-addr">Av. Dionysia Alves Barreto, 431 — Vila Osasco, Osasco</p><p class="novamed-esp">Medicina de Família, Cardiologia, Colposcopia, Dermatologia, Endocrinologia e Metabologia, Fisioterapia, Fonoaudiologia, Gastroenterologia, Ginecologia e Obstetrícia, Nutrição, Oftalmologia, Ortopedia e Traumatologia, Otorrinolaringologia, Psicologia, RPG, Urologia</p><p class="novamed-ex"><strong>Exames:</strong> Coleta de Exames Laboratoriais, Eletrocardiograma, Ultrassonografia</p></div>
+    <div class="benefit-card"><h4>Paulista</h4><p class="novamed-addr">Av. Paulista, 52, 4º andar — Bela Vista, São Paulo</p><p class="novamed-esp">Medicina de Família, Cardiologia, Dermatologia, Endocrinologia e Metabologia, Fisioterapia, Fonoaudiologia, Gastroenterologia, Ginecologia e Obstetrícia, Nutrição, Oftalmologia, Ortopedia e Traumatologia, Otorrinolaringologia, Pediatria, Psicologia, Urologia</p><p class="novamed-ex"><strong>Exames:</strong> Coleta de Exames Laboratoriais, Eletrocardiograma, Ultrassonografia</p></div>
+    <div class="benefit-card"><h4>Moema</h4><p class="novamed-addr">Alameda dos Maracatins, 484 — Indianópolis, São Paulo</p><p class="novamed-esp">Medicina de Família, Cardiologia, Dermatologia, Endocrinologia e Metabologia, Gastroenterologia, Ginecologia e Obstetrícia, Nutrição, Oftalmologia, Ortopedia e Traumatologia, Otorrinolaringologia, Pediatria, Psicologia, Urologia</p><p class="novamed-ex"><strong>Exames:</strong> Coleta de Exames Laboratoriais, Eletrocardiograma, Ultrassonografia</p></div>
+    <div class="benefit-card"><h4>Santo André</h4><p class="novamed-addr">Av. Dom Pedro II, 150 — Jardim Santo André, Santo André</p><p class="novamed-esp">Medicina de Família, Cardiologia, Dermatologia, Endocrinologia e Metabologia, Gastroenterologia, Ginecologia e Obstetrícia, Nutrição, Oftalmologia, Ortopedia e Traumatologia, Otorrinolaringologia, Pediatria, Psicologia, Urologia</p><p class="novamed-ex"><strong>Exames:</strong> Coleta de Exames Laboratoriais, Eletrocardiograma, Ultrassonografia</p></div>
+    <div class="benefit-card"><h4>Santo Amaro</h4><p class="novamed-addr">Rua Padre José de Anchieta, 608 — Santo Amaro, São Paulo</p><p class="novamed-esp">Medicina de Família, Cardiologia, Dermatologia, Endocrinologia e Metabologia, Gastroenterologia, Ginecologia e Obstetrícia, Nutrição, Oftalmologia, Ortopedia e Traumatologia, Otorrinolaringologia, Pediatria, Psicologia, Urologia</p><p class="novamed-ex"><strong>Exames:</strong> Coleta de Exames Laboratoriais, Eletrocardiograma, Ultrassonografia</p></div>
+    <div class="benefit-card"><h4>Santana</h4><p class="novamed-addr">Av. Voluntários da Pátria, 654, 7º andar — Santana, São Paulo</p><p class="novamed-esp">Medicina de Família, Cardiologia, Dermatologia, Endocrinologia e Metabologia, Gastroenterologia, Ginecologia e Obstetrícia, Nutrição, Oftalmologia, Ortopedia e Traumatologia, Otorrinolaringologia, Pediatria, Psicologia, Urologia</p><p class="novamed-ex"><strong>Exames:</strong> Coleta de Exames Laboratoriais, Eletrocardiograma, Ultrassonografia</p></div>
+    <div class="benefit-card"><h4>São Bernardo do Campo</h4><p class="novamed-addr">Av. Lucas Nogueira Garcez, 261 — Centro, São Bernardo do Campo</p><p class="novamed-esp">Medicina de Família, Cardiologia, Dermatologia, Endocrinologia e Metabologia, Gastroenterologia, Ginecologia e Obstetrícia, Nutrição, Oftalmologia, Ortopedia e Traumatologia, Otorrinolaringologia, Pediatria, Psicologia, Urologia</p><p class="novamed-ex"><strong>Exames:</strong> Coleta de Exames Laboratoriais, Eletrocardiograma, Ultrassonografia</p></div>
+    <div class="benefit-card"><h4>Tatuapé</h4><p class="novamed-addr">Rua Restinga, 113, 6º andar — Tatuapé, São Paulo</p><p class="novamed-esp">Medicina de Família, Cardiologia, Dermatologia, Endocrinologia e Metabologia, Gastroenterologia, Ginecologia e Obstetrícia, Nutrição, Oftalmologia, Ortopedia e Traumatologia, Otorrinolaringologia, Pediatria, Psicologia, Urologia</p><p class="novamed-ex"><strong>Exames:</strong> Coleta de Exames Laboratoriais, Eletrocardiograma, Mamografia, Ultrassonografia</p></div>
+    <div class="benefit-card"><h4>Vila Olímpia</h4><p class="novamed-addr">Rua Beira Rio, 48 — Vila Olímpia, São Paulo</p><p class="novamed-esp">Medicina de Família, Cardiologia, Dermatologia, Endocrinologia e Metabologia, Gastroenterologia, Ginecologia e Obstetrícia, Nutrição, Oftalmologia, Ortopedia e Traumatologia, Otorrinolaringologia, Pediatria, Psicologia, Urologia</p><p class="novamed-ex"><strong>Exames:</strong> Coleta de Exames Laboratoriais, Eletrocardiograma, Ultrassonografia</p></div>
   </div>
-  <div style="font-size:11.5px;color:var(--gray);margin-top:10px;">Confira a lista completa e sempre atualizada de unidades na <a href="#rede" onclick="navScroll(event,'rede')" style="color:var(--red);font-weight:700;">Rede Credenciada</a>, buscando por "Novamed" ou "Meu Doutor".</div>
+
+  <div class="novamed-state-label">Rio de Janeiro (5 unidades)</div>
+  <div class="novamed-grid">
+    <div class="benefit-card"><h4>Barra da Tijuca</h4><p class="novamed-addr">Av. Ministro Ivan Lins, 300 — Barra da Tijuca, Rio de Janeiro</p><p class="novamed-esp">Medicina de Família, Cardiologia, Dermatologia, Endocrinologia e Metabologia, Gastroenterologia, Ginecologia e Obstetrícia, Nutrição, Oftalmologia, Ortopedia e Traumatologia, Otorrinolaringologia, Pediatria, Psicologia, Urologia</p><p class="novamed-ex"><strong>Exames:</strong> Coleta de Exames Laboratoriais, Eletrocardiograma, Ultrassonografia</p></div>
+    <div class="benefit-card"><h4>Niterói</h4><p class="novamed-addr">Rua Quinze de Novembro, 4, Bl.2, 11º andar — Centro, Niterói</p><p class="novamed-esp">Medicina de Família, Cardiologia, Dermatologia, Endocrinologia e Metabologia, Gastroenterologia, Ginecologia e Obstetrícia, Nutrição, Oftalmologia, Ortopedia e Traumatologia, Otorrinolaringologia, Pediatria, Psicologia, Urologia</p><p class="novamed-ex"><strong>Exames:</strong> Coleta de Exames Laboratoriais, Eletrocardiograma, Ultrassonografia</p></div>
+    <div class="benefit-card"><h4>Botafogo</h4><p class="novamed-addr">R. São Clemente, 185 — Botafogo, Rio de Janeiro</p><p class="novamed-esp">Medicina de Família, Cardiologia, Dermatologia, Endocrinologia e Metabologia, Fisioterapia, Fonoaudiologia, Gastroenterologia, Ginecologia e Obstetrícia, Nutrição, Oftalmologia, Ortopedia e Traumatologia, Otorrinolaringologia, Pediatria, Psicologia, Urologia</p><p class="novamed-ex"><strong>Exames:</strong> Coleta de Exames Laboratoriais, Eletrocardiograma, Ultrassonografia</p></div>
+    <div class="benefit-card"><h4>Centro RJ</h4><p class="novamed-addr">Av. Rio Branco, 110 — Centro, Rio de Janeiro</p><p class="novamed-esp">Medicina de Família, Cardiologia, Dermatologia, Endocrinologia e Metabologia, Fisioterapia, Fonoaudiologia, Gastroenterologia, Ginecologia e Obstetrícia, Nutrição, Oftalmologia, Ortopedia e Traumatologia, Otorrinolaringologia, Pediatria, Psicologia, Urologia</p><p class="novamed-ex"><strong>Exames:</strong> Coleta de Exames Laboratoriais, Eletrocardiograma, Ultrassonografia</p></div>
+    <div class="benefit-card"><h4>Méier</h4><p class="novamed-addr">Rua Dias da Cruz, 536 — Méier, Rio de Janeiro</p><p class="novamed-esp">Medicina de Família, Cardiologia, Dermatologia, Endocrinologia e Metabologia, Fisioterapia, Fonoaudiologia, Gastroenterologia, Ginecologia e Obstetrícia, Nutrição, Oftalmologia, Ortopedia e Traumatologia, Otorrinolaringologia, Pediatria, Psicologia, Urologia</p><p class="novamed-ex"><strong>Exames:</strong> Coleta de Exames Laboratoriais, Eletrocardiograma, Ultrassonografia</p></div>
+  </div>
+
+  <div class="novamed-state-label">Bahia (2 unidades)</div>
+  <div class="novamed-grid">
+    <div class="benefit-card"><h4>Ondina</h4><p class="novamed-addr">Av. Milton Santos, 88 — Salvador</p><p class="novamed-esp">Medicina de Família e Comunidade, Cardiologia, Dermatologia, Endocrinologia e Metabologia, Gastroenterologia, Ginecologia e Obstetrícia, Nutrição, Oftalmologia, Ortopedia e Traumatologia, Otorrinolaringologia, Pediatria, Psicologia, Urologia</p><p class="novamed-ex"><strong>Exames:</strong> Coleta de Exames Laboratoriais, Eletrocardiograma, Ultrassonografia</p></div>
+    <div class="benefit-card"><h4>Caminho das Árvores</h4><p class="novamed-addr">Av. Tancredo Neves, 3.133, J G2 — Salvador Shopping, Salvador</p><p class="novamed-esp">Medicina de Família e Comunidade, Cardiologia, Dermatologia, Endocrinologia e Metabologia, Gastroenterologia, Ginecologia e Obstetrícia, Nutrição, Oftalmologia, Ortopedia e Traumatologia, Otorrinolaringologia, Pediatria, Psicologia, Urologia</p><p class="novamed-ex"><strong>Exames:</strong> Coleta de Exames Laboratoriais, Eletrocardiograma, Ultrassonografia</p></div>
+  </div>
+
+  <div class="novamed-state-label">Paraná, Rio Grande do Sul, Pernambuco e Minas Gerais (1 unidade cada)</div>
+  <div class="novamed-grid">
+    <div class="benefit-card"><h4>Curitiba (PR)</h4><p class="novamed-addr">R. Bispo Dom José, 2.133 — Batel, Curitiba</p><p class="novamed-esp">Medicina de Família, Cardiologia, Dermatologia, Endocrinologia e Metabologia, Fisioterapia, Gastroenterologia, Ginecologia e Obstetrícia, Nutrição, Oftalmologia, Ortopedia e Traumatologia, Otorrinolaringologia, Pediatria, Psicologia, Urologia</p><p class="novamed-ex"><strong>Exames:</strong> Coleta de Exames Laboratoriais, Eletrocardiograma, Ultrassonografia</p></div>
+    <div class="benefit-card"><h4>Porto Alegre (RS)</h4><p class="novamed-addr">R. Ramiro Barcelos, 652 — Moinhos de Vento, Porto Alegre</p><p class="novamed-esp">Medicina de Família, Cardiologia, Dermatologia, Endocrinologia e Metabologia, Gastroenterologia, Ginecologia e Obstetrícia, Nutrição, Oftalmologia, Ortopedia e Traumatologia, Otorrinolaringologia, Pediatria, Psicologia, Urologia</p><p class="novamed-ex"><strong>Exames:</strong> Coleta de Exames Laboratoriais, Eletrocardiograma, Ultrassonografia</p></div>
+    <div class="benefit-card"><h4>Recife (PE)</h4><p class="novamed-addr">Av. República do Líbano, 251 — Shopping RioMar, Pina, Recife</p><p class="novamed-esp">Medicina de Família, Cardiologia, Dermatologia, Endocrinologia e Metabologia, Gastroenterologia, Ginecologia e Obstetrícia, Nutrição, Oftalmologia, Ortopedia e Traumatologia, Otorrinolaringologia, Pediatria, Psicologia, Urologia</p><p class="novamed-ex"><strong>Exames:</strong> Coleta de Exames Laboratoriais, Eletrocardiograma, Ultrassonografia</p></div>
+    <div class="benefit-card"><h4>Belo Horizonte (MG)</h4><p class="novamed-addr">Av. dos Andradas, 3.323 — Edifício Rossi, Santa Tereza, Belo Horizonte</p><p class="novamed-esp">Medicina de Família, Cardiologia, Dermatologia, Endocrinologia e Metabologia, Gastroenterologia, Ginecologia e Obstetrícia, Nutrição, Oftalmologia, Ortopedia e Traumatologia, Otorrinolaringologia, Pediatria, Psicologia, Urologia</p><p class="novamed-ex"><strong>Exames:</strong> Coleta de Exames Laboratoriais, Eletrocardiograma, Ultrassonografia</p></div>
+  </div>
+
+  <div style="font-size:11.5px;color:var(--gray);margin-top:16px;">Fonte: material institucional Meu Doutor Novamed. Novas unidades são adicionadas periodicamente — confirme sempre em <strong>novamedsaude.com.br</strong> ou pela Central 4004 2734. Veja também a <a href="#rede" onclick="navScroll(event,'rede')" style="color:var(--red);font-weight:700;">Rede Credenciada</a> para outras unidades de SP.</div>
 
   <h3 style="font-family:'Montserrat',sans-serif;font-size:20px;font-weight:700;color:var(--navy);margin:48px 0 24px;">Disponibilidade por plano</h3>
   <div class="alert-box" style="margin-bottom:20px;"><strong>✔ Disponível em todos os planos Bradesco Saúde</strong> — confirmado com a gerente de contas Bradesco. O benefício é acessado pela rede de unidades Meu Doutor/Novamed, independentemente do plano contratado.</div>
@@ -3481,7 +3530,10 @@ const REDE_LABS = [
   {n:"Nikkei Ressonancia",c:"Franca",p:["Flex","Nacional II","Nacional III","Nacional Plus","Premium"]},
   {n:"Vitte Medicina Integrada",c:"Franca",p:["Nacional II","Nacional III","Nacional Plus","Premium"]},
   {n:"Sao Joaquim Hospital e Maternidade",c:"Franca",p:["Efetivo","Efetivo Plus","Flex","Ideal","Nacional II","Nacional III","Nacional Plus","Premium"]},
-  {n:"Meu Doutor",c:"Francisco Morato",p:["Efetivo Plus","Nacional II","Nacional III","Nacional Plus","Premium"]},
+  {n:"Meu Doutor Novamed",c:"Francisco Morato",p:["Efetivo","Efetivo Plus","Flex","Ideal","Nacional II","Nacional III","Nacional Plus","Premium"]},
+  {n:"Meu Doutor Novamed Guarulhos",c:"Guarulhos",p:["Efetivo","Efetivo Plus","Flex","Ideal","Nacional II","Nacional III","Nacional Plus","Premium"]},
+  {n:"Meu Doutor Novamed Osasco",c:"Osasco",p:["Efetivo","Efetivo Plus","Flex","Ideal","Nacional II","Nacional III","Nacional Plus","Premium"]},
+  {n:"Meu Doutor Novamed Santo Andre",c:"Santo Andre",p:["Efetivo","Efetivo Plus","Flex","Ideal","Nacional II","Nacional III","Nacional Plus","Premium"]},
   {n:"Mam Morato",c:"Francisco Morato",p:["Efetivo Plus","Nacional II","Nacional III","Nacional Plus","Premium"]},
   {n:"Cta Laboratorio",c:"Franco da Rocha",p:["Efetivo Plus","Ideal","Nacional II","Nacional III","Nacional Plus","Premium"]},
   {n:"Marelli Centro de Diagnostico",c:"Franco da Rocha",p:["Efetivo Plus","Flex","Nacional II","Nacional III","Nacional Plus","Premium"]},
@@ -4339,7 +4391,7 @@ const REDE_LABS = [
   {n:"Laboratorio Fleming",c:"Sao Bernardo do Campo",p:["Flex","Nacional II","Nacional III","Nacional Plus","Premium"]},
   {n:"Lumen CTO de Diagnostico",c:"Sao Bernardo do Campo",p:["Efetivo","Efetivo Plus","Flex","Ideal","Nacional II","Nacional III","Nacional Plus","Premium"]},
   {n:"Medicina Nuclear 9 de Julho",c:"Sao Bernardo do Campo",p:["Efetivo Plus","Flex","Ideal","Nacional II","Nacional III","Nacional Plus","Premium"]},
-  {n:"Novamed Sao Bernardo do Campo",c:"Sao Bernardo do Campo",p:["Efetivo Plus","Ideal"]},
+  {n:"Meu Doutor Novamed Sao Bernardo do Campo",c:"Sao Bernardo do Campo",p:["Efetivo","Efetivo Plus","Flex","Ideal","Nacional II","Nacional III","Nacional Plus","Premium"]},
   {n:"Pulmoclin",c:"Sao Bernardo do Campo",p:["Ideal","Nacional II","Nacional III","Nacional Plus","Premium"]},
   {n:"Tecnolab Medicina Diagnostica",c:"Sao Bernardo do Campo",p:["Efetivo","Efetivo Plus","Flex","Nacional II","Nacional III","Nacional Plus","Premium"]},
   {n:"Cdb Centro de Diagnosticos Brasil",c:"Sao Bernardo do Campo",p:["Efetivo Plus","Flex","Nacional II","Nacional III","Nacional Plus","Premium"]},
@@ -4569,7 +4621,13 @@ const REDE_LABS = [
   {n:"Hospital Santa Catarina",c:"Sao Paulo",p:["Ideal","Nacional II","Nacional III","Nacional Plus","Premium"]},
   {n:"Hospital Sirio Libanes",c:"Sao Paulo",p:["Nacional Plus","Premium"]},
   {n:"Imoc- Instituto de Molestias Oswaldo Cruz",c:"Sao Paulo",p:["Ideal","Nacional II","Nacional III","Nacional Plus","Premium"]},
-  {n:"Novamed Unidade Paulista",c:"Sao Paulo",p:["Nacional II","Nacional III"]},
+  {n:"Meu Doutor Novamed Unidade Paulista",c:"Sao Paulo",p:["Efetivo","Efetivo Plus","Flex","Ideal","Nacional II","Nacional III","Nacional Plus","Premium"]},
+  {n:"Meu Doutor Novamed Unidade Barra Funda",c:"Sao Paulo",p:["Efetivo","Efetivo Plus","Flex","Ideal","Nacional II","Nacional III","Nacional Plus","Premium"]},
+  {n:"Meu Doutor Novamed Unidade Lapa",c:"Sao Paulo",p:["Efetivo","Efetivo Plus","Flex","Ideal","Nacional II","Nacional III","Nacional Plus","Premium"]},
+  {n:"Meu Doutor Novamed Unidade Moema",c:"Sao Paulo",p:["Efetivo","Efetivo Plus","Flex","Ideal","Nacional II","Nacional III","Nacional Plus","Premium"]},
+  {n:"Meu Doutor Novamed Unidade Santo Amaro",c:"Sao Paulo",p:["Efetivo","Efetivo Plus","Flex","Ideal","Nacional II","Nacional III","Nacional Plus","Premium"]},
+  {n:"Meu Doutor Novamed Unidade Santana",c:"Sao Paulo",p:["Efetivo","Efetivo Plus","Flex","Ideal","Nacional II","Nacional III","Nacional Plus","Premium"]},
+  {n:"Meu Doutor Novamed Unidade Vila Olimpia",c:"Sao Paulo",p:["Efetivo","Efetivo Plus","Flex","Ideal","Nacional II","Nacional III","Nacional Plus","Premium"]},
   {n:"Otocapes",c:"Sao Paulo",p:["Ideal","Nacional II","Nacional III","Nacional Plus","Premium"]},
   {n:"Uddo Un Diagn e Densit Ossea",c:"Sao Paulo",p:["Efetivo","Flex","Ideal","Nacional II","Nacional III","Nacional Plus","Premium"]},
   {n:"Video Thorax",c:"Sao Paulo",p:["Ideal","Nacional II","Nacional III","Nacional Plus","Premium"]},
@@ -4766,7 +4824,7 @@ const REDE_LABS = [
   {n:"Empresa de Repasse Medico - Analia Franco",c:"Sao Paulo",p:["Nacional II","Nacional III","Nacional Plus","Premium"]},
   {n:"Lavoisier Medicina Diagnostica",c:"Sao Paulo",p:["Efetivo","Efetivo Plus","Flex","Nacional II","Nacional III","Nacional Plus","Premium"]},
   {n:"Nasa Lab Med-Diagnostica",c:"Sao Paulo",p:["Nacional II","Nacional III"]},
-  {n:"Novamed Unidade Tatuape",c:"Sao Paulo",p:["Efetivo","Nacional III"]},
+  {n:"Meu Doutor Novamed Unidade Tatuape",c:"Sao Paulo",p:["Efetivo","Efetivo Plus","Flex","Ideal","Nacional II","Nacional III","Nacional Plus","Premium"]},
   {n:"Sao Luiz Unid Analia Franco",c:"Sao Paulo",p:["Nacional II","Nacional III","Nacional Plus","Premium"]},
   {n:"Blue Star",c:"Sao Paulo",p:["Nacional II","Nacional III","Nacional Plus","Premium"]},
   {n:"Diffusion",c:"Sao Paulo",p:["Efetivo","Flex","Nacional II","Nacional III","Nacional Plus","Premium"]},
