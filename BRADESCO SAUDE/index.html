@@ -5870,5 +5870,266 @@ window.addEventListener('scroll', () => {
 document.querySelector('.scroll-top').style.opacity = '0';
 document.querySelector('.scroll-top').style.transition = 'opacity 0.3s';
 </script>
+
+<!-- ══════════════════════════════════════════════════════════════
+     BRASINHA — EXPERIMENTAL
+     Buscador inteligente do portal, sem custo de API (sem geração de
+     texto livre — apenas localiza o conteúdo real da página e leva
+     até lá). Bloco isolado: pode ser removido inteiro (deste
+     comentário até o fechamento do </script> logo acima do </body>)
+     sem afetar nenhuma outra parte do site.
+     ══════════════════════════════════════════════════════════════ -->
+<style>
+  #br-fab {
+    position: fixed; right: 4px; top: 62%; z-index: 999;
+    width: 118px; height: 118px; border: none; background: none; cursor: pointer;
+    padding: 0; display: block;
+    animation: brFly 4.5s ease-in-out infinite;
+    transform-origin: 70% 85%;
+  }
+  #br-fab-img {
+    width: 100%; height: 100%; object-fit: contain;
+    filter: drop-shadow(0 10px 18px rgba(0,0,0,0.35));
+    transition: transform 0.25s;
+  }
+  #br-fab:hover #br-fab-img { transform: scale(1.08); }
+  @keyframes brFly {
+    0%   { transform: translate(0, 0) rotate(0deg); }
+    25%  { transform: translate(-6px, -14px) rotate(-4deg); }
+    50%  { transform: translate(2px, -22px) rotate(2deg); }
+    75%  { transform: translate(-4px, -10px) rotate(-3deg); }
+    100% { transform: translate(0, 0) rotate(0deg); }
+  }
+  #br-fab-badge {
+    position: absolute; top: 6px; left: -18px; background: #1a1a1a; color: var(--white);
+    font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 800;
+    padding: 4px 10px; border-radius: 12px; white-space: nowrap; box-shadow: var(--shadow);
+    animation: brBadgeFloat 4.5s ease-in-out infinite;
+  }
+  #br-fab-badge::after {
+    content: ""; position: absolute; right: 10px; bottom: -5px;
+    border: 5px solid transparent; border-top-color: #1a1a1a;
+  }
+  @keyframes brBadgeFloat {
+    0%, 100% { opacity: 1; } 45% { opacity: 1; } 55% { opacity: 0; } 95% { opacity: 0; }
+  }
+  @media (max-width: 700px) {
+    #br-fab { width: 84px; height: 84px; right: 0; top: 70%; }
+  }
+  #br-panel {
+    position: fixed; right: 24px; top: 50%; transform: translateY(-50%); z-index: 999;
+    width: 360px; max-width: calc(100vw - 48px); max-height: 70vh;
+    background: var(--white); border-radius: 18px; box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+    display: none; flex-direction: column; overflow: hidden;
+    font-family: 'Lato', sans-serif;
+  }
+  #br-panel.open { display: flex; }
+  @media (max-width: 700px) {
+    #br-panel { right: 12px; left: 12px; width: auto; }
+  }
+  #br-head {
+    background: linear-gradient(135deg, var(--red), var(--red-dark)); color: var(--white);
+    padding: 16px 18px; display: flex; align-items: center; justify-content: space-between;
+  }
+  #br-head-title { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 15px; display: flex; align-items: center; gap: 8px; }
+  #br-close { background: none; border: none; color: rgba(255,255,255,0.7); font-size: 20px; cursor: pointer; line-height: 1; }
+  #br-close:hover { color: var(--white); }
+  #br-body { padding: 16px; overflow-y: auto; flex: 1; }
+  .br-greeting {
+    background: var(--red-soft); border-radius: 12px 12px 12px 2px;
+    padding: 10px 14px; font-size: 13px; color: var(--red-dark); font-weight: 700;
+    margin-bottom: 14px; line-height: 1.5;
+  }
+  #br-input-row { display: flex; gap: 8px; margin-bottom: 12px; }
+  #br-input {
+    flex: 1; border: 2px solid var(--gray-light); border-radius: 10px; padding: 10px 12px;
+    font-family: 'Lato', sans-serif; font-size: 13.5px; outline: none; color: var(--text);
+  }
+  #br-input:focus { border-color: var(--red); }
+  #br-ask { background: var(--red); color: var(--white); border: none; border-radius: 10px; padding: 0 16px; font-weight: 800; cursor: pointer; }
+  #br-ask:hover { background: var(--red-dark); }
+  .br-hint { font-size: 11px; color: var(--gray); margin-bottom: 12px; }
+  .br-suggestions { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 4px; }
+  .br-sugg-chip {
+    font-size: 11px; padding: 6px 10px; border-radius: 14px; background: var(--off-white);
+    border: 1px solid var(--gray-light); color: var(--navy); cursor: pointer; font-weight: 700;
+  }
+  .br-sugg-chip:hover { background: var(--red-soft); border-color: var(--red); }
+  .br-result { background: var(--off-white); border-left: 3px solid var(--red); border-radius: 8px; padding: 12px 14px; margin-bottom: 10px; }
+  .br-result-title { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 13px; color: var(--navy); margin-bottom: 4px; }
+  .br-result-snippet { font-size: 12px; color: var(--gray-dark); line-height: 1.5; margin-bottom: 8px; }
+  .br-result-go {
+    display: inline-flex; align-items: center; gap: 4px; font-size: 11.5px; font-weight: 800;
+    color: var(--red-dark); cursor: pointer; text-decoration: none;
+  }
+  .br-result-go:hover { text-decoration: underline; }
+  .br-empty { font-size: 12.5px; color: var(--gray); line-height: 1.6; }
+  @keyframes brPanelFlash {
+    0%, 100% { box-shadow: var(--shadow); }
+    30% { box-shadow: 0 0 0 4px var(--red-soft), var(--shadow-hover); }
+  }
+  .docx-panel.br-flash, .benefit-card.br-flash { animation: brPanelFlash 1.4s ease; }
+</style>
+
+<button id="br-fab" onclick="brToggle()" aria-label="Abrir assistente Brasinha" title="Pergunte à Brasinha">
+  <img id="br-fab-img" src="brasinha.png" alt="Brasinha">
+  <span id="br-fab-badge">Pergunte!</span>
+</button>
+
+<div id="br-panel">
+  <div id="br-head">
+    <div id="br-head-title"><img src="brasinha.png" alt="" style="height:30px;width:auto;">Brasinha</div>
+    <button id="br-close" onclick="brToggle()">✕</button>
+  </div>
+  <div id="br-body">
+    <div class="br-greeting" id="br-greeting">Olá, sou a Brasinha! 🔥 Como posso te ajudar?</div>
+    <div id="br-input-row" style="display:flex;gap:8px;margin-bottom:12px;">
+      <input id="br-input" type="text" placeholder="Pergunte algo... ex: documentos pra MEI" onkeydown="if(event.key==='Enter') brAsk()">
+      <button id="br-ask" onclick="brAsk()">Ir</button>
+    </div>
+    <div class="br-hint">Busco a resposta real dentro do portal e te levo até o lugar certo.</div>
+    <div id="br-results">
+      <div class="br-suggestions" id="br-suggestions"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const BR_norm = s => (s||"").toString().toLowerCase()
+      .normalize("NFD").replace(/[̀-ͯ]/g,"")
+      .replace(/[^a-z0-9\s]/g," ").replace(/\s+/g," ").trim();
+
+  const BR_EXTRA = [
+    { id: 'planos', title: 'Planos Bradesco Saúde', snippet: 'Conheça os planos SPG do Bradesco Saúde, com reembolso, rede e faixas de preço por porte de empresa.', kw: 'planos spg efetivo nacional flex ideal regional' },
+    { id: 'comparativo', title: 'Comparativo de planos', snippet: 'Compare os planos Bradesco lado a lado.', kw: 'comparar comparativo tabela planos' },
+    { id: 'reembolso', title: 'Exemplos de Reembolso', snippet: 'Valores de reembolso por procedimento em cada plano.', kw: 'reembolso valores consulta exame internacao' },
+    { id: 'beneficios', title: 'Benefícios para o Segurado', snippet: 'Diferenciais digitais e coberturas extra dos planos Bradesco Saúde.', kw: 'beneficios diferenciais app teleconsulta' },
+    { id: 'carencia', title: 'Prazos de Carência', snippet: 'Tabela de carência por grupo de procedimento.', kw: 'carencia prazo espera dias meses' },
+    { id: 'regras', title: 'Como Contratar', snippet: 'Condições comerciais e regras de contratação PJ.', kw: 'contratar regras condicoes compulsorio' },
+    { id: 'documentacao', title: 'Documentação Necessária', snippet: 'Selecione o tipo de empresa ou beneficiário e veja as condições e documentos exigidos.', kw: 'documentacao documentos quem pode agregado mei empresa dependente' },
+    { id: 'coparticipacao', title: 'Coparticipação', snippet: 'Limites e regras de coparticipação por plano.', kw: 'coparticipacao copart limite valor' },
+    { id: 'dental', title: 'Bradesco Dental', snippet: 'Planos odontológicos SPG, coberturas e preços.', kw: 'dental odonto odontologico' },
+    { id: 'rede', title: 'Rede Credenciada', snippet: 'Busque hospitais e prestadores credenciados.', kw: 'hospital rede credenciada buscar' }
+  ];
+
+  const BR_DOCX_SYN = {
+    's-mei': 'mei microempreendedor individual',
+    's-ei': 'ei empresario individual mei',
+    's-caepf': 'caepf cartorio produtor rural',
+    's-prestador': 'prestador servico pj subcontratante',
+    's-congenere': 'congenere carencia reducao plano anterior',
+    's-empregado': 'empregado funcionario diretor',
+    's-socio': 'socio administrador',
+    's-estag': 'estagiario estagio',
+    's-aprendiz': 'aprendiz menor',
+    's-expat': 'expatriado estrangeiro',
+    's-afastado': 'afastado inss',
+    's-demaposentado': 'demitido aposentado',
+    's-dependentes': 'dependente conjuge filho'
+  };
+
+  let BR_INDEX = [];
+  function brBuildIndex(){
+    BR_INDEX = [];
+    BR_EXTRA.forEach(e => BR_INDEX.push({ id: e.id, kind: 'section', title: e.title, snippet: e.snippet, kw: BR_norm(e.title + ' ' + e.snippet + ' ' + e.kw) }));
+
+    if (typeof DOCX_DATA !== 'undefined') {
+      Object.keys(DOCX_DATA).forEach(mode => {
+        DOCX_DATA[mode].groups.forEach(g => {
+          g.items.forEach(it => {
+            const bits = [it.sub || '', (it.cond || []).join(' '), (it.docs || []).join(' '), it.note || ''].join(' ');
+            BR_INDEX.push({
+              id: it.id, kind: 'docx', mode: mode,
+              title: it.name + ' (' + DOCX_DATA[mode].label + ')',
+              snippet: (it.sub || bits).slice(0, 220) + (bits.length > 220 ? '…' : ''),
+              kw: BR_norm(it.name + ' ' + bits + ' ' + (BR_DOCX_SYN[it.id] || ''))
+            });
+          });
+        });
+      });
+    }
+  }
+
+  const BR_EXAMPLES = [
+    'Documentos para MEI',
+    'Regra de coparticipação',
+    'Carência para internação',
+    'Quem pode ser dependente?'
+  ];
+
+  function brRenderSuggestions(){
+    document.getElementById('br-suggestions').innerHTML = BR_EXAMPLES.map(q =>
+      `<span class="br-sugg-chip" onclick="document.getElementById('br-input').value='${q.replace(/'/g, "\\'")}'; brAsk();">${q}</span>`
+    ).join('');
+  }
+
+  function brScore(entry, words){
+    let score = 0;
+    words.forEach(w => {
+      if (!w) return;
+      if (entry.kw.indexOf(w) > -1) score += 1;
+      if (BR_norm(entry.title).indexOf(w) > -1) score += 2;
+    });
+    return score;
+  }
+
+  window.brToggle = function(){
+    const panel = document.getElementById('br-panel');
+    panel.classList.toggle('open');
+    if (panel.classList.contains('open')) {
+      if (!BR_INDEX.length) brBuildIndex();
+      if (!document.getElementById('br-suggestions').innerHTML) brRenderSuggestions();
+      setTimeout(() => document.getElementById('br-input').focus(), 100);
+    }
+  };
+
+  window.brGoTo = function(id, kind, mode){
+    document.getElementById('br-panel').classList.remove('open');
+
+    if (kind === 'docx') {
+      if (typeof docxSetMode === 'function') docxSetMode(mode);
+      if (typeof docxSelect === 'function') docxSelect(id);
+      const panel = document.getElementById('docx-panel');
+      if (panel) {
+        const top = panel.getBoundingClientRect().top + window.scrollY - 90;
+        window.scrollTo({ top, behavior: 'smooth' });
+        panel.classList.remove('br-flash'); void panel.offsetWidth; panel.classList.add('br-flash');
+        setTimeout(() => panel.classList.remove('br-flash'), 1500);
+      }
+      return;
+    }
+
+    const el = document.getElementById(id);
+    if (!el) return;
+    const top = el.getBoundingClientRect().top + window.scrollY - 90;
+    window.scrollTo({ top, behavior: 'smooth' });
+  };
+
+  window.brAsk = function(){
+    if (!BR_INDEX.length) brBuildIndex();
+    const q = document.getElementById('br-input').value.trim();
+    const results = document.getElementById('br-results');
+    if (!q) { results.innerHTML = '<div class="br-suggestions" id="br-suggestions"></div>'; brRenderSuggestions(); return; }
+    const words = BR_norm(q).split(' ').filter(Boolean);
+    const scored = BR_INDEX.map(e => ({ e, s: brScore(e, words) })).filter(x => x.s > 0).sort((a, b) => b.s - a.s).slice(0, 3);
+
+    if (!scored.length) {
+      results.innerHTML = '<div class="br-empty">Não encontrei nada sobre isso ainda! 🔥 Tenta perguntar sobre planos, documentação, coparticipação ou carência — ou clica em uma sugestão:</div>' +
+        '<div class="br-suggestions" id="br-suggestions" style="margin-top:10px;"></div>';
+      brRenderSuggestions();
+      return;
+    }
+    results.innerHTML = scored.map(({ e }) => `
+      <div class="br-result">
+        <div class="br-result-title">${e.title}</div>
+        <div class="br-result-snippet">${e.snippet}</div>
+        <a class="br-result-go" onclick="brGoTo('${e.id}','${e.kind}'${e.mode ? ",'" + e.mode + "'" : ''})">Ver no portal →</a>
+      </div>
+    `).join('');
+  };
+})();
+</script>
+
 </body>
 </html>
