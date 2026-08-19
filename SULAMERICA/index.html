@@ -3254,32 +3254,52 @@ window.REDE_DADOS = [
      ══════════════════════════════════════════════════════════════ -->
 <style>
   #aq-fab {
-    position: fixed; right: 24px; bottom: 24px; z-index: 999;
-    width: 60px; height: 60px; border-radius: 50%; border: none; cursor: pointer;
-    background: linear-gradient(135deg, var(--orange), var(--orange-dark));
-    box-shadow: 0 8px 28px rgba(244,121,32,0.45);
-    font-size: 28px; display: flex; align-items: center; justify-content: center;
-    animation: aqBreathe 2.8s ease-in-out infinite;
-    transition: transform 0.2s;
+    position: fixed; right: 4px; top: 62%; z-index: 999;
+    width: 118px; height: 118px; border: none; background: none; cursor: pointer;
+    padding: 0; display: block;
+    animation: aqSwim 4.5s ease-in-out infinite;
+    transform-origin: 70% 85%;
   }
-  #aq-fab:hover { transform: scale(1.08); }
-  @keyframes aqBreathe {
-    0%, 100% { box-shadow: 0 8px 28px rgba(244,121,32,0.45); transform: scale(1); }
-    50% { box-shadow: 0 8px 36px rgba(244,121,32,0.7); transform: scale(1.05); }
+  #aq-fab-img {
+    width: 100%; height: 100%; object-fit: contain;
+    filter: drop-shadow(0 10px 18px rgba(13,26,62,0.35));
+    transition: transform 0.25s;
+  }
+  #aq-fab:hover #aq-fab-img { transform: scale(1.08); }
+  @keyframes aqSwim {
+    0%   { transform: translate(0, 0) rotate(0deg); }
+    25%  { transform: translate(-6px, -14px) rotate(-4deg); }
+    50%  { transform: translate(2px, -22px) rotate(2deg); }
+    75%  { transform: translate(-4px, -10px) rotate(-3deg); }
+    100% { transform: translate(0, 0) rotate(0deg); }
   }
   #aq-fab-badge {
-    position: absolute; top: -4px; left: -4px; background: var(--navy); color: var(--white);
-    font-family: 'Montserrat', sans-serif; font-size: 9px; font-weight: 800;
-    padding: 2px 6px; border-radius: 10px; white-space: nowrap; box-shadow: var(--shadow);
+    position: absolute; top: 6px; left: -18px; background: var(--navy); color: var(--white);
+    font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 800;
+    padding: 4px 10px; border-radius: 12px; white-space: nowrap; box-shadow: var(--shadow);
+    animation: aqBadgeFloat 4.5s ease-in-out infinite;
+  }
+  #aq-fab-badge::after {
+    content: ""; position: absolute; right: 10px; bottom: -5px;
+    border: 5px solid transparent; border-top-color: var(--navy);
+  }
+  @keyframes aqBadgeFloat {
+    0%, 100% { opacity: 1; } 45% { opacity: 1; } 55% { opacity: 0; } 95% { opacity: 0; }
+  }
+  @media (max-width: 700px) {
+    #aq-fab { width: 84px; height: 84px; right: 0; top: 70%; }
   }
   #aq-panel {
-    position: fixed; right: 24px; bottom: 96px; z-index: 999;
+    position: fixed; right: 24px; top: 50%; transform: translateY(-50%); z-index: 999;
     width: 360px; max-width: calc(100vw - 48px); max-height: 70vh;
     background: var(--white); border-radius: 18px; box-shadow: 0 20px 60px rgba(13,26,62,0.35);
     display: none; flex-direction: column; overflow: hidden;
     font-family: 'Lato', sans-serif;
   }
   #aq-panel.open { display: flex; }
+  @media (max-width: 700px) {
+    #aq-panel { right: 12px; left: 12px; width: auto; }
+  }
   #aq-head {
     background: linear-gradient(135deg, var(--navy), var(--navy-dark)); color: var(--white);
     padding: 16px 18px; display: flex; align-items: center; justify-content: space-between;
@@ -3288,6 +3308,11 @@ window.REDE_DADOS = [
   #aq-close { background: none; border: none; color: rgba(255,255,255,0.7); font-size: 20px; cursor: pointer; line-height: 1; }
   #aq-close:hover { color: var(--white); }
   #aq-body { padding: 16px; overflow-y: auto; flex: 1; }
+  .aq-greeting {
+    background: rgba(244,121,32,0.1); border-radius: 12px 12px 12px 2px;
+    padding: 10px 14px; font-size: 13px; color: var(--navy); font-weight: 700;
+    margin-bottom: 14px; line-height: 1.5;
+  }
   #aq-input-row { display: flex; gap: 8px; margin-bottom: 12px; }
   #aq-input {
     flex: 1; border: 2px solid var(--gray-light); border-radius: 10px; padding: 10px 12px;
@@ -3315,16 +3340,17 @@ window.REDE_DADOS = [
 </style>
 
 <button id="aq-fab" onclick="aqToggle()" aria-label="Abrir assistente Ameriquinha" title="Pergunte à Ameriquinha">
-  🧡
+  <img id="aq-fab-img" src="ameriquinha.png" alt="Ameriquinha">
   <span id="aq-fab-badge">Pergunte!</span>
 </button>
 
 <div id="aq-panel">
   <div id="aq-head">
-    <div id="aq-head-title">🧡 Ameriquinha</div>
+    <div id="aq-head-title"><img src="ameriquinha.png" alt="" style="height:30px;width:auto;">Ameriquinha</div>
     <button id="aq-close" onclick="aqToggle()">✕</button>
   </div>
   <div id="aq-body">
+    <div class="aq-greeting" id="aq-greeting">Olá, sou o Ameriquinha! 🧡 Como posso te ajudar?</div>
     <div class="aq-input-row" id="aq-input-row" style="display:flex;gap:8px;margin-bottom:12px;">
       <input id="aq-input" type="text" placeholder="Pergunte algo... ex: como funciona o motorista amigo?" onkeydown="if(event.key==='Enter') aqAsk()">
       <button id="aq-ask" onclick="aqAsk()">Ir</button>
