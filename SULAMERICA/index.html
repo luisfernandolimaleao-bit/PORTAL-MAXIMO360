@@ -719,6 +719,108 @@
   .benefit-link-chip:hover { background: var(--orange); border-color: var(--orange); color: var(--white); }
   .benefit-link-chip::after { content: "→"; font-weight: 900; }
 
+  /* ─── DOC EXPLORER (Quem pode + Documentação, interativo) ─── */
+  .docx-layout { display: grid; grid-template-columns: 320px 1fr; gap: 28px; margin-top: 32px; align-items: start; }
+  .docx-sidebar {
+    background: var(--white); border-radius: 16px; box-shadow: var(--shadow);
+    overflow: hidden; position: sticky; top: 88px;
+  }
+  .docx-side-group { border-bottom: 1px solid var(--gray-light); }
+  .docx-side-group:last-child { border-bottom: none; }
+  .docx-side-title {
+    font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 800;
+    letter-spacing: 1.5px; text-transform: uppercase; color: var(--gray);
+    padding: 18px 22px 8px; display: block;
+  }
+  .docx-side-btn {
+    display: flex; align-items: center; gap: 12px; width: 100%; text-align: left;
+    padding: 13px 22px; border: none; background: none; cursor: pointer;
+    font-family: 'Lato', sans-serif; font-size: 14px; color: var(--gray-dark);
+    border-left: 3px solid transparent; transition: all 0.18s;
+  }
+  .docx-side-btn:hover { background: rgba(244,121,32,0.08); color: var(--orange-dark); }
+  .docx-side-btn.active {
+    background: rgba(244,121,32,0.08); color: var(--orange-dark); font-weight: 700;
+    border-left-color: var(--orange);
+  }
+  .docx-side-btn .docx-side-ico {
+    width: 26px; height: 26px; border-radius: 7px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--off-white); font-size: 11px; font-weight: 800;
+    color: var(--orange-dark); font-family: 'Montserrat', sans-serif;
+  }
+  .docx-side-btn.active .docx-side-ico { background: var(--orange); color: var(--white); }
+
+  .docx-panel {
+    background: var(--white); border-radius: 16px; box-shadow: var(--shadow);
+    overflow: hidden; min-height: 480px;
+  }
+  .docx-panel-head {
+    background: linear-gradient(135deg, var(--navy), var(--navy-light));
+    padding: 28px 34px; position: relative;
+  }
+  .docx-panel-tag {
+    display: inline-block; font-family: 'Montserrat', sans-serif; font-size: 10px;
+    font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--orange-light); margin-bottom: 8px;
+  }
+  .docx-panel-head h3 {
+    font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 800;
+    color: var(--white); line-height: 1.2;
+  }
+  .docx-panel-head p { color: rgba(255,255,255,0.72); font-size: 14px; margin-top: 8px; line-height: 1.6; }
+  .docx-panel-body { padding: 30px 34px 34px; }
+
+  .docx-block { margin-bottom: 26px; }
+  .docx-block:last-child { margin-bottom: 0; }
+  .docx-block-title {
+    display: flex; align-items: center; gap: 10px;
+    font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 800;
+    letter-spacing: 0.04em; text-transform: uppercase; color: var(--navy);
+    margin-bottom: 14px; padding-bottom: 10px; border-bottom: 2px solid var(--gray-light);
+  }
+  .docx-block-title .docx-bt-ico {
+    width: 22px; height: 22px; border-radius: 6px; background: var(--orange);
+    color: var(--white); display: flex; align-items: center; justify-content: center;
+    font-size: 12px; flex-shrink: 0;
+  }
+  .docx-li {
+    display: flex; gap: 11px; align-items: flex-start;
+    padding: 9px 0; border-bottom: 1px solid var(--gray-light);
+    font-size: 13.5px; line-height: 1.6; color: #444;
+  }
+  .docx-li:last-child { border-bottom: none; }
+  .docx-li::before {
+    content: ''; width: 7px; height: 7px; border-radius: 50%;
+    background: var(--orange); flex-shrink: 0; margin-top: 7px;
+  }
+  .docx-li.cond::before { background: var(--navy); border-radius: 2px; }
+  .docx-li strong { color: var(--navy); }
+
+  .docx-note {
+    background: rgba(244,121,32,0.08); border-left: 4px solid var(--orange);
+    border-radius: 0 8px 8px 0; padding: 14px 18px; margin-top: 22px;
+    font-size: 13px; line-height: 1.6; color: var(--gray-dark);
+  }
+  .docx-note strong { color: var(--orange-dark); }
+  .docx-sub-note { font-size: 11.5px; color: var(--gray); margin-top: 14px; font-style: italic; }
+
+  .docx-mode-switch { display: flex; gap: 8px; margin-bottom: 8px; }
+  .docx-mode-btn {
+    padding: 10px 24px; border-radius: 8px; border: 1.5px solid var(--gray-light);
+    background: var(--white); cursor: pointer; font-family: 'Montserrat', sans-serif;
+    font-size: 12px; font-weight: 700; color: var(--gray); transition: all 0.2s;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .docx-mode-btn:hover { border-color: var(--orange); color: var(--orange-dark); }
+  .docx-mode-btn.active { background: var(--orange); color: var(--white); border-color: var(--orange); }
+  .docx-mode-btn .dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+
+  @media (max-width: 980px) {
+    .docx-layout { grid-template-columns: 1fr; }
+    .docx-sidebar { position: static; }
+  }
+
   /* ─── CARDS DE PLANO SEPARADOS ─── */
   .plano-fam-label {
     grid-column: 1 / -1; font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 800;
@@ -734,6 +836,11 @@
     30% { box-shadow: 0 0 0 4px rgba(244,121,32,0.35), var(--shadow-hover); }
   }
   .benefit-card.flash { animation: beneficioFlash 1.4s ease; }
+  @keyframes docxPanelFlash {
+    0%, 100% { box-shadow: var(--shadow); }
+    30% { box-shadow: 0 0 0 4px rgba(244,121,32,0.35), var(--shadow-hover); }
+  }
+  .docx-panel.flash { animation: docxPanelFlash 1.4s ease; }
 
   /* ─── CONTACT CARDS ─── */
   .contact-cards-grid {
@@ -1709,35 +1816,22 @@
     </div>
   </div>
 
-  <!-- QUEM PODE FAZER PARTE -->
+  <!-- DOC EXPLORER: QUEM PODE FAZER PARTE + DOCUMENTAÇÃO -->
   <div style="margin-top:48px;">
-    <h3 style="font-family:'Montserrat',sans-serif;font-size:20px;font-weight:700;color:var(--navy);margin-bottom:8px;">👥 Quem Pode Fazer Parte</h3>
-    <p style="font-size:13.5px;color:var(--gray);margin-bottom:20px;">Categorias de titulares e dependentes elegíveis para a contratação, em cada carteira.</p>
-    <div style="overflow-x:auto;">
-      <table class="compare-table">
-        <thead>
-          <tr>
-            <th class="feature-col">Categoria</th>
-            <th style="text-align:left">Critérios Principais</th>
-            <th>PME (3–29)</th>
-            <th>PME Mais (30–99)</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td class="feature-col">Sócios</td><td style="text-align:left;font-size:13px;">Mín. 6 meses no Contrato Social (exceto empresas recém-constituídas e vínculo familiar)</td><td><span class="check">✔</span></td><td><span class="check">✔</span></td></tr>
-          <tr><td class="feature-col">Administradores e Diretores</td><td style="text-align:left;font-size:13px;">Nomeados no Contrato Social por mín. 6 meses</td><td><span class="check">✔</span></td><td><span class="check">✔</span></td></tr>
-          <tr><td class="feature-col">Empregados CLT</td><td style="text-align:left;font-size:13px;">Comprovar vínculo empregatício (FGTS)</td><td><span class="check">✔</span></td><td><span class="check">✔</span></td></tr>
-          <tr><td class="feature-col">Aprendizes</td><td style="text-align:left;font-size:13px;">14 a 24 anos — Contrato de aprendiz ou FGTS</td><td><span class="check">✔</span></td><td><span class="check">✔</span></td></tr>
-          <tr><td class="feature-col">Estagiários</td><td style="text-align:left;font-size:13px;">Sem limite de idade (PME) / máx. 30 anos (PME Mais)</td><td><span class="check">✔</span></td><td><span class="check">✔</span></td></tr>
-          <tr><td class="feature-col">Expatriados/Estrangeiros</td><td style="text-align:left;font-size:13px;">Passaporte, visto e carta da empresa</td><td><span class="check">✔</span></td><td><span class="check">✔</span></td></tr>
-          <tr><td class="feature-col">Demitidos e Aposentados</td><td style="text-align:left;font-size:13px;">Somente com extensão de benefício legal pela empresa</td><td><span class="check">✔</span></td><td><span class="check">✔</span></td></tr>
-          <tr><td class="feature-col">Dependentes (cônjuge, filhos/enteados até 44a11m29d, netos até 17a11m29d)</td><td style="text-align:left;font-size:13px;">100% dos dependentes. Plano igual ao titular</td><td><span class="check">✔</span></td><td><span class="check">✔</span></td></tr>
-          <tr><td class="feature-col">Agregados (pai, mãe, padrasto/madrasta, irmãos, genro/nora)</td><td style="text-align:left;font-size:13px;">Até 64a11m29d (genro/nora até 44a11m29d), 12 meses de congênere anterior, sem DS positiva, grupos acima de 5 vidas. Aceitos exclusivamente na implantação. Não válido para MEI.</td><td><span class="check">✔</span></td><td><span class="check">✔</span></td></tr>
-          <tr><td class="feature-col">Prestadores de Serviços</td><td style="text-align:left;font-size:13px;">Não aceitos conforme ANS RN 557</td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td></tr>
-        </tbody>
-      </table>
+    <h3 style="font-family:'Montserrat',sans-serif;font-size:20px;font-weight:700;color:var(--navy);margin-bottom:8px;">👥 Quem Pode Fazer Parte e Documentação Necessária</h3>
+    <p style="font-size:13.5px;color:var(--gray);margin-bottom:20px;">Selecione o tipo de empresa ou de segurado e veja exatamente quais são as condições e os documentos exigidos. Alterne entre Saúde e Odonto.</p>
+
+    <div class="docx-mode-switch">
+      <button class="docx-mode-btn active" id="docx-mode-saude" onclick="docxSetMode('saude')"><span class="dot"></span>SulAmérica Saúde</button>
+      <button class="docx-mode-btn" id="docx-mode-odonto" onclick="docxSetMode('odonto')"><span class="dot"></span>SulAmérica Odonto</button>
     </div>
-    <div class="alert-box" style="margin-top:20px;"><strong>CPT — Cobertura Parcial Temporária:</strong> Suspensão de cobertura por até 24 meses para doenças ou lesões preexistentes declaradas na Declaração de Saúde, exclusivamente para eventos cirúrgicos, leitos de alta tecnologia e PAC (Procedimentos de Alta Complexidade) conforme Rol ANS.</div>
+
+    <div class="docx-layout">
+      <aside class="docx-sidebar" id="docx-sidebar"></aside>
+      <div class="docx-panel" id="docx-panel"></div>
+    </div>
+
+    <div class="alert-box" style="margin-top:20px;"><strong>CPT — Cobertura Parcial Temporária:</strong> Suspensão de cobertura por até 24 meses para doenças ou lesões preexistentes declaradas na Declaração de Saúde, exclusivamente para eventos cirúrgicos, leitos de alta tecnologia e PAC (Procedimentos de Alta Complexidade) conforme Rol ANS. Documentação sujeita a análise da SulAmérica — documentos adicionais podem ser solicitados pela área de aceitação.</div>
   </div>
 
   <!-- REGRA FLEX -->
@@ -1756,65 +1850,7 @@
     </div>
   </div>
 
-  <!-- DOCUMENTAÇÃO -->
-  <div style="margin-top:48px;">
-    <h3 style="font-family:'Montserrat',sans-serif;font-size:20px;font-weight:700;color:var(--navy);margin-bottom:24px;">📋 Documentação Necessária</h3>
-    <div class="doc-grid">
-      <div class="doc-card">
-        <div class="doc-card-header">🏢 Para Empresas (todas)</div>
-        <ul class="doc-list">
-          <li>Proposta de Seguro Saúde PME (emitida pelo Cotador)</li>
-          <li>Cotação emitida pelo Cotador</li>
-          <li>Cópia de documento com data de nascimento (RG+CPF ou CNH) de todos os segurados</li>
-          <li>Cópia do Contrato Social registrado em órgão competente</li>
-          <li>Certidão de casamento (quando houver cônjuge) e nascimento</li>
-          <li>Comprovante de endereço da empresa (conta de água, luz, internet, telefone — validade 90 dias)</li>
-        </ul>
-      </div>
-      <div class="doc-card">
-        <div class="doc-card-header">👤 Exclusivamente para MEI</div>
-        <ul class="doc-list">
-          <li>Proposta de Seguro Saúde PME (emitida pelo cotador)</li>
-          <li>Cadastro de Matrícula MEI com número da matrícula</li>
-          <li>Declaração de Autenticidade (emitida pelo cotador)</li>
-          <li>Comprovante de residência do(s) titular(es) — 90 dias</li>
-          <li>MEI: aceitação somente após 6 meses de constituição da empresa</li>
-        </ul>
-      </div>
-      <div class="doc-card">
-        <div class="doc-card-header">👨‍👩‍👧 Dependentes</div>
-        <ul class="doc-list">
-          <li>Cônjuge/Companheiro(a): Declaração Conjunta de União Estável (SulAmérica) assinada com reconhecimento de firma, OU certidão de filhos em comum, OU comprovante de dependente no IR</li>
-          <li>Filhos naturais: Certidão de Nascimento ou RG</li>
-          <li>Filhos adotivos: Termo de guarda/tutela + Certidão de Nascimento</li>
-          <li>Enteados: Certidão de Nascimento + termo declaratório do titular</li>
-          <li>Netos: Certidão de Nascimento comprovando vínculo</li>
-        </ul>
-      </div>
-      <div class="doc-card">
-        <div class="doc-card-header">👷 Empregados — PME</div>
-        <ul class="doc-list">
-          <li>Relação do FGTS completa do mês anterior ao início de vigência</li>
-          <li>Recém-admitidos não no FGTS: cópia do eSocial</li>
-          <li>Excepcionalmente (não ativo no eSocial): CTPS com foto, número, série, página do registro e assinatura</li>
-          <li>Declaração de Saúde (emitida pelo Cotador) assinada por cada proponente titular e pela empresa</li>
-        </ul>
-      </div>
-      <div class="doc-card">
-        <div class="doc-card-header">👪 Agregados</div>
-        <ul class="doc-list">
-          <li>Aceitos <strong>exclusivamente na implantação</strong> do contrato — não é possível incluir agregados depois</li>
-          <li><strong>Regra comum às 4 categorias</strong> (Pai/Mãe, Padrasto/Madrasta, Irmãos(ãs) e Genro/Nora): 12 meses de congênere anterior, sem Declaração de Saúde positiva, grupos acima de 5 vidas, não válido para MEI</li>
-          <li><strong>Pai/Mãe</strong> — até 64 anos, 11 meses e 29 dias. Documento: RG ou Certidão de Nascimento comprovando vínculo com os genitores</li>
-          <li><strong>Padrasto/Madrasta</strong> — até 64 anos, 11 meses e 29 dias. Documento: certidão de casamento ou união estável (cartório) comprovando vínculo com o pai/mãe</li>
-          <li><strong>Irmãos(ãs)</strong> — até 64 anos, 11 meses e 29 dias. Documento: RG ou Certidão de Nascimento comprovando vínculo com genitores; se adotivos, termo de guarda/tutela + Certidão de Nascimento</li>
-          <li><strong>Genro/Nora</strong> — até 44 anos, 11 meses e 29 dias, aceito apenas junto com a inclusão do filho(a). Documento: termo declaratório assinado pelo titular, ou comprovante de residência no mesmo endereço, ou comprovante de dependente no IR</li>
-          <li>Plano do agregado é sempre igual ao do segurado titular</li>
-        </ul>
-      </div>
-    </div>
-    <div class="alert-box"><strong>⚠️ IMPORTANTE:</strong> A documentação apresentada é objeto de rigorosa análise pela SulAmérica. A ausência ou divergência de informações poderá incorrer em atrasos na conclusão do processo. Prazos para implantação: análise em até 10 dias úteis da transmissão da proposta. Boletos com vencimento para 65 dias da aceitação.</div>
-  </div>
+  <div class="alert-box"><strong>⚠️ IMPORTANTE:</strong> A documentação apresentada é objeto de rigorosa análise pela SulAmérica. A ausência ou divergência de informações poderá incorrer em atrasos na conclusão do processo. Prazos para implantação: análise em até 10 dias úteis da transmissão da proposta. Boletos com vencimento para 65 dias da aceitação.</div>
 </section>
 
 <!-- ODONTO -->
@@ -2039,6 +2075,383 @@
       const top = el.getBoundingClientRect().top + window.scrollY - 74;
       window.scrollTo({ top, behavior: 'smooth' });
     }
+  }
+
+  /* ─── DOC EXPLORER: Quem pode fazer parte + Documentação (interativo) ─── */
+  const DOCX_DATA = {
+    saude: {
+      label: 'SulAmérica Saúde',
+      groups: [
+        {
+          title: 'Pessoa Jurídica',
+          items: [
+            {
+              id: 's-empresa', ico: 'EM', name: 'Empresa Padrão (PME / PME Mais)',
+              sub: 'Empresas de 3 a 29 vidas (PME) ou 30 a 99 vidas (PME Mais), mínimo de 1 titular.',
+              cond: [
+                'Empresas de 3 a 29 vidas (PME) ou 30 a 99 vidas (PME Mais); mínimo de 1 titular',
+                'Regra Compulsória: adesão de 100% de uma ou mais categorias — Contrato Social (sócios, administradores e diretores) ou FGTS (empregados CLT, incluindo aprendizes, estagiários, expatriados, demitidos e aposentados)',
+                'Regra CBO (alternativa): contratação exclusiva para 100% de uma ou mais categorias — Diretores, Superintendentes, Gerentes, Supervisores, Coordenadores',
+                'Regra Flex disponível ao vender Saúde + Odonto para a mesma empresa'
+              ],
+              docs: [
+                'Proposta de Seguro Saúde PME (emitida pelo Cotador)',
+                'Cotação emitida pelo Cotador',
+                'Cópia de documento com data de nascimento (RG+CPF ou CNH) de todos os segurados',
+                'Cópia do Contrato Social registrado em órgão competente, atualizado',
+                'Certidão de casamento (quando houver cônjuge) e nascimento',
+                'Comprovante de endereço da empresa — água, luz, internet, telefone (fixo/móvel) ou gás, validade 90 dias',
+                'CPF de todos os beneficiários, incluindo menores de 18 anos'
+              ],
+              note: 'Regra CBO: comprovação exclusiva por FGTS + CTPS de todos os elegíveis. Análise conforme código principal (família) da Classificação Brasileira de Ocupações (CBO) relacionado no FGTS.'
+            },
+            {
+              id: 's-exsegurada', ico: 'EX', name: 'Empresas Ex-Seguradas SulAmérica',
+              sub: 'Empresas com contrato anterior cancelado por sinistralidade, inadimplência ou solicitação.',
+              cond: [
+                'Aceitação de novo contrato sujeita a análise da SulAmérica após 6 meses da data do cancelamento do seguro',
+                'Desde que não apresente débitos anteriores',
+                'Empresário Individual (natureza jurídica 213-5): aceitação somente após 6 meses de constituição da empresa',
+                'Não são aceitas empresas com natureza jurídica de Pessoa Física (400-0 a 499-9)'
+              ],
+              docs: ['Mesma documentação da Empresa Padrão para o novo contrato']
+            },
+            {
+              id: 's-mei', ico: 'ME', name: 'MEI (Microempreendedor Individual)',
+              sub: 'Regras específicas de cadastro e comprovação de endereço.',
+              cond: [
+                'Não vale a regra de comprovante de endereço da empresa (90 dias) aplicada às demais empresas',
+                'Comprovante de residência do(s) titular(es), dentro dos 90 dias da emissão'
+              ],
+              docs: [
+                'Proposta de Seguro Saúde PME (emitida pelo Cotador)',
+                'Cadastro de Matrícula MEI com o respectivo número da matrícula',
+                'Declaração de Autenticidade (emitida pelo Cotador)',
+                'Comprovante de residência do(s) titular(es) — água, luz, telefone fixo/móvel, internet ou gás, dentro de 90 dias'
+              ],
+              note: 'Agregados não são válidos para empresas MEI.'
+            },
+            {
+              id: 's-prestador', ico: 'PS', name: 'Prestador de Serviços (PJ)',
+              sub: 'Regra depende do tamanho do grupo contratante.',
+              cond: [
+                'Não aceito para PME (3 a 29 vidas), conforme determinação da ANS (RN 557)',
+                'Aceito para grupos acima de 30 vidas (PME Mais / Empresarial), incluído como subcontratante'
+              ],
+              docs: ['Documentação equivalente à Empresa Padrão, no que couber ao contrato de prestação de serviço']
+            },
+            {
+              id: 's-congenere', ico: 'CG', name: 'Aproveitamento de Congênere',
+              sub: 'Redução de carências para empresas com plano anterior em operadora congênere.',
+              cond: [
+                'Proposta transmitida em até 60 dias do vencimento da última fatura paga do plano anterior',
+                'Redução válida a partir de 3 ou 5 vidas conforme tabela de congêneres, considerando o total de vidas do contrato',
+                'Isenção total de carência para grupos acima de 10 vidas (exceto parto, terapias não médicas e CPT)',
+                'Idade limite para redução de carência: até 64 anos, 11 meses e 29 dias',
+                'Inclusões ocorridas após 30 dias do evento (admissão, casamento, nascimento, adoção) não são elegíveis à redução',
+                'Declaração de Saúde positiva: sujeito a cumprimento de CPT de até 24 meses'
+              ],
+              docs: [
+                'Carta de permanência da operadora anterior com nome do titular/dependentes, nome da empresa, nome da congênere, padrão de acomodação e datas de início/término de vigência',
+                'OU cópia do cartão de identificação + número de matrícula do plano anterior SulAmérica + CPF'
+              ],
+              note: 'Congêneres aceitas incluem Bradesco/Medservice, Porto Seguro, Amil, GNDI, Omint, Care Plus, Golden Cross, Hapvida, Unimeds e outras.'
+            }
+          ]
+        },
+        {
+          title: 'Titulares e Dependentes',
+          items: [
+            {
+              id: 's-socio', ico: 'SO', name: 'Sócios',
+              sub: 'Mínimo de 6 meses no Contrato Social, com exceções.',
+              cond: ['Mínimo de 6 meses no Contrato Social, exceto se houver vínculo familiar com demais sócios (pai/mãe) ou empresa recém-constituída'],
+              docs: ['Cópia do Contrato Social registrado em órgão competente, com a última alteração para inclusão de sócios']
+            },
+            {
+              id: 's-admin', ico: 'AD', name: 'Administradores e Diretores',
+              sub: 'Nomeados no Contrato Social por período mínimo de 6 meses.',
+              cond: ['Devem constar nomeados no Contrato Social por período mínimo de 6 meses e assinar como tal', 'S.A. / Capital Aberto: aceitos diretores/presidentes constantes no último exercício'],
+              docs: ['Cópia do Contrato Social registrado, atualizado', 'ATA atualizada do ano atual ou anterior (exclusivo para S.A. / Capital Aberto)']
+            },
+            {
+              id: 's-empregado', ico: 'FU', name: 'Empregados CLT',
+              sub: 'Comprovação de vínculo empregatício.',
+              cond: ['Comprovar vínculo empregatício'],
+              docs: ['Relação do FGTS completa do mês anterior ao início de vigência do seguro', 'Recém-admitidos não relacionados no FGTS: cópia do eSocial', 'Excepcionalmente (não ativo no eSocial): cópia da CTPS com foto, número, série, página do registro da empresa e assinatura']
+            },
+            {
+              id: 's-aprendiz', ico: 'AP', name: 'Aprendizes',
+              sub: 'Maiores de 14 e menores de 24 anos.',
+              cond: ['Maiores de 14 e menores de 24 anos'],
+              docs: ['Contrato de aprendiz assinado pelo próprio e pelo representante legal da empresa', 'OU cópia das páginas da CTPS com foto, número, série, página do registro da empresa e assinatura']
+            },
+            {
+              id: 's-estagiario', ico: 'ES', name: 'Estagiários',
+              sub: 'Sem limite de idade.',
+              cond: ['Sem limite de idade'],
+              docs: ['Contrato de estágio assinado pelo estagiário, pelo representante legal da empresa e pela instituição de ensino']
+            },
+            {
+              id: 's-expatriado', ico: 'EX', name: 'Expatriados e Estrangeiros',
+              sub: 'Vínculo empregatício comprovado.',
+              cond: ['Comprovar vínculo empregatício'],
+              docs: ['Cópia da carteira de identidade', 'Cópia do passaporte carimbado pela Receita Federal e visto de permanência no país', 'Carta original em papel timbrado, assinada pelo representante legal da empresa, sob carimbo, informando tratar-se de expatriado, tempo de permanência no Brasil e função a ser exercida']
+            },
+            {
+              id: 's-demitido', ico: 'DA', name: 'Demitidos e Aposentados',
+              sub: 'Somente com extensão de benefício legal concedido pela empresa.',
+              cond: ['Somente com extensão de benefício legal, concedido pela empresa'],
+              docs: ['Carta modelo padrão original em papel timbrado, sem rasuras, assinada pelo empregado e empregador sob carimbo da empresa', 'Comprovante de plano anterior vigente em congênere, constando os nomes dos demitidos/exonerados e aposentados', 'Demitidos/exonerados: termo de rescisão do contrato de trabalho assinado por empregado e empregador, sob carimbo', 'Aposentados: termo de rescisão + concessão de aposentadoria']
+            },
+            {
+              id: 's-dependente', ico: 'DP', name: 'Dependentes',
+              sub: 'Cônjuge, companheiro(a), filhos/enteados e netos elegíveis.',
+              cond: [
+                '100% dos dependentes; opção de plano igual à do titular',
+                'Cônjuge; Companheiro(a)',
+                'Filhos/Enteados: até 44 anos, 11 meses e 29 dias (PME); sem limite de idade (PME Mais e Empresarial)',
+                'Netos: até 17 anos, 11 meses e 29 dias, com 12 meses de plano anterior',
+                'Recém-nascido: segue a carência do titular, sem necessidade de 12 meses no plano anterior'
+              ],
+              docs: [
+                'Cônjuge/Companheiro(a): Declaração Conjunta de União Estável (padrão SulAmérica) assinada com reconhecimento de firma (ou assinatura digital ICP-Brasil), OU certidão de nascimento de filhos em comum, OU comprovante de dependente no IR',
+                'Filhos naturais: Certidão de Nascimento ou RG',
+                'Filhos adotivos: termo de guarda (provisória ou definitiva) ou tutela emitido por juiz de direito + Certidão de Nascimento',
+                'Enteados solteiros: Certidão de Nascimento',
+                'Netos do titular: Certidão de Nascimento comprovando vínculo'
+              ]
+            },
+            {
+              id: 's-agregado', ico: 'AG', name: 'Agregados',
+              sub: 'Pai/Mãe, Padrasto/Madrasta, Irmãos(ãs) e Genro/Nora — aceitos só na implantação.',
+              cond: [
+                'Aceitos exclusivamente na implantação do contrato — não é possível incluir agregados depois',
+                'Regra comum às 4 categorias (Pai/Mãe, Padrasto/Madrasta, Irmãos(ãs) e Genro/Nora): com 12 meses de congênere anterior, sem Declaração de Saúde positiva, grupos acima de 5 vidas, não válido para MEI',
+                'Pai/Mãe — até 64 anos, 11 meses e 29 dias',
+                'Padrasto/Madrasta — até 64 anos, 11 meses e 29 dias',
+                'Irmãos(ãs) — até 64 anos, 11 meses e 29 dias',
+                'Genro/Nora — até 44 anos, 11 meses e 29 dias, aceito apenas junto com a inclusão do filho(a)',
+                'A opção de plano do agregado é sempre igual à do segurado titular'
+              ],
+              docs: [
+                'Pai/Mãe: RG ou Certidão de Nascimento comprovando vínculo com os genitores',
+                'Padrasto/Madrasta: certidão de casamento ou união estável (registrada em cartório) comprovando vínculo com o pai/mãe',
+                'Irmãos(ãs): RG ou Certidão de Nascimento comprovando vínculo com genitores; se adotivos, termo de guarda/tutela + Certidão de Nascimento',
+                'Genro/Nora: termo declaratório assinado pelo titular junto do termo de filhos em comum, OU comprovante de residência no mesmo endereço, OU comprovante de dependente no IR, comprovando vínculo com o filho(a) — que também deve estar incluído no plano'
+              ]
+            },
+            {
+              id: 's-prestador-seg', ico: 'PS', name: 'Prestadores de Serviços (como segurado)',
+              sub: 'Regra depende do tamanho do grupo.',
+              cond: ['Não aceito no PME (3 a 29 vidas), conforme ANS RN 557', 'Aceito em grupos acima de 30 vidas (PME Mais/Empresarial), na condição de subcontratante'],
+              docs: ['Documentação equivalente à do Empregado CLT, no que couber']
+            }
+          ]
+        }
+      ]
+    },
+    odonto: {
+      label: 'SulAmérica Odonto',
+      groups: [
+        {
+          title: 'Pessoa Jurídica',
+          items: [
+            {
+              id: 'd-empresa', ico: 'EM', name: 'Empresa Padrão (Odonto PME)',
+              sub: 'Empresas de 3 a 29 vidas, contratação livre (sem exigência de 100%).',
+              cond: [
+                'Empresas de 3 a 29 vidas, para todos os integrantes da empresa e seus dependentes',
+                'Mínimo de 1 titular',
+                'Contratação livre: não é necessário 100% da empresa',
+                'Livre escolha de planos pelo titular',
+                'Vigência: o contrato inicia a partir da zero hora do dia subsequente à quitação'
+              ],
+              docs: ['Caderno das Condições Gerais (via única, entregar para a empresa)', 'Proposta de Seguro Odontológico PME (emitida pelo Cotador)', 'Cotação emitida pelo Cotador', 'Declaração do contratante']
+            },
+            {
+              id: 'd-exclientes', ico: 'EX', name: 'Empresas Ex-Clientes SulAmérica',
+              sub: 'Empresas com contrato Odonto anterior cancelado.',
+              cond: [
+                'Grupos de 3 a 29 vidas: contratação de 100% do grupo segurável',
+                'Empresário Individual (natureza jurídica 213-5): aceitação somente após 6 meses de constituição',
+                'Não são aceitas empresas com natureza jurídica de Pessoa Física (400-0 a 499-9)',
+                'Canceladas por sinistralidade, inadimplência ou solicitação: nova análise após 6 meses do cancelamento, sem débitos anteriores'
+              ],
+              docs: ['Cópia do comprovante de endereço (água, luz, telefone ou internet) em nome da empresa, se constituída há menos de 6 meses']
+            }
+          ]
+        },
+        {
+          title: 'Titulares e Dependentes',
+          items: [
+            {
+              id: 'd-socio', ico: 'SO', name: 'Sócios',
+              sub: 'Mínimo de 6 meses no Contrato Social, com exceções.',
+              cond: [
+                'Mínimo de 6 meses no Contrato Social, somente se conter vínculo familiar com demais sócios (pai, mãe e sogra)',
+                'Empresas recém-constituídas não precisam de tempo mínimo de Contrato Social',
+                '100% do Contrato Social — não exigido se comprovada a vigência de plano anterior',
+                'Sócios só podem aderir no CNPJ da empresa matriz, exceto quando a filial efetuar a contratação para os funcionários'
+              ],
+              docs: ['Cópia do comprovante de endereço em nome da empresa, se constituída há menos de 6 meses']
+            },
+            {
+              id: 'd-admin', ico: 'AD', name: 'Administradores e Diretores',
+              sub: 'Nomeados no Contrato Social por período mínimo de 6 meses.',
+              cond: ['Devem constar nomeados no Contrato Social por período mínimo de 6 meses e assinar como tal'],
+              docs: []
+            },
+            {
+              id: 'd-empregado', ico: 'FU', name: 'Empregados',
+              sub: 'Comprovação de vínculo empregatício.',
+              cond: ['Comprovar vínculo empregatício'],
+              docs: []
+            },
+            {
+              id: 'd-dependente', ico: 'DP', name: 'Dependentes',
+              sub: 'Regras mais amplas que no Saúde — sem limite de idade para filhos.',
+              cond: [
+                '100% dos dependentes; opção de plano igual à do titular',
+                'Cônjuge/Companheiro(a)',
+                'Filhos solteiros sem limite de idade',
+                'Filhos adotivos solteiros sem limite de idade',
+                'Netos do titular recém-nascidos até 180 dias da data do nascimento',
+                'Enteado solteiro; Tutelado',
+                'Promoção por tempo indeterminado: também podem ser incluídos pai, mãe, irmãos, sobrinhos, tios, netos, avós, bisnetos e bisavós do titular'
+              ],
+              docs: [
+                'Cônjuge/Companheiro(a): termo declaratório formalizado assinado pelo titular junto do termo de filhos em comum, OU comprovante de residência no mesmo endereço, OU comprovante de dependente no IR'
+              ],
+              note: 'No Odonto, os limites de idade para filhos e netos são mais amplos que no Saúde.'
+            },
+            {
+              id: 'd-aprendiz', ico: 'AP', name: 'Aprendizes e Estagiários',
+              sub: 'Maiores de 14 e menores de 24 anos.',
+              cond: ['Maiores de 14 e menores de 24 anos'],
+              docs: []
+            },
+            {
+              id: 'd-3grau', ico: '3G', name: 'Dependentes até 3º grau sanguíneo',
+              sub: 'Sem limite de idade.',
+              cond: ['Sem limite de idade', 'Considerados dependentes: cônjuge, companheiro, filhos, enteado e tutelado, pai, mãe, irmãos, avós, netos(as), tios(as), sobrinho(as), bisnetos(as), sogro(a), genro, nora, padrasto, madrasta e cunhado(a)'],
+              docs: []
+            },
+            {
+              id: 'd-agregado', ico: 'AG', name: 'Agregados',
+              sub: 'Regra diferente do Saúde — bem mais ampla no Odonto.',
+              cond: ['No Odonto, são considerados dependentes (não exigem as mesmas restrições de idade/congênere do Saúde): cônjuge, companheiro, filhos, enteado e tutelado, pai, mãe, irmãos, avós, netos(as), tios(as), sobrinho(as), bisnetos(as), sogro(a), genro, nora, padrasto, madrasta e cunhado(a)'],
+              docs: [],
+              note: 'Importante: a regra de Agregados do Odonto é diferente da regra de Agregados do Saúde (que tem limite de idade, exige 12 meses de congênere e não vale para MEI).'
+            },
+            {
+              id: 'd-expatriado', ico: 'EX', name: 'Expatriados e Estrangeiros',
+              sub: 'Promoção por tempo indeterminado.',
+              cond: ['Promoção por tempo indeterminado: podem ser incluídos pai, mãe, irmãos, sobrinhos, tios, netos, avós, bisnetos e bisavós'],
+              docs: []
+            },
+            {
+              id: 'd-demitido', ico: 'DA', name: 'Demitidos e Aposentados',
+              sub: 'Somente com extensão de benefício legal, grupos a partir de 21 vidas.',
+              cond: ['Opção de plano igual à do titular', 'Grupos a partir de 21 vidas', 'Comprovar vínculo empregatício', 'Somente com extensão de benefício legal, concedido pela empresa'],
+              docs: []
+            },
+            {
+              id: 'd-prestador', ico: 'PS', name: 'Prestadores de Serviços',
+              sub: 'Regra depende do tamanho do grupo.',
+              cond: ['Não aceito no PME (3 a 29 vidas), conforme ANS RN 557', 'Aceito em grupos acima de 30 vidas (PME Mais/Empresarial), na condição de subcontratante'],
+              docs: []
+            }
+          ]
+        }
+      ]
+    }
+  };
+
+  let docxMode = 'saude';
+  let docxActiveId = null;
+
+  function docxSetMode(mode) {
+    docxMode = mode;
+    const btnSaude = document.getElementById('docx-mode-saude');
+    const btnOdonto = document.getElementById('docx-mode-odonto');
+    if (btnSaude) btnSaude.classList.toggle('active', mode === 'saude');
+    if (btnOdonto) btnOdonto.classList.toggle('active', mode === 'odonto');
+    const first = DOCX_DATA[mode].groups[0].items[0];
+    docxActiveId = first.id;
+    docxRenderSidebar();
+    docxRenderPanel();
+  }
+
+  function docxRenderSidebar() {
+    const data = DOCX_DATA[docxMode];
+    let html = '';
+    data.groups.forEach(g => {
+      html += `<div class="docx-side-group"><span class="docx-side-title">${g.title}</span>`;
+      g.items.forEach(it => {
+        html += `<button class="docx-side-btn${it.id === docxActiveId ? ' active' : ''}" onclick="docxSelect('${it.id}')">
+          <span class="docx-side-ico">${it.ico}</span>${it.name}</button>`;
+      });
+      html += '</div>';
+    });
+    const sidebar = document.getElementById('docx-sidebar');
+    if (sidebar) sidebar.innerHTML = html;
+  }
+
+  function docxFindItem(mode, id) {
+    for (const g of DOCX_DATA[mode].groups) {
+      const f = g.items.find(i => i.id === id);
+      if (f) return f;
+    }
+    return DOCX_DATA[mode].groups[0].items[0];
+  }
+
+  function docxSelect(id) {
+    docxActiveId = id;
+    docxRenderSidebar();
+    docxRenderPanel();
+  }
+
+  function docxGoTo(mode, id) {
+    docxSetMode(mode);
+    docxActiveId = id;
+    docxRenderSidebar();
+    docxRenderPanel();
+    const el = document.getElementById('docx-panel');
+    if (el) {
+      const top = el.getBoundingClientRect().top + window.scrollY - 90;
+      window.scrollTo({ top, behavior: 'smooth' });
+      el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash');
+      setTimeout(() => el.classList.remove('flash'), 1500);
+    }
+  }
+
+  function docxRenderPanel() {
+    const it = docxFindItem(docxMode, docxActiveId);
+    const tag = DOCX_DATA[docxMode].label;
+    let html = `<div class="docx-panel-head">
+        <span class="docx-panel-tag">${tag}</span>
+        <h3>${it.name}</h3>
+        <p>${it.sub}</p>
+      </div><div class="docx-panel-body">`;
+
+    if (it.cond && it.cond.length) {
+      html += `<div class="docx-block"><div class="docx-block-title"><span class="docx-bt-ico">!</span>Condições de Aceitação</div>`;
+      it.cond.forEach(c => { html += `<div class="docx-li cond">${c}</div>`; });
+      html += '</div>';
+    }
+    if (it.docs && it.docs.length) {
+      html += `<div class="docx-block"><div class="docx-block-title"><span class="docx-bt-ico">▤</span>Documentação Necessária</div>`;
+      it.docs.forEach(d => { html += `<div class="docx-li">${d}</div>`; });
+      html += '</div>';
+    }
+    if (it.note) {
+      html += `<div class="docx-note"><strong>Observação:</strong> ${it.note}</div>`;
+    }
+    html += '<div class="docx-sub-note">Resumo do material oficial SulAmérica para apoio comercial. Documentos adicionais podem ser exigidos pela área de aceitação — valide sempre nos canais oficiais.</div>';
+    html += '</div>';
+    const panel = document.getElementById('docx-panel');
+    if (panel) panel.innerHTML = html;
   }
 
   function switchTab(id) {
@@ -2804,6 +3217,8 @@
   });
   document.querySelector('.scroll-top').style.opacity = '0';
   document.querySelector('.scroll-top').style.transition = 'opacity 0.3s';
+
+  docxSetMode('saude');
 </script>
 <script>
 /* ─── REDE CREDENCIADA SULAMÉRICA — LÂMINA SÃO PAULO / REDE NACIONAL ───
@@ -3407,6 +3822,29 @@ window.REDE_DADOS = [
     { id: 'odonto', title: 'Planos Odontológicos', snippet: 'Conheça os planos SulAmérica Odonto PME.', kw: 'odonto dentista dental' }
   ];
 
+  const AQ_DOCX_SYN = {
+    's-agregado': 'agregado agregados nora genro pai mae padrasto madrasta irmao irmaos sogro sogra quem pode entrar',
+    'd-agregado': 'agregado agregados nora genro pai mae padrasto madrasta irmao sogro sogra odonto',
+    's-prestador': 'prestador prestadores servico pj subcontratante',
+    's-prestador-seg': 'prestador prestadores servico segurado subcontratante',
+    'd-prestador': 'prestador prestadores servico odonto',
+    's-mei': 'mei microempreendedor individual',
+    's-congenere': 'congenere congeneres carencia reducao plano anterior',
+    's-dependente': 'dependente dependentes conjuge filho filhos enteado neto',
+    'd-dependente': 'dependente dependentes conjuge filho filhos enteado neto odonto',
+    's-empresa': 'empresa contratar quem pode contratacao regra compulsoria cbo',
+    'd-empresa': 'empresa odonto contratar quem pode',
+    's-exsegurada': 'ex segurada cancelada segurados',
+    'd-exclientes': 'ex cliente cancelada odonto',
+    's-socio': 'socio socios',
+    's-admin': 'administrador diretor diretores',
+    's-empregado': 'empregado empregados clt funcionario',
+    's-aprendiz': 'aprendiz aprendizes menor',
+    's-estagiario': 'estagiario estagiarios estagio',
+    's-expatriado': 'expatriado estrangeiro',
+    's-demitido': 'demitido aposentado aposentados'
+  };
+
   let AQ_INDEX = [];
   function aqBuildIndex(){
     AQ_INDEX = [];
@@ -3421,13 +3859,29 @@ window.REDE_DADOS = [
       });
     });
     AQ_EXTRA.forEach(e => AQ_INDEX.push({ id: e.id, title: e.title, snippet: e.snippet, kw: AQ_norm(e.title + ' ' + e.snippet + ' ' + e.kw) }));
+
+    if (typeof DOCX_DATA !== 'undefined') {
+      Object.keys(DOCX_DATA).forEach(mode => {
+        DOCX_DATA[mode].groups.forEach(g => {
+          g.items.forEach(it => {
+            const bits = [it.sub || '', (it.cond || []).join(' '), (it.docs || []).join(' '), it.note || ''].join(' ');
+            AQ_INDEX.push({
+              id: 'docx:' + mode + ':' + it.id,
+              title: it.name + ' (' + DOCX_DATA[mode].label + ')',
+              snippet: (it.sub || bits).slice(0, 220) + (bits.length > 220 ? '…' : ''),
+              kw: AQ_norm(it.name + ' ' + bits + ' ' + (AQ_DOCX_SYN[it.id] || ''))
+            });
+          });
+        });
+      });
+    }
   }
 
   const AQ_EXAMPLES = [
     'Como funciona o motorista amigo?',
     'Seguro viagem valor',
-    'Cirurgia refrativa tem limite?',
-    'Transplante extra rol quais órgãos?'
+    'Regra de aceitação de nora',
+    'Documentos para MEI'
   ];
 
   function aqRenderSuggestions(){
@@ -3457,9 +3911,17 @@ window.REDE_DADOS = [
   };
 
   window.aqGoTo = function(id){
+    document.getElementById('aq-panel').classList.remove('open');
+
+    if (id.indexOf('docx:') === 0) {
+      const parts = id.split(':');
+      const mode = parts[1], itemId = parts[2];
+      if (typeof docxGoTo === 'function') docxGoTo(mode, itemId);
+      return;
+    }
+
     const el = document.getElementById(id);
     if (!el) return;
-    document.getElementById('aq-panel').classList.remove('open');
     const top = el.getBoundingClientRect().top + window.scrollY - 90;
     window.scrollTo({ top, behavior: 'smooth' });
     if (el.classList.contains('benefit-card')) {
