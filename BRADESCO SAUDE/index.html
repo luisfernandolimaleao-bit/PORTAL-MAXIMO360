@@ -40,6 +40,20 @@
         totalAcessos: increment(1),
         acessos_bradesco: increment(1)
       }, { merge: true }).catch(() => {});
+
+      // Dias de uso (conta 1x por dia, mesmo se a aba ficar aberta vários dias seguidos)
+      const registrarDiaDeUso = () => {
+        const hoje = new Date();
+        const chave = hoje.getFullYear() + '-' + String(hoje.getMonth() + 1).padStart(2, '0') + '-' + String(hoje.getDate()).padStart(2, '0');
+        if (localStorage.getItem('diaUso_bradesco') === chave) return;
+        localStorage.setItem('diaUso_bradesco', chave);
+        setDoc(doc(db, 'acessos', user.uid), {
+          diasAtivos: increment(1),
+          diasAtivos_bradesco: increment(1)
+        }, { merge: true }).catch(() => {});
+      };
+      registrarDiaDeUso();
+      setInterval(registrarDiaDeUso, 30 * 60 * 1000);
     }
   });
 </script>

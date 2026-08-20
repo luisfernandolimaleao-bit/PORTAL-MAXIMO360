@@ -1102,6 +1102,20 @@ async function exportPDF(){
             totalAcessos: increment(1),
             acessos_indicai360: increment(1)
           }, { merge: true }).catch(() => {});
+
+          // Dias de uso (conta 1x por dia, mesmo se a aba ficar aberta vários dias seguidos)
+          const registrarDiaDeUso = () => {
+            const hj = new Date();
+            const chave = hj.getFullYear() + '-' + String(hj.getMonth() + 1).padStart(2, '0') + '-' + String(hj.getDate()).padStart(2, '0');
+            if (localStorage.getItem('diaUso_indicai360') === chave) return;
+            localStorage.setItem('diaUso_indicai360', chave);
+            setDoc(doc(db, 'acessos', user.uid), {
+              diasAtivos: increment(1),
+              diasAtivos_indicai360: increment(1)
+            }, { merge: true }).catch(() => {});
+          };
+          registrarDiaDeUso();
+          setInterval(registrarDiaDeUso, 30 * 60 * 1000);
         } else {
           gate.classList.remove('hidden');
           userBadge.style.display='none';
