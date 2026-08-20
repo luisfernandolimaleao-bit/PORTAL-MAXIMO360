@@ -9,6 +9,7 @@
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
   import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+  import { getFirestore, doc, setDoc, serverTimestamp, increment } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyC4lCCGse0Ax5SxlS45Do6puiAh7Y5w3xg",
@@ -21,6 +22,7 @@
 
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
+  const db = getFirestore(app);
 
   document.documentElement.style.visibility = 'hidden';
 
@@ -33,6 +35,14 @@
     document.documentElement.style.visibility = 'visible';
     window.firebaseAuth = auth;
     window.firebaseSignOut = () => signOut(auth).then(() => window.location.href = "login-sulamerica.html");
+
+    // Contador de acessos (não bloqueia o carregamento em caso de falha)
+    setDoc(doc(db, 'acessos', user.uid), {
+      email: user.email || '',
+      ultimoAcesso: serverTimestamp(),
+      totalAcessos: increment(1),
+      acessos_sulamerica: increment(1)
+    }, { merge: true }).catch(() => {});
   });
 </script>
 

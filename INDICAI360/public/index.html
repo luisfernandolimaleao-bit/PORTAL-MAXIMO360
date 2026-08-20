@@ -1052,11 +1052,12 @@ async function exportPDF(){
     (async () => {
       let firebaseSdk;
       try {
-        const [{ initializeApp }, authMod] = await Promise.all([
+        const [{ initializeApp }, authMod, firestoreMod] = await Promise.all([
           import("https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"),
-          import("https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js")
+          import("https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js"),
+          import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js")
         ]);
-        firebaseSdk = { initializeApp, ...authMod };
+        firebaseSdk = { initializeApp, ...authMod, ...firestoreMod };
       } catch (e) {
         // Falha ao carregar o SDK do Firebase (sem internet, bloqueio, etc.) —
         // não deixa o usuário travado numa tela de login que não responde.
@@ -1068,12 +1069,14 @@ async function exportPDF(){
       }
 
       const { initializeApp, getAuth, setPersistence, browserLocalPersistence,
-              onAuthStateChanged, signInWithEmailAndPassword, signOut, sendPasswordResetEmail } = firebaseSdk;
+              onAuthStateChanged, signInWithEmailAndPassword, signOut, sendPasswordResetEmail,
+              getFirestore, doc, setDoc, serverTimestamp, increment } = firebaseSdk;
 
-      let auth;
+      let auth, db;
       try {
         const app = initializeApp(cfg);
         auth = getAuth(app);
+        db = getFirestore(app);
         await setPersistence(auth, browserLocalPersistence).catch(()=>{});
       } catch (e) {
         configWarningText.textContent = 'As chaves em firebase-config.js parecem inválidas — confira o valor de cada campo (veja INSTRUCOES_FIREBASE.md).';
@@ -1093,6 +1096,12 @@ async function exportPDF(){
         if (user){
           gate.classList.add('hidden');
           showUser(user);
+          setDoc(doc(db, 'acessos', user.uid), {
+            email: user.email || '',
+            ultimoAcesso: serverTimestamp(),
+            totalAcessos: increment(1),
+            acessos_indicai360: increment(1)
+          }, { merge: true }).catch(() => {});
         } else {
           gate.classList.remove('hidden');
           userBadge.style.display='none';
