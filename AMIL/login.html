@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Acesso ao guia completo do corretor Amil PME · Maximo 360.">
+<meta name="theme-color" content="#101119">
+<link rel="icon" href="logo-icon-header-navy.webp" type="image/webp">
+<title>Login · Amil PME · Maximo 360</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Lato:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue: #1741C4; --blue-dark: #0F2E8F; --blue-soft: rgba(23,65,196,0.08);
+    --navy: #1A1C28; --navy-dark: #101119;
+    --white: #FFFFFF; --off-white: #F6F8FC; --gray-light: #E5E7EB; --gray: #6B7280; --gray-dark: #374151;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    font-family: 'Lato', sans-serif; color: var(--navy); background: var(--off-white);
+    display: grid; grid-template-columns: minmax(340px, 42%) 1fr;
+    min-height: 100vh; min-height: 100dvh;
+  }
+
+  /* ─── PAINEL DE MARCA ─── */
+  .brand-panel {
+    position: relative; overflow: hidden;
+    background: linear-gradient(165deg, var(--navy-dark) 0%, var(--navy) 46%, var(--blue-dark) 130%);
+    color: var(--white);
+    display: flex; flex-direction: column; justify-content: space-between;
+    padding: 48px 44px;
+  }
+  .brand-watermark {
+    position: absolute; right: -110px; bottom: -90px; width: 480px; height: auto;
+    filter: brightness(0) invert(1); opacity: 0.06; pointer-events: none;
+    transform: rotate(-8deg);
+  }
+  .brand-top { position: relative; z-index: 1; }
+  .brand-logo { width: 220px; height: auto; display: block; }
+  .brand-mid { position: relative; z-index: 1; margin-top: auto; padding-top: 56px; }
+  .brand-eyebrow {
+    font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 3px;
+    text-transform: uppercase; color: rgba(255,255,255,0.55); margin-bottom: 14px;
+  }
+  .brand-title {
+    font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: clamp(26px, 3vw, 34px);
+    line-height: 1.12; letter-spacing: -0.5px; margin-bottom: 16px;
+  }
+  .brand-title em { color: #6E8CF0; font-style: normal; }
+  .brand-desc { font-size: 14.5px; line-height: 1.65; color: rgba(255,255,255,0.72); max-width: 34ch; }
+  .brand-foot {
+    position: relative; z-index: 1; margin-top: 40px; padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.14);
+    font-size: 12px; color: rgba(255,255,255,0.5); letter-spacing: 0.2px;
+  }
+  .brand-foot strong { color: rgba(255,255,255,0.85); font-weight: 700; }
+
+  /* ─── PAINEL DE FORMULÁRIO ─── */
+  .form-panel { display: flex; align-items: center; justify-content: center; padding: 40px 24px; }
+  .form-wrap { width: 100%; max-width: 380px; }
+  @media (prefers-reduced-motion: no-preference) {
+    .form-wrap { animation: slideUp 0.5s ease; }
+  }
+  @keyframes slideUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+
+  .form-head { margin-bottom: 30px; }
+  .form-head h1 { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 22px; letter-spacing: -0.3px; color: var(--navy); }
+  .form-head p { color: var(--gray); font-size: 13.5px; margin-top: 6px; }
+
+  .form-group { margin-bottom: 18px; }
+  label { display: block; color: var(--gray-dark); font-size: 12.5px; font-weight: 700; margin-bottom: 7px; letter-spacing: 0.3px; text-transform: uppercase; }
+  input[type="email"], input[type="password"] {
+    width: 100%; padding: 13px 15px; border: 1.5px solid var(--gray-light); border-radius: 9px;
+    font-size: 15px; font-family: 'Lato', sans-serif; color: var(--navy); background: var(--white);
+    transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+  }
+  input:focus { outline: none; border-color: var(--blue); box-shadow: 0 0 0 3px var(--blue-soft); }
+
+  .row-between { display: flex; align-items: center; justify-content: flex-end; margin: -8px 0 20px; }
+  .link-btn {
+    background: none; border: none; padding: 0; color: var(--blue); font-size: 12.5px; font-weight: 700;
+    font-family: 'Lato', sans-serif; cursor: pointer; text-decoration: none;
+  }
+  .link-btn:hover { text-decoration: underline; }
+  .link-btn:disabled { opacity: 0.5; cursor: not-allowed; text-decoration: none; }
+
+  .btn-login {
+    width: 100%; padding: 14px; background: var(--blue); color: var(--white); border: none;
+    border-radius: 9px; font-size: 13.5px; font-weight: 800; font-family: 'Montserrat', sans-serif;
+    cursor: pointer; transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    letter-spacing: 0.6px; text-transform: uppercase; box-shadow: 0 6px 18px rgba(23,65,196,0.28);
+  }
+  .btn-login:hover:not(:disabled) { background: var(--blue-dark); transform: translateY(-1px); box-shadow: 0 8px 22px rgba(23,65,196,0.36); }
+  .btn-login:active:not(:disabled) { transform: translateY(0); }
+  .btn-login:disabled { opacity: 0.6; cursor: not-allowed; }
+  .btn-login:focus-visible, input:focus-visible, .link-btn:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+
+  .msg { padding: 12px 14px; border-radius: 8px; font-size: 13px; margin-bottom: 16px; border-left: 3px solid; display: none; line-height: 1.5; }
+  .msg.show { display: block; }
+  @media (prefers-reduced-motion: no-preference) { .msg.show.error { animation: shake 0.35s ease; } }
+  .msg.error { background: #FBEAE8; color: #B5051F; border-color: #CC092F; }
+  .msg.info { background: #EAF3FB; color: #1E5A7D; border-color: #1E5A7D; }
+  @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+
+  .form-foot { text-align: left; margin-top: 28px; color: var(--gray); font-size: 11.5px; }
+  .form-foot strong { color: var(--blue); }
+
+  @media (max-width: 860px) {
+    body { grid-template-columns: 1fr; grid-template-rows: auto 1fr; }
+    .brand-panel { padding: 36px 28px 32px; }
+    .brand-mid { padding-top: 26px; }
+    .brand-desc { display: none; }
+    .brand-watermark { width: 320px; right: -80px; bottom: -70px; }
+    .form-panel { padding: 32px 24px 44px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="brand-panel">
+  <img class="brand-watermark" src="logo-icon-header-navy.png" alt="" aria-hidden="true">
+  <div class="brand-top">
+    <picture>
+      <source srcset="logo-full-white.webp" type="image/webp">
+      <img class="brand-logo" src="logo-full-white.png" alt="Maximo 360 — Assessoria de Seguros">
+    </picture>
+  </div>
+  <div class="brand-mid">
+    <div class="brand-eyebrow">Portal do Corretor</div>
+    <div class="brand-title">Amil <em>PME</em></div>
+    <p class="brand-desc">Planos, carências, coparticipação, regras comerciais e rede credenciada — tudo em um só lugar para fechar mais negócios com segurança.</p>
+  </div>
+  <div class="brand-foot">Acesso restrito a corretores parceiros da <strong>Maximo 360</strong></div>
+</div>
+
+<div class="form-panel">
+  <div class="form-wrap">
+    <div class="form-head">
+      <h1>Entrar</h1>
+      <p>Use seu e-mail e senha cadastrados para acessar o portal.</p>
+    </div>
+
+    <div class="msg" id="msgBox"></div>
+
+    <form id="loginForm">
+      <div class="form-group">
+        <label for="email">E-mail</label>
+        <input type="email" id="email" placeholder="seu@email.com" required autocomplete="email">
+      </div>
+
+      <div class="form-group">
+        <label for="password">Senha</label>
+        <input type="password" id="password" placeholder="••••••••" required autocomplete="current-password">
+      </div>
+
+      <div class="row-between">
+        <button type="button" class="link-btn" id="forgotBtn">Esqueci minha senha</button>
+      </div>
+
+      <button type="submit" class="btn-login" id="btnLogin">Entrar</button>
+    </form>
+
+    <p class="form-foot">© 2026 <strong>Maximo 360</strong> · Acesso restrito a corretores</p>
+  </div>
+</div>
+
+<script type="module">
+  const form = document.getElementById('loginForm');
+  const msgBox = document.getElementById('msgBox');
+  const btnLogin = document.getElementById('btnLogin');
+  const forgotBtn = document.getElementById('forgotBtn');
+
+  function showMsg(text, kind) {
+    msgBox.textContent = text;
+    msgBox.className = 'msg show ' + kind;
+  }
+  function clearMsg() {
+    msgBox.className = 'msg';
+  }
+  function friendlyAuthError(code) {
+    const map = {
+      'auth/invalid-credential': 'E-mail ou senha incorretos.',
+      'auth/wrong-password': 'E-mail ou senha incorretos.',
+      'auth/user-not-found': 'E-mail ou senha incorretos.',
+      'auth/invalid-email': 'E-mail inválido.',
+      'auth/too-many-requests': 'Muitas tentativas. Tente novamente em alguns minutos.',
+      'auth/network-request-failed': 'Erro de conexão. Verifique sua internet.'
+    };
+    return map[code] || 'Erro ao fazer login. Tente novamente.';
+  }
+  function disableForm(disabled) {
+    form.querySelectorAll('input,button').forEach(el => el.disabled = disabled);
+  }
+
+  let mod;
+  try {
+    mod = await Promise.all([
+      import("https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js"),
+      import("https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js")
+    ]);
+  } catch (e) {
+    showMsg('Não foi possível carregar o serviço de login agora. Verifique sua conexão e recarregue a página.', 'error');
+    disableForm(true);
+    throw e;
+  }
+  const { initializeApp } = mod[0];
+  const { getAuth, signInWithEmailAndPassword, onAuthStateChanged, sendPasswordResetEmail } = mod[1];
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyC4lCCGse0Ax5SxlS45Do6puiAh7Y5w3xg",
+    authDomain: "consultabradsaude.firebaseapp.com",
+    projectId: "consultabradsaude",
+    storageBucket: "consultabradsaude.firebasestorage.app",
+    messagingSenderId: "393676066408",
+    appId: "1:393676066408:web:03dc51e86051a842ceb5dd"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) window.location.href = "index.html";
+  });
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    clearMsg();
+    btnLogin.disabled = true;
+    btnLogin.textContent = 'Entrando...';
+
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
+
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      window.location.href = "index.html";
+    } catch (error) {
+      showMsg(friendlyAuthError(error.code), 'error');
+      btnLogin.disabled = false;
+      btnLogin.textContent = 'Entrar';
+    }
+  });
+
+  forgotBtn.addEventListener('click', () => {
+    clearMsg();
+    const email = document.getElementById('email').value.trim();
+    if (!email) { showMsg('Digite seu e-mail acima para receber o link de redefinição.', 'error'); return; }
+    forgotBtn.disabled = true;
+    sendPasswordResetEmail(auth, email)
+      .then(() => showMsg('Link de redefinição enviado para ' + email + '.', 'info'))
+      .catch((error) => showMsg(friendlyAuthError(error.code), 'error'))
+      .finally(() => { forgotBtn.disabled = false; });
+  });
+</script>
+
+</body>
+</html>

@@ -23,6 +23,15 @@
       ]
     },
     {
+      "target": "amil",
+      "public": "AMIL",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ]
+    },
+    {
       "target": "indicai360",
       "public": "INDICAI360/public",
       "ignore": [

@@ -1,0 +1,2575 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Guia completo do corretor para Amil PME: Linha Selecionada, Linha Amil, Amil Black e Dental — planos, carências, coparticipação, regras comerciais e rede credenciada. Maximo 360.">
+<meta name="theme-color" content="#1741C4">
+<link rel="icon" href="logo-icon-header-navy.webp" type="image/webp">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Amil PME — Guia Completo do Corretor · Maximo 360">
+<meta property="og:description" content="Planos, carências, coparticipação, regras comerciais e rede credenciada da Amil PME em um só lugar.">
+<meta name="twitter:card" content="summary">
+<title>Amil PME — Guia Completo do Corretor · Maximo 360</title>
+
+<!-- Esconde a página até a autenticação resolver (evita flash de conteúdo restrito). -->
+<style>
+  html.gate { visibility: hidden; }
+  html.reveal .product-card, html.reveal .benefit-card, html.reveal .rule-card,
+  html.reveal .odonto-card, html.reveal .copart-card, html.reveal .reimb-card-big {
+    opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  html.reveal .revealed { opacity: 1 !important; transform: translateY(0) !important; }
+  @media (prefers-reduced-motion: reduce) {
+    html.reveal .product-card, html.reveal .benefit-card, html.reveal .rule-card,
+    html.reveal .odonto-card, html.reveal .copart-card, html.reveal .reimb-card-big {
+      opacity: 1; transform: none; transition: none;
+    }
+  }
+</style>
+<script>document.documentElement.classList.add('gate', 'reveal');</script>
+
+<!-- ─── FIREBASE AUTH ─── -->
+<script type="module">
+  function showGateError(msg) {
+    if (document.getElementById('gate-error')) return;
+    const el = document.createElement('div');
+    el.id = 'gate-error';
+    el.style.cssText = 'visibility:visible;position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;background:#1A1C28;color:#fff;font-family:Lato,sans-serif;text-align:center;padding:24px;';
+    el.innerHTML = '<div style="max-width:380px;"><div style="font-size:15px;line-height:1.6;margin-bottom:20px;">' + msg + '</div>' +
+      '<button onclick="location.reload()" style="background:#1741C4;color:#fff;border:none;padding:12px 28px;border-radius:8px;font-weight:700;font-family:Montserrat,sans-serif;cursor:pointer;">Recarregar</button></div>';
+    document.body.appendChild(el);
+  }
+
+  const gateTimeout = setTimeout(() => {
+    showGateError('Não foi possível confirmar seu acesso. Verifique sua conexão com a internet e tente novamente.');
+  }, 8000);
+
+  (async () => {
+    let mod;
+    try {
+      mod = await Promise.all([
+        import("https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js"),
+        import("https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js"),
+        import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js")
+      ]);
+    } catch (e) {
+      clearTimeout(gateTimeout);
+      showGateError('Não foi possível carregar o serviço de login agora. Verifique sua conexão e recarregue a página.');
+      return;
+    }
+    const { initializeApp } = mod[0];
+    const { getAuth, onAuthStateChanged, signOut } = mod[1];
+    const { getFirestore, doc, setDoc, serverTimestamp, increment } = mod[2];
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyC4lCCGse0Ax5SxlS45Do6puiAh7Y5w3xg",
+      authDomain: "consultabradsaude.firebaseapp.com",
+      projectId: "consultabradsaude",
+      storageBucket: "consultabradsaude.firebasestorage.app",
+      messagingSenderId: "393676066408",
+      appId: "1:393676066408:web:03dc51e86051a842ceb5dd"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    onAuthStateChanged(auth, (user) => {
+      clearTimeout(gateTimeout);
+      if (!user) {
+        window.location.href = "login.html";
+      } else {
+        document.documentElement.classList.remove('gate');
+        window.firebaseAuth = auth;
+        window.firebaseSignOut = () => signOut(auth).then(() => window.location.href = "login.html");
+
+        setDoc(doc(db, 'acessos', user.uid), {
+          email: user.email || '',
+          ultimoAcesso: serverTimestamp(),
+          totalAcessos: increment(1),
+          acessos_amil: increment(1)
+        }, { merge: true }).catch(() => {});
+
+        const registrarDiaDeUso = () => {
+          const hoje = new Date();
+          const chave = hoje.getFullYear() + '-' + String(hoje.getMonth() + 1).padStart(2, '0') + '-' + String(hoje.getDate()).padStart(2, '0');
+          if (localStorage.getItem('diaUso_amil') === chave) return;
+          localStorage.setItem('diaUso_amil', chave);
+          setDoc(doc(db, 'acessos', user.uid), {
+            diasAtivos: increment(1),
+            diasAtivos_amil: increment(1)
+          }, { merge: true }).catch(() => {});
+        };
+        registrarDiaDeUso();
+        setInterval(registrarDiaDeUso, 30 * 60 * 1000);
+      }
+    }, () => {
+      clearTimeout(gateTimeout);
+      showGateError('Não foi possível confirmar seu acesso agora. Tente novamente.');
+    });
+  })();
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue:       #1741C4;
+    --blue-dark:  #0F2E8F;
+    --blue-light: #4A6FE0;
+    --blue-soft:  rgba(23,65,196,0.08);
+    --blue-glow:  rgba(23,65,196,0.22);
+    --navy:       #1A1C28;
+    --navy-dark:  #101119;
+    --navy-light: #2A2D3F;
+    --white:      #FFFFFF;
+    --off-white:  #F6F8FC;
+    --gray-light: #E5E7EB;
+    --gray:       #6B7280;
+    --gray-dark:  #374151;
+    --text:       #1A1C28;
+    --shadow:     0 4px 24px rgba(0,0,0,0.06);
+    --shadow-hover: 0 12px 40px rgba(23,65,196,0.18);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 74px; }
+  body { font-family: 'Lato', sans-serif; background: var(--off-white); color: var(--text); overflow-x: hidden; }
+
+  /* ─── NAVBAR ─── */
+  nav {
+    position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+    background: rgba(255,255,255,0.98); backdrop-filter: blur(10px);
+    padding: 0 28px; height: 64px;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 20px;
+    box-shadow: 0 1px 12px rgba(0,0,0,0.08);
+    border-bottom: 3px solid var(--blue);
+  }
+  .nav-logo { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 24px; color: var(--text); letter-spacing: -0.8px; line-height: 1.1; white-space: nowrap; }
+  .nav-logo span { color: var(--blue); }
+  .nav-logo-group { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+  .nav-logo-icon { height: 38px; width: auto; display: block; flex-shrink: 0; }
+  @media (max-width: 1400px) { .nav-logo-icon { height: 32px; } }
+  .nav-divider { width: 1px; height: 24px; background: var(--gray-light); }
+  .nav-brand { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 11px; color: var(--gray); letter-spacing: 0.5px; text-transform: uppercase; white-space: nowrap; }
+  .nav-brand span { color: var(--blue); }
+  .nav-links {
+    display: flex; align-items: center; gap: 2px;
+    flex: 1 1 auto; justify-content: center;
+    min-width: 0; flex-wrap: wrap;
+  }
+  .nav-links a {
+    color: var(--gray); text-decoration: none; font-family: 'Montserrat', sans-serif;
+    font-size: 10.5px; font-weight: 600; letter-spacing: 0.3px; text-transform: uppercase;
+    padding: 6px 9px; border-radius: 4px; transition: color 0.2s, background 0.2s; white-space: nowrap;
+  }
+  .nav-links a:hover { color: var(--blue); background: var(--blue-soft); }
+  .nav-links a:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+  .nav-signout {
+    flex-shrink: 0;
+    padding: 7px 16px; border-radius: 6px;
+    background: var(--blue); color: var(--white); border: none;
+    font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700;
+    letter-spacing: 0.5px; text-transform: uppercase; cursor: pointer;
+    transition: background 0.2s, transform 0.2s; white-space: nowrap;
+  }
+  .nav-signout:hover { background: var(--blue-dark); transform: translateY(-1px); }
+  .nav-toggle {
+    display: none; flex-shrink: 0; width: 40px; height: 40px; border-radius: 8px;
+    border: none; background: transparent; cursor: pointer;
+    align-items: center; justify-content: center; padding: 0;
+  }
+  .nav-toggle:hover { background: var(--off-white); }
+  .nav-toggle span {
+    display: block; width: 20px; height: 2px; background: var(--navy); border-radius: 2px;
+    position: relative; transition: transform 0.25s, opacity 0.2s;
+  }
+  .nav-toggle span::before, .nav-toggle span::after {
+    content: ''; position: absolute; left: 0; width: 20px; height: 2px; background: var(--navy);
+    border-radius: 2px; transition: transform 0.25s;
+  }
+  .nav-toggle span::before { top: -6px; }
+  .nav-toggle span::after { top: 6px; }
+  .nav-toggle[aria-expanded="true"] span { background: transparent; }
+  .nav-toggle[aria-expanded="true"] span::before { transform: translateY(6px) rotate(45deg); }
+  .nav-toggle[aria-expanded="true"] span::after { transform: translateY(-6px) rotate(-45deg); }
+  .nav-scrim {
+    position: fixed; inset: 64px 0 0 0; background: rgba(15,17,24,0.45);
+    opacity: 0; pointer-events: none; transition: opacity 0.25s; z-index: 998;
+  }
+  .nav-scrim.open { opacity: 1; pointer-events: auto; }
+  @media (max-width: 1650px) {
+    nav { padding: 0 18px; }
+    .nav-links { gap: 0px; }
+    .nav-links a { padding: 5px 5px; font-size: 9px; letter-spacing: 0px; }
+    .nav-logo { font-size: 21px; }
+    .nav-brand { display: none; }
+    .nav-divider { display: none; }
+  }
+  @media (max-width: 1300px) {
+    .nav-toggle { display: inline-flex; }
+    .nav-links {
+      position: fixed; top: 64px; right: 0; height: calc(100vh - 64px); z-index: 999;
+      width: min(320px, 86vw); background: var(--white);
+      flex-direction: column; align-items: stretch; justify-content: flex-start;
+      gap: 2px; padding: 16px; overflow-y: auto; flex-wrap: nowrap;
+      box-shadow: -12px 0 32px rgba(0,0,0,0.15);
+      transform: translateX(100%); transition: transform 0.28s ease;
+    }
+    .nav-links.open { transform: translateX(0); }
+    .nav-links a {
+      padding: 14px 14px; font-size: 13.5px; border-radius: 8px;
+      text-align: left; white-space: normal;
+    }
+  }
+  @media (max-width: 900px) {
+    nav { padding: 0 14px; }
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0F2E8F 0%, var(--blue) 50%, #3A5FE8 100%);
+    position: relative; overflow: hidden; display: flex; align-items: center;
+    padding: 100px 80px 60px;
+  }
+  .hero::before {
+    content: ''; position: absolute; top: -200px; right: -200px;
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(255,255,255,0.12) 0%, transparent 70%); border-radius: 50%;
+  }
+  .hero::after {
+    content: ''; position: absolute; bottom: -100px; left: 30%;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%); border-radius: 50%;
+  }
+  .wave-bg { position: absolute; bottom: 0; left: 0; width: 100%; opacity: 0.18; }
+  .hero-content { position: relative; z-index: 2; max-width: 700px; }
+  .hero-badge {
+    display: inline-block; background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.35);
+    color: var(--white); font-family: 'Montserrat', sans-serif;
+    font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+    padding: 6px 16px; border-radius: 20px; margin-bottom: 24px;
+  }
+  .hero h1 {
+    font-family: 'Montserrat', sans-serif; font-size: clamp(38px, 5vw, 64px);
+    font-weight: 900; line-height: 1.05; color: var(--white); margin-bottom: 20px;
+  }
+  .hero h1 em { color: rgba(255,255,255,0.6); font-style: normal; font-weight: 300; }
+  .hero p { font-size: 18px; line-height: 1.7; color: rgba(255,255,255,0.85); margin-bottom: 40px; max-width: 540px; }
+  .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--white); color: var(--blue); padding: 14px 32px; border-radius: 6px;
+    font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 13px;
+    letter-spacing: 0.5px; text-decoration: none; transition: all 0.3s;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15); border: none; cursor: pointer; display: inline-block;
+  }
+  .btn-primary:hover { background: #f5f5f7; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,0.2); }
+  .btn-outline {
+    border: 2px solid rgba(255,255,255,0.5); color: var(--white); padding: 14px 32px; border-radius: 6px;
+    font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 13px; text-decoration: none;
+    transition: all 0.3s; background: none; cursor: pointer; display: inline-block;
+  }
+  .btn-outline:hover { border-color: var(--white); background: rgba(255,255,255,0.12); }
+  .hero-stats {
+    position: absolute; right: 80px; bottom: 100px; z-index: 2;
+    display: flex; flex-direction: column; gap: 20px;
+  }
+  .stat-card {
+    background: rgba(255,255,255,0.15); backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.25); border-radius: 12px; padding: 20px 28px; text-align: center;
+  }
+  .stat-num { font-family: 'Montserrat', sans-serif; font-size: 32px; font-weight: 900; color: var(--white); }
+  .stat-label { font-size: 12px; color: rgba(255,255,255,0.85); margin-top: 4px; }
+  @media (max-width: 1200px) { .hero-stats { display: none; } }
+  @media (max-width: 900px) { .hero { padding: 100px 24px 60px; } }
+
+  /* ─── SECTIONS ─── */
+  section { padding: 90px 80px; }
+  .section-label {
+    font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700;
+    letter-spacing: 3px; text-transform: uppercase; color: var(--blue); margin-bottom: 12px;
+  }
+  .section-title {
+    font-family: 'Montserrat', sans-serif; font-size: clamp(28px, 3.5vw, 44px);
+    font-weight: 800; color: var(--navy); line-height: 1.15; margin-bottom: 18px;
+  }
+  .section-sub { font-size: 17px; color: var(--gray); line-height: 1.7; max-width: 640px; margin-bottom: 50px; }
+  @media (max-width: 1200px) { section { padding: 70px 40px; } }
+  @media (max-width: 900px) { section { padding: 60px 24px; } }
+
+  /* ─── HISTÓRIA / INSTITUCIONAL ─── */
+  .history-section { background: var(--white); }
+  .history-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+  .history-visual {
+    background: linear-gradient(135deg, var(--navy), var(--navy-light));
+    border-radius: 16px; padding: 50px; position: relative; overflow: hidden;
+  }
+  .history-visual::before {
+    content: ''; position: absolute; top: -50px; right: -50px;
+    width: 250px; height: 250px;
+    background: radial-gradient(circle, rgba(23,65,196,0.25), transparent); border-radius: 50%;
+  }
+  .history-num-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; position: relative; z-index: 1; }
+  .history-num { font-family: 'Montserrat', sans-serif; font-size: 30px; font-weight: 900; color: var(--white); line-height: 1; }
+  .history-num-label { font-size: 12px; color: rgba(255,255,255,0.65); margin-top: 6px; line-height: 1.4; }
+  .history-text p { font-size: 16px; line-height: 1.8; color: var(--gray-dark); margin-bottom: 18px; }
+  .history-text a.link-inline { color: var(--blue); font-weight: 700; text-decoration: none; }
+  .history-text a.link-inline:hover { text-decoration: underline; }
+  @media (max-width: 900px) { .history-grid { grid-template-columns: 1fr; } }
+
+  /* ─── PRODUCT CARDS ─── */
+  .products-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+  .product-card {
+    background: var(--white); border-radius: 16px; padding: 32px 26px; position: relative; overflow: hidden;
+    box-shadow: var(--shadow); transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s; cursor: pointer; border: 2px solid transparent;
+  }
+  .product-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-hover); border-color: var(--blue); }
+  .product-icon {
+    width: 52px; height: 52px; border-radius: 12px; background: var(--blue-soft);
+    display: flex; align-items: center; justify-content: center; margin-bottom: 20px;
+    font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 20px; color: var(--blue);
+  }
+  .product-card h3 { font-family: 'Montserrat', sans-serif; font-size: 18px; font-weight: 800; color: var(--navy); margin-bottom: 10px; }
+  .product-card p { font-size: 13.5px; color: var(--gray); line-height: 1.6; margin-bottom: 16px; }
+  .product-card .pdt-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .product-card .pdt-tag {
+    font-size: 10.5px; font-weight: 700; padding: 4px 10px; border-radius: 12px;
+    background: var(--off-white); color: var(--gray-dark); border: 1px solid var(--gray-light);
+  }
+  @media (max-width: 1100px) { .products-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { .products-grid { grid-template-columns: 1fr; } }
+
+  /* ─── TABS ─── */
+  .tab-nav { display: flex; background: var(--navy); overflow-x: auto; border-radius: 12px 12px 0 0; }
+  .tab-btn {
+    flex: 1 1 auto; padding: 16px 20px; background: none; border: none; color: rgba(255,255,255,0.55);
+    font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 12px; letter-spacing: 0.4px;
+    text-transform: uppercase; cursor: pointer; white-space: nowrap; transition: color 0.2s, background 0.2s;
+    border-bottom: 3px solid transparent;
+  }
+  .tab-btn:hover { color: rgba(255,255,255,0.85); }
+  .tab-btn.active { color: var(--white); background: rgba(255,255,255,0.08); border-bottom-color: var(--blue); }
+  .subtab-nav { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
+  .subtab-btn {
+    padding: 9px 18px; border-radius: 20px; border: 1.5px solid var(--gray-light); background: var(--white);
+    color: var(--gray-dark); font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 11.5px;
+    letter-spacing: 0.3px; cursor: pointer; transition: all 0.2s;
+  }
+  .subtab-btn:hover { border-color: var(--blue); color: var(--blue); }
+  .subtab-btn.active { background: var(--blue); border-color: var(--blue); color: var(--white); }
+  .tab-content, .subtab-content { display: none; }
+  .tab-content.active, .subtab-content.active { display: block; }
+  .tab-panel-body { background: var(--white); border-radius: 0 0 12px 12px; padding: 32px; box-shadow: var(--shadow); }
+  @media (max-width: 700px) { .tab-panel-body { padding: 20px; } }
+
+  /* ─── PLAN CARDS ─── */
+  .plan-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 20px; }
+  .plan-card {
+    background: var(--off-white); border: 1.5px solid var(--gray-light); border-radius: 14px;
+    padding: 22px; transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+  }
+  .plan-card:hover { border-color: var(--blue); box-shadow: var(--shadow); transform: translateY(-3px); }
+  .plan-card.featured { border-color: var(--blue); background: linear-gradient(180deg, var(--blue-soft), var(--off-white)); }
+  .plan-card h4 { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 16px; color: var(--navy); margin-bottom: 4px; }
+  .plan-card .plan-region { font-size: 11px; color: var(--blue); font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 10px; }
+  .plan-card p { font-size: 13px; color: var(--gray-dark); line-height: 1.6; margin-bottom: 10px; }
+  .plan-card .plan-chips { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; }
+  .plan-card .chip {
+    font-size: 10px; font-weight: 700; padding: 3px 9px; border-radius: 10px;
+    background: var(--white); border: 1px solid var(--gray-light); color: var(--gray-dark);
+  }
+  .plan-card .chip.on { background: var(--blue-soft); border-color: var(--blue); color: var(--blue-dark); }
+
+  /* ─── TABLES (comparativo, carência, coparticipação, reembolso) ─── */
+  .compare-table, .carencia-table, .copa-table { width: 100%; border-collapse: collapse; border-radius: 12px; overflow: hidden; box-shadow: var(--shadow); background: var(--white); }
+  .compare-table thead tr, .carencia-table thead tr, .copa-table thead tr { background: var(--blue); }
+  .compare-table th, .carencia-table th, .copa-table th {
+    padding: 13px 15px; font-family: 'Montserrat', sans-serif; font-size: 10.5px; font-weight: 700;
+    letter-spacing: 0.4px; text-transform: uppercase; color: var(--white); text-align: left; white-space: nowrap;
+  }
+  .compare-table tbody tr, .carencia-table tbody tr, .copa-table tbody tr { background: var(--white); border-bottom: 1px solid var(--gray-light); }
+  .compare-table tbody tr:nth-child(even), .carencia-table tbody tr:nth-child(even), .copa-table tbody tr:nth-child(even) { background: rgba(23,65,196,0.02); }
+  .compare-table tbody tr:hover, .carencia-table tbody tr:hover, .copa-table tbody tr:hover { background: rgba(23,65,196,0.06); }
+  .compare-table td, .carencia-table td, .copa-table td { padding: 12px 15px; font-size: 12.5px; color: var(--gray-dark); }
+  .compare-table td.prazo, .carencia-table td.prazo { font-weight: 700; color: var(--blue-dark); }
+  .compare-table td.isento, .carencia-table td.isento { font-weight: 700; color: #13614A; }
+  .scroller { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .mono { font-family: 'Lato', monospace; font-size: 11.5px; color: var(--gray); white-space: nowrap; }
+
+  /* ─── ALERT / INFO BOX ─── */
+  .alert-box {
+    background: var(--blue-soft); border-left: 3px solid var(--blue); border-radius: 8px;
+    padding: 14px 18px; font-size: 13px; color: var(--navy); line-height: 1.6; margin-top: 20px;
+  }
+  .alert-box strong { color: var(--blue-dark); }
+
+  /* ─── BENEFIT CARDS ─── */
+  .benefits-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .benefit-card {
+    background: var(--white); border-radius: 14px; padding: 26px 22px; box-shadow: var(--shadow);
+    border: 2px solid transparent; transition: border-color 0.2s, transform 0.2s;
+  }
+  .benefit-card:hover { border-color: var(--blue); transform: translateY(-4px); }
+  .benefit-card .b-icon { font-size: 26px; margin-bottom: 12px; }
+  .benefit-card h4 { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 15px; color: var(--navy); margin-bottom: 8px; }
+  .benefit-card p { font-size: 13px; color: var(--gray); line-height: 1.6; }
+  @media (max-width: 1100px) { .benefits-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 640px) { .benefits-grid { grid-template-columns: 1fr; } }
+
+  /* ─── CONTACT CARDS (Maximo 360) ─── */
+  .contact-cards-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 32px; }
+  @media (max-width: 760px) { .contact-cards-grid { grid-template-columns: 1fr; } }
+  .contact-card {
+    background: var(--white); border: 1px solid var(--gray-light);
+    border-radius: 14px; padding: 32px 28px; box-shadow: var(--shadow);
+    transition: all 0.3s; border-top: 4px solid var(--blue);
+  }
+  .contact-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
+  .contact-card-tag {
+    display: inline-block; background: var(--blue-soft); color: var(--blue);
+    font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 800;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    padding: 4px 12px; border-radius: 4px; margin-bottom: 16px;
+  }
+  .contact-card-name { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 800; color: var(--navy); margin-bottom: 4px; }
+  .contact-card-role { font-size: 13px; color: var(--gray); margin-bottom: 24px; }
+  .contact-card-rows { display: flex; flex-direction: column; gap: 8px; }
+  .contact-card-row {
+    display: flex; flex-direction: column; gap: 2px;
+    padding: 12px 16px; border-radius: 8px;
+    background: var(--off-white); border: 1px solid var(--gray-light);
+    text-decoration: none; transition: all 0.2s;
+  }
+  .contact-card-row:hover { background: var(--white); border-color: var(--blue); transform: translateX(4px); }
+  .contact-card-row .ccr-label {
+    font-family: 'Montserrat', sans-serif; font-size: 9.5px; font-weight: 800;
+    letter-spacing: 1.2px; text-transform: uppercase; color: var(--gray);
+  }
+  .contact-card-row .ccr-val { font-family: 'Lato', sans-serif; font-size: 14px; font-weight: 700; color: var(--text); }
+  .contact-card-row.contact-card-row-wa { background: rgba(37,211,102,0.08); border-color: rgba(37,211,102,0.25); }
+  .contact-card-row.contact-card-row-wa:hover { background: rgba(37,211,102,0.12); border-color: #25D366; }
+  .contact-card-row.contact-card-row-wa .ccr-label { color: #1ea851; }
+  .contact-card-row.contact-card-row-wa .ccr-val { color: #128c3a; }
+
+  /* ─── RULE CARDS / DOCX PANEL ─── */
+  .rules-grid, .doc-grid { display: grid; grid-template-columns: 280px 1fr; gap: 30px; }
+  .docx-sidebar {
+    background: var(--white); border-radius: 16px; box-shadow: var(--shadow);
+    overflow: hidden; position: sticky; top: 88px; padding: 8px 0;
+  }
+  .docx-sidebar-item {
+    display: flex; align-items: center; gap: 12px; width: 100%; text-align: left;
+    padding: 13px 22px; border: none; background: none; cursor: pointer;
+    font-family: 'Lato', sans-serif; font-size: 14px; color: var(--gray-dark);
+    border-left: 3px solid transparent; transition: all 0.18s;
+  }
+  .docx-sidebar-item:hover { background: var(--blue-soft); color: var(--blue); }
+  .docx-sidebar-item.active { background: var(--blue-soft); color: var(--blue); font-weight: 700; border-left-color: var(--blue); }
+  .docx-sidebar-item .docx-side-ico {
+    width: 26px; height: 26px; border-radius: 7px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--off-white); font-size: 11.5px; font-weight: 800;
+    color: var(--blue); font-family: 'Montserrat', sans-serif;
+  }
+  .docx-sidebar-item.active .docx-side-ico { background: var(--blue); color: var(--white); }
+  .docx-panel { background: var(--white); border-radius: 16px; box-shadow: var(--shadow); overflow: hidden; min-height: 480px; }
+  .docx-panel-head { background: linear-gradient(135deg, var(--navy), var(--navy-light)); padding: 28px 34px; }
+  .docx-panel-tag {
+    display: inline-block; font-family: 'Montserrat', sans-serif; font-size: 10px;
+    font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: var(--blue-light); margin-bottom: 8px;
+  }
+  .docx-panel-head h3 { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 800; color: var(--white); line-height: 1.2; }
+  .docx-panel-head p { color: rgba(255,255,255,0.72); font-size: 14px; margin-top: 8px; line-height: 1.6; }
+  .docx-panel-body { padding: 30px 34px 34px; }
+  .docx-block { margin-bottom: 26px; }
+  .docx-block:last-child { margin-bottom: 0; }
+  .docx-block-title {
+    display: flex; align-items: center; gap: 10px;
+    font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 800;
+    letter-spacing: 0.04em; text-transform: uppercase; color: var(--navy);
+    margin-bottom: 14px; padding-bottom: 10px; border-bottom: 2px solid var(--gray-light);
+  }
+  .docx-block-title .docx-bt-ico {
+    width: 22px; height: 22px; border-radius: 6px; background: var(--blue);
+    color: var(--white); display: flex; align-items: center; justify-content: center;
+    font-size: 12px; flex-shrink: 0;
+  }
+  .docx-li {
+    display: flex; gap: 11px; align-items: flex-start;
+    padding: 9px 0; border-bottom: 1px solid var(--gray-light);
+    font-size: 13.5px; line-height: 1.6; color: #444;
+  }
+  .docx-li:last-child { border-bottom: none; }
+  .docx-li::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--blue); flex-shrink: 0; margin-top: 7px; }
+  .docx-note {
+    background: var(--blue-soft); border-left: 4px solid var(--blue);
+    border-radius: 0 8px 8px 0; padding: 14px 18px; margin-top: -6px; margin-bottom: 26px;
+    font-size: 13px; line-height: 1.6; color: var(--gray-dark);
+  }
+  .docx-note strong { color: var(--blue-dark); }
+  .docx-sub-note { font-size: 11.5px; color: var(--gray); margin-top: 14px; font-style: italic; }
+  @media (max-width: 900px) { .rules-grid, .doc-grid { grid-template-columns: 1fr; } .docx-sidebar { position: static; display: flex; flex-direction: row; overflow-x: auto; padding: 4px; } .docx-sidebar-item { flex-shrink: 0; } }
+
+  /* ─── DENTAL ─── */
+  .odonto-plans { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 20px; }
+  .odonto-card { background: var(--white); border-radius: 14px; padding: 24px; box-shadow: var(--shadow); border: 2px solid transparent; transition: border-color .2s, transform .2s; }
+  .odonto-card:hover { border-color: var(--blue); transform: translateY(-4px); }
+  .odonto-card h4 { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 16px; color: var(--navy); margin-bottom: 8px; }
+  .odonto-card p { font-size: 13px; color: var(--gray); line-height: 1.6; }
+
+  /* ─── REDE ─── */
+  .rede-controls { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 20px; }
+  .rede-controls input, .rede-controls select {
+    padding: 12px 16px; border: 1.5px solid var(--gray-light); border-radius: 8px; font-family: 'Lato', sans-serif;
+    font-size: 14px; background: var(--white);
+  }
+  .rede-controls input { flex: 1; min-width: 220px; }
+  .rede-count { font-size: 13px; color: var(--gray); margin-bottom: 16px; }
+  .rede-item { display: flex; gap: 14px; padding: 16px; background: var(--white); border-radius: 10px; box-shadow: var(--shadow); margin-bottom: 10px; }
+  .rede-item-icon { width: 40px; height: 40px; border-radius: 8px; background: var(--blue-soft); color: var(--blue); display: flex; align-items: center; justify-content: center; font-weight: 800; flex-shrink: 0; }
+  .rede-item-name { font-weight: 700; color: var(--navy); font-size: 14px; }
+  .rede-item-city { font-size: 12px; color: var(--gray); margin: 2px 0 8px; }
+  .rede-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .rede-empty { text-align: center; padding: 40px; color: var(--gray); font-size: 14px; }
+  .rede-chips .chip {
+    font-size: 10px; font-weight: 700; padding: 3px 9px; border-radius: 10px;
+    background: var(--white); border: 1px solid var(--gray-light); color: var(--gray-dark);
+    display: inline-flex; align-items: baseline; gap: 5px; max-width: 100%;
+  }
+  .rede-chips .chip.on { background: var(--blue-soft); border-color: var(--blue); color: var(--blue-dark); }
+  .rede-chips .chip-cod { font-weight: 400; opacity: 0.75; font-size: 9.5px; }
+  .rede-controls select { min-width: 165px; }
+  .legenda-card {
+    background: var(--white); border: 1px solid var(--gray-light); border-radius: 12px;
+    padding: 20px 22px; margin-top: 24px; box-shadow: var(--shadow);
+  }
+  .legenda-card h5 {
+    font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 11px; letter-spacing: 0.6px;
+    text-transform: uppercase; color: var(--blue); margin-bottom: 14px;
+  }
+  .legenda-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 10px 18px; }
+  .legenda-item { display: flex; align-items: center; gap: 10px; }
+  .legenda-code {
+    flex-shrink: 0; min-width: 46px; text-align: center; padding: 4px 8px; border-radius: 6px;
+    background: var(--blue-soft); color: var(--blue-dark); border: 1px solid var(--blue-glow);
+    font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 10.5px; letter-spacing: 0.2px;
+  }
+  .legenda-desc { font-size: 12.5px; color: var(--gray-dark); line-height: 1.35; }
+
+  /* ─── CALCULADORA DE COPARTICIPAÇÃO ─── */
+  .copa-calc { background: linear-gradient(135deg, var(--navy), var(--navy-light)); border-radius: 16px; padding: 32px; margin-bottom: 28px; }
+  .copa-calc h3 { font-family: 'Montserrat', sans-serif; font-size: 18px; font-weight: 800; color: var(--white); margin-bottom: 6px; }
+  .copa-calc p.sub { color: rgba(255,255,255,0.65); font-size: 13px; margin-bottom: 22px; }
+  .copa-calc-grid { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 18px; }
+  @media (max-width: 900px) { .copa-calc-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 560px) { .copa-calc-grid { grid-template-columns: 1fr; } }
+  .copa-field { display: flex; flex-direction: column; gap: 7px; }
+  .copa-field label { font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.8); font-family: 'Montserrat', sans-serif; letter-spacing: 0.5px; text-transform: uppercase; }
+  .copa-field select, .copa-field input {
+    padding: 11px 14px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.1); color: var(--white); font-size: 14px;
+    font-family: 'Lato', sans-serif; outline: none;
+  }
+  .copa-field select option { color: var(--text); }
+  .copa-field input::placeholder { color: rgba(255,255,255,0.4); }
+  .copa-result { margin-top: 22px; background: rgba(255,255,255,0.1); border-radius: 10px; padding: 20px 24px; border: 1px solid rgba(255,255,255,0.15); }
+  .copa-result-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
+  .copa-result-row:last-child { border-bottom: none; }
+  .copa-result-row span { font-size: 13.5px; color: rgba(255,255,255,0.75); }
+  .copa-result-row strong { font-size: 14px; color: var(--white); font-weight: 700; }
+  .copa-result-final { background: var(--blue); margin: 14px -24px -20px; padding: 16px 24px; border-radius: 0 0 10px 10px; }
+  .copa-result-final span { color: rgba(255,255,255,0.9); font-weight: 600; }
+  .copa-result-final strong { font-size: 22px; font-family: 'Montserrat', sans-serif; color: var(--white); }
+  .copa-savings { font-size: 12px; color: #6ee7a8; margin-top: 12px; font-style: italic; }
+
+  /* ─── COMPARADOR DE PLANOS (interativo) ─── */
+  .compare-table th.feature-col { text-align: left; color: rgba(255,255,255,0.55); }
+  .compare-table td.feature-col { text-align: left; font-weight: 600; color: var(--navy); font-size: 13px; }
+  .compare-table th.hl-col { color: #bcd0ff; }
+  .compare-table td.hl-col { background: rgba(23,65,196,0.045); }
+  .check { color: #16a34a; font-size: 16px; font-weight: 700; }
+  .cross { color: #9ca3af; font-size: 14px; }
+  .val { color: var(--blue); font-weight: 700; font-size: 12px; }
+  .cmp-controls {
+    background: var(--white); border: 1px solid var(--gray-light); border-radius: 14px;
+    padding: 24px; margin-bottom: 28px; box-shadow: var(--shadow);
+  }
+  .cmp-label {
+    font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700;
+    letter-spacing: 1.2px; text-transform: uppercase; color: var(--gray-dark);
+    margin-bottom: 14px;
+  }
+  .cmp-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+  .cmp-chip {
+    padding: 8px 16px; border-radius: 22px; border: 2px solid var(--gray-light);
+    background: var(--white); cursor: pointer; transition: all 0.2s; user-select: none;
+    font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700;
+    color: var(--gray-dark); display: flex; align-items: center; gap: 7px;
+  }
+  .cmp-chip:hover { border-color: var(--blue-light); color: var(--blue); }
+  .cmp-chip.active { background: var(--blue); border-color: var(--blue); color: var(--white); box-shadow: 0 2px 10px var(--blue-glow); }
+  .cmp-chip-check {
+    width: 14px; height: 14px; border-radius: 4px; border: 1.5px solid currentColor;
+    display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 900;
+  }
+  .cmp-chip.active .cmp-chip-check { background: var(--white); color: var(--blue); border-color: var(--white); }
+  .cmp-actions { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+  .cmp-action-btn {
+    padding: 8px 16px; border-radius: 6px; border: 1.5px solid var(--gray-light);
+    background: var(--white); cursor: pointer; transition: all 0.2s;
+    font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700;
+    letter-spacing: 0.5px; color: var(--gray-dark);
+  }
+  .cmp-action-btn:hover { border-color: var(--blue); color: var(--blue); background: var(--blue-soft); }
+  .cmp-action-btn.export { background: var(--blue); border-color: var(--blue); color: var(--white); }
+  .cmp-action-btn.export:hover { background: var(--blue-dark); border-color: var(--blue-dark); color: var(--white); }
+  .cmp-summary { font-size: 12px; color: var(--gray); font-weight: 600; margin-left: auto; }
+  .cmp-summary strong { color: var(--blue); }
+  .cmp-empty {
+    padding: 60px 24px; text-align: center; color: var(--gray);
+    background: var(--white); border-radius: 14px; border: 2px dashed var(--gray-light);
+  }
+  .cmp-empty-icon {
+    font-family: 'Montserrat', sans-serif; font-size: 36px; font-weight: 900;
+    color: var(--blue-glow); display: block; margin-bottom: 10px;
+  }
+
+  /* ─── CONTACT SECTION (rodapé, faixa escura) ─── */
+  .contact-section {
+    background: var(--navy-dark); padding: 80px; color: var(--white);
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 40px;
+  }
+  .contact-col h4 {
+    font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 700;
+    letter-spacing: 1px; text-transform: uppercase; color: var(--blue-light); margin-bottom: 20px;
+  }
+  .contact-col p { font-size: 14px; line-height: 1.8; color: rgba(255,255,255,0.65); }
+  .contact-link { display: flex; align-items: center; gap: 10px; color: rgba(255,255,255,0.65); text-decoration: none; font-size: 14px; margin-bottom: 10px; transition: color 0.2s; }
+  .contact-link:hover { color: var(--blue-light); }
+  .footer-maximo { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 28px; color: var(--white); letter-spacing: -0.5px; line-height: 1; }
+  .footer-maximo span { color: var(--blue-light); }
+  @media (max-width: 900px) { .contact-section { grid-template-columns: 1fr; padding: 60px 24px; } }
+
+  /* ─── FOOTER ─── */
+  footer { background: #080305; padding: 24px 80px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px; }
+  .footer-logo-horizontal { height: 56px; width: auto; display: block; margin-top: 18px; }
+  footer .footer-text { font-size: 11.5px; color: #9ca3af; }
+  footer a { color: #9ca3af; text-decoration: none; }
+  footer a:hover { color: var(--white); }
+  footer p { font-size: 12px; color: rgba(255,255,255,0.3); margin: 0; }
+  footer span { color: var(--blue-light); }
+  footer .footer-credit { flex-basis: 100%; text-align: center; margin-top: 6px; }
+  @media (max-width: 900px) { footer { padding: 20px 24px; flex-direction: column; gap: 8px; text-align: center; } }
+
+  .scroll-top {
+    position: fixed; bottom: 24px; left: 24px; width: 44px; height: 44px; border-radius: 50%;
+    background: var(--blue); color: var(--white); border: none; font-size: 18px; cursor: pointer;
+    box-shadow: 0 6px 18px rgba(23,65,196,0.35); z-index: 900;
+  }
+  .scroll-top:hover { background: var(--blue-dark); }
+
+  *:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+
+  @media print {
+    nav, footer, .contact-section, .nav-toggle, .nav-scrim, .scroll-top, #bl-fab, #bl-panel { display: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="nav-logo-group" onclick="window.scrollTo({top:0,behavior:'smooth'})" style="cursor:pointer;" role="button" tabindex="0" aria-label="Voltar ao topo" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
+    <picture>
+      <source srcset="logo-icon-header-navy.webp" type="image/webp">
+      <img src="logo-icon-header-navy.png" alt="Maximo 360" class="nav-logo-icon" width="96" height="121">
+    </picture>
+    <div class="nav-logo">Maximo <span>360</span></div>
+    <div class="nav-divider"></div>
+    <div class="nav-brand">Amil <span>PME</span></div>
+  </div>
+  <button class="nav-toggle" id="nav-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav-links" onclick="navToggle()">
+    <span></span>
+  </button>
+  <div class="nav-links" id="nav-links">
+    <a href="#institucional" onclick="navScroll(event,'institucional')">Institucional</a>
+    <a href="#produtos" onclick="navScroll(event,'produtos')">Produtos</a>
+    <a href="#planos" onclick="navScroll(event,'planos')">Planos</a>
+    <a href="#comparativo" onclick="navScroll(event,'comparativo')">Comparativo</a>
+    <a href="#reembolso" onclick="navScroll(event,'reembolso')">Reembolso</a>
+    <a href="#beneficios" onclick="navScroll(event,'beneficios')">Benefícios</a>
+    <a href="#carencia" onclick="navScroll(event,'carencia')">Carência</a>
+    <a href="#regras" onclick="navScroll(event,'regras')">Regras Comerciais</a>
+    <a href="#congeneres" onclick="navScroll(event,'congeneres')">Congêneres</a>
+    <a href="#coparticipacao" onclick="navScroll(event,'coparticipacao')">Coparticipação</a>
+    <a href="#dental" onclick="navScroll(event,'dental')">Dental</a>
+    <a href="#rede" onclick="navScroll(event,'rede')">Rede</a>
+    <a href="#contato" onclick="navScroll(event,'contato')">Contato</a>
+  </div>
+  <button class="nav-signout" onclick="window.firebaseSignOut && window.firebaseSignOut()" title="Sair">Sair</button>
+</nav>
+<div class="nav-scrim" id="nav-scrim" onclick="navClose()"></div>
+
+<!-- HERO -->
+<div class="hero">
+  <svg class="wave-bg" viewBox="0 0 1440 200" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,96L48,112C96,128,192,160,288,154.7C384,149,480,107,576,90.7C672,75,768,85,864,96C960,107,1056,117,1152,112C1248,107,1344,85,1392,74.7L1440,64L1440,200L1392,200C1344,200,1248,200,1152,200C1056,200,960,200,864,200C768,200,672,200,576,200C480,200,384,200,288,200C192,200,96,200,48,200L0,200Z" fill="rgba(255,255,255,0.25)"/>
+  </svg>
+  <div class="hero-content">
+    <div class="hero-badge">Guia Completo do Corretor · PME 2026</div>
+    <h1>Amil <em>PME</em><br>Selecionada,<br>Amil &amp; Black</h1>
+    <p>O guia completo com todos os planos empresariais Amil, carências, coparticipação, regras de comercialização e rede credenciada para você fechar mais negócios com segurança.</p>
+    <div class="hero-btns">
+      <button class="btn-primary" onclick="goToPlanos()">Ver Planos</button>
+      <button class="btn-outline" onclick="goToComparativo()">Comparar Planos</button>
+      <button class="btn-outline" onclick="goToRegras()">Regras Comerciais</button>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat-card"><div class="stat-num">+6M</div><div class="stat-label">Beneficiários</div></div>
+    <div class="stat-card"><div class="stat-num">+26k</div><div class="stat-label">Médicos e Serviços Credenciados</div></div>
+    <div class="stat-card"><div class="stat-num">+487k</div><div class="stat-label">Empresas-Clientes</div></div>
+  </div>
+</div>
+
+<!-- INSTITUCIONAL -->
+<section id="institucional" class="history-section">
+  <div class="section-label">Quem é a Amil</div>
+  <div class="section-title">Uma das maiores operadoras de saúde do Brasil</div>
+  <div class="section-sub">Números de referência da Amil e os canais de apoio que você, corretor, tem à disposição para vender mais e melhor.</div>
+  <div class="history-grid">
+    <div class="history-visual">
+      <div class="history-num-grid">
+        <div><div class="history-num">+6 milhões</div><div class="history-num-label">de beneficiários</div></div>
+        <div><div class="history-num">3,2 milhões</div><div class="history-num-label">em planos médicos</div></div>
+        <div><div class="history-num">2,6 milhões</div><div class="history-num-label">em planos odontológicos</div></div>
+        <div><div class="history-num">+487 mil</div><div class="history-num-label">empresas-clientes (PME e corporativo)</div></div>
+        <div><div class="history-num">+26 mil</div><div class="history-num-label">médicos e serviços de saúde credenciados</div></div>
+        <div><div class="history-num">+14 mil</div><div class="history-num-label">prestadores odontológicos credenciados</div></div>
+      </div>
+    </div>
+    <div class="history-text">
+      <p><strong>Telemedicina Amil</strong> — consulta em casa por videochamada, disponível para todos os planos, 24 horas por dia, 7 dias por semana, pelo app Amil Clientes ou pelo site amil.com.br.</p>
+      <p><strong>Portal do Corretor</strong> — acesso a tabelas de vendas, campanhas e normativas em <a class="link-inline" href="https://portalcorretor.amil.com.br" target="_blank" rel="noopener">portalcorretor.amil.com.br</a>.</p>
+      <p><strong>Proposta on-line</strong> — envie propostas PME e acompanhe todas as etapas 100% digital em <a class="link-inline" href="https://corretor.amil.com.br" target="_blank" rel="noopener">corretor.amil.com.br</a>.</p>
+      <p><strong>Atendimento ao corretor</strong> — Capitais e Regiões Metropolitanas: <strong>3004-1022</strong> · Demais localidades: <strong>0800-721-1022</strong>.</p>
+      <p><strong>Amil Dental</strong> — contratação de todos os planos Dental sem envio de documento em <a class="link-inline" href="https://amildental.com.br/corretoramil" target="_blank" rel="noopener">amildental.com.br/corretoramil</a>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUTOS -->
+<section id="produtos" style="background: var(--off-white);">
+  <div class="section-label">Portfólio</div>
+  <div class="section-title">Quatro linhas de produto, um portal só</div>
+  <div class="section-sub">Da rede selecionada de entrada ao Black premium, cada linha tem contratos e regras próprias — veja abaixo o resumo de cada uma antes de comparar os planos.</div>
+  <div class="products-grid">
+    <div class="product-card" onclick="scrollToId('planos')">
+      <div class="product-icon">LS</div>
+      <h3>Linha Selecionada</h3>
+      <p>Rede credenciada selecionada, ótimo custo-benefício. Planos S380, S450 e S750 (S80 também no PJ 100-199 vidas).</p>
+      <div class="pdt-tags"><span class="pdt-tag">Nacional</span><span class="pdt-tag">QC/QP</span><span class="pdt-tag">Reembolso no S750</span></div>
+    </div>
+    <div class="product-card" onclick="scrollToId('planos')">
+      <div class="product-icon">LA</div>
+      <h3>Linha Amil</h3>
+      <p>De Bronze (regional) a Platinum (nacional com reembolso). 12 planos: Bronze SP/SP Mais/RJ/RJ Mais/DF/PR, Prata, Prata II, Ouro, Ouro II, Platinum e Platinum Mais.</p>
+      <div class="pdt-tags"><span class="pdt-tag">Regional a Nacional</span><span class="pdt-tag">Coparticipação</span></div>
+    </div>
+    <div class="product-card" onclick="scrollToId('planos')">
+      <div class="product-icon">AB</div>
+      <h3>Amil Black</h3>
+      <p>Linha premium: Black I, S2500, Black II e S6500 Black. Rede exclusiva, concierge, check-up e reembolso em até 3 níveis.</p>
+      <div class="pdt-tags"><span class="pdt-tag">Nacional</span><span class="pdt-tag">Rede exclusiva</span><span class="pdt-tag">Concierge</span></div>
+    </div>
+    <div class="product-card" onclick="scrollToId('dental')">
+      <div class="product-icon">OD</div>
+      <h3>Amil Dental</h3>
+      <p>Dental Bronze Doc, Prata Clareia, Ouro Orto, Ouro Prot e Platinum — de documentação ortodôntica básica a prótese + ortodontia completas.</p>
+      <div class="pdt-tags"><span class="pdt-tag">Nacional</span><span class="pdt-tag">Reembolso</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PLANOS -->
+<section id="planos">
+  <div class="section-label">Planos</div>
+  <div class="section-title">Conheça cada plano em detalhe</div>
+  <div class="section-sub">Contratos PME de 2 a 99 vidas. Abrangência, acomodação e coberturas variam por plano — confira também a área de comercialização de cada regional.</div>
+
+  <div class="tab-nav" data-group="planos">
+    <button class="tab-btn active" onclick="switchTab('tab-selecionada', this)">Linha Selecionada</button>
+    <button class="tab-btn" onclick="switchTab('tab-amil', this)">Linha Amil</button>
+    <button class="tab-btn" onclick="switchTab('tab-black', this)">Amil Black</button>
+  </div>
+  <div class="tab-panel-body">
+
+    <div class="tab-content active" id="tab-selecionada" data-group="planos">
+      <p style="font-size:14px;color:var(--gray);margin-bottom:20px;">Rede credenciada selecionada, escolhida para garantir atendimento adequado pelo melhor custo. Telemedicina, Espaço Saúde e desconto em farmácia embutidos em todos.</p>
+      <div class="plan-grid">
+        <div class="plan-card">
+          <h4>Amil S380</h4>
+          <div class="plan-region">Nacional · QC e QP</div>
+          <p>Entrada da linha. Sem reembolso embutido. Urgência/emergência nacional disponível para contratação como aditivo.</p>
+          <div class="plan-chips"><span class="chip on">Coparticipação</span><span class="chip">Reembolso</span><span class="chip on">Aditivo Resgate Saúde</span></div>
+        </div>
+        <div class="plan-card">
+          <h4>Amil S450</h4>
+          <div class="plan-region">Nacional · QC e QP</div>
+          <p>Mesma estrutura do S380, com rede um pouco mais ampla. Sem reembolso embutido.</p>
+          <div class="plan-chips"><span class="chip on">Coparticipação</span><span class="chip">Reembolso</span></div>
+        </div>
+        <div class="plan-card featured">
+          <h4>Amil S750</h4>
+          <div class="plan-region">Nacional · QP</div>
+          <p>Único da linha com reembolso embutido, em 3 opções (R1, R2 ou R3, do menor ao maior valor de tabela). Escleroterapia 12 sessões/ano.</p>
+          <div class="plan-chips"><span class="chip on">Coparticipação</span><span class="chip on">Reembolso R1/R2/R3</span></div>
+        </div>
+        <div class="plan-card">
+          <h4>Amil S80 <span style="font-weight:400;font-size:11px;color:var(--gray)">(só PJ 100-199 vidas)</span></h4>
+          <div class="plan-region">Nacional</div>
+          <p>Opção de entrada exclusiva para contratos PJ de 100 a 199 vidas, abaixo do S380.</p>
+          <div class="plan-chips"><span class="chip on">Coparticipação</span></div>
+        </div>
+      </div>
+      <div class="alert-box"><strong>Atenção:</strong> os produtos S380 QC e QP não estão disponíveis para comercialização em MG e CE.</div>
+    </div>
+
+    <div class="tab-content" id="tab-amil" data-group="planos">
+      <p style="font-size:14px;color:var(--gray);margin-bottom:20px;">Da rede regional (Bronze) à nacional com reembolso (Platinum). Amil Espaço Saúde, Telemedicina, Programa Primeiros Cuidados e desconto em farmácia embutidos em todos.</p>
+      <div class="subtab-nav" data-group="linha-amil">
+        <button class="subtab-btn active" onclick="switchSubTab('sub-bronze', this)">Bronze (regional)</button>
+        <button class="subtab-btn" onclick="switchSubTab('sub-prata-ouro', this)">Prata / Ouro</button>
+        <button class="subtab-btn" onclick="switchSubTab('sub-platinum', this)">Platinum</button>
+      </div>
+
+      <div class="subtab-content active" id="sub-bronze" data-group="linha-amil">
+        <div class="plan-grid">
+          <div class="plan-card"><h4>Amil Bronze SP</h4><div class="plan-region">Grupo de municípios · QC</div><p>Abrangência em 23 municípios da Grande São Paulo, Baixada Santista e região.</p><div class="plan-chips"><span class="chip on">Coparticipação</span></div></div>
+          <div class="plan-card"><h4>Amil Bronze SP Mais</h4><div class="plan-region">Grupo de municípios · QC e QP</div><p>Rede ampliada: 59 municípios, incluindo Campinas, Sorocaba, São José dos Campos e região.</p><div class="plan-chips"><span class="chip on">Coparticipação</span></div></div>
+          <div class="plan-card"><h4>Amil Bronze RJ</h4><div class="plan-region">Grupo de municípios · QC</div><p>Abrangência em 5 municípios: Duque de Caxias, Niterói, Nova Iguaçu, Rio de Janeiro, São Gonçalo.</p><div class="plan-chips"><span class="chip on">Coparticipação</span></div></div>
+          <div class="plan-card"><h4>Amil Bronze RJ Mais</h4><div class="plan-region">Grupo de municípios · QC</div><p>Rede ampliada: 31 municípios do estado do Rio de Janeiro.</p><div class="plan-chips"><span class="chip on">Coparticipação</span></div></div>
+          <div class="plan-card"><h4>Amil Bronze DF</h4><div class="plan-region">Municipal · QC e QP</div><p>Abrangência exclusiva em Brasília.</p><div class="plan-chips"><span class="chip on">Coparticipação</span></div></div>
+          <div class="plan-card"><h4>Amil Bronze PR</h4><div class="plan-region">Grupo de municípios · QC e QP</div><p>Abrangência em 14 municípios da Grande Curitiba (Araucária, Colombo, Pinhais, São José dos Pinhais e região).</p><div class="plan-chips"><span class="chip on">Coparticipação</span></div></div>
+        </div>
+      </div>
+
+      <div class="subtab-content" id="sub-prata-ouro" data-group="linha-amil">
+        <div class="plan-grid">
+          <div class="plan-card"><h4>Amil Prata</h4><div class="plan-region">Nacional · QC e QP</div><p>Já possui cobertura de urgência/emergência nacional embutida. Sem reembolso.</p><div class="plan-chips"><span class="chip on">Coparticipação</span></div></div>
+          <div class="plan-card"><h4>Amil Prata II</h4><div class="plan-region">Nacional · QC e QP</div><p>Variante do Prata com pequenos ajustes de rede/tabela de preço.</p><div class="plan-chips"><span class="chip on">Coparticipação</span></div></div>
+          <div class="plan-card featured"><h4>Amil Ouro</h4><div class="plan-region">Nacional · QC e QP</div><p>Primeiro degrau da linha com reembolso embutido para consultas e honorários médicos.</p><div class="plan-chips"><span class="chip on">Coparticipação</span><span class="chip on">Reembolso</span></div></div>
+          <div class="plan-card featured"><h4>Amil Ouro II</h4><div class="plan-region">Nacional · QP</div><p>Variante do Ouro, acomodação em quarto privativo.</p><div class="plan-chips"><span class="chip on">Coparticipação</span><span class="chip on">Reembolso</span></div></div>
+        </div>
+      </div>
+
+      <div class="subtab-content" id="sub-platinum" data-group="linha-amil">
+        <div class="plan-grid">
+          <div class="plan-card featured"><h4>Amil Platinum</h4><div class="plan-region">Nacional · QP</div><p>Reembolso embutido, Retaguarda do Samaritano (SP e RJ) e Coleta Domiciliar inclusos.</p><div class="plan-chips"><span class="chip on">Coparticipação</span><span class="chip on">Reembolso</span><span class="chip on">Retaguarda Samaritano</span></div></div>
+          <div class="plan-card featured"><h4>Amil Platinum Mais</h4><div class="plan-region">Regional · DF/GO</div><p>Disponível somente para comercialização em DF/GO. Retaguarda Sírio-Libanês (SP DF e SP).</p><div class="plan-chips"><span class="chip on">Coparticipação</span><span class="chip on">Reembolso</span><span class="chip on">Retaguarda Sírio-Libanês</span></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-content" id="tab-black" data-group="planos">
+      <p style="font-size:14px;color:var(--gray);margin-bottom:20px;">Linha premium, com rede exclusiva Black, concierge, retaguarda completa (Einstein, Sírio-Libanês, Samaritano), agências de atendimento exclusivas e Amil Resgate Saúde embutidos em todos.</p>
+      <div class="plan-grid">
+        <div class="plan-card featured"><h4>Amil Black I</h4><div class="plan-region">Nacional · QP</div><p>Reembolso em 3 níveis (R1/R2/R3). Escleroterapia 24 sessões/ano. Vacinas pelo calendário do Ministério da Saúde.</p><div class="plan-chips"><span class="chip on">Reembolso 3 níveis</span><span class="chip on">Rede exclusiva Black</span></div></div>
+        <div class="plan-card featured"><h4>Amil S2500</h4><div class="plan-region">Nacional · QP</div><p>Equivalente ao Black I, reembolso em 2 níveis (R1/R2). Assistência viagem internacional embutida (até US$300 mil).</p><div class="plan-chips"><span class="chip on">Reembolso 2 níveis</span><span class="chip on">Rede exclusiva Black</span></div></div>
+        <div class="plan-card featured"><h4>Amil Black II</h4><div class="plan-region">Nacional · QP</div><p>Topo de linha: Check-up, Concierge, Consulta Domiciliar (SP) e Escleroterapia ilimitada, além do reembolso em 3 níveis.</p><div class="plan-chips"><span class="chip on">Reembolso 3 níveis</span><span class="chip on">Check-up</span><span class="chip on">Concierge</span></div></div>
+        <div class="plan-card featured"><h4>Amil S6500 Black</h4><div class="plan-region">Nacional · QP</div><p>Equivalente ao Black II: Concierge, Check-up, Consulta Domiciliar e reembolso em 3 níveis. Vacinas pelo calendário SBIm (ampliado).</p><div class="plan-chips"><span class="chip on">Reembolso 3 níveis</span><span class="chip on">Check-up</span><span class="chip on">Concierge</span></div></div>
+      </div>
+      <div class="alert-box"><strong>Dental Black grátis:</strong> quem contrata o plano médico Black II ganha o Dental Black sem custo adicional, vinculado à vigência do contrato médico.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- COMPARATIVO -->
+<section id="comparativo" class="compare-section" style="background: var(--off-white);">
+  <div class="section-label">Comparativo</div>
+  <div class="section-title">Comparador de Planos</div>
+  <div class="section-sub">Compare qualquer combinação de planos das 3 linhas (Selecionada, Amil e Black) lado a lado, e exporte em PDF para levar ao cliente.</div>
+
+  <div class="cmp-controls">
+    <div class="cmp-label">Selecione os planos para comparar (mínimo 2)</div>
+    <div class="cmp-chips" id="cmp-chips"></div>
+    <div class="cmp-actions">
+      <button class="cmp-action-btn" onclick="cmpPreset('all')">Todos os planos</button>
+      <button class="cmp-action-btn" onclick="cmpPreset('selecionada')">Linha Selecionada</button>
+      <button class="cmp-action-btn" onclick="cmpPreset('amil')">Linha Amil</button>
+      <button class="cmp-action-btn" onclick="cmpPreset('black')">Amil Black</button>
+      <button class="cmp-action-btn" onclick="cmpClear()">Limpar</button>
+      <button class="cmp-action-btn export" onclick="exportComparativo()">Exportar PDF</button>
+      <span class="cmp-summary" id="cmp-summary"></span>
+    </div>
+  </div>
+
+  <div id="cmp-result"></div>
+  <div class="alert-box" style="margin-top:20px;">✓ = embutido no plano · Aditivo = disponível para contratação à parte · ✕ = não disponível · — = não documentado neste guia para esse plano/linha (confirme no material oficial). Percentuais e limites de coparticipação conferem com a tabela oficial em #coparticipacao.</div>
+</section>
+
+<!-- REEMBOLSO -->
+<section id="reembolso">
+  <div class="section-label">Reembolso</div>
+  <div class="section-title">Exemplos de Reembolso</div>
+  <div class="section-sub">Valores meramente demonstrativos, válidos para contratos PME (2 a 99 vidas) — a proposta comercial emitida traz a tabela de reembolso completa para o cliente conferir na assinatura.</div>
+
+  <div class="tab-nav" data-group="reemb">
+    <button class="tab-btn active" onclick="switchTab('rt-selecionada', this)">Linha Selecionada</button>
+    <button class="tab-btn" onclick="switchTab('rt-amil', this)">Linha Amil (Ouro+)</button>
+    <button class="tab-btn" onclick="switchTab('rt-black', this)">Amil Black</button>
+  </div>
+  <div class="tab-panel-body">
+
+    <div class="tab-content active" id="rt-selecionada" data-group="reemb">
+      <div class="scroller">
+        <table class="compare-table">
+          <thead><tr><th>Procedimento</th><th>Código</th><th>Amil S380</th><th>Amil S450</th><th>S750 R1</th><th>S750 R2</th><th>S750 R3</th></tr></thead>
+          <tbody>
+            <tr><td>Consulta</td><td class="mono">10101012</td><td>R$80,00</td><td>R$96,00</td><td>R$136,00</td><td>R$240,00</td><td>R$328,00</td></tr>
+            <tr><td>Amigdalectomia das palatinas</td><td class="mono">30205050</td><td>R$267,75</td><td>R$321,30</td><td>R$455,18</td><td>R$535,50</td><td>R$669,38</td></tr>
+            <tr><td>Apendicectomia por videolaparoscopia</td><td class="mono">31003583</td><td>R$585,90</td><td>R$703,08</td><td>R$996,03</td><td>R$1.171,80</td><td>R$1.464,75</td></tr>
+            <tr><td>Colecistectomia com colangiografia</td><td class="mono">31005470</td><td>R$1.121,40</td><td>R$1.345,68</td><td>R$1.906,38</td><td>R$2.242,80</td><td>R$2.803,50</td></tr>
+            <tr><td>Cesariana</td><td class="mono">31309054</td><td>R$2.138,90</td><td>R$2.566,68</td><td>R$3.636,13</td><td>R$4.277,80</td><td>R$5.347,25</td></tr>
+            <tr><td>Parto (via vaginal)</td><td class="mono">31309127</td><td>R$2.403,50</td><td>R$2.884,20</td><td>R$4.085,95</td><td>R$4.807,00</td><td>R$6.008,75</td></tr>
+            <tr><td>Ressonância magnética do crânio</td><td class="mono">41101014</td><td>R$576,00</td><td>R$576,00</td><td>R$864,00</td><td>R$864,00</td><td>R$864,00</td></tr>
+            <tr><td>Tomografia computadorizada de crânio</td><td class="mono">41001010</td><td>R$238,40</td><td>R$238,40</td><td>R$357,60</td><td>R$357,60</td><td>R$357,60</td></tr>
+            <tr><td>Colonoscopia com biópsia</td><td class="mono">40202666</td><td>R$346,50</td><td>R$346,50</td><td>R$519,75</td><td>R$519,75</td><td>R$519,75</td></tr>
+            <tr><td>Hemograma completo</td><td class="mono">40304361</td><td>R$12,80</td><td>R$12,80</td><td>R$19,20</td><td>R$19,20</td><td>R$19,20</td></tr>
+            <tr><td>Consulta por nutricionista</td><td class="mono">50000560</td><td>R$80,00</td><td>R$96,00</td><td>R$136,00</td><td>R$240,00</td><td>R$328,00</td></tr>
+            <tr><td>Sessão de psicologia</td><td class="mono">50000470</td><td>R$49,77</td><td>R$49,77</td><td>R$74,66</td><td>R$74,66</td><td>R$74,66</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="alert-box">R1, R2 e R3 são os níveis de reembolso disponíveis para contratação do Amil S750 (do menor pro maior valor de tabela). Amil S380 e S450 não têm reembolso embutido.</div>
+    </div>
+
+    <div class="tab-content" id="rt-amil" data-group="reemb">
+      <p style="font-size:13px;color:var(--gray);margin-bottom:16px;">Só Ouro, Ouro II, Platinum e Platinum Mais têm reembolso embutido na Linha Amil.</p>
+      <div class="scroller">
+        <table class="compare-table">
+          <thead><tr><th>Procedimento</th><th>Código</th><th>Ouro</th><th>Ouro II</th><th>Platinum R1</th><th>Platinum Mais R1</th></tr></thead>
+          <tbody>
+            <tr><td>Consulta</td><td class="mono">10101012</td><td>R$96,00</td><td>R$80,00</td><td>R$240,00</td><td>R$328,00</td></tr>
+            <tr><td>Amigdalectomia das palatinas</td><td class="mono">30205050</td><td>R$321,30</td><td>R$315,00</td><td>R$535,50</td><td>R$669,38</td></tr>
+            <tr><td>Apendicectomia por videolaparoscopia</td><td class="mono">31003583</td><td>R$703,08</td><td>R$585,90</td><td>R$1.171,80</td><td>R$1.464,75</td></tr>
+            <tr><td>Colecistectomia com colangiografia</td><td class="mono">31005470</td><td>R$1.345,68</td><td>R$1.121,40</td><td>R$2.242,80</td><td>R$2.803,50</td></tr>
+            <tr><td>Cesariana</td><td class="mono">31309054</td><td>R$2.566,68</td><td>R$2.138,90</td><td>R$4.277,80</td><td>R$5.347,25</td></tr>
+            <tr><td>Parto (via vaginal)</td><td class="mono">31309127</td><td>R$2.884,20</td><td>R$2.403,50</td><td>R$4.807,00</td><td>R$6.008,75</td></tr>
+            <tr><td>Consulta por nutricionista</td><td class="mono">50000560</td><td>R$96,00</td><td>R$80,00</td><td>R$240,00</td><td>R$328,00</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="tab-content" id="rt-black" data-group="reemb">
+      <div class="scroller">
+        <table class="compare-table">
+          <thead><tr><th>Procedimento</th><th>Código</th><th>Black I R1</th><th>Black I R2</th><th>Black I R3</th><th>S2500 R1</th><th>S2500 R2</th><th>Black II R1</th><th>Black II R2</th><th>Black II R3</th><th>S6500 R1</th><th>S6500 R2</th><th>S6500 R3</th></tr></thead>
+          <tbody>
+            <tr><td>Consulta</td><td class="mono">10101012</td><td>R$456,00</td><td>R$504,00</td><td>R$600,00</td><td>R$432,00</td><td>R$600,00</td><td>R$704,00</td><td>R$800,00</td><td>R$1.104,00</td><td>R$600,00</td><td>R$800,00</td><td>R$1.040,00</td></tr>
+            <tr><td>Amigdalectomia das palatinas</td><td class="mono">30205050</td><td>R$1.017,45</td><td>R$1.874,25</td><td>R$2.543,62</td><td>R$1.017,45</td><td>R$1.874,25</td><td>R$3.079,12</td><td>R$3.748,50</td><td>R$5.488,87</td><td>R$1.874,25</td><td>R$2.543,62</td><td>R$3.748,50</td></tr>
+            <tr><td>Colecistectomia com colangiografia</td><td class="mono">31005470</td><td colspan="10" style="text-align:center;color:var(--gray);">Consulte a tabela completa na Plataforma Comercial</td></tr>
+            <tr><td>Parto (via vaginal)</td><td class="mono">31309127</td><td>R$9.133,30</td><td>R$16.824,50</td><td>R$22.833,25</td><td>R$9.133,30</td><td>R$15.912,50</td><td colspan="6" style="text-align:center;color:var(--gray);">Consulte a Plataforma Comercial</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="alert-box">A linha Black tem tabela própria de materiais e medicamentos (Amil MAT-MED), com multiplicador de 1 a 2x sobre a tabela de referência — não disponível para Bronze, Prata, Ouro e Platinum.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- BENEFÍCIOS -->
+<section id="beneficios" style="background: var(--off-white);">
+  <div class="section-label">Diferenciais</div>
+  <div class="section-title">Benefícios para o segurado</div>
+  <div class="section-sub">Serviços inclusos para todo o grupo familiar (titular e dependentes) — a disponibilidade varia por plano, veja o comparativo acima.</div>
+  <div class="benefits-grid">
+    <div class="benefit-card"><div class="b-icon">🏥</div><h4>Amil Espaço Saúde</h4><p>Unidades exclusivas com apoio do médico de família, para atenção primária e coordenação do cuidado.</p></div>
+    <div class="benefit-card"><div class="b-icon">📱</div><h4>Telemedicina Amil</h4><p>Consulta por videochamada 24h, 7 dias por semana, pelo app Amil Clientes ou site amil.com.br.</p></div>
+    <div class="benefit-card"><div class="b-icon">💊</div><h4>Desconto em Farmácia</h4><p>Até 60% de desconto em Drogarias São Paulo, Pacheco, Raia, Drogasil, Pague Menos, Extrafarma e Venâncio.</p></div>
+    <div class="benefit-card"><div class="b-icon">👶</div><h4>Programa Primeiros Cuidados</h4><p>Acompanhamento telefônico durante toda a gravidez e até o filho completar 12 anos.</p></div>
+    <div class="benefit-card"><div class="b-icon">🚑</div><h4>Amil Resgate Saúde</h4><p>Transporte inter-hospitalar aéreo e/ou terrestre com UTIs móveis (ambulâncias, helicópteros e jato).</p></div>
+    <div class="benefit-card"><div class="b-icon">☎️</div><h4>Atendimento Pré-Hospitalar</h4><p>Orientação médica 24h por telefone e ambulância com equipe técnica em caso de urgência/emergência.</p></div>
+    <div class="benefit-card"><div class="b-icon">✈️</div><h4>Seguro Viagem Internacional</h4><p>Cobertura para urgências médicas e odontológicas em viagens, com opções de USD 15 mil a USD 300 mil.</p></div>
+    <div class="benefit-card"><div class="b-icon">👁️</div><h4>Cirurgia Refrativa</h4><p>Correção de miopia, hipermetropia e astigmatismo — sem limite de grau nos planos Selecionada e Black.</p></div>
+    <div class="benefit-card"><div class="b-icon">🩺</div><h4>Retaguarda Completa</h4><p>Atendimento 24h com médicos de plantão no Einstein, Sírio-Libanês e Samaritanos, conforme o plano.</p></div>
+    <div class="benefit-card"><div class="b-icon">🏠</div><h4>Coleta Domiciliar</h4><p>Exames laboratoriais coletados em casa ou no escritório, via Beep Saúde ou Alta Excelência.</p></div>
+    <div class="benefit-card"><div class="b-icon">🩹</div><h4>Transplantes Extra Rol</h4><p>Além do Rol ANS (fígado, rim, córnea, medula), cobre pâncreas, coração, pulmão, pâncreas-rim e cardiopulmonar.</p></div>
+    <div class="benefit-card"><div class="b-icon">💉</div><h4>Vacinas e Vacina do Viajante</h4><p>Calendário oficial do Ministério da Saúde (Selecionada e Amil) ou SBIm ampliado (Black II e S6500).</p></div>
+  </div>
+</section>
+
+<!-- CARÊNCIA -->
+<section id="carencia">
+  <div class="section-label">Carência</div>
+  <div class="section-title">Prazos de Carência</div>
+  <div class="section-sub">Período corrido, contado da vigência do contrato, durante o qual o beneficiário paga a mensalidade mas ainda não acessa certas coberturas. É independente do prazo de CPT (não se somam).</div>
+
+  <div class="tab-nav" data-group="car">
+    <button class="tab-btn active" onclick="switchTab('car-medico', this)">Médico</button>
+    <button class="tab-btn" onclick="switchTab('car-dental', this)">Dental</button>
+  </div>
+  <div class="tab-panel-body">
+
+    <div class="tab-content active" id="car-medico" data-group="car">
+      <p style="font-size:13.5px;color:var(--gray-dark);margin-bottom:16px;line-height:1.6;">Válida para contratos PME de <strong>2 a 29 vidas</strong>. Para contratos com <strong>30 vidas ou mais, não há cumprimento de carência</strong>. Os Prazos Reduzidos de Carência (PRC) dependem de análise prévia da Amil.</p>
+      <div class="scroller">
+        <table class="carencia-table">
+          <thead><tr><th>Cobertura</th><th>PRC 623<br><span style="font-weight:400;">Contratual padrão</span></th><th>PRC 607<br><span style="font-weight:400;">Sem plano anterior</span></th><th>PRC 608<br><span style="font-weight:400;">3-12m (não cong.) / 3-5m (cong.)</span></th><th>PRC 609<br><span style="font-weight:400;">+12m, não congênere</span></th><th>PRC 617<br><span style="font-weight:400;">+6m, congênere</span></th></tr></thead>
+          <tbody>
+            <tr><td>Urgência/emergência (PS)</td><td class="prazo">24h</td><td class="isento">0 dia</td><td class="isento">0 dia</td><td class="isento">0 dia</td><td class="isento">0 dia</td></tr>
+            <tr><td>Consultas eletivas</td><td class="prazo">180 dias</td><td class="prazo">1 dia</td><td class="prazo">1 dia</td><td class="prazo">1 dia</td><td class="isento">0 dia</td></tr>
+            <tr><td>Exames e terapias básicas</td><td class="prazo">180 dias</td><td class="prazo">1 dia</td><td class="prazo">1 dia</td><td class="prazo">1 dia</td><td class="isento">0 dia</td></tr>
+            <tr><td>Exames/procedimentos especiais (geral)</td><td class="prazo">180 dias</td><td class="prazo">90 dias</td><td class="prazo">30 dias</td><td class="prazo">30 dias</td><td class="isento">0 dia</td></tr>
+            <tr><td>Endoscopia dig./resp./urológica</td><td class="prazo">180 dias</td><td class="prazo">90 dias</td><td class="prazo">30 dias</td><td class="prazo">30 dias</td><td class="isento">0 dia</td></tr>
+            <tr><td>Ultrassonografia</td><td class="prazo">180 dias</td><td class="prazo">90 dias</td><td class="prazo">60 dias</td><td class="prazo">30 dias</td><td class="isento">0 dia</td></tr>
+            <tr><td>TC, RNM, neurorradiologia</td><td class="prazo">180 dias</td><td class="prazo">180 dias</td><td class="prazo">90 dias</td><td class="prazo">30 dias</td><td class="isento">0 dia</td></tr>
+            <tr><td>Hemodinâmica diagnóstica</td><td class="prazo">180 dias</td><td class="prazo">180 dias</td><td class="prazo">150 dias</td><td class="prazo">60 dias</td><td class="isento">0 dia</td></tr>
+            <tr><td>Quimio/radioterapia*</td><td class="prazo">180 dias</td><td class="prazo">180 dias</td><td class="prazo">180 dias</td><td class="prazo">90 dias</td><td class="prazo">90 dias</td></tr>
+            <tr><td>Diálise/hemodiálise*</td><td class="prazo">180 dias</td><td class="prazo">180 dias</td><td class="prazo">150 dias</td><td class="prazo">90 dias</td><td class="prazo">90 dias</td></tr>
+            <tr><td>Litotripsia / hemodinâmica terapêutica</td><td class="prazo">180 dias</td><td class="prazo">180 dias</td><td class="prazo">150 dias</td><td class="prazo">60 dias</td><td class="isento">0 dia</td></tr>
+            <tr><td>Videolaparoscopia terapêutica</td><td class="prazo">180 dias</td><td class="prazo">180 dias</td><td class="prazo">120 dias</td><td class="prazo">60 dias</td><td class="isento">0 dia</td></tr>
+            <tr><td>Artroscopia</td><td class="prazo">180 dias</td><td class="prazo">90 dias</td><td class="prazo">90 dias</td><td class="prazo">60 dias</td><td class="isento">0 dia</td></tr>
+            <tr><td>Hemoterapia</td><td class="prazo">180 dias</td><td class="prazo">90 dias</td><td class="prazo">90 dias</td><td class="prazo">90 dias</td><td class="prazo">90 dias</td></tr>
+            <tr><td>Internações em geral*</td><td class="prazo">180 dias</td><td class="prazo">180 dias</td><td class="prazo">150 dias</td><td class="prazo">60 dias</td><td class="isento">0 dia</td></tr>
+            <tr><td>Cirurgia em Day-hospital*</td><td class="prazo">180 dias</td><td class="prazo">180 dias</td><td class="prazo">120 dias</td><td class="prazo">60 dias</td><td class="isento">0 dia</td></tr>
+            <tr><td>Terapias (fisio, psico, fono, nutrição, T.O.)</td><td class="prazo">180 dias</td><td class="prazo">180 dias</td><td class="prazo">180 dias</td><td class="prazo">180 dias</td><td class="prazo">180 dias</td></tr>
+            <tr><td>Internação obstétrica/neonatologia</td><td class="prazo">300 dias</td><td class="prazo">300 dias</td><td class="prazo">300 dias</td><td class="prazo">300 dias</td><td class="prazo">300 dias</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="alert-box">
+        <strong>Migração entre planos Amil:</strong> se o cancelamento do plano anterior ocorreu há menos de 30 dias e o beneficiário permaneceu mais de 24 meses, não há novo cumprimento de carência (exceto upgrade de rede/acomodação: 6 meses). <br>
+        <strong>*</strong> Não há redução de eventual CPT (Cobertura Parcial Temporária) por doença preexistente em nenhuma hipótese acima.
+      </div>
+    </div>
+
+    <div class="tab-content" id="car-dental" data-group="car">
+      <div class="subtab-nav" data-group="car-dental-sub">
+        <button class="subtab-btn active" onclick="switchSubTab('cd-porte1', this)">Porte I (2-29 vidas)</button>
+        <button class="subtab-btn" onclick="switchSubTab('cd-porte2', this)">Porte II (30-99 vidas)</button>
+      </div>
+      <div class="subtab-content active" id="cd-porte1" data-group="car-dental-sub">
+        <div class="scroller">
+          <table class="carencia-table">
+            <thead><tr><th>Cobertura</th><th>Bronze Doc</th><th>Prata Clareia</th><th>Ouro Orto</th><th>Ouro Prot</th><th>Platinum</th></tr></thead>
+            <tbody>
+              <tr><td>Urgência/Emergência</td><td class="isento">24h</td><td class="isento">24h</td><td class="isento">24h</td><td class="isento">24h</td><td class="isento">24h</td></tr>
+              <tr><td>Consulta, Radiologia, Prevenção, Diagnóstico</td><td class="isento">24h</td><td class="isento">24h</td><td class="isento">24h</td><td class="isento">24h</td><td class="isento">24h</td></tr>
+              <tr><td>Periodontia, Dentística, Cirurgia, Endodontia</td><td class="isento">24h</td><td class="isento">24h</td><td class="isento">24h</td><td class="isento">24h</td><td class="isento">24h</td></tr>
+              <tr><td>Prótese Dentária (Rol) / DTM</td><td class="prazo">180 dias</td><td class="prazo">180 dias</td><td class="prazo">180 dias</td><td class="prazo">180 dias</td><td class="prazo">180 dias</td></tr>
+              <tr><td>Odontologia Estética</td><td>Não coberto</td><td class="prazo">180 dias</td><td class="prazo">180 dias</td><td class="prazo">180 dias</td><td class="prazo">180 dias</td></tr>
+              <tr><td>Ortodontia</td><td>Não coberto</td><td>Não coberto</td><td class="prazo">180 dias</td><td>Não coberto</td><td class="prazo">180 dias</td></tr>
+              <tr><td>Prótese Dentária (Extra Rol)</td><td>Não coberto</td><td>Não coberto</td><td>Não coberto</td><td class="prazo">180 dias</td><td class="prazo">180 dias</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="alert-box">Código PRC 709. Cobertura vinculada ao procedimento, não à especialidade — consulte o contrato para a lista completa.</div>
+      </div>
+      <div class="subtab-content" id="cd-porte2" data-group="car-dental-sub">
+        <div class="alert-box"><strong>Sem carência.</strong> Para empresas de 30 a 99 beneficiários (Porte II), não há carência a ser cumprida na contratação de nenhum plano Dental.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- REGRAS COMERCIAIS -->
+<section id="regras" style="background: var(--off-white);">
+  <div class="section-label">Regras Comerciais</div>
+  <div class="section-title">Como Contratar e Documentação Necessária</div>
+  <div class="section-sub">Estruturas, elegibilidade, quem pode entrar e documentos exigidos por tipo de empresa e beneficiário.</div>
+
+  <div class="doc-grid">
+    <div class="docx-sidebar" id="docx-sidebar"></div>
+    <div class="docx-panel" id="docx-panel"></div>
+  </div>
+</section>
+
+<!-- CONGÊNERES -->
+<section id="congeneres">
+  <div class="section-label">Redução de Carência</div>
+  <div class="section-title">Operadoras Congêneres</div>
+  <div class="section-sub">Operadoras adquiridas por alguma congênere são equivalentes para fins de aceitação, desde que tenha passado o prazo mínimo de 12 meses da aquisição. Válido 12 a 12, com janela de até 60 dias entre a rescisão anterior e a nova contratação.</div>
+
+  <div class="tab-nav" data-group="cong">
+    <button class="tab-btn active" onclick="switchTab('cong-bronze', this)">Bronze e Bronze Mais</button>
+    <button class="tab-btn" onclick="switchTab('cong-selecionada', this)">Selecionada / Amil (S380 a Platinum)</button>
+    <button class="tab-btn" onclick="switchTab('cong-black', this)">Black / S2500 / S6500</button>
+  </div>
+  <div class="tab-panel-body">
+    <div class="tab-content active" id="cong-bronze" data-group="cong">
+      <p style="font-size:13.5px;line-height:1.9;color:var(--gray-dark);">Allianz, Alice, Ampla, Assim Saúde, Bio Saúde (GNDI), Blue, BlueMed (Alvorecer), Bradesco, CarePlus, Clinipam, Hapvida NotreDame/GNDI, HBC Saúde, Med Tour, Mediservice, Nova Saúde (CEAM), Omint, Paraná Clínicas, Plena Saúde, Porto Seguro, Quallity Pró Saúde, Samaritano (PHS), Santa Casa de Mauá, Santa Casa de Santos/Santa Saúde, São Cristóvão, Saúde Beneficência, Select, SulAmérica, Trasmontano, Unimed (todas), Usisaúde, Vera Cruz (2Care), Unity Saúde, operadoras do Grupo Amil (Ana Costa, Santa Helena, SOBAM/APS), e autogestões Petrobrás e Caixa Saúde.</p>
+    </div>
+    <div class="tab-content" id="cong-selecionada" data-group="cong">
+      <p style="font-size:13.5px;line-height:1.9;color:var(--gray-dark);margin-bottom:20px;">Allianz, Alice*, Assim Saúde*, Bradesco, CarePlus, Hapvida NotreDame/GNDI (linhas Smart Prime Advance, Premium, Infinity, e planos São Francisco Saúde), Omint, Premium Saúde*, Porto Seguro, SulAmérica, Vera Cruz (2Care)*, Unimed (todas, só planos nacionais), operadoras do Grupo Amil, e autogestão Petrobrás.</p>
+      <div class="scroller">
+        <table class="compare-table">
+          <thead><tr><th>Operadora congênere *</th><th>Planos da congênere</th><th>Planos Amil equivalentes</th></tr></thead>
+          <tbody>
+            <tr><td>Alice</td><td>Equilíbrio ao Conforto</td><td>Todos os produtos Amil (Nacional)</td></tr>
+            <tr><td>Assim Saúde</td><td>Superior</td><td>S380, S450, Prata, Ouro e Ouro II</td></tr>
+            <tr><td>Premium Saúde</td><td>Todos</td><td>S380 e Prata</td></tr>
+            <tr><td>Vera Cruz (2Care)</td><td>Todos</td><td>S380, S450, Prata, Ouro e Ouro II</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="tab-content" id="cong-black" data-group="cong">
+      <div class="scroller">
+        <table class="compare-table">
+          <thead><tr><th>Operadora congênere</th><th>Planos da congênere aceitos</th></tr></thead>
+          <tbody>
+            <tr><td>Allianz</td><td>Exclusivo e Excellence</td></tr>
+            <tr><td>Alice</td><td>Exclusivo, Exclusivo +, Exclusivo ++</td></tr>
+            <tr><td>Amil (histórico)</td><td>Amil 160, Amil 60, Amil 800, Continents, Master I, Opções 11, Opções 22 Plus, Quality</td></tr>
+            <tr><td>Bradesco</td><td>Nacional Plus e Premium</td></tr>
+            <tr><td>Care Plus</td><td>Redes Master (SOHO60/80/120/160/200/300) e Master I</td></tr>
+            <tr><td>Itaú</td><td>Executivo II, VII, VIII e Premium</td></tr>
+            <tr><td>Medial</td><td>Diamante I/II/III, Platinum</td></tr>
+            <tr><td>Mediservice</td><td>Plano Ouro</td></tr>
+            <tr><td>Notre Dame (GNDI)</td><td>Exclusive, Infinity 1000, Select e Select Plus</td></tr>
+            <tr><td>Omint</td><td>Rede Omint Premium de Medicina e Rede Omint Corporate Medicina</td></tr>
+            <tr><td>Porto Seguro</td><td>Master Empresarial, Diamante, Diamante Mais, P500, P510 e P520</td></tr>
+            <tr><td>SulAmérica</td><td>Executivo, Ômega, Maxi 300, Maxi 400, Máximo, Platinum, Prestige e Plano Absoluto</td></tr>
+            <tr><td>Unimed Nacional/CNU</td><td>Exclusivo</td></tr>
+            <tr><td>Unimed Seguros</td><td>Líder, Master e Sênior</td></tr>
+            <tr><td>Grupo Amil (Ana Costa, Santa Helena, SOBAM/APS)</td><td>Todos os planos</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size:12px;color:var(--gray);margin-top:10px;">Também aceitos: AETNA, Bupa Internacional, BB Seguro Saúde, CIGNA Internacional, Gama Saúde, GBG, Lincx, Marítima e VUMI — consulte o time de produtos para as condições específicas.</p>
+    </div>
+  </div>
+</section>
+
+<!-- COPARTICIPAÇÃO -->
+<section id="coparticipacao" style="background: var(--off-white);">
+  <div class="section-label">Coparticipação</div>
+  <div class="section-title">Tabela de Coparticipação</div>
+  <div class="section-sub">O beneficiário paga, além da mensalidade, uma taxa a cada utilização — 30% ou 40% do custo, a depender do modelo de contratação, com limite máximo por item/sessão.</div>
+
+  <div class="copa-calc">
+    <h3>Calculadora de Coparticipação</h3>
+    <p class="sub">Selecione a linha, o plano e o tipo de atendimento. O valor cobrado é o menor entre o percentual do modelo e o limite em reais da tabela.</p>
+    <div class="copa-calc-grid">
+      <div class="copa-field">
+        <label>Linha</label>
+        <select id="copa2-linha" onchange="copa2FillPlanos();copa2Calc()">
+          <option value="Selecionada">Linha Selecionada</option>
+          <option value="Amil" selected>Linha Amil</option>
+          <option value="Black">Amil Black</option>
+        </select>
+      </div>
+      <div class="copa-field">
+        <label>Plano</label>
+        <select id="copa2-plano" onchange="copa2Calc()"></select>
+      </div>
+      <div class="copa-field">
+        <label>Tipo de atendimento</label>
+        <select id="copa2-cat" onchange="copa2Calc()">
+          <option value="Consultas" selected>Consultas</option>
+          <option value="PS">Pronto Socorro (PS)</option>
+          <option value="ExBasicos">Exames básicos</option>
+          <option value="ExEspeciais">Exames especiais</option>
+          <option value="ProcBasicos">Procedimentos básicos</option>
+          <option value="ProcEspeciais">Procedimentos especiais</option>
+          <option value="Fisio">Fisio / Fono / Nutri / Psico / T.O.</option>
+          <option value="Internacao">Internação</option>
+        </select>
+      </div>
+      <div class="copa-field" id="copa2-valor-wrap">
+        <label>Valor do procedimento (R$)</label>
+        <input type="number" id="copa2-valor" value="150" min="0" step="10" oninput="copa2Calc()" placeholder="Ex: 150,00">
+      </div>
+    </div>
+    <div class="copa-result" id="copa2-result"></div>
+  </div>
+
+  <div class="tab-nav" data-group="copa">
+    <button class="tab-btn active" onclick="switchTab('copa-selecionada', this)">Linha Selecionada</button>
+    <button class="tab-btn" onclick="switchTab('copa-amil', this)">Linha Amil</button>
+    <button class="tab-btn" onclick="switchTab('copa-black', this)">Amil Black</button>
+  </div>
+  <div class="tab-panel-body">
+
+    <div class="tab-content active" id="copa-selecionada" data-group="copa">
+      <div class="scroller">
+        <table class="copa-table">
+          <thead><tr><th>Plano</th><th>%</th><th>Consultas</th><th>PS</th><th>Ex. básicos</th><th>Ex. especiais</th><th>Proc. básicos</th><th>Proc. especiais</th><th>Fisio/Fono/Nutri/Psico/T.O.</th><th>Internação</th></tr></thead>
+          <tbody>
+            <tr><td>Amil S380 / S450</td><td class="prazo">30%</td><td>R$30,00</td><td>R$90,00</td><td>R$25,00</td><td>R$110,00</td><td>R$60,00</td><td>R$150,00</td><td>40% · R$60,00</td><td>R$220,00</td></tr>
+            <tr><td>Amil S750 (R1)</td><td class="prazo">30%</td><td>R$55,00</td><td>R$130,00</td><td>R$35,00</td><td>R$130,00</td><td>R$60,00</td><td>R$170,00</td><td>40% · R$70,00</td><td>R$400,00</td></tr>
+            <tr><td>Amil S750 (R2/R3)</td><td class="prazo">30%</td><td>R$55,00</td><td>R$130,00</td><td>R$35,00</td><td>R$130,00</td><td>R$60,00</td><td>R$170,00</td><td>40% · R$70,00</td><td>R$400,00</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="alert-box">
+        Cada plano também tem variante <strong>TP</strong> (coparticipação parcial: isenta em consultas/exames/procedimentos, cobra 40% só em fisioterapia, fonoaudiologia, nutrição, psicoterapia e terapia ocupacional) e variante <strong>(40%)</strong> (40% em tudo). Consulte a Plataforma Comercial para o código exato.<br>
+        <strong>Sem coparticipação em:</strong> quimioterapia, radioterapia, diálise/hemodiálise, e atendimentos no Amil Espaço Saúde para quem já entrou com o plano.<br>
+        Internações psiquiátricas: 50% de coparticipação a partir do 31º dia.
+      </div>
+    </div>
+
+    <div class="tab-content" id="copa-amil" data-group="copa">
+      <div class="scroller">
+        <table class="copa-table">
+          <thead><tr><th>Plano</th><th>%</th><th>Consultas</th><th>PS</th><th>Ex. básicos</th><th>Ex. especiais</th><th>Proc. básicos</th><th>Proc. especiais</th><th>Fisio/Fono/Nutri/Psico/T.O.</th><th>Internação</th></tr></thead>
+          <tbody>
+            <tr><td>Bronze (SP/RJ/SP Mais/RJ Mais/DF/PR)</td><td class="prazo">30%</td><td>R$30,00</td><td>R$80,00</td><td>R$20,00</td><td>R$100,00</td><td>R$35,00</td><td>R$140,00</td><td>40% · R$60,00</td><td>R$180,00</td></tr>
+            <tr><td>Prata / Prata II / Ouro / Ouro II</td><td class="prazo">30%</td><td>R$30,00</td><td>R$90,00</td><td>R$25,00</td><td>R$110,00</td><td>R$60,00</td><td>R$150,00</td><td>40% · R$60,00</td><td>R$220,00</td></tr>
+            <tr><td>Platinum / Platinum Mais</td><td class="prazo">30%</td><td>R$55,00</td><td>R$130,00</td><td>R$35,00</td><td>R$130,00</td><td>R$60,00</td><td>R$170,00</td><td>40% · R$70,00</td><td>R$400,00</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="alert-box">
+        Ao contratar Prata, Ouro, Platinum, Platinum Mais ou Black, os beneficiários incluídos na contratação não pagam coparticipação na rede Amil Total Care. Para Bronze, a isenção na Total Care vale só para consultas eletivas e PS.<br>
+        Sem coparticipação em quimioterapia, radioterapia, diálise/hemodiálise. Internações psiquiátricas: 50% a partir do 31º dia.
+      </div>
+    </div>
+
+    <div class="tab-content" id="copa-black" data-group="copa">
+      <div class="scroller">
+        <table class="copa-table">
+          <thead><tr><th>Plano</th><th>%</th><th>Consultas</th><th>PS</th><th>Ex. básicos</th><th>Ex. especiais</th><th>Proc. básicos</th><th>Proc. especiais</th><th>Fisio/Fono/Nutri/Psico/T.O.</th><th>Internação</th></tr></thead>
+          <tbody>
+            <tr><td>Amil Black I / S2500</td><td class="prazo">30%</td><td>R$90,00</td><td>R$200,00</td><td>R$45,00</td><td>R$150,00</td><td>R$80,00</td><td>R$200,00</td><td>40% · R$90,00</td><td>R$550,00</td></tr>
+            <tr><td>Amil Black II / S6500 Black</td><td class="prazo">30%</td><td>R$100,00</td><td>R$220,00</td><td>R$50,00</td><td>R$160,00</td><td>R$100,00</td><td>R$220,00</td><td>40% · R$100,00</td><td>R$600,00</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="alert-box">Ao contratar a Linha Black, quem entra no ato da contratação não paga coparticipação na rede Amil Total Care. Sem coparticipação em quimio/radioterapia e diálise/hemodiálise. Internações psiquiátricas: 50% a partir do 31º dia.</div>
+    </div>
+
+  </div>
+
+  <div class="alert-box" style="margin-top:24px; max-width: 900px;">
+    <strong>Exemplo de coparticipação de 30% (valores aproximados):</strong> avaliação nutricional R$10,72 · colesterol total R$1,01 · hemograma completo R$2,38 · raio X do tórax R$5,23 · eletrocardiograma R$5,19 · ultrassonografia obstétrica R$15,11 · endoscopia digestiva alta R$54,45 · tomografia do crânio R$80,69 · ressonância magnética do crânio R$150,00.
+  </div>
+</section>
+
+<!-- DENTAL -->
+<section id="dental">
+  <div class="section-label">Odontológico</div>
+  <div class="section-title">Amil Dental</div>
+  <div class="section-sub">5 planos, do documental básico ao completo (prótese + ortodontia). Contratação simultânea ao plano médico ou pelo site exclusivo amildental.com.br/corretoramil.</div>
+
+  <div class="odonto-plans">
+    <div class="odonto-card">
+      <h4>Dental Bronze Doc</h4>
+      <p>+215 procedimentos. Documentação ortodôntica básica, urgência 24h, prevenção, radiografias, endodontia, restaurações, extrações e próteses unitárias (Rol ANS).</p>
+    </div>
+    <div class="odonto-card">
+      <h4>Dental Prata Clareia</h4>
+      <p>+220 procedimentos. Tudo do Bronze Doc + Clareamento Convencional (gel + moldeira).</p>
+    </div>
+    <div class="odonto-card">
+      <h4>Dental Ouro Orto</h4>
+      <p>+280 procedimentos. Documentação ortodôntica completa, manutenção de aparelho fixo/removível e Clareamento Convencional.</p>
+    </div>
+    <div class="odonto-card">
+      <h4>Dental Ouro Prot</h4>
+      <p>+260 procedimentos. Próteses em resina e cerâmica (ponte móvel, dentadura), placa de bruxismo e Clareamento Convencional.</p>
+    </div>
+    <div class="odonto-card">
+      <h4>Dental Platinum</h4>
+      <p>+320 procedimentos. O completo: prótese em resina/cerâmica + ortodontia (documentação e manutenção) + Clareamento Convencional.</p>
+    </div>
+    <div class="odonto-card" style="background: var(--blue-soft); border-color: var(--blue);">
+      <h4>Dental Bronze Promo</h4>
+      <p>Incluído sem custo por 12 meses na contratação do plano médico PME. Cobertura nacional, Rol ANS completo, sem coparticipação e sem reembolso. Após 12 meses, R$14,50/beneficiário/mês.</p>
+    </div>
+  </div>
+
+  <h3 style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:18px;color:var(--navy);margin:44px 0 18px;">Comparativo de coberturas</h3>
+  <div class="scroller">
+    <table class="compare-table">
+      <thead><tr><th>Procedimento</th><th>Bronze Doc</th><th>Prata Clareia</th><th>Ouro Orto</th><th>Ouro Prot</th><th>Platinum</th></tr></thead>
+      <tbody>
+        <tr><td>Urgência/Emergência, Prevenção, Radiografias</td><td class="isento">✓</td><td class="isento">✓</td><td class="isento">✓</td><td class="isento">✓</td><td class="isento">✓</td></tr>
+        <tr><td>Periodontia, Odontopediatria, Endodontia, Dentística</td><td class="isento">✓</td><td class="isento">✓</td><td class="isento">✓</td><td class="isento">✓</td><td class="isento">✓</td></tr>
+        <tr><td>Cirurgias/extrações, Prótese Dentária (Rol)</td><td class="isento">✓</td><td class="isento">✓</td><td class="isento">✓</td><td class="isento">✓</td><td class="isento">✓</td></tr>
+        <tr><td>Documentação Ortodôntica Básica</td><td class="isento">✓</td><td class="isento">✓</td><td class="isento">✓</td><td class="isento">✓</td><td class="isento">✓</td></tr>
+        <tr><td>Clareamento Convencional</td><td>✕</td><td class="isento">✓</td><td class="isento">✓</td><td class="isento">✓</td><td class="isento">✓</td></tr>
+        <tr><td>Documentação Ortodôntica Completa</td><td>✕</td><td>✕</td><td class="isento">✓</td><td>✕</td><td class="isento">✓</td></tr>
+        <tr><td>Ortodontia (instalação e manutenção)</td><td>✕</td><td>✕</td><td class="isento">✓</td><td>✕</td><td class="isento">✓</td></tr>
+        <tr><td>Prótese Dentária (Extra Rol) — resina e cerâmica</td><td>✕</td><td>✕</td><td>✕</td><td class="isento">✓</td><td class="isento">✓</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="alert-box" style="margin-top:24px;">
+    <strong>Dental Black:</strong> plano de luxo (implante, prótese, ortodontia completa e clareamento a laser), incluído sem custo para quem contrata o plano médico Black II — vale enquanto o contrato médico estiver ativo. Tabela de reembolso One Tuss, multiplicador 2x, reembolso em até 24h úteis pelo App Amil Clientes.
+  </div>
+</section>
+
+<!-- REDE -->
+<section id="rede" style="background: var(--off-white);">
+  <div class="section-label">Rede Credenciada</div>
+  <div class="section-title">Busque hospitais e laboratórios</div>
+  <div class="section-sub">Toda a rede credenciada dos materiais oficiais Amil. Busque por nome ou cidade e veja exatamente quais planos atendem cada prestador — e com quais serviços.</div>
+
+  <div class="tab-nav" data-group="rede">
+    <button class="tab-btn active" onclick="switchTab('rede-credenciada', this)">Rede credenciada</button>
+    <button class="tab-btn" onclick="switchTab('rede-propria', this)">Rede própria (Total Care)</button>
+  </div>
+  <div class="tab-panel-body">
+
+    <div class="tab-content active" id="rede-credenciada" data-group="rede">
+      <div class="rede-controls">
+        <input type="text" id="rede-search" placeholder="Buscar por hospital, laboratório ou cidade (ex: Sírio, Campinas)">
+        <select id="rede-tipo-filter">
+          <option value="">Hospitais e laboratórios</option>
+          <option value="H">Somente hospitais</option>
+          <option value="L">Somente laboratórios</option>
+        </select>
+        <select id="rede-seg-filter">
+          <option value="PME">PME (2 a 99 vidas)</option>
+          <option value="PJ">PJ (100 a 199 vidas)</option>
+          <option value="">Ambos os segmentos</option>
+        </select>
+        <select id="rede-plano-filter">
+          <option value="">Todos os planos</option>
+        </select>
+      </div>
+      <div class="rede-count" id="rede-count">Carregando rede credenciada…</div>
+      <div id="rede-results"></div>
+      <button id="rede-load-more" style="display:none;margin:0 auto;padding:10px 24px;border-radius:8px;border:1.5px solid var(--blue);background:var(--white);color:var(--blue);font-family:'Montserrat',sans-serif;font-weight:700;font-size:12px;cursor:pointer;">Carregar mais</button>
+
+      <div id="rede-legenda" class="legenda-card"></div>
+      <div class="alert-box" style="margin-top:12px;">
+        <strong>Origem dos dados:</strong> extraído dos materiais de Rede Credenciada da Amil (linhas Selecionada, Amil e Black, PME e PJ). Os laboratórios disponíveis são os do material PJ da Linha Amil — nesse material a Amil marca cada plano atendido com um <strong>✓</strong> ao lado do prestador, e é isso que aparece aqui como “Consta na rede”. Sempre confirme no <a href="https://portalcorretor.amil.com.br" target="_blank" rel="noopener" style="color:var(--blue-dark);font-weight:700;">Portal do Corretor</a> antes de fechar a venda.
+      </div>
+    </div>
+
+    <div class="tab-content" id="rede-propria" data-group="rede">
+      <p style="font-size:14px;color:var(--gray);margin-bottom:20px;">Hospitais, Espaços Saúde e Centros Médicos <strong>próprios</strong> da Amil. Quem entra no ato da contratação fica <strong>isento de coparticipação</strong> nesta rede (Bronze: só consultas eletivas e PS).</p>
+      <div class="rede-controls">
+        <input type="text" id="tc-search" placeholder="Buscar por unidade ou cidade (ex: Santo Amaro, Niterói)">
+        <select id="tc-uf-filter">
+          <option value="">Todos os estados</option>
+          <option value="SP">São Paulo</option>
+          <option value="RJ">Rio de Janeiro</option>
+          <option value="PR">Paraná</option>
+          <option value="CE">Ceará</option>
+          <option value="RN">Rio Grande do Norte</option>
+        </select>
+      </div>
+      <div class="rede-count" id="tc-count"></div>
+      <div id="tc-results"></div>
+      <button id="tc-load-more" style="display:none;margin:0 auto;padding:10px 24px;border-radius:8px;border:1.5px solid var(--blue);background:var(--white);color:var(--blue);font-family:'Montserrat',sans-serif;font-weight:700;font-size:12px;cursor:pointer;">Carregar mais</button>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTATO -->
+<section id="contato">
+  <div class="section-label">Fale Conosco</div>
+  <div class="section-title">Canais de apoio ao corretor</div>
+  <div class="section-sub">Dúvidas sobre vendas, propostas ou produtos — fale direto com a Amil.</div>
+  <div class="benefits-grid">
+    <div class="benefit-card">
+      <div class="b-icon">☎️</div>
+      <h4>Central do Corretor</h4>
+      <p>Capitais e Regiões Metropolitanas: <strong>3004-1022</strong><br>Demais localidades: <strong>0800-721-1022</strong></p>
+    </div>
+    <div class="benefit-card">
+      <div class="b-icon">💻</div>
+      <h4>Plataforma Comercial</h4>
+      <p>Cotação, propostas PME e acompanhamento 100% digital em <a href="https://corretor.amil.com.br" target="_blank" rel="noopener" style="color:var(--blue);font-weight:700;">corretor.amil.com.br</a></p>
+    </div>
+    <div class="benefit-card">
+      <div class="b-icon">📚</div>
+      <h4>Kit Corretor</h4>
+      <p>Produtos, faixas etárias e rede credenciada em <a href="https://kitcorretoramil.com.br" target="_blank" rel="noopener" style="color:var(--blue);font-weight:700;">kitcorretoramil.com.br</a></p>
+    </div>
+    <div class="benefit-card">
+      <div class="b-icon">🦷</div>
+      <h4>Amil Dental</h4>
+      <p>Contratação simplificada em <a href="https://amildental.com.br/corretoramil" target="_blank" rel="noopener" style="color:var(--blue);font-weight:700;">amildental.com.br/corretoramil</a></p>
+    </div>
+    <div class="benefit-card">
+      <div class="b-icon">🎓</div>
+      <h4>Universidade de Vendas</h4>
+      <p>Treinamentos e técnicas de vendas em <a href="https://aprendizagemvirtual.neolude.com.br" target="_blank" rel="noopener" style="color:var(--blue);font-weight:700;">aprendizagemvirtual.neolude.com.br</a></p>
+    </div>
+  </div>
+
+  <h3 style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:18px;color:var(--navy);margin:48px 0 6px;">Meus Contatos · Assessoria Maximo 360</h3>
+  <p style="font-size:13.5px;color:var(--gray);max-width:640px;">Sua equipe de apoio para cotações, propostas, suporte operacional e dúvidas comerciais Amil PME.</p>
+  <div class="contact-cards-grid">
+    <div class="contact-card">
+      <div class="contact-card-tag">Comercial</div>
+      <h3 class="contact-card-name">Luis Leão</h3>
+      <p class="contact-card-role">Gestor de Negócios — Maximo 360</p>
+      <div class="contact-card-rows">
+        <a href="mailto:luis.leao@maximo360.com.br" class="contact-card-row">
+          <div class="ccr-label">E-mail</div>
+          <div class="ccr-val">luis.leao@maximo360.com.br</div>
+        </a>
+        <a href="tel:+5511993002951" class="contact-card-row">
+          <div class="ccr-label">Telefone</div>
+          <div class="ccr-val">(11) 9 9300-2951</div>
+        </a>
+        <a href="https://wa.me/5511993002951" target="_blank" rel="noopener" class="contact-card-row contact-card-row-wa">
+          <div class="ccr-label">WhatsApp</div>
+          <div class="ccr-val">(11) 9 9300-2951</div>
+        </a>
+      </div>
+    </div>
+
+    <div class="contact-card">
+      <div class="contact-card-tag">Suporte Operacional</div>
+      <h3 class="contact-card-name">Equipe de Benefícios</h3>
+      <p class="contact-card-role">Atendimento de Pós-Venda — Maximo 360</p>
+      <div class="contact-card-rows">
+        <a href="mailto:beneficios@maximo360.com.br" class="contact-card-row">
+          <div class="ccr-label">E-mail</div>
+          <div class="ccr-val">beneficios@maximo360.com.br</div>
+        </a>
+        <a href="tel:+551149927099" class="contact-card-row">
+          <div class="ccr-label">Telefone</div>
+          <div class="ccr-val">(11) 4992-7099</div>
+        </a>
+        <a href="https://wa.me/5511966082950" target="_blank" rel="noopener" class="contact-card-row contact-card-row-wa">
+          <div class="ccr-label">WhatsApp</div>
+          <div class="ccr-val">(11) 9 6608-2950</div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="contact-section" style="grid-template-columns:1.4fr 1fr 1fr;">
+  <div class="contact-col">
+    <div style="margin-bottom:16px;">
+      <div class="footer-maximo">Maximo <span>360</span></div>
+    </div>
+    <p>Assessoria especializada em saúde corporativa. Seu parceiro completo para soluções Amil PME — de 2 a 99 vidas.</p>
+    <picture>
+      <source srcset="logo-horizontal-footer.webp" type="image/webp">
+      <img src="logo-horizontal-footer.png" alt="Maximo 360 Assessoria de Seguros" class="footer-logo-horizontal" width="320" height="141" loading="lazy">
+    </picture>
+  </div>
+  <div class="contact-col">
+    <h4>Atendimento Maximo 360</h4>
+    <p>
+      <strong style="color:#fff;display:block;margin-bottom:4px">Comercial — Luis Leão</strong>
+      <a href="tel:+5511993002951" style="color:rgba(255,255,255,0.7);text-decoration:none">(11) 9 9300-2951</a><br>
+      <a href="mailto:luis.leao@maximo360.com.br" style="color:rgba(255,255,255,0.7);text-decoration:none">luis.leao@maximo360.com.br</a>
+      <br><br>
+      <strong style="color:#fff;display:block;margin-bottom:4px">Suporte Operacional</strong>
+      <a href="tel:+551149927099" style="color:rgba(255,255,255,0.7);text-decoration:none">(11) 4992-7099</a><br>
+      <a href="mailto:beneficios@maximo360.com.br" style="color:rgba(255,255,255,0.7);text-decoration:none">beneficios@maximo360.com.br</a>
+    </p>
+  </div>
+  <div class="contact-col">
+    <h4>Links Úteis</h4>
+    <a href="https://www.amil.com.br" target="_blank" rel="noopener" class="contact-link">amil.com.br</a>
+    <a href="https://portalcorretor.amil.com.br" target="_blank" rel="noopener" class="contact-link">Portal do Corretor</a>
+    <p style="margin-top:16px;font-size:11px;color:rgba(255,255,255,0.4)">Versão: <strong style="color:var(--blue-light)">Agosto 2026</strong><br>Material para uso exclusivo do corretor</p>
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 <span>Maximo 360</span> &nbsp;·&nbsp; Assessoria de Seguros &nbsp;—&nbsp; Material de Apoio ao Corretor</p>
+  <p>Comercial: <span>(11) 9 9300-2951</span> &nbsp;|&nbsp; Suporte: <span>(11) 4992-7099</span></p>
+  <p class="footer-credit" style="font-size:11px;opacity:.6;">Desenvolvido por <span>PrimeX Technology</span> — Soluções Inteligentes</p>
+</footer>
+
+<button class="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Voltar ao topo">↑</button>
+
+<script>
+// ─── NAV / SCROLL ───
+function navOffset() {
+  const nav = document.querySelector('nav');
+  return (nav ? nav.offsetHeight : 64) + 10;
+}
+function scrollToId(id) {
+  const el = document.getElementById(id);
+  if (el) {
+    const top = el.getBoundingClientRect().top + window.scrollY - navOffset();
+    window.scrollTo({ top, behavior: 'smooth' });
+  }
+}
+function navScroll(e, id) {
+  if (e && e.preventDefault) e.preventDefault();
+  navClose();
+  scrollToId(id);
+}
+function goToPlanos() { scrollToId('planos'); }
+function goToComparativo() { scrollToId('comparativo'); }
+function goToRegras() { scrollToId('regras'); }
+
+// ─── NAV / MENU MOBILE ───
+function navToggle() {
+  const links = document.getElementById('nav-links');
+  const btn = document.getElementById('nav-toggle');
+  const scrim = document.getElementById('nav-scrim');
+  const open = !links.classList.contains('open');
+  links.classList.toggle('open', open);
+  scrim.classList.toggle('open', open);
+  btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  btn.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
+  document.body.style.overflow = open ? 'hidden' : '';
+}
+function navClose() {
+  const links = document.getElementById('nav-links');
+  const btn = document.getElementById('nav-toggle');
+  const scrim = document.getElementById('nav-scrim');
+  links.classList.remove('open');
+  scrim.classList.remove('open');
+  btn.setAttribute('aria-expanded', 'false');
+  btn.setAttribute('aria-label', 'Abrir menu');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') navClose(); });
+window.addEventListener('resize', () => { if (window.innerWidth > 1024) navClose(); });
+
+// ─── TABS genéricas ───
+function switchTab(tabId, btn) {
+  const nav = btn.closest('.tab-nav');
+  nav.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.tab-content').forEach(c => { if (c.dataset.group === nav.dataset.group) c.classList.remove('active'); });
+  const target = document.getElementById(tabId);
+  if (target) target.classList.add('active');
+}
+function switchSubTab(subId, btn) {
+  const nav = btn.closest('.subtab-nav');
+  nav.querySelectorAll('.subtab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.subtab-content').forEach(c => { if (c.dataset.group === nav.dataset.group) c.classList.remove('active'); });
+  const target = document.getElementById(subId);
+  if (target) target.classList.add('active');
+}
+
+// ─── CALCULADORA DE COPARTICIPAÇÃO ───
+// Valores exatamente iguais aos das tabelas oficiais em #coparticipacao (por linha/plano).
+const COPA2_CATS = [
+  { key: 'Consultas',      label: 'Consultas',                              pct: 30 },
+  { key: 'PS',              label: 'Pronto Socorro (PS)',                    pct: 30 },
+  { key: 'ExBasicos',       label: 'Exames básicos',                         pct: 30 },
+  { key: 'ExEspeciais',     label: 'Exames especiais',                       pct: 30 },
+  { key: 'ProcBasicos',     label: 'Procedimentos básicos',                  pct: 30 },
+  { key: 'ProcEspeciais',   label: 'Procedimentos especiais',                pct: 30 },
+  { key: 'Fisio',           label: 'Fisio/Fono/Nutri/Psico/T.O.',            pct: 40 },
+  { key: 'Internacao',      label: 'Internação',                             pct: null }
+];
+const COPA2_DATA = {
+  'Selecionada': {
+    'Amil S380 / S450':   { Consultas:30, PS:90,  ExBasicos:25, ExEspeciais:110, ProcBasicos:60, ProcEspeciais:150, Fisio:60, Internacao:220 },
+    'Amil S750 (R1)':     { Consultas:55, PS:130, ExBasicos:35, ExEspeciais:130, ProcBasicos:60, ProcEspeciais:170, Fisio:70, Internacao:400 },
+    'Amil S750 (R2/R3)':  { Consultas:55, PS:130, ExBasicos:35, ExEspeciais:130, ProcBasicos:60, ProcEspeciais:170, Fisio:70, Internacao:400 }
+  },
+  'Amil': {
+    'Bronze (SP/RJ/SP Mais/RJ Mais/DF/PR)': { Consultas:30, PS:80,  ExBasicos:20, ExEspeciais:100, ProcBasicos:35, ProcEspeciais:140, Fisio:60, Internacao:180 },
+    'Prata / Prata II / Ouro / Ouro II':    { Consultas:30, PS:90,  ExBasicos:25, ExEspeciais:110, ProcBasicos:60, ProcEspeciais:150, Fisio:60, Internacao:220 },
+    'Platinum / Platinum Mais':             { Consultas:55, PS:130, ExBasicos:35, ExEspeciais:130, ProcBasicos:60, ProcEspeciais:170, Fisio:70, Internacao:400 }
+  },
+  'Black': {
+    'Amil Black I / S2500':      { Consultas:90,  PS:200, ExBasicos:45, ExEspeciais:150, ProcBasicos:80,  ProcEspeciais:200, Fisio:90,  Internacao:550 },
+    'Amil Black II / S6500 Black': { Consultas:100, PS:220, ExBasicos:50, ExEspeciais:160, ProcBasicos:100, ProcEspeciais:220, Fisio:100, Internacao:600 }
+  }
+};
+
+function copa2BRL(v) {
+  return 'R$ ' + Number(v).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
+function copa2FillPlanos() {
+  const linha = document.getElementById('copa2-linha').value;
+  const sel = document.getElementById('copa2-plano');
+  sel.innerHTML = Object.keys(COPA2_DATA[linha]).map(p => `<option value="${escapeHtml(p)}">${escapeHtml(p)}</option>`).join('');
+}
+
+function copa2Calc() {
+  const linha = document.getElementById('copa2-linha').value;
+  const plano = document.getElementById('copa2-plano').value;
+  const catKey = document.getElementById('copa2-cat').value;
+  const cat = COPA2_CATS.find(c => c.key === catKey);
+  const limite = COPA2_DATA[linha][plano][catKey];
+  const valorWrap = document.getElementById('copa2-valor-wrap');
+  const res = document.getElementById('copa2-result');
+  const isInternacao = catKey === 'Internacao';
+
+  valorWrap.style.display = isInternacao ? 'none' : 'flex';
+
+  if (isInternacao) {
+    res.innerHTML = `
+      <div class="copa-result-row"><span>Tipo de cobrança</span><strong>Valor fixo por evento</strong></div>
+      <div class="copa-result-row"><span>Plano</span><strong>${escapeHtml(plano)}</strong></div>
+      <div class="copa-result-row"><span>Independe de dias internado ou tipo de internação</span><strong>—</strong></div>
+      <div class="copa-result-final"><span>Coparticipação fixa cobrada</span><strong>${copa2BRL(limite)}</strong></div>`;
+    return;
+  }
+
+  const valor = parseFloat(document.getElementById('copa2-valor').value) || 0;
+  const pct = valor * (cat.pct / 100);
+  const cobrado = Math.min(pct, limite);
+  const economia = pct - cobrado;
+
+  res.innerHTML = `
+    <div class="copa-result-row"><span>Valor do procedimento</span><strong>${copa2BRL(valor)}</strong></div>
+    <div class="copa-result-row"><span>${cat.pct}% de coparticipação</span><strong>${copa2BRL(pct)}</strong></div>
+    <div class="copa-result-row"><span>Limite do plano (${escapeHtml(plano)})</span><strong>${copa2BRL(limite)}</strong></div>
+    <div class="copa-result-row"><span>Regra aplicada</span><strong>${cobrado === limite && pct > limite ? 'Limite da tabela (menor)' : cat.pct + '% do valor (menor)'}</strong></div>
+    <div class="copa-result-final"><span>Valor final cobrado do beneficiário</span><strong>${copa2BRL(cobrado)}</strong></div>
+    ${economia > 0.005 ? `<div class="copa-savings">Economia de ${copa2BRL(economia)} graças ao limitador por procedimento.</div>` : ''}`;
+}
+
+copa2FillPlanos();
+copa2Calc();
+
+// ─── COMPARADOR DE PLANOS (interativo, todas as linhas) ───
+// Dados iguais aos das tabelas oficiais já publicadas nesta pagina (Linha
+// Selecionada, Linha Amil e Amil Black) e da tabela de coparticipacao em
+// #coparticipacao. Onde o material comercial nao documenta um item para um
+// plano especifico, o campo fica ausente e a celula mostra "—" (nunca se
+// assume "nao tem" nem se inventa um valor).
+const CMP_PLANOS = {
+  'Selecionada': ['Amil S380', 'Amil S450', 'Amil S750'],
+  'Amil':        ['Bronze SP', 'Bronze SP Mais', 'Bronze RJ', 'Bronze RJ Mais', 'Bronze DF', 'Bronze PR', 'Prata II', 'Prata', 'Ouro', 'Ouro II', 'Platinum', 'Platinum Mais'],
+  'Black':       ['Amil Black I', 'S2500', 'Amil Black II', 'S6500 Black']
+};
+
+const COMP_DATA = {
+  'Amil S380':      { abr:'Nacional · QC e QP', espacoSaude:true, telemedicina:true, reembolso:'✕', reembolsoValor:'R$80,00 (consulta)', resgate:'Aditivo', coparPct:'30%', coparConsulta:'R$30,00', coparInternacao:'R$220,00' },
+  'Amil S450':      { abr:'Nacional · QC e QP', espacoSaude:true, telemedicina:true, reembolso:'✕', reembolsoValor:'R$96,00 (consulta)', coparPct:'30%', coparConsulta:'R$30,00', coparInternacao:'R$220,00' },
+  'Amil S750':      { abr:'Nacional · QP', espacoSaude:true, telemedicina:true, reembolso:'✓ (R1/R2/R3)', reembolsoValor:'R1: R$136,00 · R2: R$240,00 · R3: R$328,00', esclero:'12 sessões/ano', coparPct:'30%', coparConsulta:'R$55,00', coparInternacao:'R$400,00' },
+
+  'Bronze SP':      { abr:'Grupo de municípios · QC', espacoSaude:true, telemedicina:true, urgencia:'Aditivo', seguroViagem:'Aditivo', reembolso:false, retagSamaritano:false, retagSirio:'✕', coleta:false, resgate:'✕', coparPct:'30%', coparConsulta:'R$30,00', coparInternacao:'R$180,00' },
+  'Bronze SP Mais': { abr:'Grupo de municípios · QC e QP', espacoSaude:true, telemedicina:true, urgencia:'Aditivo', seguroViagem:'Aditivo', reembolso:false, retagSamaritano:false, retagSirio:'✕', coleta:false, resgate:'✕', coparPct:'30%', coparConsulta:'R$30,00', coparInternacao:'R$180,00' },
+  'Bronze RJ':      { abr:'Grupo de municípios · QC', espacoSaude:true, telemedicina:true, urgencia:'Aditivo', seguroViagem:'Aditivo', reembolso:false, retagSamaritano:false, retagSirio:'✕', coleta:false, resgate:'✕', coparPct:'30%', coparConsulta:'R$30,00', coparInternacao:'R$180,00' },
+  'Bronze RJ Mais': { abr:'Grupo de municípios · QC', espacoSaude:true, telemedicina:true, urgencia:'Aditivo', seguroViagem:'Aditivo', reembolso:false, retagSamaritano:false, retagSirio:'✕', coleta:false, resgate:'✕', coparPct:'30%', coparConsulta:'R$30,00', coparInternacao:'R$180,00' },
+  'Bronze DF':      { abr:'Municipal · QC e QP', espacoSaude:false, telemedicina:true, urgencia:'Aditivo', seguroViagem:'Aditivo', reembolso:false, retagSamaritano:false, retagSirio:'✕', coleta:false, resgate:'✕', coparPct:'30%', coparConsulta:'R$30,00', coparInternacao:'R$180,00' },
+  'Bronze PR':      { abr:'Grupo de municípios · QC e QP', espacoSaude:true, telemedicina:true, urgencia:'Aditivo', seguroViagem:'Aditivo', reembolso:false, retagSamaritano:false, retagSirio:'✕', coleta:false, resgate:'✕', coparPct:'30%', coparConsulta:'R$30,00', coparInternacao:'R$180,00' },
+  'Prata II':       { abr:'Nacional · QC e QP', espacoSaude:true, telemedicina:true, urgencia:'Já possui', seguroViagem:'Aditivo', reembolso:false, retagSamaritano:false, retagSirio:'✕', coleta:false, resgate:'Aditivo', coparPct:'30%', coparConsulta:'R$30,00', coparInternacao:'R$220,00' },
+  'Prata':          { abr:'Nacional · QC e QP', espacoSaude:true, telemedicina:true, urgencia:'Já possui', seguroViagem:'Aditivo', reembolso:false, retagSamaritano:false, retagSirio:'✕', coleta:false, resgate:'Aditivo', coparPct:'30%', coparConsulta:'R$30,00', coparInternacao:'R$220,00' },
+  'Ouro':           { abr:'Nacional · QC e QP', espacoSaude:true, telemedicina:true, urgencia:'Já possui', seguroViagem:'Aditivo', reembolso:true, retagSamaritano:false, retagSirio:'✕', coleta:false, resgate:'Aditivo', coparPct:'30%', coparConsulta:'R$30,00', coparInternacao:'R$220,00' },
+  'Ouro II':        { abr:'Nacional · QP', espacoSaude:true, telemedicina:true, urgencia:'Já possui', seguroViagem:'Aditivo', reembolso:true, retagSamaritano:false, retagSirio:'✕', coleta:false, resgate:'Aditivo', coparPct:'30%', coparConsulta:'R$30,00', coparInternacao:'R$220,00' },
+  'Platinum':       { abr:'Nacional · QP', espacoSaude:true, telemedicina:true, urgencia:'Já possui', seguroViagem:'Aditivo', reembolso:true, retagSamaritano:true, retagSirio:'✕', coleta:true, resgate:'Aditivo', coparPct:'30%', coparConsulta:'R$55,00', coparInternacao:'R$400,00' },
+  'Platinum Mais':  { abr:'Regional · DF/GO', espacoSaude:true, telemedicina:true, urgencia:'Já possui', seguroViagem:'Aditivo', reembolso:true, retagSamaritano:true, retagSirio:'SP/DF', coleta:true, resgate:'Aditivo', coparPct:'30%', coparConsulta:'R$55,00', coparInternacao:'R$400,00' },
+
+  'Amil Black I':      { abr:'Nacional · QP', reembolso:'3 níveis', retagBlack:true, coleta:true, acompanhante:true, resgate:'Embutido', agencias:true, checkup:false, concierge:false, consultaDom:false, redeBlack:false, esclero:'24 sessões/ano', vacinas:'Calendário Ministério da Saúde', coparPct:'30%', coparConsulta:'R$90,00', coparInternacao:'R$550,00' },
+  'S2500':             { abr:'Nacional · QP', reembolso:'2 níveis', retagBlack:true, coleta:true, acompanhante:true, resgate:'Embutido', agencias:true, checkup:false, concierge:false, consultaDom:false, redeBlack:false, esclero:'24 sessões/ano', vacinas:'Calendário Ministério da Saúde', coparPct:'30%', coparConsulta:'R$90,00', coparInternacao:'R$550,00' },
+  'Amil Black II':     { abr:'Nacional · QP', reembolso:'3 níveis', retagBlack:true, coleta:true, acompanhante:true, resgate:'Embutido', agencias:true, checkup:true, concierge:true, consultaDom:true, redeBlack:true, esclero:'Ilimitada', vacinas:'Calendário SBIm (ampliado)', coparPct:'30%', coparConsulta:'R$100,00', coparInternacao:'R$600,00' },
+  'S6500 Black':       { abr:'Nacional · QP', reembolso:'3 níveis', retagBlack:true, coleta:true, acompanhante:true, resgate:'Embutido', agencias:true, checkup:true, concierge:true, consultaDom:true, redeBlack:true, esclero:'Ilimitada', vacinas:'Calendário SBIm (ampliado)', coparPct:'30%', coparConsulta:'R$100,00', coparInternacao:'R$600,00' }
+};
+
+const COMP_GROUPS = [
+  { title:'ABRANGÊNCIA', rows:[
+    {label:'Abrangência / Acomodação', key:'abr'}
+  ]},
+  { title:'BENEFÍCIOS BASE', rows:[
+    {label:'Amil Espaço Saúde', key:'espacoSaude', type:'bool'},
+    {label:'Telemedicina', key:'telemedicina', type:'bool'},
+    {label:'Urgência/Emergência Nacional', key:'urgencia'},
+    {label:'Seguro Viagem Internacional', key:'seguroViagem'}
+  ]},
+  { title:'REEMBOLSO', rows:[
+    {label:'Reembolso embutido', key:'reembolso', type:'bool'},
+    {label:'Exemplo de reembolso · Consulta', key:'reembolsoValor'}
+  ]},
+  { title:'RETAGUARDA E REDE EXCLUSIVA', rows:[
+    {label:'Retaguarda do Samaritano (SP/RJ)', key:'retagSamaritano', type:'bool'},
+    {label:'Retaguarda Sírio-Libanês', key:'retagSirio'},
+    {label:'Retaguarda Samaritano/Sírio-Libanês/Einstein', key:'retagBlack', type:'bool'},
+    {label:'Rede Exclusiva Black', key:'redeBlack', type:'bool'}
+  ]},
+  { title:'SERVIÇOS EXCLUSIVOS', rows:[
+    {label:'Coleta Domiciliar', key:'coleta', type:'bool'},
+    {label:'Consulta Domiciliar (SP)', key:'consultaDom', type:'bool'},
+    {label:'Amil Resgate Saúde', key:'resgate'},
+    {label:'Acompanhante na internação', key:'acompanhante', type:'bool'},
+    {label:'Agências de Atendimento Exclusivas', key:'agencias', type:'bool'},
+    {label:'Check-up', key:'checkup', type:'bool'},
+    {label:'Concierge', key:'concierge', type:'bool'},
+    {label:'Escleroterapia', key:'esclero'},
+    {label:'Vacinas', key:'vacinas'}
+  ]},
+  { title:'COPARTICIPAÇÃO', rows:[
+    {label:'Percentual padrão', key:'coparPct'},
+    {label:'Limite · Consultas', key:'coparConsulta'},
+    {label:'Limite · Internação (fixa)', key:'coparInternacao'}
+  ]}
+];
+
+function getCmpSelected() {
+  return Array.from(document.querySelectorAll('.cmp-chip.active')).map(c => c.dataset.plan);
+}
+function cmpToggle(el) { el.classList.toggle('active'); cmpRender(); }
+function cmpClear() { document.querySelectorAll('.cmp-chip').forEach(c => c.classList.remove('active')); cmpRender(); }
+function cmpPreset(preset) {
+  let sel;
+  if (preset === 'all') sel = Object.values(CMP_PLANOS).flat();
+  else if (preset === 'selecionada') sel = CMP_PLANOS.Selecionada;
+  else if (preset === 'amil') sel = CMP_PLANOS.Amil;
+  else if (preset === 'black') sel = CMP_PLANOS.Black;
+  else sel = [];
+  document.querySelectorAll('.cmp-chip').forEach(c => c.classList.toggle('active', sel.includes(c.dataset.plan)));
+  cmpRender();
+}
+function cmpInitChips() {
+  const wrap = document.getElementById('cmp-chips');
+  const defaultActive = ['Amil S750', 'Prata', 'Ouro', 'Platinum', 'Amil Black I', 'Amil Black II'];
+  let html = '';
+  Object.entries(CMP_PLANOS).forEach(([linha, planos]) => {
+    planos.forEach(p => {
+      html += `<div class="cmp-chip${defaultActive.includes(p) ? ' active' : ''}" data-plan="${escapeHtml(p)}" data-linha="${linha}" onclick="cmpToggle(this)"><span class="cmp-chip-check"></span>${escapeHtml(p)}</div>`;
+    });
+  });
+  wrap.innerHTML = html;
+}
+function cmpRender() {
+  const selected = getCmpSelected();
+  const result = document.getElementById('cmp-result');
+  const summary = document.getElementById('cmp-summary');
+
+  summary.innerHTML = selected.length < 2
+    ? `Selecione pelo menos <strong>2 planos</strong>`
+    : `<strong>${selected.length}</strong> planos selecionados`;
+
+  if (selected.length < 2) {
+    result.innerHTML = '<div class="cmp-empty"><span class="cmp-empty-icon">+</span>Selecione pelo menos 2 planos acima para gerar o comparativo.</div>';
+    return;
+  }
+
+  let html = '<div class="scroller"><table class="compare-table" style="margin:0;"><thead><tr><th class="feature-col">Característica</th>';
+  selected.forEach(p => { html += `<th${p === 'Platinum' || p === 'Amil Black II' ? ' class="hl-col"' : ''}>${escapeHtml(p)}</th>`; });
+  html += '</tr></thead><tbody>';
+
+  COMP_GROUPS.forEach(g => {
+    const hasAny = g.rows.some(row => selected.some(p => COMP_DATA[p][row.key] !== undefined));
+    if (!hasAny) return;
+    html += `<tr><td class="feature-col" colspan="${selected.length+1}" style="background:rgba(23,65,196,0.06);font-family:'Montserrat',sans-serif;font-size:10px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:var(--blue)">${g.title}</td></tr>`;
+    g.rows.forEach(row => {
+      const anyDefined = selected.some(p => COMP_DATA[p][row.key] !== undefined);
+      if (!anyDefined) return;
+      html += `<tr><td class="feature-col">${row.label}</td>`;
+      selected.forEach(p => {
+        const v = COMP_DATA[p][row.key];
+        let cell;
+        if (v === undefined) cell = '<span class="cross">—</span>';
+        else if (row.type === 'bool') cell = v ? '<span class="check">✔</span>' : '<span class="cross">✗</span>';
+        else cell = `<span class="val">${escapeHtml(String(v))}</span>`;
+        html += `<td${p === 'Platinum' || p === 'Amil Black II' ? ' class="hl-col"' : ''}>${cell}</td>`;
+      });
+      html += '</tr>';
+    });
+  });
+  html += '</tbody></table></div>';
+  result.innerHTML = html;
+}
+
+function exportComparativo() {
+  const selected = getCmpSelected();
+  if (selected.length < 2) { alert('Selecione pelo menos 2 planos para exportar o comparativo.'); return; }
+  const win = window.open('', '_blank');
+  const tableHtml = document.getElementById('cmp-result').innerHTML;
+  win.document.write(`
+    <!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">
+    <title>Comparativo Amil PME · Maximo 360</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+      * { margin:0; padding:0; box-sizing:border-box; }
+      body { font-family:'Lato',sans-serif; padding:30px; color:#1A1C28; }
+      .doc-header { display:flex; justify-content:space-between; align-items:center; padding-bottom:16px; border-bottom:3px solid #1741C4; margin-bottom:24px; }
+      .doc-title { font-family:'Montserrat',sans-serif; font-size:22px; font-weight:900; color:#1741C4; }
+      .doc-sub { font-family:'Montserrat',sans-serif; font-size:11px; color:#6B7280; letter-spacing:1px; text-transform:uppercase; }
+      .doc-brand { font-family:'Montserrat',sans-serif; font-size:14px; font-weight:800; color:#1A1C28; }
+      .doc-brand span { color:#1741C4; }
+      h2 { font-family:'Montserrat',sans-serif; font-size:18px; font-weight:800; margin-bottom:12px; }
+      table { width:100%; border-collapse:collapse; font-size:12px; margin-bottom:20px; }
+      thead tr { background:#1A1C28; }
+      th { padding:12px 10px; font-family:'Montserrat',sans-serif; font-size:10px; font-weight:700; letter-spacing:0.5px; text-transform:uppercase; color:rgba(255,255,255,0.85); text-align:center; }
+      th.feature-col { text-align:left; color:rgba(255,255,255,0.55); }
+      th.hl-col { color:#bcd0ff; }
+      td { padding:11px 10px; border-bottom:1px solid #E5E7EB; text-align:center; font-size:12px; }
+      td.feature-col { text-align:left; font-weight:600; }
+      td.hl-col { background:rgba(23,65,196,0.04); }
+      .check { color:#16a34a; font-weight:700; font-size:14px; }
+      .cross { color:#9ca3af; font-size:14px; }
+      .val { color:#1741C4; font-weight:700; font-size:11px; }
+      .disclaimer { background:rgba(23,65,196,0.08); border-left:3px solid #1741C4; padding:12px 16px; font-size:11.5px; color:#374151; margin-top:30px; line-height:1.5; }
+      .footer { font-size:9.5px; color:#9ca3af; margin-top:24px; text-align:center; }
+      @media print { @page { size:landscape; margin:1cm; } }
+    </style>
+    </head><body>
+      <div class="doc-header">
+        <div>
+          <div class="doc-title">Comparativo Amil PME</div>
+          <div class="doc-sub">Linhas Selecionada, Amil e Black · Versão para o corretor</div>
+        </div>
+        <div style="text-align:right">
+          <div class="doc-brand">Maximo <span>360</span></div>
+          <div class="doc-sub">Assessoria de Seguros</div>
+        </div>
+      </div>
+      <h2>Planos comparados: ${selected.join(' · ')}</h2>
+      ${tableHtml}
+      <div class="disclaimer"><strong>Consulta rápida.</strong> Esta tabela é resumida para apoio comercial. Toda informação deve ser validada nos canais oficiais da <strong>Amil</strong> (Plataforma Comercial / Portal do Corretor) antes de qualquer apresentação ao cliente.</div>
+      <div class="footer">Gerado em ${new Date().toLocaleDateString('pt-BR')} · © Maximo 360 · Parceiro Amil</div>
+      <script>window.onload = () => { setTimeout(() => window.print(), 300); }</${'script'}>
+    </body></html>
+  `);
+  win.document.close();
+}
+
+cmpInitChips();
+cmpRender();
+
+// ─── SCROLL REVEAL ─── (estado inicial já vem do CSS; aqui só adiciona .revealed)
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('revealed'); observer.unobserve(e.target); }
+  });
+}, { threshold: 0.08 });
+document.querySelectorAll('.product-card, .benefit-card, .rule-card, .odonto-card, .copart-card, .reimb-card-big').forEach(el => observer.observe(el));
+
+// ─── SCROLL TOP ───
+const scrollTopBtn = document.querySelector('.scroll-top');
+scrollTopBtn.style.transition = 'opacity 0.3s';
+let scrollTopTicking = false;
+window.addEventListener('scroll', () => {
+  if (scrollTopTicking) return;
+  scrollTopTicking = true;
+  requestAnimationFrame(() => {
+    scrollTopBtn.style.opacity = window.scrollY > 400 ? '1' : '0';
+    scrollTopTicking = false;
+  });
+}, { passive: true });
+scrollTopBtn.style.opacity = '0';
+
+// ─── REGRAS COMERCIAIS (docx) ───
+const DOCX_DATA = [
+  {
+    id: 'elegibilidade', label: 'Elegibilidade de Empresas', ico: 'EL',
+    sub: 'Tipos de empresa aceitos e restrições por CNAE.',
+    blocks: [
+      { h: 'Tipos de empresa aceitos', items: ['LTDA, S/S, S/A, Empresário Individual (MEI, ME e EPP)', 'Cartório e Produtor Rural, desde que inscritos no CNPJ'] },
+      { h: 'Natureza jurídica NÃO aceita (obrigadas a licitar)', items: ['Empresa Pública, União, Estados, Municípios, DF e suas controladas', 'Sociedade de Economia Mista', 'Autarquias (inclusive as de controle profissional e agências reguladoras)', 'Fundações Públicas, Consórcios Públicos, Fundos Especiais', 'Sistema "S" (SESI, SENAI, SENAC etc.)', 'CAEPF sem inscrição no CNPJ (antigo CEI)', 'Empresa Simples de Inovação', 'Sociedade em Conta de Participação'] },
+      { h: 'CNAE com restrição', items: ['Empresas de segurança armada', 'Motoboy, entrega rápida, malote, delivery e correlatos', 'Prestação de Serviços Médicos credenciada/referenciada: só Porte I (2-29 vidas)'] }
+    ]
+  },
+  {
+    id: 'empresas-geral', label: 'Empresas (Geral)', ico: 'EG',
+    sub: 'Critério de elegibilidade e documentação para contratos PJ.',
+    blocks: [
+      { h: 'Critério', items: ['Mínimo 2 beneficiários, sendo ao menos 1 titular', 'MEI só entra se o sócio/proprietário aderir obrigatoriamente', 'MEI/ME/EPP (Empresário Individual): CNPJ ativo há no mínimo 180 dias na criação da oportunidade', 'Sociedade Empresarial Limitada: CNPJ ativo há no mínimo 60 dias', 'Consórcio de Sociedade: empregador no e-Social deve ser o próprio consórcio'] },
+      { h: 'Documentação', items: ['Contrato Social', 'Cartão CNPJ', 'Comprovante de registro na Junta Comercial', 'Declaração de Informação de Saúde (PME 30 a 99 vidas)', 'Produtor Rural: inscrição no CNPJ + CAEPF + Secretaria da Fazenda estadual', 'Cartório: CAEPF + CNPJ + publicação no Diário Oficial de nomeação do Tabelião'] }
+    ]
+  },
+  {
+    id: 'coligadas', label: 'Coligadas', ico: 'CO',
+    sub: 'Contratação conjunta com a empresa "mãe", vínculo societário ou familiar.',
+    blocks: [
+      { h: 'Critério', items: ['Contratação em conjunto com a empresa "mãe" (principal)', 'Mínimo 2 vidas (1 na principal, 1 na coligada), com vínculo societário, familiar ou de prestação de serviço', 'Empresa "mãe" não pode ser Empresário Individual (MEI, ME, EPP)', 'Fatura individual para cada empresa', 'A somatória do grupo vale só para redução de carência na implantação', 'Não aceita CAEPF (antigo CEI) como coligada'] },
+      { h: 'Documentação', items: ['Mesmos documentos de Empresas (Geral)', 'Termo Aditivo de Coligadas PJ até 99 beneficiários (enviado por e-mail separado na assinatura eletrônica)', 'Comprovação do vínculo societário/familiar, ou contrato de prestação de serviço (com firma reconhecida ou assinatura digital)', 'MEI coligada: contrato de prestação de serviço é obrigatório'] }
+    ]
+  },
+  {
+    id: 'ex-cliente', label: 'Ex-cliente Amil', ico: 'EX',
+    sub: 'Regras para empresas com contrato Amil cancelado anteriormente.',
+    blocks: [
+      { h: 'Critério', items: ['Contratos cancelados por sinistralidade, inadimplência ou solicitação', 'Novo contrato só é aceito após análise, 30 dias depois do cancelamento, sem débitos anteriores'] },
+      { h: 'Documentação', items: ['Mesma documentação exigida de Empresas (Geral)'] }
+    ]
+  },
+  {
+    id: 'socios', label: 'Sócios e Acionistas', ico: 'SO',
+    sub: 'Sócios e acionistas constantes no Contrato Social.',
+    blocks: [
+      { h: 'Critério', items: ['100% constantes no Contrato Social'] },
+      { h: 'Documentação', items: ['Cópia do Contrato Social/Estatuto registrado, com última alteração de inclusão de sócios', 'Falecimento de sócio: alteração contratual sobre o espólio ou certidão de óbito, com alteração do Contrato Social em até 180 dias do óbito'] }
+    ]
+  },
+  {
+    id: 'administradores', label: 'Administradores e Diretores', ico: 'AD',
+    sub: 'Administradores e diretores nomeados no Contrato Social.',
+    blocks: [
+      { h: 'Critério', items: ['Nomeados no Contrato Social há no mínimo 6 meses, assinando como tal'] },
+      { h: 'Documentação', items: ['Cópia do Contrato Social atualizado', 'S.A. / Capital Aberto: ATA atualizada do ano vigente ou anterior (aceita diretor/presidente do último exercício)'] }
+    ]
+  },
+  {
+    id: 'titulares', label: 'Titulares (Funcionários)', ico: 'TI',
+    sub: 'Categorias de funcionários elegíveis como titular do plano.',
+    blocks: [
+      { h: 'Categorias aceitas', items: ['Empregados', 'Funcionários intermitentes', 'Inativos (demitidos e aposentados)', 'Estagiários e Aprendizes', 'Diretores, Presidente e Vice-Presidente', 'Administradores, Sócios ou Acionistas (mencionados no Contrato Social)'] },
+      { h: 'Documentação', items: ['Vínculo comprovado no e-Social: não precisa de documento adicional', 'Não localizado na base: enviar e-Social (modelos S2200/S2100/S2206) com CNPJ, nome, CPF, data de admissão e situação ativa', 'Não precisa enviar ficha de registro nem carteira de trabalho/FGTS', 'Estagiários: contrato de estágio vigente assinado pelo estagiário, empresa e instituição de ensino'] }
+    ]
+  },
+  {
+    id: 'dependentes', label: 'Dependentes', ico: 'DP',
+    sub: 'Cônjuge, filhos e dependentes indiretos (agregados).',
+    blocks: [
+      { h: 'Elegibilidade', items: ['Cônjuge ou companheiro(a) — inclusive casais homoafetivos', 'Filhos e equiparados (adotados, enteados, tutelados) até 69 anos 11 meses e 29 dias', 'Filhos inválidos, elegíveis no IR do titular, sem limite de idade', 'Após a vigência: filhos solteiros até 24 anos 11 meses e 29 dias'] },
+      { h: 'Documentação', items: ['Cônjuge: certidão de casamento, união estável (física ou e-Notariado), documento com filhos em comum, ou carta de convivência reconhecida em cartório', 'Filhos: certidão de nascimento ou documento com filiação; adotivos: termo de tutela/guarda', 'Enteados: documento de filiação com o cônjuge + comprovação do parentesco do cônjuge com o titular', 'Inativos: carta da operadora anterior com nomes, datas e condição (demitido/aposentado)'] },
+      { h: 'Dependentes Indiretos (Agregados)', items: [
+          'Pai e Mãe, até 69 anos, 11 meses e 29 dias',
+          'Padrasto e Madrasta, até 69 anos, 11 meses e 29 dias',
+          'Genro e Nora, até 69 anos, 11 meses e 29 dias (desde que o/a filho(a) do titular esteja incluído no plano)',
+          'Irmão(ã), até 69 anos, 11 meses e 29 dias',
+          'Sobrinho(a), até 69 anos, 11 meses e 29 dias',
+          'Neto(a), até 69 anos, 11 meses e 29 dias'
+        ],
+        note: 'A inclusão de dependentes indiretos é permitida apenas no momento da contratação inicial do plano. Essa é uma ação promocional, e a Amil poderá encerrá-la a qualquer momento.',
+        kw: 'agregado agregados indireto indiretos irmao sobrinho sogro sogra padrasto madrasta genro nora neto parentes'
+      }
+    ]
+  },
+  {
+    id: 'modalidade', label: 'Modalidade de Contratação', ico: 'MO',
+    sub: 'Livre adesão x compulsória, por porte da empresa.',
+    blocks: [
+      { h: 'Porte I — 2 a 29 vidas', items: ['Tabela Empresas MEI: exclusiva para Microempreendedor Individual', 'Tabela Demais Empresas: qualquer natureza jurídica (ME, EPP, CAEPF, Produtor Rural), exceto MEI'] },
+      { h: 'Porte II — 30 a 99 vidas', items: ['Tabela Livre Adesão: quando NÃO há 100% de sócios/funcionários/massa do plano anterior', 'Tabela Compulsória (composição societária/vínculo empregatício): 100% dos sócios + 100% dos funcionários com e-Social, ou 80% (até 9 titulares) / 90% (10+ titulares) com declaração dos que não aderirem', 'Tabela Compulsória (plano anterior): 100% do grupo anterior migrando, vínculo mínimo de 12 meses, protocolo em até 30 dias da rescisão'] },
+      { h: 'Regras gerais', items: ['Coligadas seguem a mesma regra de contratação da empresa principal', 'Funcionários com menos de 45 dias de admissão são aceitos na massa', 'A compulsoriedade se mantém mesmo se algum beneficiário não aderir, desde que já tenha vínculo ativo com a operadora'] }
+    ]
+  }
+];
+
+let docxActiveId = DOCX_DATA[0].id;
+function docxRenderSidebar() {
+  document.getElementById('docx-sidebar').innerHTML = DOCX_DATA.map(d =>
+    `<button class="docx-sidebar-item${d.id === docxActiveId ? ' active' : ''}" onclick="docxSelect('${d.id}')">
+      <span class="docx-side-ico">${d.ico || '•'}</span>${d.label}</button>`
+  ).join('');
+}
+function docxRenderPanel() {
+  const d = DOCX_DATA.find(x => x.id === docxActiveId);
+  if (!d) return;
+  let html = `<div class="docx-panel-head">
+      <span class="docx-panel-tag">Regras Comerciais Amil PME</span>
+      <h3>${d.label}</h3>
+      ${d.sub ? `<p>${d.sub}</p>` : ''}
+    </div><div class="docx-panel-body">`;
+  d.blocks.forEach(b => {
+    html += `<div class="docx-block"><div class="docx-block-title"><span class="docx-bt-ico">▤</span>${b.h}</div>`;
+    b.items.forEach(i => { html += `<div class="docx-li">${i}</div>`; });
+    html += '</div>';
+    if (b.note) html += `<div class="docx-note"><strong>Importante:</strong> ${b.note}</div>`;
+  });
+  html += '<div class="docx-sub-note">Regras vigentes para contratação Amil PME (2 a 99 vidas). Documentos adicionais podem ser exigidos pela área de aceitação.</div>';
+  html += '</div>';
+  document.getElementById('docx-panel').innerHTML = html;
+}
+window.docxSelect = function (id) {
+  docxActiveId = id;
+  docxRenderSidebar();
+  docxRenderPanel();
+};
+docxRenderSidebar();
+docxRenderPanel();
+
+// ─── REDE AMIL TOTAL CARE ───
+const REDE_TOTALCARE = [
+  {n:"Hospital Santo Amaro", c:"São Paulo", uf:"SP"},
+  {n:"Amil Luz Butantã", c:"São Paulo", uf:"SP"},
+  {n:"Hospital Luz Vila Mariana", c:"São Paulo", uf:"SP"},
+  {n:"Hospital Metropolitano", c:"São Paulo", uf:"SP"},
+  {n:"Hospital Paulistano", c:"São Paulo", uf:"SP"},
+  {n:"Hospital Vitória Anália Franco", c:"São Paulo", uf:"SP"},
+  {n:"Hospital Caieiras", c:"Caieiras", uf:"SP"},
+  {n:"Hospital Ana Costa - Santos", c:"Santos", uf:"SP"},
+  {n:"Hospital Ipiranga Arujá", c:"Arujá", uf:"SP"},
+  {n:"Hospital Ipiranga Mogi", c:"Mogi das Cruzes", uf:"SP"},
+  {n:"Hospital Carlos Chagas", c:"São Paulo", uf:"SP"},
+  {n:"Hospital Pitangueiras", c:"São Paulo", uf:"SP"},
+  {n:"Hospital Santa Helena - Maternidade Ítalo Seti", c:"São Paulo", uf:"SP"},
+  {n:"HSH - Hospital Santa Helena", c:"São Paulo", uf:"SP"},
+  {n:"Hospital Santa Helena São Bernardo - ABC Cirúrgico", c:"São Bernardo do Campo", uf:"SP"},
+  {n:"Hospital Monte Klinikum", c:"Fortaleza", uf:"CE"},
+  {n:"Hospital de Clínicas de Jacarepaguá", c:"Rio de Janeiro", uf:"RJ"},
+  {n:"Hospital Pan Americano", c:"Rio de Janeiro", uf:"RJ"},
+  {n:"Hospital Mario Lioni", c:"Rio de Janeiro", uf:"RJ"},
+  {n:"Hospital Pasteur", c:"Rio de Janeiro", uf:"RJ"},
+  {n:"Hospital Promater", c:"Natal", uf:"RN"},
+  {n:"Espaço Saúde Osasco", c:"Osasco", uf:"SP"},
+  {n:"Espaço Saúde Santana", c:"São Paulo", uf:"SP"},
+  {n:"Espaço Saúde Tatuapé", c:"São Paulo", uf:"SP"},
+  {n:"Espaço Saúde Ana Rosa", c:"São Paulo", uf:"SP"},
+  {n:"Espaço Saúde Guarulhos", c:"Guarulhos", uf:"SP"},
+  {n:"Centro Médico AMA - Unidade Itaquaquecetuba", c:"Itaquaquecetuba", uf:"SP"},
+  {n:"Ana Costa - São Vicente", c:"São Vicente", uf:"SP"},
+  {n:"Ana Costa - Cubatão", c:"Cubatão", uf:"SP"},
+  {n:"Ana Costa - Beatriz Boulevard - Praia Grande", c:"Praia Grande", uf:"SP"},
+  {n:"Ana Costa - Praia Grande", c:"Praia Grande", uf:"SP"},
+  {n:"Ana Costa Enseada - Guarujá", c:"Guarujá", uf:"SP"},
+  {n:"Unidade Avançada Diadema", c:"Diadema", uf:"SP"},
+  {n:"Unidade Avançada Ipiranga Suzano", c:"Suzano", uf:"SP"},
+  {n:"UD Cubatão SP", c:"Cubatão", uf:"SP"},
+  {n:"Unidade Avançada Luz Santo Amaro", c:"São Paulo", uf:"SP"},
+  {n:"Unidade Avançada Carlos Chagas", c:"São Paulo", uf:"SP"},
+  {n:"Unidade Avançada Arujá", c:"Arujá", uf:"SP"},
+  {n:"Unidade Avançada Luz João Dias", c:"São Paulo", uf:"SP"},
+  {n:"CES I – Centro de Especialidades SOBAM – Jundiaí", c:"Jundiaí", uf:"SP"},
+  {n:"CES II – Centro de Pediatria", c:"São Paulo", uf:"SP"},
+  {n:"Policlínica de Vinhedo", c:"Vinhedo", uf:"SP"},
+  {n:"CES II – Espaço Saúde - Medicina Preventiva", c:"São Paulo", uf:"SP"},
+  {n:"Policlínica de Várzea Paulista", c:"Várzea Paulista", uf:"SP"},
+  {n:"Policlínica de Cabreúva", c:"Cabreúva", uf:"SP"},
+  {n:"Centro Médico AMA - Unidade Arujá", c:"Arujá", uf:"SP"},
+  {n:"Centro Médico Índico", c:"São Paulo", uf:"SP"},
+  {n:"Centro Médico Pitangueiras", c:"São Paulo", uf:"SP"},
+  {n:"Centro Médico Jardim", c:"São Paulo", uf:"SP"},
+  {n:"Centro Médico João Azevedo - SBC I", c:"São Bernardo do Campo", uf:"SP"},
+  {n:"Centro Médico Carijós - Santo André", c:"Santo André", uf:"SP"},
+  {n:"Centro Médico João Azevedo - SBC II", c:"São Bernardo do Campo", uf:"SP"},
+  {n:"Espaço Saúde Caxias", c:"Duque de Caxias", uf:"RJ"},
+  {n:"Espaço Saúde Botafogo", c:"Rio de Janeiro", uf:"RJ"},
+  {n:"Espaço Saúde Nova Iguaçu", c:"Nova Iguaçu", uf:"RJ"},
+  {n:"Espaço Saúde Niterói", c:"Niterói", uf:"RJ"},
+  {n:"Espaço Saúde Campo Grande", c:"Rio de Janeiro", uf:"RJ"},
+  {n:"Espaço Saúde Tijuca", c:"Rio de Janeiro", uf:"RJ"},
+  {n:"Hospital Santa Lúcia", c:"Rio de Janeiro", uf:"RJ"},
+  {n:"Espaço Saúde São José dos Pinhais", c:"São José dos Pinhais", uf:"PR"}
+];
+function redeNorm(s) { return (s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').trim(); }
+REDE_TOTALCARE.forEach(h => { h._n = redeNorm(h.n); h._c = redeNorm(h.c); });
+
+let tcDisplayLimit = 20;
+let tcFiltered = REDE_TOTALCARE.slice();
+function renderTC() {
+  const results = document.getElementById('tc-results');
+  const countEl = document.getElementById('tc-count');
+  const loadBtn = document.getElementById('tc-load-more');
+  const slice = tcFiltered.slice(0, tcDisplayLimit);
+  countEl.innerHTML = tcFiltered.length === 0
+    ? 'Nenhum resultado encontrado'
+    : `<strong>${tcFiltered.length}</strong> unidade${tcFiltered.length !== 1 ? 's' : ''} própria${tcFiltered.length !== 1 ? 's' : ''}`;
+  if (tcFiltered.length === 0) {
+    results.innerHTML = '<div class="rede-empty">Nenhuma unidade própria encontrada para esse termo — procure na aba “Rede credenciada”.</div>';
+    loadBtn.style.display = 'none';
+    return;
+  }
+  results.innerHTML = slice.map(h => `
+    <div class="rede-item">
+      <div class="rede-item-icon">A</div>
+      <div>
+        <div class="rede-item-name">${h.n}</div>
+        <div class="rede-item-city">${h.c} — ${h.uf}</div>
+        <div class="rede-chips"><span class="chip on">Rede própria · isenta de coparticipação</span></div>
+      </div>
+    </div>
+  `).join('');
+  loadBtn.style.display = tcFiltered.length > tcDisplayLimit ? 'block' : 'none';
+}
+function filterTC() {
+  const q = redeNorm(document.getElementById('tc-search').value);
+  const uf = document.getElementById('tc-uf-filter').value;
+  tcDisplayLimit = 20;
+  tcFiltered = REDE_TOTALCARE.filter(h => {
+    const matchText = !q || h._n.includes(q) || h._c.includes(q);
+    const matchUf = !uf || h.uf === uf;
+    return matchText && matchUf;
+  });
+  renderTC();
+}
+let tcDebounceTimer;
+function filterTCDebounced() { clearTimeout(tcDebounceTimer); tcDebounceTimer = setTimeout(filterTC, 120); }
+document.getElementById('tc-search').addEventListener('input', filterTCDebounced);
+document.getElementById('tc-uf-filter').addEventListener('change', filterTC);
+document.getElementById('tc-load-more').addEventListener('click', () => { tcDisplayLimit += 20; renderTC(); });
+renderTC();
+
+// ─── REDE CREDENCIADA (carregada sob demanda de rede.json) ───
+let REDE = null;            // { legenda, planos, prestadores }
+const REDE_PAGE_SIZE = 8;   // poucos por vez, pra nao virar parede de informacao
+let redeDisplayLimit = REDE_PAGE_SIZE;
+let redeFiltered = [];
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function renderRede() {
+  const results = document.getElementById('rede-results');
+  const countEl = document.getElementById('rede-count');
+  const loadBtn = document.getElementById('rede-load-more');
+  const slice = redeFiltered.slice(0, redeDisplayLimit);
+
+  countEl.innerHTML = redeFiltered.length === 0
+    ? 'Nenhum prestador encontrado'
+    : `<strong>${redeFiltered.length}</strong> prestador${redeFiltered.length !== 1 ? 'es' : ''} encontrado${redeFiltered.length !== 1 ? 's' : ''}`;
+
+  if (redeFiltered.length === 0) {
+    results.innerHTML = '<div class="rede-empty">Nenhum prestador encontrado para esses filtros.<br><span style="font-size:12px;opacity:.85;">Tente outro termo, ou troque o segmento (PME / PJ).</span></div>';
+    loadBtn.style.display = 'none';
+    return;
+  }
+
+  results.innerHTML = slice.map(p => {
+    const chips = REDE.planos
+      .filter(pl => p.p[pl])
+      .map(pl => `<span class="chip on" title="${escapeHtml(p.p[pl])}">${escapeHtml(pl)}<span class="chip-cod">${escapeHtml(p.p[pl])}</span></span>`)
+      .join('');
+    return `
+      <div class="rede-item">
+        <div class="rede-item-icon">${p.t === 'L' ? 'L' : 'H'}</div>
+        <div style="min-width:0;">
+          <div class="rede-item-name">${escapeHtml(p.n)}</div>
+          <div class="rede-item-city">${escapeHtml(p.c)}${p.r ? ' · ' + escapeHtml(p.r) : ''} · ${p.t === 'L' ? 'Laboratório' : 'Hospital'} · ${escapeHtml(p.s)}</div>
+          <div class="rede-chips">${chips}</div>
+        </div>
+      </div>`;
+  }).join('');
+
+  loadBtn.style.display = redeFiltered.length > redeDisplayLimit ? 'block' : 'none';
+}
+
+function filterRede() {
+  if (!REDE) return;
+  const q = redeNorm(document.getElementById('rede-search').value);
+  const tipo = document.getElementById('rede-tipo-filter').value;
+  const seg = document.getElementById('rede-seg-filter').value;
+  const plano = document.getElementById('rede-plano-filter').value;
+  redeDisplayLimit = REDE_PAGE_SIZE;
+  redeFiltered = REDE.prestadores.filter(p => {
+    if (tipo && p.t !== tipo) return false;
+    if (seg && p.s !== seg) return false;
+    if (plano && !p.p[plano]) return false;
+    if (q && !p._n.includes(q) && !p._c.includes(q)) return false;
+    return true;
+  });
+  renderRede();
+}
+let redeDebounceTimer;
+function filterRedeDebounced() { clearTimeout(redeDebounceTimer); redeDebounceTimer = setTimeout(filterRede, 120); }
+
+function initRede(data) {
+  REDE = data;
+  REDE.prestadores.forEach(p => { p._n = redeNorm(p.n); p._c = redeNorm(p.c); });
+
+  const sel = document.getElementById('rede-plano-filter');
+  sel.innerHTML = '<option value="">Todos os planos</option>' +
+    REDE.planos.map(pl => `<option value="${escapeHtml(pl)}">${escapeHtml(pl)}</option>`).join('');
+
+  document.getElementById('rede-legenda').innerHTML =
+    '<h5>Nomenclaturas de atendimento</h5><div class="legenda-grid">' +
+    Object.entries(REDE.legenda).map(([k, v]) =>
+      `<div class="legenda-item"><span class="legenda-code">${escapeHtml(k)}</span><span class="legenda-desc">${escapeHtml(v)}</span></div>`
+    ).join('') + '</div>';
+
+  document.getElementById('rede-search').addEventListener('input', filterRedeDebounced);
+  document.getElementById('rede-tipo-filter').addEventListener('change', filterRede);
+  document.getElementById('rede-seg-filter').addEventListener('change', filterRede);
+  document.getElementById('rede-plano-filter').addEventListener('change', filterRede);
+  document.getElementById('rede-load-more').addEventListener('click', () => { redeDisplayLimit += REDE_PAGE_SIZE; renderRede(); });
+
+  filterRede();
+}
+
+fetch('rede.json')
+  .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+  .then(initRede)
+  .catch(() => {
+    document.getElementById('rede-count').innerHTML =
+      'Não foi possível carregar a rede credenciada agora. <a href="#" onclick="location.reload();return false;" style="color:var(--blue);font-weight:700;">Recarregar a página</a>.';
+  });
+</script>
+
+<!-- ══════════════════════════════════════════════════════════════
+     BLUE — EXPERIMENTAL
+     Buscador inteligente do portal, sem custo de API (sem geração de
+     texto livre — apenas localiza o conteúdo real da página e leva
+     até lá). Bloco isolado: pode ser removido inteiro (deste
+     comentário até o fechamento do </script> logo acima do </body>)
+     sem afetar nenhuma outra parte do site.
+     ══════════════════════════════════════════════════════════════ -->
+<style>
+  #bl-fab {
+    position: fixed; right: 20px; bottom: 142px; z-index: 999;
+    width: 138px; height: 138px; border: none; background: none; cursor: pointer;
+    padding: 0; display: block;
+    animation: blFly 4.2s ease-in-out infinite;
+    transform-origin: 70% 85%;
+  }
+  #bl-fab:focus-visible { outline: 3px solid var(--blue); outline-offset: 4px; border-radius: 50%; }
+  #bl-fab-img {
+    width: 100%; height: 100%; object-fit: contain;
+    filter: drop-shadow(0 10px 18px rgba(15,17,24,0.35));
+    transition: transform 0.25s;
+  }
+  #bl-fab:hover #bl-fab-img { transform: scale(1.08); }
+  @keyframes blFlap {
+    0%, 100% { transform: scale(1,1) rotate(0deg); }
+    10% { transform: scale(1.18,0.82) rotate(-10deg); }
+    20% { transform: scale(0.88,1.12) rotate(10deg); }
+    30% { transform: scale(1.18,0.82) rotate(-10deg); }
+    40% { transform: scale(0.88,1.12) rotate(10deg); }
+    55% { transform: scale(1.1,0.9) rotate(-6deg); }
+    70% { transform: scale(0.95,1.05) rotate(4deg); }
+  }
+  #bl-fab-img.flap { animation: blFlap 0.7s ease-in-out; }
+  @keyframes blFly {
+    0%   { transform: translate(0, 0) rotate(0deg); }
+    25%  { transform: translate(-6px, -14px) rotate(-4deg); }
+    50%  { transform: translate(2px, -22px) rotate(2deg); }
+    75%  { transform: translate(-4px, -10px) rotate(-3deg); }
+    100% { transform: translate(0, 0) rotate(0deg); }
+  }
+  #bl-fab-badge {
+    position: absolute; bottom: calc(100% + 12px); left: 50%; transform: translateX(-50%);
+    background: var(--navy); color: var(--white);
+    font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 800;
+    padding: 4px 10px; border-radius: 12px; white-space: nowrap; box-shadow: var(--shadow);
+    animation: blBadgeFloat 2.6s ease-in-out infinite;
+  }
+  #bl-fab-badge .kbd { font-family: 'Lato', sans-serif; font-weight: 700; opacity: 0.75; margin-left: 4px; }
+  #bl-fab-badge::after {
+    content: ""; position: absolute; left: 50%; transform: translateX(-50%); bottom: -5px;
+    border: 5px solid transparent; border-top-color: var(--navy);
+  }
+  @keyframes blBadgeFloat {
+    0%, 100% { opacity: 1; } 45% { opacity: 1; } 55% { opacity: 0; } 95% { opacity: 0; }
+  }
+  .fab-particle {
+    position: fixed; pointer-events: none; z-index: 1001; border-radius: 50%;
+    transform: translate(-50%, -50%); animation-timing-function: ease-out; animation-fill-mode: forwards;
+  }
+  @keyframes blueFireRise {
+    0%   { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+    65%  { opacity: 0.85; }
+    100% { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(var(--send, 0.15)); opacity: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    #bl-fab, #bl-fab-badge, #bl-fab-img.flap { animation: none; }
+    .fab-particle { display: none; }
+  }
+  @media (max-width: 700px) {
+    #bl-fab { width: 114px; height: 114px; right: 12px; bottom: 128px; }
+    #bl-fab-badge { display: none; }
+  }
+  #bl-panel {
+    position: fixed; right: 20px; bottom: 218px; z-index: 999;
+    width: 360px; max-width: calc(100vw - 40px); max-height: min(560px, calc(100vh - 258px));
+    background: var(--white); border-radius: 18px; box-shadow: 0 20px 60px rgba(15,17,24,0.35);
+    display: none; flex-direction: column; overflow: hidden;
+    font-family: 'Lato', sans-serif;
+  }
+  #bl-panel.open { display: flex; }
+  @media (max-width: 700px) {
+    #bl-panel { right: 10px; left: 10px; bottom: 208px; width: auto; max-height: min(70vh, calc(100vh - 228px)); }
+  }
+  .bl-sugg-chip:focus-visible, .bl-result-go:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+  #bl-head {
+    background: linear-gradient(135deg, var(--blue), var(--blue-dark)); color: var(--white);
+    padding: 16px 18px; display: flex; align-items: center; justify-content: space-between;
+  }
+  #bl-head-title { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 15px; display: flex; align-items: center; gap: 8px; }
+  #bl-close { background: none; border: none; color: rgba(255,255,255,0.7); font-size: 20px; cursor: pointer; line-height: 1; }
+  #bl-close:hover { color: var(--white); }
+  #bl-body { padding: 16px; overflow-y: auto; flex: 1; }
+  .bl-greeting {
+    background: var(--blue-soft); border-radius: 12px 12px 12px 2px;
+    padding: 10px 14px; font-size: 13px; color: var(--blue-dark); font-weight: 700;
+    margin-bottom: 14px; line-height: 1.5;
+  }
+  #bl-input-row { display: flex; gap: 8px; margin-bottom: 12px; }
+  #bl-input {
+    flex: 1; border: 2px solid var(--gray-light); border-radius: 10px; padding: 10px 12px;
+    font-family: 'Lato', sans-serif; font-size: 13.5px; outline: none; color: var(--text);
+  }
+  #bl-input:focus { border-color: var(--blue); }
+  #bl-ask { background: var(--blue); color: var(--white); border: none; border-radius: 10px; padding: 0 16px; font-weight: 800; cursor: pointer; }
+  #bl-ask:hover { background: var(--blue-dark); }
+  .bl-hint { font-size: 11px; color: var(--gray); margin-bottom: 12px; }
+  .bl-suggestions { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 4px; }
+  .bl-sugg-chip {
+    font-size: 11px; padding: 6px 10px; border-radius: 14px; background: var(--off-white);
+    border: 1px solid var(--gray-light); color: var(--navy); cursor: pointer; font-weight: 700;
+  }
+  .bl-sugg-chip:hover { background: var(--blue-soft); border-color: var(--blue); }
+  .bl-result { background: var(--off-white); border-left: 3px solid var(--blue); border-radius: 8px; padding: 12px 14px; margin-bottom: 10px; }
+  .bl-result-title { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 13px; color: var(--navy); margin-bottom: 4px; }
+  .bl-result-snippet { font-size: 12px; color: var(--gray-dark); line-height: 1.5; margin-bottom: 8px; }
+  .bl-result-go {
+    display: inline-flex; align-items: center; gap: 4px; font-size: 11.5px; font-weight: 800;
+    color: var(--blue-dark); cursor: pointer; text-decoration: none;
+  }
+  .bl-result-go:hover { text-decoration: underline; }
+  .bl-empty { font-size: 12.5px; color: var(--gray); line-height: 1.6; }
+  @keyframes blPanelFlash {
+    0%, 100% { box-shadow: var(--shadow); }
+    30% { box-shadow: 0 0 0 4px var(--blue-soft), var(--shadow-hover); }
+  }
+  .docx-panel.bl-flash, .benefit-card.bl-flash { animation: blPanelFlash 1.4s ease; }
+</style>
+
+<button id="bl-fab" onclick="blToggle()" aria-label="Abrir assistente Blue" title="Pergunte à Blue">
+  <picture>
+    <source srcset="blue.webp" type="image/webp">
+    <img id="bl-fab-img" src="blue.png" alt="Blue" width="300" height="226">
+  </picture>
+  <span id="bl-fab-badge">Pergunte! <span class="kbd">Ctrl K</span></span>
+</button>
+
+<div id="bl-panel">
+  <div id="bl-head">
+    <div id="bl-head-title"><img src="blue.png" alt="" style="height:30px;width:auto;">Blue</div>
+    <button id="bl-close" onclick="blToggle()">✕</button>
+  </div>
+  <div id="bl-body">
+    <div class="bl-greeting" id="bl-greeting">Olá, sou a Blue! 💙 Como posso te ajudar?</div>
+    <div id="bl-input-row">
+      <input id="bl-input" type="text" placeholder="Pergunte algo... ex: coparticipação do Platinum" onkeydown="if(event.key==='Enter') blAsk()">
+      <button id="bl-ask" onclick="blAsk()">Ir</button>
+    </div>
+    <div class="bl-hint">Busco a resposta real dentro do portal e te levo até o lugar certo.</div>
+    <div id="bl-results">
+      <div class="bl-suggestions" id="bl-suggestions"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const BL_norm = s => (s||"").toString().toLowerCase()
+      .normalize("NFD").replace(/[̀-ͯ]/g,"")
+      .replace(/[^a-z0-9\s]/g," ").replace(/\s+/g," ").trim();
+
+  const BL_EXTRA = [
+    { id: 'institucional', title: 'Institucional Amil', snippet: 'Estatísticas da Amil, canais oficiais do corretor (Central, Plataforma Comercial, Kit Corretor) e área de comercialização.', kw: 'institucional amil quem e central corretor plataforma comercial kit corretor' },
+    { id: 'produtos', title: 'Linhas de Produtos Amil PME', snippet: 'As 3 linhas: Selecionada (S380 a S750), Amil (Bronze a Platinum) e Black (rede exclusiva).', kw: 'produtos linha selecionada amil black bronze prata ouro platinum' },
+    { id: 'planos', title: 'Planos Amil PME em Detalhe', snippet: 'Todos os planos por linha, com abrangência, acomodação e coberturas.', kw: 'planos s380 s450 s750 bronze prata ouro platinum black abrangencia acomodacao qc qp' },
+    { id: 'comparativo', title: 'Comparador de Planos', snippet: 'Compare qualquer combinação de planos das 3 linhas lado a lado, e exporte em PDF.', kw: 'comparador comparativo comparar planos tabela exportar pdf' },
+    { id: 'reembolso', title: 'Exemplos de Reembolso', snippet: 'Valores de reembolso por procedimento em cada plano/linha.', kw: 'reembolso valores consulta exame internacao r1 r2 r3' },
+    { id: 'beneficios', title: 'Benefícios do Beneficiário', snippet: 'Telemedicina, Amil Espaço Saúde, Coleta Domiciliar e outros diferenciais.', kw: 'beneficios telemedicina espaco saude coleta domiciliar diferenciais' },
+    { id: 'carencia', title: 'Prazos de Carência', snippet: 'Tabela de carência PRC 607/608/609/617/623 e carência do Dental.', kw: 'carencia prazo espera dias meses dental' },
+    { id: 'regras', title: 'Regras Comerciais e Documentação', snippet: 'Elegibilidade de empresas, sócios, dependentes e documentos exigidos por tipo de contratação.', kw: 'regras comerciais documentacao contratar' },
+    { id: 'congeneres', title: 'Operadoras Congêneres', snippet: 'Redução de carência para quem já tem plano em operadora congênere.', kw: 'congenere carencia reducao plano anterior operadora' },
+    { id: 'coparticipacao', title: 'Coparticipação e Calculadora', snippet: 'Simule o valor de coparticipação por plano e tipo de atendimento.', kw: 'coparticipacao calculadora simulador limite percentual' },
+    { id: 'dental', title: 'Amil Dental', snippet: '5 planos odontológicos, do Bronze Doc ao Platinum.', kw: 'dental odonto odontologico bronze prata ouro platinum' },
+    { id: 'rede', title: 'Rede Credenciada e Total Care', snippet: 'Busque hospitais e laboratórios credenciados, ou a rede própria Total Care.', kw: 'hospital laboratorio rede credenciada buscar total care' },
+    { id: 'contato', title: 'Canais de Apoio e Contatos', snippet: 'Central do Corretor, Plataforma Comercial e contatos da Assessoria Maximo 360.', kw: 'contato central corretor telefone whatsapp maximo 360' }
+  ];
+
+  const BL_DOCX_SYN = {
+    'elegibilidade': 'elegibilidade elegivel tipos de empresa aceita aceitas cnae mei ltda',
+    'empresas-geral': 'empresa empresas geral criterio documentacao cnpj contrato social',
+    'coligadas': 'coligada coligadas grupo economico empresa mae vinculo societario',
+    'ex-cliente': 'ex cliente clientes cancelado cancelada sinistralidade inadimplencia',
+    'socios': 'socio socios acionista acionistas',
+    'administradores': 'administrador administradores diretor diretores',
+    'titulares': 'titular titulares funcionario funcionarios empregado empregados',
+    'dependentes': 'dependente dependentes conjuge filho filhos',
+    'modalidade': 'modalidade modalidades contratacao compulsorio compulsoria opcional'
+  };
+
+  let BL_INDEX = [];
+  function blBuildIndex(){
+    BL_INDEX = [];
+    BL_EXTRA.forEach(e => BL_INDEX.push({ id: e.id, kind: 'section', title: e.title, snippet: e.snippet, kw: BL_norm(e.title + ' ' + e.snippet + ' ' + e.kw) }));
+
+    if (typeof DOCX_DATA !== 'undefined') {
+      DOCX_DATA.forEach(d => {
+        d.blocks.forEach(b => {
+          const bits = b.items.join(' ');
+          BL_INDEX.push({
+            id: d.id, kind: 'docx',
+            title: d.label + ' — ' + b.h,
+            snippet: bits.slice(0, 220) + (bits.length > 220 ? '…' : ''),
+            kw: BL_norm(d.label + ' ' + b.h + ' ' + bits + ' ' + (BL_DOCX_SYN[d.id] || '') + ' ' + (b.kw || ''))
+          });
+        });
+      });
+    }
+  }
+
+  const BL_EXAMPLES = [
+    'Coparticipação do Platinum',
+    'Quem pode ser dependente?',
+    'Comparar planos',
+    'Rede em São Paulo'
+  ];
+
+  function blRenderSuggestions(){
+    document.getElementById('bl-suggestions').innerHTML = BL_EXAMPLES.map(q =>
+      `<span class="bl-sugg-chip" tabindex="0" role="button" onclick="document.getElementById('bl-input').value='${q.replace(/'/g, "\\'")}'; blAsk();" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">${q}</span>`
+    ).join('');
+  }
+
+  // ─── Navegação por teclado (setas) entre sugestões/resultados ───
+  function blFocusables(){
+    return Array.from(document.querySelectorAll('#bl-body .bl-sugg-chip, #bl-body .bl-result-go'));
+  }
+  document.getElementById('bl-body').addEventListener('keydown', (e) => {
+    if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp') return;
+    const items = blFocusables();
+    if (!items.length) return;
+    e.preventDefault();
+    const active = document.activeElement;
+    let idx = items.indexOf(active);
+    if (idx === -1) { idx = e.key === 'ArrowDown' ? 0 : items.length - 1; }
+    else { idx = e.key === 'ArrowDown' ? Math.min(idx + 1, items.length - 1) : Math.max(idx - 1, 0); }
+    items[idx].focus();
+  });
+
+  // Palavras curtas de ligação (ou, de, com...) só geram ruído na pontuação
+  // por casarem como substring dentro de outras palavras -- tiradas antes de
+  // pontuar, e usadas para montar frases (2 a 4 palavras) que valem bônus
+  // maior, pra frases tipo "quem pode ser dependente" acharem o item certo
+  // mesmo que nenhuma palavra sozinha seja exclusiva dele.
+  const BL_STOPWORDS = new Set(['a','o','os','as','de','da','do','das','dos','e','ou','se','em','no','na','nos','nas','um','uma','uns','umas','para','por','com','sem','que','qual','quais','como','ser','tem','sao','pra','ao','aos','me','te','lhe','isso','isto','esse','essa','este','esta','tambem','quem','pode','podem','poder','onde','quando','porque','sera','vai','tera','ha','seu','sua','meu','minha','voce','ate','so','ja']);
+  function blWords(q){
+    const all = BL_norm(q).split(' ').filter(Boolean);
+    const filtered = all.filter(w => !BL_STOPWORDS.has(w));
+    return filtered.length ? filtered : all;
+  }
+  function blPhrases(words){
+    const out = [];
+    for (let n = 2; n <= 4 && n <= words.length; n++){
+      for (let i = 0; i + n <= words.length; i++) out.push(words.slice(i, i + n).join(' '));
+    }
+    return out;
+  }
+  function blScore(entry, words, phrases){
+    let score = 0;
+    const titleNorm = BL_norm(entry.title);
+    words.forEach(w => {
+      const re = new RegExp('\\b' + w + '\\b');
+      if (re.test(entry.kw)) score += 1;
+      if (re.test(titleNorm)) score += 2;
+    });
+    (phrases || []).forEach(p => {
+      if (entry.kw.indexOf(p) > -1) score += 3 + p.split(' ').length;
+      if (titleNorm.indexOf(p) > -1) score += 5 + p.split(' ').length;
+    });
+    return score;
+  }
+
+  // Rajada de particulas presa a um elemento de origem (fab do mascote).
+  // originYRatio baixo = perto do topo do elemento (ex: bico/boca).
+  function mascotBurst(originEl, opts){
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const rect = originEl.getBoundingClientRect();
+    const ox = rect.left + rect.width * (opts.originXRatio ?? 0.5);
+    const oy = rect.top + rect.height * (opts.originYRatio ?? 0.35);
+    for (let i = 0; i < opts.count; i++){
+      const p = document.createElement('div');
+      p.className = 'fab-particle';
+      const angle = (opts.angleMin + Math.random() * (opts.angleMax - opts.angleMin)) * Math.PI / 180;
+      const dist = opts.distMin + Math.random() * (opts.distMax - opts.distMin);
+      const dx = Math.sin(angle) * dist;
+      const dy = -Math.cos(angle) * dist;
+      const size = opts.sizeMin + Math.random() * (opts.sizeMax - opts.sizeMin);
+      const dur = opts.durMin + Math.random() * (opts.durMax - opts.durMin);
+      const color = opts.colors[Math.floor(Math.random() * opts.colors.length)];
+      p.style.left = ox + 'px'; p.style.top = oy + 'px';
+      p.style.width = size + 'px'; p.style.height = size + 'px';
+      p.style.background = color;
+      p.style.setProperty('--dx', dx + 'px');
+      p.style.setProperty('--dy', dy + 'px');
+      p.style.setProperty('--send', String(opts.scaleEnd ?? 0.15));
+      p.style.animationName = opts.animName;
+      p.style.animationDuration = dur + 'ms';
+      if (opts.glow) p.style.boxShadow = '0 0 ' + opts.glow + 'px ' + color;
+      document.body.appendChild(p);
+      p.addEventListener('animationend', () => p.remove());
+      setTimeout(() => p.remove(), dur + 80);
+    }
+  }
+  function blFireBurst(){
+    const fab = document.getElementById('bl-fab');
+    if (!fab) return;
+    mascotBurst(fab, {
+      count: 14, angleMin: -55, angleMax: 55, distMin: 40, distMax: 110,
+      sizeMin: 5, sizeMax: 12, durMin: 550, durMax: 900, scaleEnd: 0.1, glow: 6,
+      originXRatio: 0.55, originYRatio: 0.32, animName: 'blueFireRise',
+      colors: ['#1741C4', '#4A6FE0', '#5DD9FF', '#0F2E8F']
+    });
+  }
+
+  window.blToggle = function(){
+    const img = document.getElementById('bl-fab-img');
+    if (img) {
+      img.classList.remove('flap'); void img.offsetWidth; img.classList.add('flap');
+      setTimeout(() => img.classList.remove('flap'), 700);
+    }
+    blFireBurst();
+    const panel = document.getElementById('bl-panel');
+    panel.classList.toggle('open');
+    if (panel.classList.contains('open')) {
+      if (!BL_INDEX.length) blBuildIndex();
+      const input = document.getElementById('bl-input');
+      if (input.value.trim()) {
+        blAsk();
+      } else {
+        // #bl-suggestions pode ter sumido do DOM se uma busca anterior
+        // substituiu #bl-results por cards de resultado -- recria o
+        // container antes de renderizar dentro dele.
+        document.getElementById('bl-results').innerHTML = '<div class="bl-suggestions" id="bl-suggestions"></div>';
+        blRenderSuggestions();
+      }
+      setTimeout(() => input.focus(), 100);
+    }
+  };
+
+  window.blGoTo = function(id, kind){
+    document.getElementById('bl-panel').classList.remove('open');
+
+    if (kind === 'docx') {
+      if (typeof docxSelect === 'function') docxSelect(id);
+      const panel = document.getElementById('docx-panel');
+      if (panel) {
+        const top = panel.getBoundingClientRect().top + window.scrollY - navOffset();
+        window.scrollTo({ top, behavior: 'smooth' });
+        panel.classList.remove('bl-flash'); void panel.offsetWidth; panel.classList.add('bl-flash');
+        setTimeout(() => panel.classList.remove('bl-flash'), 1500);
+      }
+      return;
+    }
+
+    if (typeof scrollToId === 'function') scrollToId(id);
+  };
+
+  window.blAsk = function(){
+    if (!BL_INDEX.length) blBuildIndex();
+    const q = document.getElementById('bl-input').value.trim();
+    const results = document.getElementById('bl-results');
+    if (!q) { results.innerHTML = '<div class="bl-suggestions" id="bl-suggestions"></div>'; blRenderSuggestions(); return; }
+    const words = blWords(q);
+    const phrases = blPhrases(words);
+    const scored = BL_INDEX.map(e => ({ e, s: blScore(e, words, phrases) })).filter(x => x.s > 0).sort((a, b) => b.s - a.s).slice(0, 3);
+
+    if (!scored.length) {
+      results.innerHTML = '<div class="bl-empty">Não encontrei nada sobre isso ainda! 💙 Tenta perguntar sobre planos, coparticipação, carência ou rede — ou clica em uma sugestão:</div>' +
+        '<div class="bl-suggestions" id="bl-suggestions" style="margin-top:10px;"></div>';
+      blRenderSuggestions();
+      return;
+    }
+    results.innerHTML = scored.map(({ e }) => `
+      <div class="bl-result">
+        <div class="bl-result-title">${e.title}</div>
+        <div class="bl-result-snippet">${e.snippet}</div>
+        <a class="bl-result-go" tabindex="0" role="button" onclick="blGoTo('${e.id}','${e.kind}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">Ver no portal →</a>
+      </div>
+    `).join('');
+  };
+
+  // ─── Atalho global Ctrl+K / ⌘K abre o assistente; Esc fecha ───
+  document.addEventListener('keydown', (e) => {
+    if ((e.ctrlKey || e.metaKey) && (e.key === 'k' || e.key === 'K')) {
+      e.preventDefault();
+      const panel = document.getElementById('bl-panel');
+      if (!panel.classList.contains('open')) window.blToggle();
+      else document.getElementById('bl-input').focus();
+    } else if (e.key === 'Escape' && document.getElementById('bl-panel').classList.contains('open')) {
+      window.blToggle();
+    }
+  });
+})();
+</script>
+
+</body>
+</html>
